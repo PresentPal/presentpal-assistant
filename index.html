@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PresentPal ChatBot</title>
-    <!-- Google Font for the header styling -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <!-- Google Font for a more interesting typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
     <style>
       /* Custom Header Styling */
       body, html {
@@ -16,10 +16,11 @@
 
       header {
         width: 100%;
-        height: 100vh; /* Full viewport height */
-        background-color: #4CAF50; /* Background color */
-        color: white; /* Text color */
+        height: 50vh; /* Reduced the height by 50% */
+        background-color: #FE5959; /* New background color */
+        color: white; /* White text */
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -28,19 +29,26 @@
       }
 
       h1 {
-        font-size: 2.5em;
+        font-family: 'Poppins', sans-serif; /* More modern font for the heading */
+        font-size: 3em; /* Larger font size */
         font-weight: bold;
         letter-spacing: 1px;
-        line-height: 1.4;
-        max-width: 80%;
         margin: 0;
       }
+
+      p {
+        font-family: 'Roboto Slab', serif; /* Different font for the subheading */
+        font-size: 1.3em; /* Slightly smaller than the heading */
+        margin-top: 10px;
+      }
+
     </style>
   </head>
   <body>
     <!-- Start of Custom Header -->
     <header>
-      <h1>Welcome to PresentPal! Get personalised gift ideas for your friends and family.</h1>
+      <h1>Welcome to PresentPal</h1>
+      <p>Get personalised gift ideas for your friends and family.</p>
     </header>
     <!-- End of Custom Header -->
 
@@ -57,5 +65,8 @@
       });
     </script>
     <!-- End of Landbot chat embed -->
+  </body>
+</html>
+
   </body>
 </html>
