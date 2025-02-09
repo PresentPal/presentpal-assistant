@@ -21,7 +21,7 @@
         width: 100%;
         height: 30vh;
         background-color: #fdb6b6;
-        color: #e05656; /* Original color for "Present" */
+        color: #e05656; /* Default color for "Pal" */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -40,8 +40,12 @@
         margin: 10px 0;
       }
 
+      .header-title .present {
+        color: white; /* "Present" in white */
+      }
+
       .header-title span {
-        color: white; /* Only "Pal" is white */
+        color: #e05656; /* "Pal" in #e05656 */
       }
 
       .header-subtitle {
@@ -56,8 +60,12 @@
           font-size: 2.1em; /* Reduced by 30% */
         }
 
+        .header-title .present {
+          font-size: 2.1em; /* Same size for Present on mobile */
+        }
+
         .header-title span {
-          font-size: 1.4em; /* Keeps "Pal" bigger */
+          font-size: 2.1em; /* Same size for Pal on mobile */
         }
 
         .header-subtitle {
@@ -83,7 +91,7 @@
   <body>
     <!-- Start of Custom Header -->
     <header>
-      <h1 class="header-title">Present<span>Pal</span></h1> <!-- Only "Pal" is white -->
+      <h1 class="header-title"><span class="present">Present</span><span>Pal</span></h1>
       <p class="header-subtitle">Get personalised gift ideas for your friends and family.</p>
     </header>
     <!-- End of Custom Header -->
@@ -100,4 +108,3 @@
     <!-- End of Landbot chat embed -->
   </body>
 </html>
-
