@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PresentPal ChatBot</title>
     <!-- Google Font for a more interesting typography -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
@@ -12,13 +12,14 @@
         margin: 0;
         padding: 0;
         font-family: 'Roboto Slab', serif;
+        height: 100%;
       }
 
       header {
         width: 100%;
         height: 30vh; /* Reduced the height by 50% */
-        background-color: #FE5959; /* New background color */
-        color: white; /* White text */
+        background-color: #fdb6b6; /* New background color */
+        color: #e05656; /* Updated text color */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -29,19 +30,27 @@
       }
 
       h1 {
-        font-family: 'Poppins', sans-serif; /* More modern font for the heading */
-        font-size: 3em; /* Larger font size */
+        font-family: 'Poppins', sans-serif;
+        font-size: 3em;
         font-weight: bold;
         letter-spacing: 1px;
         margin: 0;
       }
 
       p {
-        font-family: 'Roboto Slab', serif; /* Different font for the subheading */
-        font-size: 1.3em; /* Slightly smaller than the heading */
+        font-family: 'Roboto Slab', serif;
+        font-size: 1.3em;
         margin-top: 10px;
       }
 
+      /* Landbot Chat Container Fix */
+      #myLandbot {
+        width: 100%;
+        height: calc(100vh - 30vh - env(safe-area-inset-bottom, 0px)); /* Adjusted height */
+        min-height: 500px; /* Ensures it's visible on smaller screens */
+        overflow-y: auto; /* Enables scrolling if needed */
+        box-sizing: border-box;
+      }
     </style>
   </head>
   <body>
@@ -52,11 +61,9 @@
     </header>
     <!-- End of Custom Header -->
 
-    <!-- Your current content (the chatbot embed) remains intact below -->
-    
     <!-- Start of Landbot chat embed -->
     <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
-    <div id="myLandbot" style="width: 100%; height: 1000px"></div>
+    <div id="myLandbot"></div>
     <script type="module">
       var myLandbot = new Landbot.Container({
         container: '#myLandbot',
@@ -64,8 +71,5 @@
       });
     </script>
     <!-- End of Landbot chat embed -->
-  </body>
-</html>
-
   </body>
 </html>
