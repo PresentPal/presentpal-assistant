@@ -28,39 +28,15 @@
             text-align: center;
         }
 
-        /* Floating Speech Bubble */
-        .install-bubble {
+        /* iOS Instructions */
+        .ios-instructions {
             display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: white;
-            color: black;
-            padding: 12px 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             font-size: 14px;
-            max-width: 220px;
-            text-align: left;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .install-bubble img {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Close Button */
-        .close-bubble {
-            margin-left: auto;
-            background: none;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            color: black;
+            color: #333;
+            padding: 5px 10px; /* Compact padding */
+            line-height: 1.4;
+            max-width: 90%;
+            margin: 10px auto;
         }
 
         /* Header Styling */
@@ -104,6 +80,37 @@
             margin: 10px 0;
         }
 
+        /* Android Speech Bubble */
+        .android-bubble {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            color: black;
+            padding: 10px 15px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1000;
+            max-width: 200px;
+        }
+
+        .android-bubble img {
+            width: 15px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .close-bubble {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
         /* Mobile Adjustments */
         @media (max-width: 768px) {
             .header-title {
@@ -130,11 +137,9 @@
 </head>
 <body>
 
-    <!-- Floating Install Speech Bubble -->
-    <div class="install-bubble" id="installBubble">
-        <img src="safari-share.png" alt="Share">
-        <span>Add to Home Screen for Easy Access</span>
-        <button class="close-bubble" onclick="hideBubble()">✖</button>
+    <!-- iOS Instructions at the Top -->
+    <div class="ios-instructions" id="iosInstructions">
+        <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
     </div>
 
     <!-- Header -->
@@ -142,6 +147,13 @@
         <h1 class="header-title"><span class="present">Present</span><span>Pal</span></h1>
         <p class="header-subtitle">Get personalised gift ideas for your friends and family.</p>
     </header>
+
+    <!-- Android Floating Speech Bubble -->
+    <div class="android-bubble" id="androidBubble">
+        Add to Home Screen for Easy Access 
+        <img src="safari-share.png" alt="Share Icon">
+        <div class="close-bubble" id="closeBubble">Hide</div>
+    </div>
 
     <!-- Landbot Chat Embed -->
     <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
@@ -155,29 +167,59 @@
 
     <script>
         let deferredPrompt;
-        const installBubble = document.getElementById('installBubble');
+        const iosInstructions = document.getElementById('iosInstructions');
+        const androidBubble = document.getElementById('androidBubble');
+        const closeBubble = document.getElementById('closeBubble');
 
-        // Function to check if the PWA is installed
+        // Function to check if PWA is installed
         function isPWAInstalled() {
             return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         }
 
-        // Show bubble only if PWA is not installed
+        // Hide instructions if already installed
         function checkInstallationStatus() {
-            if (!isPWAInstalled()) {
-                window.addEventListener('beforeinstallprompt', (e) => {
-                    e.preventDefault();
-                    deferredPrompt = e;
-                    installBubble.style.display = 'flex'; // Show speech bubble
-                });
+            if (isPWAInstalled()) {
+                iosInstructions.style.display = 'none';
+                androidBubble.style.display = 'none';
             }
         }
 
+        // Run the check on page load
         checkInstallationStatus();
 
-        // Hide the speech bubble when the close button is clicked
-        function hideBubble() {
-            installBubble.style.display = 'none';
+        // Detect iOS
+        const userAgent = window.navigator.userAgent;
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            iosInstructions.style.display = 'block'; // Show iOS instructions at the top
+        }
+
+        // Handle beforeinstallprompt for Android
+        if (!isPWAInstalled()) {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                androidBubble.style.display = 'block'; // Show floating speech bubble for Android
+            });
+
+            androidBubble.addEventListener('click', () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(choiceResult => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User installed the app');
+                            androidBubble.style.display = 'none'; // Hide after installation
+                        } else {
+                            console.log('User dismissed the install prompt');
+                        }
+                        deferredPrompt = null;
+                    });
+                }
+            });
+
+            closeBubble.addEventListener('click', (event) => {
+                event.stopPropagation();
+                androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
+            });
         }
     </script>
 
