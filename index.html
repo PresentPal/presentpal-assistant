@@ -31,7 +31,7 @@
         /* Install Section */
         .install-section {
             width: 100%;
-            padding: 15px;
+            padding: 10px;
             box-sizing: border-box;
             text-align: center;
         }
@@ -39,10 +39,10 @@
         /* Android Install Button */
         .install-button {
             display: none;
-            width: 100%; /* Full width */
-            background-color: #fedc27; /* Yellow */
-            color: #000; /* Black text */
-            padding: 15px 0;
+            width: 100%;
+            background-color: #000; /* Black button */
+            color: #fedc27; /* Yellow text */
+            padding: 12px 0; /* Slightly smaller padding for a more compact look */
             font-size: 16px;
             font-weight: bold;
             border: none;
@@ -50,7 +50,7 @@
         }
 
         .install-button:hover {
-            background-color: #f5c518; /* Darker yellow on hover */
+            background-color: #222; /* Darker black on hover */
         }
 
         /* iOS Instructions */
@@ -58,7 +58,8 @@
             display: none;
             font-size: 14px;
             color: #333;
-            padding: 10px;
+            padding: 5px 10px; /* Reduced padding for a more compact look */
+            line-height: 1.4; /* Slightly reduced line height */
         }
 
         /* Header Styling */
@@ -132,7 +133,7 @@
     <div class="install-section">
         <button class="install-button" id="installButton">Add to Home Screen</button>
         <div class="ios-instructions" id="iosInstructions">
-            <p>To add PresentPal to your home screen, tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>'.</p>
+            <p>For easy access; add PresentPal to your home screen - simply tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>'.</p>
         </div>
     </div>
 
