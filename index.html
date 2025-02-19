@@ -28,38 +28,39 @@
             text-align: center;
         }
 
-        /* Install Section */
-        .install-section {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        /* Android Install Button */
-        .install-button {
+        /* Floating Speech Bubble */
+        .install-bubble {
             display: none;
-            width: 100%;
-            background-color: #000; /* Black button */
-            color: #fedc27; /* Yellow text */
-            padding: 12px 0; /* Slightly smaller padding for a more compact look */
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-        }
-
-        .install-button:hover {
-            background-color: #222; /* Darker black on hover */
-        }
-
-        /* iOS Instructions */
-        .ios-instructions {
-            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            color: black;
+            padding: 12px 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             font-size: 14px;
-            color: #333;
-            padding: 5px 10px; /* Reduced padding for a more compact look */
-            line-height: 1.4; /* Slightly reduced line height */
+            max-width: 220px;
+            text-align: left;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .install-bubble img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Close Button */
+        .close-bubble {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: black;
         }
 
         /* Header Styling */
@@ -129,12 +130,11 @@
 </head>
 <body>
 
-    <!-- Add to Home Screen Section -->
-    <div class="install-section">
-        <button class="install-button" id="installButton">Add to Home Screen</button>
-        <div class="ios-instructions" id="iosInstructions">
-            <p>For easy access: tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>'.</p>
-        </div>
+    <!-- Floating Install Speech Bubble -->
+    <div class="install-bubble" id="installBubble">
+        <img src="safari-share.png" alt="Share">
+        <span>Add to Home Screen for Easy Access</span>
+        <button class="close-bubble" onclick="hideBubble()">✖</button>
     </div>
 
     <!-- Header -->
@@ -155,56 +155,31 @@
 
     <script>
         let deferredPrompt;
-        const installButton = document.getElementById('installButton');
-        const iosInstructions = document.getElementById('iosInstructions');
+        const installBubble = document.getElementById('installBubble');
 
         // Function to check if the PWA is installed
         function isPWAInstalled() {
             return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         }
 
-        // Hide button if already installed
+        // Show bubble only if PWA is not installed
         function checkInstallationStatus() {
-            if (isPWAInstalled()) {
-                installButton.style.display = 'none'; 
-                iosInstructions.style.display = 'none';
+            if (!isPWAInstalled()) {
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    installBubble.style.display = 'flex'; // Show speech bubble
+                });
             }
         }
 
-        // Run the check on page load
         checkInstallationStatus();
 
-        // Listen for app install prompt
-        if (!isPWAInstalled()) {
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                installButton.style.display = 'block'; // Show install button for Android
-            });
-
-            installButton.addEventListener('click', () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then(choiceResult => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('User installed the app');
-                            installButton.style.display = 'none'; // Hide after installation
-                        } else {
-                            console.log('User dismissed the install prompt');
-                        }
-                        deferredPrompt = null;
-                    });
-                }
-            });
-
-            // Detect iOS (since iOS doesn't support beforeinstallprompt)
-            const userAgent = window.navigator.userAgent;
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                iosInstructions.style.display = 'block'; // Show instructions for iOS
-            }
+        // Hide the speech bubble when the close button is clicked
+        function hideBubble() {
+            installBubble.style.display = 'none';
         }
     </script>
 
 </body>
 </html>
-
