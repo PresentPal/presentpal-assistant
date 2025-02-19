@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PresentPal</title>
 
-    <!-- Favicon (Displayed in Browser Tab) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
 
-    <!-- Apple Touch Icon for iPhone Home Screen -->
+    <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
-    <!-- Google Font for a more interesting typography -->
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
 
     <link rel="manifest" href="/manifest.json">
@@ -25,7 +25,40 @@
             font-family: 'Roboto Slab', serif;
             height: 100%;
             background-color: #ffffff;
-            text-align: center; /* Center all elements */
+            text-align: center;
+        }
+
+        /* Install Section */
+        .install-section {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* Android Install Button */
+        .install-button {
+            display: none;
+            width: 100%; /* Full width */
+            background-color: #fedc27; /* Yellow */
+            color: #000; /* Black text */
+            padding: 15px 0;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .install-button:hover {
+            background-color: #f5c518; /* Darker yellow on hover */
+        }
+
+        /* iOS Instructions */
+        .ios-instructions {
+            display: none;
+            font-size: 14px;
+            color: #333;
+            padding: 10px;
         }
 
         /* Header Styling */
@@ -46,7 +79,7 @@
             box-sizing: border-box;
         }
 
-        /* Header Text Styling */
+        /* Header Text */
         .header-title {
             font-family: 'Poppins', sans-serif;
             font-size: 3.9em;
@@ -69,43 +102,9 @@
             margin: 10px 0;
         }
 
-        /* Add to Home Screen Button */
-        .install-button {
-            display: none; /* Hidden by default */
-            background-color: #000; /* Black button */
-            color: #fff; /* White text */
-            padding: 15px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 25px; /* Rounded edges */
-            cursor: pointer;
-            margin: 20px auto;
-        }
-
-        .install-button:hover {
-            background-color: #222; /* Slightly lighter black on hover */
-        }
-
-        /* iOS Instructions */
-        .ios-instructions {
-            display: none;
-            margin: 20px auto;
-            padding: 10px;
-            font-size: 14px;
-            color: #333;
-            max-width: 90%;
-        }
-
         /* Mobile Adjustments */
         @media (max-width: 768px) {
             .header-title {
-                font-size: 1.5em;
-            }
-            .header-title .present {
-                font-size: 1.5em;
-            }
-            .header-title span {
                 font-size: 1.5em;
             }
             .header-subtitle {
@@ -128,17 +127,20 @@
     </style>
 </head>
 <body>
+
+    <!-- Add to Home Screen Section -->
+    <div class="install-section">
+        <button class="install-button" id="installButton">Add to Home Screen</button>
+        <div class="ios-instructions" id="iosInstructions">
+            <p>To add PresentPal to your home screen, tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>'.</p>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <h1 class="header-title"><span class="present">Present</span><span>Pal</span></h1>
         <p class="header-subtitle">Get personalised gift ideas for your friends and family.</p>
     </header>
-
-    <!-- Add to Home Screen Section -->
-    <button class="install-button" id="installButton">Add to Home Screen</button>
-    <div class="ios-instructions" id="iosInstructions">
-        <p>To add PresentPal to your home screen, tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>'.</p>
-    </div>
 
     <!-- Landbot Chat Embed -->
     <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
@@ -155,17 +157,28 @@
         const installButton = document.getElementById('installButton');
         const iosInstructions = document.getElementById('iosInstructions');
 
-        // Detect if PWA is already installed
+        // Function to check if the PWA is installed
         function isPWAInstalled() {
             return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         }
 
-        // Show button only if NOT installed
+        // Hide button if already installed
+        function checkInstallationStatus() {
+            if (isPWAInstalled()) {
+                installButton.style.display = 'none'; 
+                iosInstructions.style.display = 'none';
+            }
+        }
+
+        // Run the check on page load
+        checkInstallationStatus();
+
+        // Listen for app install prompt
         if (!isPWAInstalled()) {
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                installButton.style.display = 'block'; // Show button for Android
+                installButton.style.display = 'block'; // Show install button for Android
             });
 
             installButton.addEventListener('click', () => {
@@ -174,6 +187,7 @@
                     deferredPrompt.userChoice.then(choiceResult => {
                         if (choiceResult.outcome === 'accepted') {
                             console.log('User installed the app');
+                            installButton.style.display = 'none'; // Hide after installation
                         } else {
                             console.log('User dismissed the install prompt');
                         }
@@ -182,12 +196,14 @@
                 }
             });
 
-            // Detect iOS
+            // Detect iOS (since iOS doesn't support beforeinstallprompt)
             const userAgent = window.navigator.userAgent;
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
                 iosInstructions.style.display = 'block'; // Show instructions for iOS
             }
         }
     </script>
+
 </body>
 </html>
+
