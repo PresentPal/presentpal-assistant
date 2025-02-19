@@ -17,8 +17,6 @@
 
     <link rel="manifest" href="/manifest.json">
 
-
-
     <style>
       /* General Styles */
       body, html {
@@ -102,8 +100,41 @@
         box-sizing: border-box;
         background-color: #f9f9f9;
       }
+
+      /* Add to Home Screen Button Styles */
+      #add-to-home-screen-button {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ffd800;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: none; /* Initially hidden */
+      }
+
+      #add-to-home-screen-button p {
+        color: #333;
+        font-size: 14px;
+        margin: 5px 0;
+      }
+
+      #add-to-home-screen-button button {
+        background-color: #ffd800;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
     </style>
   </head>
+
   <body>
     <!-- Start of Custom Header -->
     <header>
@@ -111,6 +142,13 @@
       <p class="header-subtitle">Get personalised gift ideas for your friends and family.</p>
     </header>
     <!-- End of Custom Header -->
+
+    <!-- Start of Add to Home Screen Button -->
+    <div id="add-to-home-screen-button">
+      <button id="add-button" onclick="addToHomeScreen()">Add to Home Screen</button>
+      <p id="ios-instructions" style="display: none;">For iOS: Tap the Share icon at the bottom of your screen, then select 'Add to Home Screen'.</p>
+    </div>
+    <!-- End of Add to Home Screen Button -->
 
     <!-- Start of Landbot chat embed (Unchanged) -->
     <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
@@ -122,5 +160,34 @@
       });
     </script>
     <!-- End of Landbot chat embed -->
+
+    <script>
+      // Check if the website is running in standalone mode (PWA)
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        // Hide the 'Add to Home Screen' button when in standalone mode
+        document.getElementById('add-to-home-screen-button').style.display = 'none';
+      } else {
+        // Show the 'Add to Home Screen' button when in the browser
+        document.getElementById('add-to-home-screen-button').style.display = 'block';
+
+        // Detect if the device is Android or iOS to display the correct information
+        const isAndroid = /android/i.test(navigator.userAgent);
+        const isIOS = /iphone|ipod|ipad/i.test(navigator.userAgent);
+
+        if (isAndroid) {
+          // Android users will see the button that triggers the "Add to Home Screen"
+          document.getElementById('add-button').style.display = 'block';
+        } else if (isIOS) {
+          // iOS users will see the instructions
+          document.getElementById('ios-instructions').style.display = 'block';
+        }
+      }
+
+      // Function to trigger the 'Add to Home Screen' prompt for Android users
+      function addToHomeScreen() {
+        alert('You can now add this site to your Home Screen!');
+        // This is just an alert for Android users. You can trigger browser-specific instructions here if needed.
+      }
+    </script>
   </body>
 </html>
