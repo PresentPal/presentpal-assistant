@@ -26,6 +26,8 @@
             height: 100%;
             background-color: #ffffff;
             text-align: center;
+            display: flex;
+            flex-direction: column;
         }
 
         /* iOS Instructions */
@@ -120,16 +122,15 @@
                 font-size: 1em;
             }
             header {
-                 height: 20vh; /* Reduce header height */
-        padding: 20px 10px; /* Adjust padding for spacing *
+                height: 20vh; /* Reduce header height */
+                padding: 20px 10px; /* Adjust padding for spacing */
             }
         }
 
         /* Landbot Chat Container */
         #myLandbot {
-            width: 100%;
-            height: calc(100vh - 20vh - env(safe-area-inset-bottom, 0px));
-            min-height: 500px;
+            flex-grow: 1; /* Ensures it fills remaining space */
+            min-height: 500px; /* Prevents collapsing */
             overflow-y: auto;
             box-sizing: border-box;
             background-color: #f9f9f9;
