@@ -139,7 +139,7 @@
 
     <!-- iOS Instructions at the Top -->
     <div class="ios-instructions" id="iosInstructions">
-        <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
+        <p>To quickly access this app, tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>'.</p>
     </div>
 
     <!-- Header -->
@@ -221,7 +221,13 @@
                 androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
             });
         }
+
+        // Hide iOS instructions if installed
+        if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
+            iosInstructions.style.display = 'none';
+        }
     </script>
 
 </body>
 </html>
+
