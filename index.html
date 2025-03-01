@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <title>PresentPal</title>
 
     <!-- Favicon -->
@@ -32,13 +32,18 @@
 
         /* iOS Instructions */
         .ios-instructions {
-            display: none;
+            position: absolute;
+            top: 10px;
+            left: 20px;
             font-size: 14px;
             color: #333;
-            padding: 5px 10px; /* Compact padding */
+            padding: 5px 10px;
             line-height: 1.4;
             max-width: 90%;
-            margin: 10px auto;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            display: none;
         }
 
         /* Header Styling */
@@ -59,58 +64,20 @@
             box-sizing: border-box;
         }
 
-        /* Header Text */
-        .header-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.9em;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin: 10px 0;
-        }
-
-        .header-title .present {
-            color: white;
-        }
-
-        .header-title span {
-            color: #e3bb58;
-        }
-
-        .header-subtitle {
-            font-family: 'Roboto Slab', serif;
-            font-size: 1.3em;
-            margin: 10px 0;
-        }
-
-        /* Android Speech Bubble */
-        .android-bubble {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
+        /* Android Add to Home Screen Button */
+        .android-install {
+            position: absolute;
+            top: 10px;
+            left: 20px;
             background: white;
             color: black;
             padding: 10px 15px;
-            border-radius: 15px;
+            border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             font-size: 14px;
             cursor: pointer;
-            z-index: 1000;
-            max-width: 200px;
-        }
-
-        .android-bubble img {
-            width: 15px;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        .close-bubble {
-            display: block;
-            font-size: 12px;
-            margin-top: 5px;
-            text-decoration: underline;
-            cursor: pointer;
+            font-weight: bold;
+            display: none;
         }
 
         /* Mobile Adjustments */
@@ -122,27 +89,24 @@
                 font-size: 1em;
             }
             header {
-                height: 20vh; /* Reduce header height */
-                padding: 20px 10px; /* Adjust padding for spacing */
+                height: 20vh;
+                padding: 20px 10px;
             }
-        }
-
-        /* Landbot Chat Container */
-        #myLandbot {
-            flex-grow: 1; /* Ensures it fills remaining space */
-            min-height: 500px; /* Prevents collapsing */
-            overflow-y: auto;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
+            .ios-instructions, .android-install {
+                top: 5px;
+                left: 10px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- iOS Instructions at the Top -->
+    <!-- iOS Instructions -->
     <div class="ios-instructions" id="iosInstructions">
         <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
     </div>
+
+    <!-- Android Add to Home Screen Button -->
+    <div class="android-install" id="androidInstall">Add to Home Screen</div>
 
     <!-- Header -->
     <header>
@@ -150,85 +114,50 @@
         <p class="header-subtitle">Personalised gift ideas for your friends and family.</p>
     </header>
 
-    <!-- Android Floating Speech Bubble -->
-    <div class="android-bubble" id="androidBubble">
-        Add to Home Screen for Easy Access 
-        <img src="safari-share.png" alt="Share Icon">
-        <div class="close-bubble" id="closeBubble">Hide</div>
-    </div>
-
     <!-- Landbot Chat Embed -->
-    <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
-    <div id="myLandbot"></div>
-    <script type="module">
-        var myLandbot = new Landbot.Container({
-            container: '#myLandbot',
-            configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2769762-VQ3B8OLEKLOSPJSC/index.json',
-        });
-    </script>
-
+    <iframe id="myLandbot" src="https://storage.googleapis.com/landbot.online/v3/H-2769762-VQ3B8OLEKLOSPJSC/index.html" style="border:0; width:100%; height:100vh;" allow="camera; microphone; autoplay"></iframe>
+    
     <script>
         let deferredPrompt;
         const iosInstructions = document.getElementById('iosInstructions');
-        const androidBubble = document.getElementById('androidBubble');
-        const closeBubble = document.getElementById('closeBubble');
+        const androidInstall = document.getElementById('androidInstall');
 
-        // Function to check if PWA is installed
         function isPWAInstalled() {
-            return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+            return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
         }
 
-        // Hide instructions if already installed
         function checkInstallationStatus() {
             if (isPWAInstalled()) {
                 iosInstructions.style.display = 'none';
-                androidBubble.style.display = 'none';
+                androidInstall.style.display = 'none';
             }
         }
 
-        // Run the check on page load
         checkInstallationStatus();
 
-        // Detect iOS
-        const userAgent = window.navigator.userAgent;
-        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            iosInstructions.style.display = 'block'; // Show iOS instructions at the top
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+            iosInstructions.style.display = 'block';
         }
 
-        // Handle beforeinstallprompt for Android
         if (!isPWAInstalled()) {
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                androidBubble.style.display = 'block'; // Show floating speech bubble for Android
+                androidInstall.style.display = 'block';
             });
 
-            androidBubble.addEventListener('click', () => {
+            androidInstall.addEventListener('click', () => {
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     deferredPrompt.userChoice.then(choiceResult => {
                         if (choiceResult.outcome === 'accepted') {
-                            console.log('User installed the app');
-                            androidBubble.style.display = 'none'; // Hide after installation
-                        } else {
-                            console.log('User dismissed the install prompt');
+                            androidInstall.style.display = 'none';
                         }
                         deferredPrompt = null;
                     });
                 }
             });
-
-            closeBubble.addEventListener('click', (event) => {
-                event.stopPropagation();
-                androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
-            });
-        }
-
-        // Hide iOS instructions if installed
-        if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
-            iosInstructions.style.display = 'none';
         }
     </script>
-
 </body>
 </html>
