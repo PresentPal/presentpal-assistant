@@ -26,8 +26,7 @@
             height: 100%;
             background-color: #ffffff;
             text-align: center;
-            display: flex;
-            flex-direction: column;
+            position: relative;
         }
 
         /* iOS Instructions */
@@ -39,6 +38,40 @@
             line-height: 1.4;
             max-width: 90%;
             margin: 10px auto;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        /* Android Speech Bubble */
+        .android-bubble {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            color: black;
+            padding: 10px 15px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1000;
+            max-width: 200px;
+        }
+
+        .android-bubble img {
+            width: 15px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .close-bubble {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+            text-decoration: underline;
+            cursor: pointer;
         }
 
         /* Header Styling */
@@ -82,35 +115,29 @@
             margin: 10px 0;
         }
 
-        /* Android Speech Bubble */
-        .android-bubble {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
+        /* Login & Sign-Up buttons */
+        .auth-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-button {
+            background-color: white;
             color: black;
-            padding: 10px 15px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            font-size: 14px;
+            padding: 10px 20px;
+            border: 2px solid black;
+            border-radius: 25px;
             cursor: pointer;
-            z-index: 1000;
-            max-width: 200px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
-        .android-bubble img {
-            width: 15px;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        .close-bubble {
-            display: block;
-            font-size: 12px;
-            margin-top: 5px;
-            text-decoration: underline;
-            cursor: pointer;
+        .auth-button:hover {
+            background-color: black;
+            color: white;
         }
 
         /* Mobile Adjustments */
@@ -122,15 +149,15 @@
                 font-size: 1em;
             }
             header {
-                height: 20vh; /* Reduce header height */
-                padding: 20px 10px; /* Adjust padding for spacing */
+                padding: 20px 10px;
             }
         }
 
         /* Landbot Chat Container */
         #myLandbot {
-            flex-grow: 1; /* Ensures it fills remaining space */
-            min-height: 500px; /* Prevents collapsing */
+            width: 100%;
+            height: calc(100vh - 30vh - env(safe-area-inset-bottom, 0px));
+            min-height: 500px;
             overflow-y: auto;
             box-sizing: border-box;
             background-color: #f9f9f9;
@@ -144,18 +171,24 @@
         <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
     </div>
 
-    <!-- Header -->
-    <header>
-        <h1 class="header-title"><span class="present">Present</span><span>Pal</span></h1>
-        <p class="header-subtitle">Personalised gift ideas for your friends and family.</p>
-    </header>
-
     <!-- Android Floating Speech Bubble -->
     <div class="android-bubble" id="androidBubble">
         Add to Home Screen for Easy Access 
         <img src="safari-share.png" alt="Share Icon">
         <div class="close-bubble" id="closeBubble">Hide</div>
     </div>
+
+    <!-- Login and Sign-Up Buttons -->
+    <div class="auth-buttons">
+        <button class="auth-button" id="loginButton">Login</button>
+        <button class="auth-button" id="signUpButton">Sign Up</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1 class="header-title"><span class="present">Present</span><span>Pal</span></h1>
+        <p class="header-subtitle">Personalised gift ideas for your friends and family.</p>
+    </header>
 
     <!-- Landbot Chat Embed -->
     <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
