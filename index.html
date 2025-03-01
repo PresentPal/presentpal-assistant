@@ -29,44 +29,30 @@
             position: relative;
         }
 
-        /* iOS Instructions */
-        .ios-instructions {
+        /* iOS Instructions & Android Button Popup */
+        .install-popup {
             display: none;
-            font-size: 14px;
-            color: #333;
-            padding: 5px 10px; /* Compact padding */
-            line-height: 1.4;
-            max-width: 90%;
-            margin: 10px auto;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        /* Android Speech Bubble */
-        .android-bubble {
-            display: none;
-            position: absolute;
-            top: 10px;
-            left: 10px;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: white;
             color: black;
-            padding: 10px 15px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             font-size: 14px;
-            cursor: pointer;
             z-index: 1000;
-            max-width: 200px;
+            max-width: 90%;
         }
 
-        .android-bubble img {
+        .install-popup img {
             width: 15px;
             vertical-align: middle;
             margin-left: 5px;
         }
 
-        .close-bubble {
+        .close-popup {
             display: block;
             font-size: 12px;
             margin-top: 5px;
@@ -133,11 +119,12 @@
             cursor: pointer;
             text-transform: uppercase;
             font-weight: bold;
+            transition: background-color 0.2s;
         }
 
-        .auth-button:hover {
-            background-color: black;
-            color: white;
+        .auth-button:hover, .auth-button:active {
+            background-color: #ddd; /* Light grey hover effect */
+            color: black;
         }
 
         /* Mobile Adjustments */
@@ -166,16 +153,11 @@
 </head>
 <body>
 
-    <!-- iOS Instructions at the Top -->
-    <div class="ios-instructions" id="iosInstructions">
-        <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
-    </div>
-
-    <!-- Android Floating Speech Bubble -->
-    <div class="android-bubble" id="androidBubble">
-        Add to Home Screen for Easy Access 
-        <img src="safari-share.png" alt="Share Icon">
-        <div class="close-bubble" id="closeBubble">Hide</div>
+    <!-- Install Popup for iOS & Android -->
+    <div class="install-popup" id="installPopup">
+        <p>Add to Home Screen for Easy Access  
+        <img src="safari-share.png" alt="Share Icon"></p>
+        <div class="close-popup" id="closePopup">Hide</div>
     </div>
 
     <!-- Login and Sign-Up Buttons -->
@@ -202,20 +184,18 @@
 
     <script>
         let deferredPrompt;
-        const iosInstructions = document.getElementById('iosInstructions');
-        const androidBubble = document.getElementById('androidBubble');
-        const closeBubble = document.getElementById('closeBubble');
+        const installPopup = document.getElementById('installPopup');
+        const closePopup = document.getElementById('closePopup');
 
         // Function to check if PWA is installed
         function isPWAInstalled() {
             return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         }
 
-        // Hide instructions if already installed
+        // Hide popup if already installed
         function checkInstallationStatus() {
             if (isPWAInstalled()) {
-                iosInstructions.style.display = 'none';
-                androidBubble.style.display = 'none';
+                installPopup.style.display = 'none';
             }
         }
 
@@ -225,7 +205,7 @@
         // Detect iOS
         const userAgent = window.navigator.userAgent;
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            iosInstructions.style.display = 'block'; // Show iOS instructions at the top
+            installPopup.style.display = 'block'; // Show popup for iOS
         }
 
         // Handle beforeinstallprompt for Android
@@ -233,16 +213,16 @@
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                androidBubble.style.display = 'block'; // Show floating speech bubble for Android
+                installPopup.style.display = 'block'; // Show popup for Android
             });
 
-            androidBubble.addEventListener('click', () => {
+            installPopup.addEventListener('click', () => {
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     deferredPrompt.userChoice.then(choiceResult => {
                         if (choiceResult.outcome === 'accepted') {
                             console.log('User installed the app');
-                            androidBubble.style.display = 'none'; // Hide after installation
+                            installPopup.style.display = 'none'; // Hide after installation
                         } else {
                             console.log('User dismissed the install prompt');
                         }
@@ -251,15 +231,10 @@
                 }
             });
 
-            closeBubble.addEventListener('click', (event) => {
+            closePopup.addEventListener('click', (event) => {
                 event.stopPropagation();
-                androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
+                installPopup.style.display = 'none'; // Hide when "Hide" is clicked
             });
-        }
-
-        // Hide iOS instructions if installed
-        if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
-            iosInstructions.style.display = 'none';
         }
     </script>
 
