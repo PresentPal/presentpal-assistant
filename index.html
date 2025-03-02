@@ -157,6 +157,43 @@
         <div class="close-bubble" id="closeBubble">Hide</div>
     </div>
 
+<!-- Navigation Bar -->
+<div class="navbar">
+    <button class="nav-button" onclick="window.location.href='login.html'">Login</button>
+    <button class="nav-button" onclick="window.location.href='signup.html'">Sign Up</button>
+</div>
+
+<style>
+    /* Navigation Bar */
+    .navbar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background-color: #f2f2f2; /* Light grey background */
+        padding: 10px 0;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-button {
+        background-color: #f2f2f2;
+        color: black;
+        font-family: 'Nunito', sans-serif;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        margin: 0 10px;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+    }
+
+    .nav-button:hover,
+    .nav-button:active {
+        background-color: #d9d9d9; /* Slightly darker grey */
+    }
+</style>
+
     <!-- Landbot Chat Embed -->
     <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
     <div id="myLandbot"></div>
