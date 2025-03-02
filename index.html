@@ -2,74 +2,100 @@
 <html lang="en">
 <head>
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
-  import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } 
-  from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+<head>
+  <script type="module">
+    // Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
-    authDomain: "presentpal-9c74e.firebaseapp.com",
-    projectId: "presentpal-9c74e",
-    storageBucket: "presentpal-9c74e.firebasestorage.app",
-    messagingSenderId: "371923843440",
-    appId: "1:371923843440:web:333893e3d3856e209937b5",
-    measurementId: "G-CF3XL2YYQ2"
-  };
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
+      authDomain: "presentpal-9c74e.firebaseapp.com",
+      projectId: "presentpal-9c74e",
+      storageBucket: "presentpal-9c74e.firebasestorage.app",
+      messagingSenderId: "371923843440",
+      appId: "1:371923843440:web:333893e3d3856e209937b5",
+      measurementId: "G-CF3XL2YYQ2"
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);  // Initialize Firebase Authentication
-  const analytics = getAnalytics(app);
-  
-    // Login function
-  function login() {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    signInWithEmailAndPassword(auth, email, password)
+    // Authentication functions
+    function login() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            alert("Logged in successfully!");
-            closeAccountModal();
+          alert("Logged in successfully!");
+          closeAccountModal();
         })
         .catch((error) => {
-            alert("Login failed: " + error.message);
+          alert("Login failed: " + error.message);
         });
-  }
-
-  // Sign Up function
-  function signUp() {
-    const email = document.getElementById("signupEmail").value;
-    const password = document.getElementById("signupPassword").value;
-
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            alert("Account created successfully!");
-            closeAccountModal();
-        })
-        .catch((error) => {
-            alert("Signup failed: " + error.message);
-        });
-  }
-
-  // Logout function (you can add it here too)
-  function logout() {
-    signOut(auth).then(() => {
-        alert("Logged out!");
-        closeAccountModal();
-    }).catch((error) => {
-        alert("Logout failed: " + error.message);
-    });
-  }
-  
-  window.onclick = function(event) {
-    var modal = document.getElementById("accountModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
     }
-};
+
+    function signUp() {
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Account created successfully!");
+          closeAccountModal();
+        })
+        .catch((error) => {
+          alert("Signup failed: " + error.message);
+        });
+    }
+
+    function logout() {
+      signOut(auth)
+        .then(() => {
+          alert("Logged out!");
+          closeAccountModal();
+        })
+        .catch((error) => {
+          alert("Logout failed: " + error.message);
+        });
+    }
+
+    // Check if user is logged in or not
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, show logout button
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("logoutButton").style.display = "block";
+      } else {
+        // User is not signed in, show login/signup forms
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("signupForm").style.display = "block";
+        document.getElementById("logoutButton").style.display = "none";
+      }
+    });
+
+// Show account modal (called when clicking the Account button)
+function showAccountOptions() {
+  var modal = document.getElementById("accountModal");
+  modal.style.display = "block"; // Show the modal
+}
+
+// Close the modal when clicking the close button
+function closeAccountModal() {
+  var modal = document.getElementById("accountModal");
+  modal.style.display = "none"; // Hide the modal
+}
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      var modal = document.getElementById("accountModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
 </script>
 
     <meta charset="UTF-8">
@@ -326,31 +352,31 @@
     </button>
 </div>
 
-<!-- Account Modal -->
-<div id="accountModal" class="modal">
+<!-- Account Modal (Login/Signup/Logout Forms) -->
+  <div id="accountModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeAccountModal()">&times;</span>
+      <span class="close" onclick="closeAccountModal()">&times;</span>
 
-        <!-- Login Form -->
-        <div id="loginForm">
-            <h2>Login</h2>
-            <input type="email" id="loginEmail" placeholder="Email">
-            <input type="password" id="loginPassword" placeholder="Password">
-            <button onclick="login()">Login</button>
-        </div>
+      <!-- Login Form -->
+      <div id="loginForm">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="login()">Login</button>
+      </div>
 
-        <!-- Signup Form -->
-        <div id="signupForm">
-            <h2>Sign Up</h2>
-            <input type="email" id="signupEmail" placeholder="Email">
-            <input type="password" id="signupPassword" placeholder="Password">
-            <button onclick="signUp()">Sign Up</button>
-        </div>
+      <!-- Signup Form -->
+      <div id="signupForm">
+        <h2>Sign Up</h2>
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <button onclick="signUp()">Sign Up</button>
+      </div>
 
-        <!-- Logout Button (Only Visible When Logged In) -->
-        <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
+      <!-- Logout Button (Visible when logged in) -->
+      <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
     </div>
-</div>
+  </div>
 
 <script>
     // Check user subscription and hide upgrade button for Premium users
@@ -436,40 +462,6 @@
         if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
             iosInstructions.style.display = 'none';
         }
-    </script>
-
-<script>
-function showAccountOptions() {
-    var user = firebase.auth().currentUser;
-    var modal = document.getElementById("accountModal");
-    var logoutButton = document.getElementById("logoutButton");
-    
-    if (user) {
-        // User is logged in, show logout button only
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("signupForm").style.display = "none";
-        logoutButton.style.display = "block";
-    } else {
-        // Show login and signup forms
-        document.getElementById("loginForm").style.display = "block";
-        document.getElementById("signupForm").style.display = "block";
-        logoutButton.style.display = "none";
-    }
-
-    modal.style.display = "block";
-}
-
-function closeAccountModal() {
-    document.getElementById("accountModal").style.display = "none";
-}
-
-// Close modal when clicking outside of it
-window.onclick = function(event) {
-    var modal = document.getElementById("accountModal");
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-};
 </script>
 
 </body>
