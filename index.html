@@ -5,75 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>PresentPal</title>
 
-  <!-- Firebase Script -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
-    from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
-      authDomain: "presentpal-9c74e.firebaseapp.com",
-      projectId: "presentpal-9c74e",
-     storageBucket: "presentpal-9c74e.appspot.com",
-      messagingSenderId: "371923843440",
-      appId: "1:371923843440:web:333893e3d3856e209937b5",
-      measurementId: "G-CF3XL2YYQ2"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    function login() {
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          alert("Logged in successfully!");
-          closeAccountModal();
-        })
-        .catch((error) => {
-          alert("Login failed: " + error.message);
-        });
-    }
-
-    function signUp() {
-      const email = document.getElementById("signupEmail").value;
-      const password = document.getElementById("signupPassword").value;
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          alert("Account created successfully!");
-          closeAccountModal();
-        })
-        .catch((error) => {
-          alert("Signup failed: " + error.message);
-        });
-    }
-
-    function logout() {
-      signOut(auth)
-        .then(() => {
-          alert("Logged out!");
-          closeAccountModal();
-        })
-        .catch((error) => {
-          alert("Logout failed: " + error.message);
-        });
-    }
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("signupForm").style.display = "none";
-        document.getElementById("logoutButton").style.display = "block";
-      } else {
-        document.getElementById("loginForm").style.display = "block";
-        document.getElementById("signupForm").style.display = "block";
-        document.getElementById("logoutButton").style.display = "none";
-      }
-    });
-</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PresentPal</title>
@@ -357,6 +288,75 @@
   <!-- Account Button -->
   <button class="nav-button" id="accountButton">Account</button>
 
+    <!-- Firebase Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
+      authDomain: "presentpal-9c74e.firebaseapp.com",
+      projectId: "presentpal-9c74e",
+     storageBucket: "presentpal-9c74e.appspot.com",
+      messagingSenderId: "371923843440",
+      appId: "1:371923843440:web:333893e3d3856e209937b5",
+      measurementId: "G-CF3XL2YYQ2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    function login() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Logged in successfully!");
+          closeAccountModal();
+        })
+        .catch((error) => {
+          alert("Login failed: " + error.message);
+        });
+    }
+
+    function signUp() {
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Account created successfully!");
+          closeAccountModal();
+        })
+        .catch((error) => {
+          alert("Signup failed: " + error.message);
+        });
+    }
+
+    function logout() {
+      signOut(auth)
+        .then(() => {
+          alert("Logged out!");
+          closeAccountModal();
+        })
+        .catch((error) => {
+          alert("Logout failed: " + error.message);
+        });
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "none";
+        document.getElementById("logoutButton").style.display = "block";
+      } else {
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("signupForm").style.display = "block";
+        document.getElementById("logoutButton").style.display = "none";
+      }
+    });
+</script>
+  
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Function to show the modal
