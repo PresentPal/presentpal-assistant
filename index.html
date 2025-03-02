@@ -29,6 +29,41 @@
             display: flex;
             flex-direction: column;
         }
+        
+        <!-- Navigation Bar -->
+<div<style>
+    /* Navigation Bar Styles */
+    .navbar {
+        background-color: white; /* White background for the nav bar */
+        display: flex;
+        justify-content: flex-start; /* Align buttons to the left */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .navbar button {
+        background-color: #f0f0f0; /* Light grey default button */
+        color: black;
+        border: 1px solid #ddd;
+        padding: 10px 20px;
+        margin-right: 10px;
+        font-size: 16px;
+        font-family: 'Nunito', sans-serif;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .navbar button:hover, .navbar button:focus {
+        background-color: #e0e0e0; /* Darker grey on hover/click */
+    }
+
+    /* Optional: Remove the outline when button is clicked (focus) */
+    .navbar button:focus {
+        outline: none;
+    }
+</style>
+
+
 
         /* iOS Instructions */
         .ios-instructions {
@@ -156,39 +191,6 @@
         <img src="safari-share.png" alt="Share Icon">
         <div class="close-bubble" id="closeBubble">Hide</div>
     </div>
-
-<!-- Navigation Bar -->
-<div<style>
-    /* Navigation Bar Styles */
-    .navbar {
-        background-color: white; /* White background for the nav bar */
-        display: flex;
-        justify-content: flex-start; /* Align buttons to the left */
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .navbar button {
-        background-color: #f0f0f0; /* Light grey default button */
-        color: black;
-        border: 1px solid #ddd;
-        padding: 10px 20px;
-        margin-right: 10px;
-        font-size: 16px;
-        font-family: 'Nunito', sans-serif;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    .navbar button:hover, .navbar button:focus {
-        background-color: #e0e0e0; /* Darker grey on hover/click */
-    }
-
-    /* Optional: Remove the outline when button is clicked (focus) */
-    .navbar button:focus {
-        outline: none;
-    }
-</style>
 
 <!-- Navigation Bar Code -->
 <div class="navbar">
