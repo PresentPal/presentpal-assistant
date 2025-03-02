@@ -31,38 +31,50 @@
         }
 
 /* Navigation Bar */
-        .nav-bar {
-            background-color: white;
-            padding: 10px;
-            box-sizing: border-box;
-            width: 100%;
-            position: relative;
-        }
+.nav-bar {
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #ddd;
+}
 
-        /* Navigation Buttons */
-        .nav-button {
-            background-color: #d3d3d3; /* Light Grey */
-            color: black;
-            font-weight: 600;
-            font-size: 16px;
-            padding: 12px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-right: 15px; /* Space between buttons */
-            transition: background-color 0.3s ease;
-        }
+/* Navigation Buttons */
+.nav-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
 
-        .nav-button:hover, .nav-button:active {
-            background-color: #a9a9a9; /* Slightly darker grey */
-        }
+/* Navigation Icons */
+.nav-button i {
+    font-size: 24px;
+    margin-bottom: 4px;
+    color: black;
+}
 
-        /* Align the buttons to the left */
-        .nav-buttons-container {
-            display: flex;
-            justify-content: flex-start; /* Align buttons to the left */
-            padding-left: 20px;
-        }
+.nav-button:hover i {
+    color: #a9a9a9; /* Slightly darker on hover */
+}
+
+/* Hide Upgrade button for Premium users */
+.premium-user .upgrade-button {
+    display: none;
+}
         
         /* iOS Instructions */
         .ios-instructions {
@@ -202,12 +214,33 @@
     </script>
     
     <!-- Navigation Bar -->
-    <div class="nav-bar">
-        <div class="nav-buttons-container">
-            <button class="nav-button">Login</button>
-            <button class="nav-button">Sign Up</button>
-        </div>
-    </div>
+<div class="nav-bar">
+    <button class="nav-button" id="homeButton">
+        <i class="fas fa-home"></i>
+        Home
+    </button>
+    <button class="nav-button" id="accountButton">
+        <i class="fas fa-user"></i>
+        Account
+    </button>
+    <button class="nav-button upgrade-button" id="upgradeButton">
+        <i class="fas fa-star"></i>
+        Upgrade
+    </button>
+</div>
+
+<!-- Font Awesome for Icons -->
+<script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
+
+<script>
+    // Check user subscription and hide upgrade button for Premium users
+    document.addEventListener("DOMContentLoaded", function() {
+        var subscription = localStorage.getItem("subscription");
+        if (subscription === "PresentPal Premium") {
+            document.body.classList.add("premium-user");
+        }
+    });
+</script>
 
     <script>
         let deferredPrompt;
