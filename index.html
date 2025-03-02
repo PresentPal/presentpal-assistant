@@ -5,354 +5,179 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>PresentPal</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PresentPal</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/manifest.json">
 
-    <link rel="manifest" href="/manifest.json">
+  <style>
+    /* General Styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto Slab', serif;
+      height: 100%;
+      background-color: #ffffff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+    }
 
-    <style>
-        /* General Styles */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto Slab', serif;
-            height: 100%;
-            background-color: #ffffff;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-        }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
 
-/* Navigation Bar */
-.nav-bar {
-    background-color: white;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #ddd;
-}
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-/* Navigation Buttons */
-.nav-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-}
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
 
-/* Navigation Images */
-.nav-button img {
-    width: 28px; /* Adjust size as needed */
-    height: auto;
-    margin-bottom: 4px;
-}
+    /* Buttons Styling */
+    button[type="button"] {
+      padding: 10px 20px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-/* Hide Upgrade button for Premium users */
-.premium-user .upgrade-button {
-    display: none;
-}
-        
-        /* iOS Instructions */
-        .ios-instructions {
-            display: none;
-            font-size: 14px;
-            color: #333;
-            padding: 5px 10px; /* Compact padding */
-            line-height: 1.4;
-            max-width: 90%;
-            margin: 10px auto;
-        }
+    button[type="button"]:hover {
+      background-color: #007BB5;
+    }
 
-        /* Header Styling */
-        header {
-            width: 100%;
-            height: 30vh;
-            background-image: url('GiftAssistant.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px 20px;
-            box-sizing: border-box;
-        }
+    #authToggle button {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
 
-        /* Header Text */
-        .header-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 3.9em;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin: 10px 0;
-        }
+    #authToggle button:hover {
+      background-color: #45a049;
+    }
 
-        .header-title .present {
-            color: white;
-        }
-
-        .header-title span {
-            color: #e3bb58;
-        }
-
-        .header-subtitle {
-            font-family: 'Roboto Slab', serif;
-            font-size: 1.3em;
-            margin: 10px 0;
-        }
-
-        /* Android Speech Bubble */
-        .android-bubble {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            color: black;
-            padding: 10px 15px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            font-size: 14px;
-            cursor: pointer;
-            z-index: 1000;
-            max-width: 200px;
-        }
-
-        .android-bubble img {
-            width: 15px;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        .close-bubble {
-            display: block;
-            font-size: 12px;
-            margin-top: 5px;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .header-title {
-                font-size: 2.5em;
-            }
-            .header-subtitle {
-                font-size: 1em;
-            }
-            header {
-                height: 20vh; /* Reduce header height */
-                padding: 20px 10px; /* Adjust padding for spacing */
-            }
-        }
-
-        /* Landbot Chat Container */
-        #myLandbot {
-            flex-grow: 1; /* Ensures it fills remaining space */
-            min-height: 500px; /* Prevents collapsing */
-            overflow-y: auto;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
-        }
-        
-        /* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    position: relative;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Clean modal design */
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 320px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-/* Toggle buttons styling */
-#authToggle button {
-  padding: 10px 20px;
-  margin: 10px 5px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-#authToggle button:hover {
-  background-color: #45a049;
-}
-
-button[type="button"] {
-  padding: 10px 20px;
-  background-color: #008CBA;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button[type="button"]:hover {
-  background-color: #007BB5;
-}
-
-/* Active state for the toggle buttons */
-#authToggle button.active {
-  background-color: #45a049; /* Green color */
-  color: white;
-}
-    </style>
+    #authToggle button.active {
+      background-color: #45a049;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    
-    <!-- iOS Instructions at the Top -->
-    <div class="ios-instructions" id="iosInstructions">
-        <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
-    </div>
+  
+  <!-- iOS Instructions at the Top -->
+  <div class="ios-instructions" id="iosInstructions">
+    <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
+  </div>
 
-    <!-- Header -->
-    <header>
-        <h1 class="header-title"><span class="present">Present</span><span>Pal</span></h1>
-        <p class="header-subtitle">Personalised gift ideas for your friends and family.</p>
-    </header>
-    
-    <!-- Android Floating Speech Bubble -->
-    <div class="android-bubble" id="androidBubble">
-        Add to Home Screen for Easy Access 
-        <img src="safari-share.png" alt="Share Icon">
-        <div class="close-bubble" id="closeBubble">Hide</div>
-    </div>
+  <!-- Header -->
+  <header>
+    <h1 class="header-title"><span class="present">Present</span><span>Pal</span></h1>
+    <p class="header-subtitle">Personalised gift ideas for your friends and family.</p>
+  </header>
 
-    <!-- Landbot Chat Embed -->
-    <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
-    <div id="myLandbot"></div>
-    <script type="module">
-        var myLandbot = new Landbot.Container({
-            container: '#myLandbot',
-            configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2769762-VQ3B8OLEKLOSPJSC/index.json',
-        });
-    </script>
-    
-    <!-- Navigation Bar -->
-<div class="nav-bar">
+  <!-- Android Floating Speech Bubble -->
+  <div class="android-bubble" id="androidBubble">
+    Add to Home Screen for Easy Access 
+    <img src="safari-share.png" alt="Share Icon">
+    <div class="close-bubble" id="closeBubble">Hide</div>
+  </div>
+
+  <!-- Landbot Chat Embed -->
+  <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
+  <div id="myLandbot"></div>
+  <script type="module">
+    var myLandbot = new Landbot.Container({
+      container: '#myLandbot',
+      configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2769762-VQ3B8OLEKLOSPJSC/index.json',
+    });
+  </script>
+  
+  <!-- Navigation Bar -->
+  <div class="nav-bar">
     <button class="nav-button" id="homeButton">
-        <img src="home-icon.png" alt="Home">
-        Home
+      <img src="home-icon.png" alt="Home">
+      Home
     </button>
     <button class="nav-button" id="accountButton">
-    <img src="account-icon.png" alt="Account">
-    Account
-</button>
-    <button class="nav-button upgrade-button" id="upgradeButton">
-        <img src="upgrade-icon.png" alt="Upgrade">
-        Upgrade
+      <img src="account-icon.png" alt="Account">
+      Account
     </button>
-</div>
+    <button class="nav-button upgrade-button" id="upgradeButton">
+      <img src="upgrade-icon.png" alt="Upgrade">
+      Upgrade
+    </button>
+  </div>
 
-<!-- Account Modal -->
-<div id="accountModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeAccountModal()">&times;</span>
+  <!-- Account Modal -->
+  <div id="accountModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeAccountModal()">&times;</span>
 
-    <!-- Toggle buttons to switch between login and signup -->
-    <div id="authToggle" style="margin-bottom: 20px;">
-      <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
-      <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
-    </div>
-
-    <!-- Login Form -->
-    <div id="loginForm" style="display: block;">
-      <h2>Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <input type="password" id="loginPassword" placeholder="Password">
-      <button id="loginButton" type="button" onclick="login()">Login</button>
-      <button type="button" onclick="loginWithGoogle()">Login with Google</button>
-
-      <!-- Only show sign up button on login form -->
-      <div id="loginFormToggle" style="display: block;">
+      <!-- Toggle buttons to switch between login and signup -->
+      <div id="authToggle" style="margin-bottom: 20px;">
+        <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
         <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
       </div>
-    </div>
 
-    <!-- Signup Form -->
-    <div id="signupForm" style="display: none;">
-      <h2>Sign Up</h2>
-      <input type="email" id="signupEmail" placeholder="Email">
-      <input type="password" id="signupPassword" placeholder="Password">
-      <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
-      <button type="button" onclick="signupWithGoogle()">Sign Up with Google</button>
-
-      <!-- Only show login button on signup form -->
-      <div id="signupFormToggle" style="display: block;">
-        <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
+      <!-- Login Form -->
+      <div id="loginForm" style="display: block;">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button id="loginButton" type="button" onclick="login()">Login</button>
+        <button type="button" onclick="loginWithGoogle()">Login with Google</button>
       </div>
+
+      <!-- Signup Form -->
+      <div id="signupForm" style="display: none;">
+        <h2>Sign Up</h2>
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
+        <button type="button" onclick="signupWithGoogle()">Sign Up with Google</button>
+      </div>
+
+      <!-- Logout Button -->
+      <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
     </div>
-
-    <!-- Logout Button -->
-    <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
   </div>
-</div>
 
-  <!-- Account Button -->
-  <button class="nav-button" id="accountButton">Account</button>
-
-    <!-- Firebase Script -->
+  <!-- Firebase Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
@@ -362,7 +187,7 @@ button[type="button"]:hover {
       apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
       authDomain: "presentpal-9c74e.firebaseapp.com",
       projectId: "presentpal-9c74e",
-     storageBucket: "presentpal-9c74e.appspot.com",
+      storageBucket: "presentpal-9c74e.appspot.com",
       messagingSenderId: "371923843440",
       appId: "1:371923843440:web:333893e3d3856e209937b5",
       measurementId: "G-CF3XL2YYQ2"
@@ -408,57 +233,55 @@ button[type="button"]:hover {
         });
     }
 
-// Show login form
-function showLoginForm() {
-  document.getElementById("loginForm").style.display = "block";
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("loginToggleBtn").classList.add("active");
-  document.getElementById("signupToggleBtn").classList.remove("active");
-  document.getElementById("signupFormToggle").style.display = "block"; // Show Sign Up button in login form
-  document.getElementById("loginFormToggle").style.display = "none";   // Hide Login button in sign up form
-}
+    // Show login form
+    function showLoginForm() {
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("signupForm").style.display = "none";
+      document.getElementById("loginToggleBtn").classList.add("active");
+      document.getElementById("signupToggleBtn").classList.remove("active");
+    }
 
-// Show signup form
-function showSignUpForm() {
-  document.getElementById("signupForm").style.display = "block";
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupToggleBtn").classList.add("active");
-  document.getElementById("loginToggleBtn").classList.remove("active");
-  document.getElementById("loginFormToggle").style.display = "block";  // Show Login button in signup form
-  document.getElementById("signupFormToggle").style.display = "none";  // Hide Sign Up button in login form
-}
+    // Show signup form
+    function showSignUpForm() {
+      document.getElementById("signupForm").style.display = "block";
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("signupToggleBtn").classList.add("active");
+      document.getElementById("loginToggleBtn").classList.remove("active");
+    }
 
-// Google login (simplified)
-function loginWithGoogle() {
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    const user = result.user;
-    alert("Logged in as " + user.displayName);
-    closeAccountModal();
-  }).catch(function(error) {
-    alert("Login failed: " + error.message);
-  });
-}
+    // Google login (simplified)
+    function loginWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        const user = result.user;
+        alert("Logged in as " + user.displayName);
+        closeAccountModal();
+      }).catch(function(error) {
+        alert("Login failed: " + error.message);
+      });
+    }
 
-// Google signup (simplified)
-function signupWithGoogle() {
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    const user = result.user;
-    alert("Signed up as " + user.displayName);
-    closeAccountModal();
-  }).catch(function(error) {
-    alert("Signup failed: " + error.message);
-  });
-}
+    // Google signup (simplified)
+    function signupWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        const user = result.user;
+        alert("Signed up as " + user.displayName);
+        closeAccountModal();
+      }).catch(function(error) {
+        alert("Signup failed: " + error.message);
+      });
+    }
 
-// Close modal
-function closeAccountModal() {
-  document.getElementById("accountModal").style.display = "none";
-}
+    // Close modal
+    function closeAccountModal() {
+      document.getElementById("accountModal").style.display = "none";
+    }
 
-// Initialize modal to show login by default
-document.addEventListener("DOMContentLoaded", function () {
-  showLoginForm(); // Show login form by default
-});
+    // Initialize modal to show login by default
+    document.addEventListener("DOMContentLoaded", function () {
+      showLoginForm(); // Show login form by default
+    });
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -467,12 +290,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("logoutButton").style.display = "block";
       } else {
         document.getElementById("loginForm").style.display = "block";
-        document.getElementById("signupForm").style.display = "block";
+        document.getElementById("signupForm").style.display = "none";
         document.getElementById("logoutButton").style.display = "none";
       }
     });
-</script>
-  
+  </script>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Function to show the modal
@@ -487,9 +310,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Add event listener to the button
       accountButton.addEventListener("click", showAccountOptions);
     });
-    </script>
+  </script>
 
-<script>
+  <script>
     let deferredPrompt;
     const iosInstructions = document.getElementById('iosInstructions');
     const androidBubble = document.getElementById('androidBubble');
@@ -497,15 +320,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to check if PWA is installed
     function isPWAInstalled() {
-        return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     }
 
     // Hide instructions if already installed
     function checkInstallationStatus() {
-        if (isPWAInstalled()) {
-            iosInstructions.style.display = 'none';
-            androidBubble.style.display = 'none';
-        }
+      if (isPWAInstalled()) {
+        iosInstructions.style.display = 'none';
+        androidBubble.style.display = 'none';
+      }
     }
 
     // Run the check on page load
@@ -514,44 +337,43 @@ document.addEventListener("DOMContentLoaded", function () {
     // Detect iOS
     const userAgent = window.navigator.userAgent;
     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        iosInstructions.style.display = 'block'; // Show iOS instructions at the top
+      iosInstructions.style.display = 'block'; // Show iOS instructions at the top
     }
 
     // Handle beforeinstallprompt for Android
     if (!isPWAInstalled()) {
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            androidBubble.style.display = 'block'; // Show floating speech bubble for Android
-        });
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        androidBubble.style.display = 'block'; // Show floating speech bubble for Android
+      });
 
-        androidBubble.addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(choiceResult => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User installed the app');
-                        androidBubble.style.display = 'none'; // Hide after installation
-                    } else {
-                        console.log('User dismissed the install prompt');
-                    }
-                    deferredPrompt = null;
-                });
+      androidBubble.addEventListener('click', () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(choiceResult => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User installed the app');
+              androidBubble.style.display = 'none'; // Hide after installation
+            } else {
+              console.log('User dismissed the install prompt');
             }
-        });
+            deferredPrompt = null;
+          });
+        }
+      });
 
-        closeBubble.addEventListener('click', (event) => {
-            event.stopPropagation();
-            androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
-        });
+      closeBubble.addEventListener('click', (event) => {
+        event.stopPropagation();
+        androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
+      });
     }
 
     // Hide iOS instructions if installed
     if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
-        iosInstructions.style.display = 'none';
+      iosInstructions.style.display = 'none';
     }
-</script>
-
+  </script>
 
 </body>
 </html>
