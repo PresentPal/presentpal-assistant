@@ -323,6 +323,11 @@ button[type="button"]:hover {
       <input type="password" id="loginPassword" placeholder="Password">
       <button id="loginButton" type="button" onclick="login()">Login</button>
       <button type="button" onclick="loginWithGoogle()">Login with Google</button>
+
+      <!-- Only show sign up button on login form -->
+      <div id="loginFormToggle" style="display: block;">
+        <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
+      </div>
     </div>
 
     <!-- Signup Form -->
@@ -332,6 +337,11 @@ button[type="button"]:hover {
       <input type="password" id="signupPassword" placeholder="Password">
       <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
       <button type="button" onclick="signupWithGoogle()">Sign Up with Google</button>
+
+      <!-- Only show login button on signup form -->
+      <div id="signupFormToggle" style="display: block;">
+        <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
+      </div>
     </div>
 
     <!-- Logout Button -->
@@ -404,6 +414,8 @@ function showLoginForm() {
   document.getElementById("signupForm").style.display = "none";
   document.getElementById("loginToggleBtn").classList.add("active");
   document.getElementById("signupToggleBtn").classList.remove("active");
+  document.getElementById("signupFormToggle").style.display = "block"; // Show Sign Up button in login form
+  document.getElementById("loginFormToggle").style.display = "none";   // Hide Login button in sign up form
 }
 
 // Show signup form
@@ -412,6 +424,8 @@ function showSignUpForm() {
   document.getElementById("loginForm").style.display = "none";
   document.getElementById("signupToggleBtn").classList.add("active");
   document.getElementById("loginToggleBtn").classList.remove("active");
+  document.getElementById("loginFormToggle").style.display = "block";  // Show Login button in signup form
+  document.getElementById("signupFormToggle").style.display = "none";  // Hide Sign Up button in login form
 }
 
 // Google login (simplified)
