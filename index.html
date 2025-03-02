@@ -26,6 +26,36 @@
   const analytics = getAnalytics(app);
 </script>
 
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PresentPal</title>
@@ -240,14 +270,40 @@
         <img src="home-icon.png" alt="Home">
         Home
     </button>
-    <button class="nav-button" id="accountButton">
-        <img src="account-icon.png" alt="Account">
-        Account
-    </button>
+    <button class="nav-button" id="accountButton" onclick="showAccountOptions()">
+    <img src="account-icon.png" alt="Account">
+    Account
+</button>
     <button class="nav-button upgrade-button" id="upgradeButton">
         <img src="upgrade-icon.png" alt="Upgrade">
         Upgrade
     </button>
+</div>
+
+<!-- Account Modal -->
+<div id="accountModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAccountModal()">&times;</span>
+
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h2>Login</h2>
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupForm">
+            <h2>Sign Up</h2>
+            <input type="email" id="signupEmail" placeholder="Email">
+            <input type="password" id="signupPassword" placeholder="Password">
+            <button onclick="signUp()">Sign Up</button>
+        </div>
+
+        <!-- Logout Button (Only Visible When Logged In) -->
+        <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
+    </div>
 </div>
 
 <script>
@@ -335,6 +391,40 @@
             iosInstructions.style.display = 'none';
         }
     </script>
+
+<script>
+function showAccountOptions() {
+    var user = firebase.auth().currentUser;
+    var modal = document.getElementById("accountModal");
+    var logoutButton = document.getElementById("logoutButton");
+    
+    if (user) {
+        // User is logged in, show logout button only
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "none";
+        logoutButton.style.display = "block";
+    } else {
+        // Show login and signup forms
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("signupForm").style.display = "block";
+        logoutButton.style.display = "none";
+    }
+
+    modal.style.display = "block";
+}
+
+function closeAccountModal() {
+    document.getElementById("accountModal").style.display = "none";
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    var modal = document.getElementById("accountModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+</script>
 
 </body>
 </html>
