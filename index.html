@@ -334,20 +334,20 @@
       <span class="close" onclick="closeAccountModal()">&times;</span>
 
       <!-- Login Form -->
-      <div id="loginForm">
-        <h2>Login</h2>
-        <input type="email" id="loginEmail" placeholder="Email">
-        <input type="password" id="loginPassword" placeholder="Password">
-        <button onclick="login()">Login</button>
-      </div>
+     <form id="loginForm">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button id="loginButton" type="button">Login</button>
+</form>
 
       <!-- Signup Form -->
-      <div id="signupForm">
-        <h2>Sign Up</h2>
-        <input type="email" id="signupEmail" placeholder="Email">
-        <input type="password" id="signupPassword" placeholder="Password">
-        <button onclick="signUp()">Sign Up</button>
-      </div>
+     <form id="signupForm">
+    <h2>Sign Up</h2>
+    <input type="email" id="signupEmail" placeholder="Email">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <button id="signupButton" type="button">Sign Up</button>
+</form>
 
       <!-- Logout Button -->
       <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
