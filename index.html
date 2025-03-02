@@ -6,11 +6,9 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } 
+  from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
     authDomain: "presentpal-9c74e.firebaseapp.com",
@@ -23,7 +21,55 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);  // Initialize Firebase Authentication
   const analytics = getAnalytics(app);
+  
+    // Login function
+  function login() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            alert("Logged in successfully!");
+            closeAccountModal();
+        })
+        .catch((error) => {
+            alert("Login failed: " + error.message);
+        });
+  }
+
+  // Sign Up function
+  function signUp() {
+    const email = document.getElementById("signupEmail").value;
+    const password = document.getElementById("signupPassword").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            alert("Account created successfully!");
+            closeAccountModal();
+        })
+        .catch((error) => {
+            alert("Signup failed: " + error.message);
+        });
+  }
+
+  // Logout function (you can add it here too)
+  function logout() {
+    signOut(auth).then(() => {
+        alert("Logged out!");
+        closeAccountModal();
+    }).catch((error) => {
+        alert("Logout failed: " + error.message);
+    });
+  }
+  
+  window.onclick = function(event) {
+    var modal = document.getElementById("accountModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
 </script>
 
     <meta charset="UTF-8">
