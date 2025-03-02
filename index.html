@@ -450,44 +450,6 @@ function signupWithGoogle() {
   });
 }
 
-// Firebase login
-function login() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      alert("Logged in successfully!");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-}
-
-// Firebase sign-up
-function signUp() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      alert("Account created successfully!");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("Signup failed: " + error.message);
-    });
-}
-
-// Logout function
-function logout() {
-  firebase.auth().signOut().then(() => {
-    alert("Logged out!");
-    closeAccountModal();
-  }).catch((error) => {
-    alert("Logout failed: " + error.message);
-  });
-}
-
 // Close modal
 function closeAccountModal() {
   document.getElementById("accountModal").style.display = "none";
