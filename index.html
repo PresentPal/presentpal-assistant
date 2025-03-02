@@ -321,7 +321,7 @@
         <img src="home-icon.png" alt="Home">
         Home
     </button>
-    <button class="nav-button" id="accountButton" onclick="showAccountOptions()">
+    <button class="nav-button" id="accountButton">
     <img src="account-icon.png" alt="Account">
     Account
 </button>
@@ -359,30 +359,19 @@
 
 <!-- ✅ Event Listener & Script (Right Before </body>) -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const accountModal = document.getElementById("accountModal");
-      const closeModal = document.getElementById("closeModal");
-      const accountButton = document.getElementById("accountButton");
-      const loginButton = document.getElementById("loginButton");
-      const signupButton = document.getElementById("signupButton");
-      const logoutButton = document.getElementById("logoutButton");
+  document.addEventListener("DOMContentLoaded", function () {
+    // Ensure the showAccountOptions function is defined after the DOM is fully loaded
+    function showAccountOptions() {
+      var modal = document.getElementById("accountModal");
+      modal.style.display = "block";  // Show the modal
+    }
 
-      function showAccountOptions() {
-        accountModal.style.display = "block";
-      }
+    // Get the Account Button and attach event listener
+    const accountButton = document.getElementById("accountButton");
 
-      function closeAccountModal() {
-        accountModal.style.display = "none";
-      }
-
-      // ✅ Add event listeners for buttons
-      accountButton.addEventListener("click", showAccountOptions);
-      closeModal.addEventListener("click", closeAccountModal);
-      window.addEventListener("click", function (event) {
-        if (event.target === accountModal) {
-          closeAccountModal();
-        }
-      });
+    // Add event listener to the button
+    accountButton.addEventListener("click", showAccountOptions);  // Trigger showAccountOptions when clicked
+  });
 
       // ✅ Firebase Authentication
       loginButton.addEventListener("click", function () {
