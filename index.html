@@ -300,36 +300,38 @@ button[type="button"]:hover {
 </div>
 
 <!-- Account Modal -->
-  <div id="accountModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeAccountModal()">&times;</span>
+<div id="accountModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeAccountModal()">&times;</span>
 
- <!-- Toggle buttons to switch between login and signup -->
+    <!-- Toggle buttons to switch between login and signup -->
     <div id="authToggle" style="margin-bottom: 20px;">
       <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
       <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
     </div>
 
-      <!-- Login Form -->
-     <form id="loginForm">
-    <h2>Login</h2>
-    <input type="email" id="loginEmail" placeholder="Email">
-    <input type="password" id="loginPassword" placeholder="Password">
-    <button id="loginButton" type="button">Login</button>
-</form>
-
-      <!-- Signup Form -->
-     <form id="signupForm">
-    <h2>Sign Up</h2>
-    <input type="email" id="signupEmail" placeholder="Email">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <button id="signupButton" type="button">Sign Up</button>
-</form>
-
-      <!-- Logout Button -->
-      <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
+    <!-- Login Form -->
+    <div id="loginForm" style="display: block;">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Password">
+      <button id="loginButton" type="button" onclick="login()">Login</button>
+      <button type="button" onclick="loginWithGoogle()">Login with Google</button>
     </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" style="display: none;">
+      <h2>Sign Up</h2>
+      <input type="email" id="signupEmail" placeholder="Email">
+      <input type="password" id="signupPassword" placeholder="Password">
+      <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
+      <button type="button" onclick="signupWithGoogle()">Sign Up with Google</button>
+    </div>
+
+    <!-- Logout Button -->
+    <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
   </div>
+</div>
 
   <!-- Account Button -->
   <button class="nav-button" id="accountButton">Account</button>
@@ -394,18 +396,19 @@ button[type="button"]:hover {
 function showLoginForm() {
   document.getElementById("loginForm").style.display = "block";
   document.getElementById("signupForm").style.display = "none";
+  document.getElementById("loginToggleBtn").classList.add("active");
+  document.getElementById("signupToggleBtn").classList.remove("active");
 }
 
 // Show signup form
 function showSignUpForm() {
   document.getElementById("signupForm").style.display = "block";
   document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupToggleBtn").classList.add("active");
+  document.getElementById("loginToggleBtn").classList.remove("active");
 }
 
-// Initialize Firebase Authentication provider for Google
-const provider = new firebase.auth.GoogleAuthProvider();
-
-// Google Login
+// Google login (simplified)
 function loginWithGoogle() {
   firebase.auth().signInWithPopup(provider).then(function(result) {
     const user = result.user;
@@ -416,7 +419,7 @@ function loginWithGoogle() {
   });
 }
 
-// Google SignUp
+// Google signup (simplified)
 function signupWithGoogle() {
   firebase.auth().signInWithPopup(provider).then(function(result) {
     const user = result.user;
@@ -425,6 +428,49 @@ function signupWithGoogle() {
   }).catch(function(error) {
     alert("Signup failed: " + error.message);
   });
+}
+
+// Firebase login
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      alert("Logged in successfully!");
+      closeAccountModal();
+    })
+    .catch((error) => {
+      alert("Login failed: " + error.message);
+    });
+}
+
+// Firebase sign-up
+function signUp() {
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      alert("Account created successfully!");
+      closeAccountModal();
+    })
+    .catch((error) => {
+      alert("Signup failed: " + error.message);
+    });
+}
+
+// Logout function
+function logout() {
+  firebase.auth().signOut().then(() => {
+    alert("Logged out!");
+    closeAccountModal();
+  }).catch((error) => {
+    alert("Logout failed: " + error.message);
+  });
+}
+
+// Close modal
+function closeAccountModal() {
+  document.getElementById("accountModal").style.display = "none";
 }
 
 // Initialize modal to show login by default
