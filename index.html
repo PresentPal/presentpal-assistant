@@ -211,6 +211,46 @@
     font-size: 24px;
     cursor: pointer;
 }
+
+/* Clean modal design */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 320px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Toggle buttons styling */
+#authToggle button {
+  padding: 10px 20px;
+  margin: 10px 5px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#authToggle button:hover {
+  background-color: #45a049;
+}
+
+button[type="button"] {
+  padding: 10px 20px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  background-color: #007BB5;
+}
     </style>
 </head>
 <body>
@@ -263,6 +303,12 @@
   <div id="accountModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeAccountModal()">&times;</span>
+
+ <!-- Toggle buttons to switch between login and signup -->
+    <div id="authToggle" style="margin-bottom: 20px;">
+      <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
+      <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
+    </div>
 
       <!-- Login Form -->
      <form id="loginForm">
@@ -343,6 +389,48 @@
           alert("Logout failed: " + error.message);
         });
     }
+
+// Show login form
+function showLoginForm() {
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+}
+
+// Show signup form
+function showSignUpForm() {
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("loginForm").style.display = "none";
+}
+
+// Initialize Firebase Authentication provider for Google
+const provider = new firebase.auth.GoogleAuthProvider();
+
+// Google Login
+function loginWithGoogle() {
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    const user = result.user;
+    alert("Logged in as " + user.displayName);
+    closeAccountModal();
+  }).catch(function(error) {
+    alert("Login failed: " + error.message);
+  });
+}
+
+// Google SignUp
+function signupWithGoogle() {
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    const user = result.user;
+    alert("Signed up as " + user.displayName);
+    closeAccountModal();
+  }).catch(function(error) {
+    alert("Signup failed: " + error.message);
+  });
+}
+
+// Initialize modal to show login by default
+document.addEventListener("DOMContentLoaded", function () {
+  showLoginForm(); // Show login form by default
+});
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
