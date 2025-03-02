@@ -60,15 +60,11 @@
     padding: 10px;
 }
 
-/* Navigation Icons */
-.nav-button i {
-    font-size: 24px;
+/* Navigation Images */
+.nav-button img {
+    width: 28px; /* Adjust size as needed */
+    height: auto;
     margin-bottom: 4px;
-    color: black;
-}
-
-.nav-button:hover i {
-    color: #a9a9a9; /* Slightly darker on hover */
 }
 
 /* Hide Upgrade button for Premium users */
@@ -216,18 +212,28 @@
     <!-- Navigation Bar -->
 <div class="nav-bar">
     <button class="nav-button" id="homeButton">
-        <i class="fas fa-home"></i>
+        <img src="home-icon.png" alt="Home">
         Home
     </button>
     <button class="nav-button" id="accountButton">
-        <i class="fas fa-user"></i>
+        <img src="account-icon.png" alt="Account">
         Account
     </button>
     <button class="nav-button upgrade-button" id="upgradeButton">
-        <i class="fas fa-star"></i>
+        <img src="upgrade-icon.png" alt="Upgrade">
         Upgrade
     </button>
 </div>
+
+<script>
+    // Check user subscription and hide upgrade button for Premium users
+    document.addEventListener("DOMContentLoaded", function() {
+        var subscription = localStorage.getItem("subscription");
+        if (subscription === "PresentPal Premium") {
+            document.body.classList.add("premium-user");
+        }
+    });
+</script>
 
 <!-- Font Awesome for Icons -->
 <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
