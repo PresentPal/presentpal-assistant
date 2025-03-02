@@ -76,26 +76,6 @@
         document.getElementById("logoutButton").style.display = "none";
       }
     });
-
-// Show account modal (called when clicking the Account button)
-function showAccountOptions() {
-  var modal = document.getElementById("accountModal");
-  modal.style.display = "block"; // Show the modal
-}
-
-// Close the modal when clicking the close button
-function closeAccountModal() {
-  var modal = document.getElementById("accountModal");
-  modal.style.display = "none"; // Hide the modal
-}
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-      var modal = document.getElementById("accountModal");
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    };
 </script>
 
     <meta charset="UTF-8">
@@ -378,15 +358,86 @@ function closeAccountModal() {
     </div>
   </div>
 
-<script>
-    // Check user subscription and hide upgrade button for Premium users
-    document.addEventListener("DOMContentLoaded", function() {
-        var subscription = localStorage.getItem("subscription");
-        if (subscription === "PresentPal Premium") {
-            document.body.classList.add("premium-user");
+<!-- ✅ Event Listener & Script (Right Before `</body>`) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const accountModal = document.getElementById("accountModal");
+      const closeModal = document.getElementById("closeModal");
+      const accountButton = document.getElementById("accountButton");
+      const loginButton = document.getElementById("loginButton");
+      const signupButton = document.getElementById("signupButton");
+      const logoutButton = document.getElementById("logoutButton");
+
+      function showAccountOptions() {
+        accountModal.style.display = "block";
+      }
+
+      function closeAccountModal() {
+        accountModal.style.display = "none";
+      }
+
+      // ✅ Add event listeners for buttons
+      accountButton.addEventListener("click", showAccountOptions);
+      closeModal.addEventListener("click", closeAccountModal);
+      window.addEventListener("click", function (event) {
+        if (event.target === accountModal) {
+          closeAccountModal();
         }
+      });
+
+      // ✅ Firebase Authentication
+      loginButton.addEventListener("click", function () {
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            alert("Logged in successfully!");
+            closeAccountModal();
+          })
+          .catch((error) => {
+            alert("Login failed: " + error.message);
+          });
+      });
+
+      signupButton.addEventListener("click", function () {
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            alert("Account created successfully!");
+            closeAccountModal();
+          })
+          .catch((error) => {
+            alert("Signup failed: " + error.message);
+          });
+      });
+
+      logoutButton.addEventListener("click", function () {
+        signOut(auth)
+          .then(() => {
+            alert("Logged out!");
+            closeAccountModal();
+          })
+          .catch((error) => {
+            alert("Logout failed: " + error.message);
+          });
+      });
+
+      // ✅ Automatically update UI when user logs in/out
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          document.getElementById("loginForm").style.display = "none";
+          document.getElementById("signupForm").style.display = "none";
+          logoutButton.style.display = "block";
+        } else {
+          document.getElementById("loginForm").style.display = "block";
+          document.getElementById("signupForm").style.display = "block";
+          logoutButton.style.display = "none";
+        }
+      });
     });
-</script>
 
 <!-- Font Awesome for Icons -->
 <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
