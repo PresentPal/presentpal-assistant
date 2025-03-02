@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>PresentPal</title>
+
+  <!-- Firebase Script -->
   <script type="module">
-    // Import Firebase SDKs
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
     from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
       authDomain: "presentpal-9c74e.firebaseapp.com",
@@ -19,11 +21,9 @@
       measurementId: "G-CF3XL2YYQ2"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Authentication functions
     function login() {
       const email = document.getElementById("loginEmail").value;
       const password = document.getElementById("loginPassword").value;
@@ -61,15 +61,12 @@
         });
     }
 
-    // Check if user is logged in or not
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, show logout button
         document.getElementById("loginForm").style.display = "none";
         document.getElementById("signupForm").style.display = "none";
         document.getElementById("logoutButton").style.display = "block";
       } else {
-        // User is not signed in, show login/signup forms
         document.getElementById("loginForm").style.display = "block";
         document.getElementById("signupForm").style.display = "block";
         document.getElementById("logoutButton").style.display = "none";
@@ -331,7 +328,7 @@
     </button>
 </div>
 
-<!-- Account Modal (Login/Signup/Logout Forms) -->
+<!-- Account Modal -->
   <div id="accountModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeAccountModal()">&times;</span>
@@ -352,93 +349,31 @@
         <button onclick="signUp()">Sign Up</button>
       </div>
 
-      <!-- Logout Button (Visible when logged in) -->
+      <!-- Logout Button -->
       <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
     </div>
   </div>
 
-<!-- ✅ Event Listener & Script (Right Before </body>) -->
+  <!-- Account Button -->
+  <button class="nav-button" id="accountButton">Account</button>
+
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Ensure the showAccountOptions function is defined after the DOM is fully loaded
-    function showAccountOptions() {
-      var modal = document.getElementById("accountModal");
-      modal.style.display = "block";  // Show the modal
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+      // Function to show the modal
+      function showAccountOptions() {
+        var modal = document.getElementById("accountModal");
+        modal.style.display = "block";  // Show the modal
+      }
 
-    // Get the Account Button and attach event listener
-    const accountButton = document.getElementById("accountButton");
+      // Get the Account Button and attach event listener
+      const accountButton = document.getElementById("accountButton");
 
-    // Add event listener to the button
-    accountButton.addEventListener("click", showAccountOptions);  // Trigger showAccountOptions when clicked
-  });
-
-      // ✅ Firebase Authentication
-      loginButton.addEventListener("click", function () {
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
-
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            alert("Logged in successfully!");
-            closeAccountModal();
-          })
-          .catch((error) => {
-            alert("Login failed: " + error.message);
-          });
-      });
-
-      signupButton.addEventListener("click", function () {
-        const email = document.getElementById("signupEmail").value;
-        const password = document.getElementById("signupPassword").value;
-
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            alert("Account created successfully!");
-            closeAccountModal();
-          })
-          .catch((error) => {
-            alert("Signup failed: " + error.message);
-          });
-      });
-
-      logoutButton.addEventListener("click", function () {
-        signOut(auth)
-          .then(() => {
-            alert("Logged out!");
-            closeAccountModal();
-          })
-          .catch((error) => {
-            alert("Logout failed: " + error.message);
-          });
-      });
-
-      // ✅ Automatically update UI when user logs in/out
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          document.getElementById("loginForm").style.display = "none";
-          document.getElementById("signupForm").style.display = "none";
-          logoutButton.style.display = "block";
-        } else {
-          document.getElementById("loginForm").style.display = "block";
-          document.getElementById("signupForm").style.display = "block";
-          logoutButton.style.display = "none";
-        }
-      });
+      // Add event listener to the button
+      accountButton.addEventListener("click", showAccountOptions);
     });
 
 <!-- Font Awesome for Icons -->
 <script src="https://kit.fontawesome.com/YOUR_KIT_ID.js" crossorigin="anonymous"></script>
-
-<script>
-    // Check user subscription and hide upgrade button for Premium users
-    document.addEventListener("DOMContentLoaded", function() {
-        var subscription = localStorage.getItem("subscription");
-        if (subscription === "PresentPal Premium") {
-            document.body.classList.add("premium-user");
-        }
-    });
-</script>
 
     <script>
         let deferredPrompt;
