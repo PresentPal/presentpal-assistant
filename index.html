@@ -26,7 +26,19 @@
             height: 100%;
             background-color: #ffffff;
             text-align: center;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* iOS Instructions */
+        .ios-instructions {
+            display: none;
+            font-size: 14px;
+            color: #333;
+            padding: 5px 10px;
+            line-height: 1.4;
+            max-width: 90%;
+            margin: 10px auto;
         }
 
         /* Header Styling */
@@ -70,75 +82,62 @@
             margin: 10px 0;
         }
 
-        /* Login & Sign-Up buttons */
-        .auth-buttons {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
             display: flex;
-            gap: 10px;
+            justify-content: flex-end;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .auth-button {
+        .nav-button {
             background-color: white;
             color: black;
-            padding: 10px 20px;
-            border: 2px solid black;
-            border-radius: 25px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: background-color 0.2s;
-        }
-
-        .auth-button:hover, .auth-button:active {
-            background-color: #ddd; /* Light grey hover effect */
-            color: black;
-        }
-
-        /* Add to Home Screen Section (Under Header) */
-        .install-container {
-            display: none;
-            background: white;
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .install-text {
-            font-size: 14px;
-            color: black;
-        }
-
-        .install-button {
-            background: black;
-            color: white;
-            border: none;
+            font-size: 16px;
             padding: 10px 15px;
-            font-weight: bold;
+            border: none;
+            margin-left: 10px;
             cursor: pointer;
+            font-weight: bold;
             border-radius: 5px;
-            margin-top: 5px;
         }
 
-        .install-button:hover {
-            background: #333;
+        .nav-button:hover,
+        .nav-button:active {
+            background-color: #ddd;
         }
 
-        /* iOS Instructions */
-        .ios-instructions {
+        /* Android Speech Bubble */
+        .android-bubble {
             display: none;
-            font-size: 14px;
-            color: black;
-            padding: 10px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
             background: white;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
+            color: black;
+            padding: 10px 15px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1000;
+            max-width: 200px;
         }
 
-        .ios-instructions img {
+        .android-bubble img {
             width: 15px;
             vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .close-bubble {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+            text-decoration: underline;
+            cursor: pointer;
         }
 
         /* Mobile Adjustments */
@@ -150,14 +149,17 @@
                 font-size: 1em;
             }
             header {
+                height: 20vh;
                 padding: 20px 10px;
+            }
+            .navbar {
+                justify-content: center;
             }
         }
 
         /* Landbot Chat Container */
         #myLandbot {
-            width: 100%;
-            height: calc(100vh - 30vh - env(safe-area-inset-bottom, 0px));
+            flex-grow: 1;
             min-height: 500px;
             overflow-y: auto;
             box-sizing: border-box;
@@ -167,10 +169,9 @@
 </head>
 <body>
 
-    <!-- Login and Sign-Up Buttons -->
-    <div class="auth-buttons">
-        <button class="auth-button" id="loginButton">Login</button>
-        <button class="auth-button" id="signUpButton">Sign Up</button>
+    <!-- iOS Instructions at the Top -->
+    <div class="ios-instructions" id="iosInstructions">
+        <p>Tap '<strong>Share</strong>' <img src="safari-share.png" width="15"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
     </div>
 
     <!-- Header -->
@@ -179,15 +180,17 @@
         <p class="header-subtitle">Personalised gift ideas for your friends and family.</p>
     </header>
 
-    <!-- iOS Add to Home Screen Instructions -->
-    <div class="ios-instructions" id="iosInstructions">
-        <p>Tap '<strong>Share</strong>' <img src="safari-share.png" alt="Share Icon"> and select '<strong>Add to Home Screen</strong>' for easy access.</p>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <button class="nav-button" onclick="window.location.href='login.html'">Login</button>
+        <button class="nav-button" onclick="window.location.href='signup.html'">Sign Up</button>
     </div>
 
-    <!-- Android Add to Home Screen Button -->
-    <div class="install-container" id="installContainer">
-        <p class="install-text">Add PresentPal to your home screen for easy access.</p>
-        <button class="install-button" id="installButton">Add to Home Screen</button>
+    <!-- Android Floating Speech Bubble -->
+    <div class="android-bubble" id="androidBubble">
+        Add to Home Screen for Easy Access 
+        <img src="safari-share.png" alt="Share Icon">
+        <div class="close-bubble" id="closeBubble">Hide</div>
     </div>
 
     <!-- Landbot Chat Embed -->
@@ -202,30 +205,30 @@
 
     <script>
         let deferredPrompt;
-        const installContainer = document.getElementById('installContainer');
-        const installButton = document.getElementById('installButton');
         const iosInstructions = document.getElementById('iosInstructions');
+        const androidBubble = document.getElementById('androidBubble');
+        const closeBubble = document.getElementById('closeBubble');
 
         // Function to check if PWA is installed
         function isPWAInstalled() {
             return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         }
 
-        // Hide install prompts if already installed
+        // Hide instructions if already installed
         function checkInstallationStatus() {
             if (isPWAInstalled()) {
-                installContainer.style.display = 'none';
                 iosInstructions.style.display = 'none';
+                androidBubble.style.display = 'none';
             }
         }
 
-        // Run check on page load
+        // Run the check on page load
         checkInstallationStatus();
 
         // Detect iOS
         const userAgent = window.navigator.userAgent;
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            iosInstructions.style.display = 'block'; // Show for iOS
+            iosInstructions.style.display = 'block';
         }
 
         // Handle beforeinstallprompt for Android
@@ -233,20 +236,25 @@
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                installContainer.style.display = 'block'; // Show for Android
+                androidBubble.style.display = 'block';
             });
 
-            installButton.addEventListener('click', () => {
+            androidBubble.addEventListener('click', () => {
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     deferredPrompt.userChoice.then(choiceResult => {
                         if (choiceResult.outcome === 'accepted') {
                             console.log('User installed the app');
-                            installContainer.style.display = 'none'; // Hide after installation
+                            androidBubble.style.display = 'none';
                         }
                         deferredPrompt = null;
                     });
                 }
+            });
+
+            closeBubble.addEventListener('click', (event) => {
+                event.stopPropagation();
+                androidBubble.style.display = 'none';
             });
         }
     </script>
