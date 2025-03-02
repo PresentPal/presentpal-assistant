@@ -158,41 +158,43 @@
     </div>
 
 <!-- Navigation Bar -->
-<div class="navbar">
-    <button class="nav-button" onclick="window.location.href='login.html'">Login</button>
-    <button class="nav-button" onclick="window.location.href='signup.html'">Sign Up</button>
-</div>
-
-<style>
-    /* Navigation Bar */
+<div<style>
+    /* Navigation Bar Styles */
     .navbar {
-        width: 100%;
+        background-color: white; /* White background for the nav bar */
         display: flex;
-        justify-content: center;
-        background-color: #f2f2f2; /* Light grey background */
-        padding: 10px 0;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        justify-content: flex-start; /* Align buttons to the left */
+        padding: 10px;
+        box-sizing: border-box;
     }
 
-    .nav-button {
-        background-color: #f2f2f2;
+    .navbar button {
+        background-color: #f0f0f0; /* Light grey default button */
         color: black;
-        font-family: 'Nunito', sans-serif;
-        font-size: 16px;
+        border: 1px solid #ddd;
         padding: 10px 20px;
-        border: none;
-        margin: 0 10px;
+        margin-right: 10px;
+        font-size: 16px;
+        font-family: 'Nunito', sans-serif;
         cursor: pointer;
-        font-weight: bold;
         border-radius: 5px;
-        transition: background-color 0.2s;
     }
 
-    .nav-button:hover,
-    .nav-button:active {
-        background-color: #d9d9d9; /* Slightly darker grey */
+    .navbar button:hover, .navbar button:focus {
+        background-color: #e0e0e0; /* Darker grey on hover/click */
+    }
+
+    /* Optional: Remove the outline when button is clicked (focus) */
+    .navbar button:focus {
+        outline: none;
     }
 </style>
+
+<!-- Navigation Bar Code -->
+<div class="navbar">
+    <button id="loginBtn">Login</button>
+    <button id="signupBtn">Sign Up</button>
+</div>
 
     <!-- Landbot Chat Embed -->
     <script SameSite="None; Secure" type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
