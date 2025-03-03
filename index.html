@@ -316,24 +316,38 @@ button[type="button"]:hover {
     <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
 </div>
 
-    <!-- Login Form -->
+   <!-- Login Form -->
     <div id="loginForm" style="display: block;">
       <h2>Login</h2>
       <input type="email" id="loginEmail" placeholder="Email">
       <input type="password" id="loginPassword" placeholder="Password">
-      <button onclick="login()">Login</button>
-      <button onclick="loginWithGoogle()">Login with Google</button>
+      <button id="loginButton" type="button" onclick="login()">Login</button>
+
+      <!-- Login with Google Button -->
+      <button type="button" onclick="loginWithGoogle()">Login with Google</button>
+
+      <!-- Only show sign up button on login form -->
+      <div id="loginFormToggle" style="display: block;">
+        <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
+      </div>
     </div>
 
     <!-- Signup Form -->
-    <div id="signupForm" style="display: none;">
-      <h2>Sign Up</h2>
-      <input type="email" id="signupEmail" placeholder="Email">
-      <input type="password" id="signupPassword" placeholder="Password">
-      <button onclick="signUp()">Sign Up</button>
-      <button onclick="loginWithGoogle()">Sign Up with Google</button>
-    </div>
+<div id="signupForm" style="display: none;">
+  <h2>Sign Up</h2>
+  <input type="email" id="signupEmail" placeholder="Email">
+  <input type="password" id="signupPassword" placeholder="Password">
+  <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
 
+  <!-- Google Sign Up Button -->
+  <button type="button" onclick="signupWithGoogle()">Sign Up with Google</button>
+
+  <!-- Only show login button on signup form -->
+  <div id="signupFormToggle" style="display: block;">
+    <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
+  </div>
+</div>
+    
     <!-- Logout Button -->
     <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
   </div>
