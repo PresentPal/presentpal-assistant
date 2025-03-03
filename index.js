@@ -60,11 +60,6 @@ function showSignUpForm() {
   document.getElementById("loginToggleBtn").classList.remove("active");
 }
 
-// ✅ Close Modal
-function closeAccountModal() {
-  document.getElementById("accountModal").style.display = "none";
-}
-
 // ✅ Monitor Authentication State Change
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -118,6 +113,11 @@ function logout() {
     .catch((error) => {
       alert("❌ Logout failed: " + error.message);
     });
+}
+
+// ✅ Close Modal
+function closeAccountModal() {
+  document.getElementById("accountModal").style.display = "none";
 }
 
 // ✅ Event Listener for Account Button
