@@ -49,6 +49,20 @@ window.login = function() {
         });
 };
 
+// ✅ Global Firebase Email/Password Signup
+window.signUp = function() {
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      closeAccountModal();  // Close the modal after successful signup
+    })
+    .catch((error) => {
+      console.error("Signup failed:", error.message);  // Log the error in the console if something goes wrong
+    });
+};
+
 // ✅ Global function to show the login form
 window.showLoginForm = function() {
   document.getElementById("loginForm").style.display = "block";
@@ -98,18 +112,6 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-};
-
-// ✅ Firebase Email/Password Signup
-function signUp() {
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Account created successfully!");
-      closeAccountModal();
-    });
 };
 
 // ✅ Event Listener for Account Button
