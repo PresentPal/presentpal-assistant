@@ -17,16 +17,15 @@ const firebaseConfig = {
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// ✅ Google Authentication Provider
 const provider = new GoogleAuthProvider();
-});
 
-console.log("Firebase Initialized:", auth);
-
-// ✅ Login Function Global Accessability
+// ✅ Login Function Global Accessibility
 window.login = function() {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
-    
+
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             alert("✅ Logged in successfully!");
@@ -53,9 +52,6 @@ function showLoginForm() {
     signupBtn.classList.remove("active");
 }
 
-document.getElementById("accountButton").addEventListener("click", function() {
-    console.log("✅ Account button clicked");
-
 // ✅ Function to Show Sign Up Form
 function showSignUpForm() {
   document.getElementById("signupForm").style.display = "block";
@@ -70,7 +66,7 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
-
+    
     // Bind logout function to the logout button after user is authenticated
     document.getElementById("logoutButton").addEventListener("click", logout);
   } else {
@@ -79,21 +75,6 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("logoutButton").style.display = "none";
   }
 });
-  
-// ✅ Firebase Email/Password Login
-function login() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Logged in successfully!");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-}
 
 // ✅ Firebase Email/Password Signup
 function signUp() {
@@ -102,11 +83,11 @@ function signUp() {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert("Account created successfully!");
+      alert("✅ Account created successfully!");
       closeAccountModal();
     })
     .catch((error) => {
-      alert("Signup failed: " + error.message);
+      alert("❌ Signup failed: " + error.message);
     });
 }
 
@@ -126,11 +107,11 @@ function loginWithGoogle() {
 function signupWithGoogle() {
   signInWithPopup(auth, provider)
     .then((result) => {
-      alert("Signed up as " + result.user.displayName);
+      alert("✅ Signed up as " + result.user.displayName);
       closeAccountModal();
     })
     .catch((error) => {
-      alert("Signup failed: " + error.message);
+      alert("❌ Signup failed: " + error.message);
     });
 }
 
@@ -159,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialize UI with login form visible
   showLoginForm();
+});
 
 // ✅ PWA Installation Handling
 let deferredPrompt;
