@@ -14,6 +14,14 @@ const firebaseConfig = {
   measurementId: "G-CF3XL2YYQ2"
 };
 
+// ✅ Global close modal function
+window.closeAccountModal = function () {
+  const modal = document.getElementById("accountModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+};
+
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
