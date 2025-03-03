@@ -45,7 +45,6 @@ window.login = function() {
     
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            alert("✅ Logged in successfully!");
             closeAccountModal();
         });
 };
@@ -117,11 +116,8 @@ function signUp() {
     .then((userCredential) => {
       alert("Account created successfully!");
       closeAccountModal();
-    })
-    .catch((error) => {
-      alert("Signup failed: " + error.message);
     });
-}
+};
 
 // ✅ Event Listener for Account Button
 document.addEventListener("DOMContentLoaded", function () {
