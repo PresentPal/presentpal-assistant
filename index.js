@@ -56,6 +56,7 @@ window.signUp = function() {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      alert("Your account has been created."); // Show alert after successful account creation
       closeAccountModal();  // Close the modal after successful signup
     })
     .catch((error) => {
