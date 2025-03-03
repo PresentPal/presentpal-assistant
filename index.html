@@ -339,21 +339,18 @@ button:hover {
   <div class="modal-content">
     <span class="close">&times;</span>
 
-  <!-- Login Form -->
+ <!-- Login Form -->
 <div id="loginForm" style="display: block;">
   <h2>Login</h2>
-  
-  <!-- Email Field -->
   <input type="email" id="loginEmail" placeholder="Email">
   
-  <!-- Password Field with Icon to toggle visibility -->
-  <div class="password-container">
-    <input type="password" id="loginPassword" placeholder="Password">
-    <span class="toggle-password" onclick="toggleLoginPasswordVisibility()">👁️‍🗨️</span>
+  <div class="password-field">
+      <input type="password" id="loginPassword" placeholder="Password">
+      <span class="toggle-icon" onclick="togglePasswordVisibility('loginPassword')">👁️‍🗨️</span> <!-- Eye Icon for Password Toggle -->
   </div>
 
-  <!-- Login Button -->
   <button id="loginButton" type="button" onclick="login()">Login</button>
+</div>
 
       <!-- Login with Google Button -->
 <!-- 
@@ -365,26 +362,21 @@ button:hover {
   </div>
 </div>
 
-  <!-- Signup Form -->
+<!-- Signup Form -->
 <div id="signupForm" style="display: none;">
   <h2>Sign Up</h2>
-  
-  <!-- Email Field -->
   <input type="email" id="signupEmail" placeholder="Email">
   
-  <!-- Password Field with Icon to toggle visibility -->
-  <div class="password-container">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️‍🗨️</span>
+  <div class="password-field">
+      <input type="password" id="signupPassword" placeholder="Password">
+      <span class="toggle-icon" onclick="togglePasswordVisibility('signupPassword')">👁️‍🗨️</span> <!-- Eye Icon for Password Toggle -->
   </div>
-  
-  <!-- Confirm Password Field with Icon to toggle visibility -->
-  <div class="password-container">
-    <input type="password" id="confirmPassword" placeholder="Confirm Password">
-    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️‍🗨️</span>
+
+  <div class="password-field">
+      <input type="password" id="confirmPassword" placeholder="Confirm Password">
+      <span class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword')">👁️‍🗨️</span> <!-- Eye Icon for Confirm Password Toggle -->
   </div>
-  
-  <!-- Sign Up Button -->
+
   <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
 </div>
     
