@@ -18,9 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-
-document.getElementById("accountButton").addEventListener("click", function() {
-    console.log("✅ Account button clicked");
 });
 
 console.log("Firebase Initialized:", auth);
@@ -40,23 +37,6 @@ window.login = function() {
         });
 };
 
-// ✅ Monitor Authentication State Change
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    document.getElementById("loginForm").style.display = "none";
-    document.getElementById("signupForm").style.display = "none";
-    document.getElementById("logoutButton").style.display = "block";
-
-    // Bind logout function to the logout button after user is authenticated
-    document.getElementById("logoutButton").addEventListener("click", logout);
-  } else {
-    document.getElementById("loginForm").style.display = "block";
-    document.getElementById("signupForm").style.display = "none";
-    document.getElementById("logoutButton").style.display = "none";
-  }
-});
-
-
 // ✅ Function to Show Login Form
 function showLoginForm() {
     const loginBtn = document.getElementById("loginToggleBtn");
@@ -73,6 +53,9 @@ function showLoginForm() {
     signupBtn.classList.remove("active");
 }
 
+document.getElementById("accountButton").addEventListener("click", function() {
+    console.log("✅ Account button clicked");
+
 // ✅ Function to Show Sign Up Form
 function showSignUpForm() {
   document.getElementById("signupForm").style.display = "block";
@@ -81,6 +64,22 @@ function showSignUpForm() {
   document.getElementById("loginToggleBtn").classList.remove("active");
 }
 
+// ✅ Monitor Authentication State Change
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("signupForm").style.display = "none";
+    document.getElementById("logoutButton").style.display = "block";
+
+    // Bind logout function to the logout button after user is authenticated
+    document.getElementById("logoutButton").addEventListener("click", logout);
+  } else {
+    document.getElementById("loginForm").style.display = "block";
+    document.getElementById("signupForm").style.display = "none";
+    document.getElementById("logoutButton").style.display = "none";
+  }
+});
+  
 // ✅ Firebase Email/Password Login
 function login() {
   const email = document.getElementById("loginEmail").value;
