@@ -28,12 +28,7 @@ var modal = document.getElementById("accountModal");
 var btn = document.getElementById("accountButton");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-accountButton.onclick = function() {
-  modal.style.display = "block";
-}
+var span = document.querySelector(".close");
 
 // ✅ Login Function Global Accessability
 window.login = function() {
@@ -97,21 +92,7 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-
-// ✅ Firebase Email/Password Login
-function login() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Logged in successfully!");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-}
+};
 
 // ✅ Firebase Email/Password Signup
 function signUp() {
