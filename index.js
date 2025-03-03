@@ -25,6 +25,21 @@ document.getElementById("accountButton").addEventListener("click", function() {
 
 console.log("Firebase Initialized:", auth);
 
+// ✅ Login Function Global Accessability
+window.login = function() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            alert("✅ Logged in successfully!");
+            closeAccountModal();
+        })
+        .catch((error) => {
+            alert("❌ Login failed: " + error.message);
+        });
+};
+
 // ✅ Function to Show Login Form
 function showLoginForm() {
   document.getElementById("loginForm").style.display = "block";
