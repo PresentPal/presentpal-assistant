@@ -163,8 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize UI with login form visible
   showLoginForm();
 
-});
-
 // ✅ PWA Installation Handling
 let deferredPrompt;
 const iosInstructions = document.getElementById('iosInstructions');
