@@ -198,14 +198,21 @@
         position: relative;
     }
 
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 24px;
-        cursor: pointer;
-    }
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
+  .close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+  
     /* Email/Password Form Styling */
     #loginForm, #signupForm {
         display: flex;
