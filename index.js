@@ -19,6 +19,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+document.getElementById("accountButton").addEventListener("click", function() {
+    console.log("✅ Account button clicked");
+});
+
 console.log("Firebase Initialized:", auth);
 
 // ✅ Function to Show Login Form
