@@ -53,14 +53,22 @@ window.login = function() {
 window.signUp = function() {
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
 
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    alert("Passwords do not match. Please try again.");
+    return; // Stop function if passwords do not match
+  }
+
+  // Proceed with account creation
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert("Your account has been created."); // Show alert after successful account creation
-      closeAccountModal();  // Close the modal after successful signup
+      alert("Your account has been created.");
+      closeAccountModal();
     })
     .catch((error) => {
-      console.error("Signup failed:", error.message);  // Log the error in the console if something goes wrong
+      alert("Signup failed: " + error.message);
     });
 };
 
@@ -114,6 +122,21 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 };
+
+// Toggle password visibility
+function togglePasswordVisibility() {
+  const passwordField = document.getElementById("signupPassword");
+  const confirmPasswordField = document.getElementById("confirmPassword");
+
+  // Check current type of the password field and toggle it
+  if (passwordField.type === "password") {
+    passwordField.type = "text";
+    confirmPasswordField.type = "text";
+  } else {
+    passwordField.type = "password";
+    confirmPasswordField.type = "password";
+  }
+}
 
 // ✅ Event Listener for Account Button
 document.addEventListener("DOMContentLoaded", function () {
