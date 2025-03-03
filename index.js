@@ -40,6 +40,23 @@ window.login = function() {
         });
 };
 
+// ✅ Monitor Authentication State Change
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("signupForm").style.display = "none";
+    document.getElementById("logoutButton").style.display = "block";
+
+    // Bind logout function to the logout button after user is authenticated
+    document.getElementById("logoutButton").addEventListener("click", logout);
+  } else {
+    document.getElementById("loginForm").style.display = "block";
+    document.getElementById("signupForm").style.display = "none";
+    document.getElementById("logoutButton").style.display = "none";
+  }
+});
+
+
 // ✅ Function to Show Login Form
 function showLoginForm() {
     const loginBtn = document.getElementById("loginToggleBtn");
@@ -120,15 +137,15 @@ function signupWithGoogle() {
     });
 }
 
-// ✅ Logout Function
+// ✅ Firebase Logout Function
 function logout() {
   signOut(auth)
     .then(() => {
-      alert("Logged out!");
+      alert("✅ Logged out successfully!");
       closeAccountModal();
     })
     .catch((error) => {
-      alert("Logout failed: " + error.message);
+      alert("❌ Logout failed: " + error.message);
     });
 }
 
@@ -146,18 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize UI with login form visible
   showLoginForm();
 
-  // ✅ Detect Auth State Change
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      document.getElementById("loginForm").style.display = "none";
-      document.getElementById("signupForm").style.display = "none";
-      document.getElementById("logoutButton").style.display = "block";
-    } else {
-      document.getElementById("loginForm").style.display = "block";
-      document.getElementById("signupForm").style.display = "none";
-      document.getElementById("logoutButton").style.display = "none";
-    }
-  });
 });
 
 // ✅ PWA Installation Handling
