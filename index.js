@@ -69,6 +69,18 @@ function showSignUpForm() {
   document.getElementById("loginToggleBtn").classList.remove("active");
 }
 
+// ✅ Ensure logout function is globally accessible
+window.logout = function () {
+  signOut(auth)
+    .then(() => {
+      alert("✅ Logged out successfully!");
+      closeAccountModal();
+    })
+    .catch((error) => {
+      alert("❌ Logout failed: " + error.message);
+    });
+};
+
 // ✅ Monitor Authentication State Change
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -93,19 +105,6 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 };
-
-// ✅ Ensure logout function is globally accessible
-window.logout = function () {
-  signOut(auth)
-    .then(() => {
-      alert("✅ Logged out successfully!");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("❌ Logout failed: " + error.message);
-    });
-};
-
 
 // ✅ Firebase Email/Password Signup
 function signUp() {
