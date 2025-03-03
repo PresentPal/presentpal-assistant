@@ -91,15 +91,22 @@ function signUp() {
     });
 }
 
-// ✅ Firebase Google Login
+// ✅ Google Login
 function loginWithGoogle() {
+  const provider = new GoogleAuthProvider(); // Create GoogleAuthProvider
+  const auth = getAuth();  // Get Firebase auth instance
+
+  // Sign-in with Google using the provider
   signInWithPopup(auth, provider)
     .then((result) => {
-      alert("✅ Logged in as " + result.user.displayName);
-      closeAccountModal();
+      // User signed in successfully
+      const user = result.user;  // Access the signed-in user's info
+      alert("Logged in as " + user.displayName);
+      closeAccountModal(); // Close modal after successful login
     })
     .catch((error) => {
-      alert("❌ Login failed: " + error.message);
+      // Handle any errors during login
+      alert("Login failed: " + error.message);
     });
 }
 
