@@ -94,6 +94,19 @@ window.onclick = function(event) {
   }
 };
 
+// ✅ Ensure logout function is globally accessible
+window.logout = function () {
+  signOut(auth)
+    .then(() => {
+      alert("✅ Logged out successfully!");
+      closeAccountModal();
+    })
+    .catch((error) => {
+      alert("❌ Logout failed: " + error.message);
+    });
+};
+
+
 // ✅ Firebase Email/Password Signup
 function signUp() {
   const email = document.getElementById("signupEmail").value;
@@ -107,19 +120,6 @@ function signUp() {
     .catch((error) => {
       alert("Signup failed: " + error.message);
     });
-}
-
-// ✅ Firebase Logout Function
-function logout() {
-  signOut(auth)
-    .then(() => {
-      alert("✅ Logged out successfully!");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("❌ Logout failed: " + error.message);
-    });
-
 }
 
 // ✅ Event Listener for Account Button
