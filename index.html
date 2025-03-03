@@ -64,6 +64,11 @@
         padding: 10px;
     }
 
+/* Navigation Buttons - Hover Color */
+.nav-button:hover {
+    background-color: lightgray; /* Change to light grey */
+}
+
     /* Navigation Images */
     .nav-button img {
         width: 28px;
@@ -224,11 +229,28 @@
         cursor: pointer;
         border: none;
         border-radius: 5px;
-    }
-
+      }
     button:hover {
         background-color: #333;
     }
+      /* Style for the "Sign Up" button on Login Form */
+#signupToggleBtn {
+    background-color: white;
+    color: black;
+    border: 2px solid black; /* Black border */
+}
+
+/* Style for the "Login" button on Sign-Up Form */
+#loginToggleBtn {
+    background-color: white;
+    color: black;
+    border: 2px solid black; /* Black border */
+}
+      
+/* Hover state for these buttons */
+#signupToggleBtn:hover, #loginToggleBtn:hover {
+    background-color: lightgray; /* Light grey on hover */
+    color: black;
 
     /* Remove the extra "Login" and "Sign Up" buttons */
     #authToggle button {
