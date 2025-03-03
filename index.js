@@ -21,6 +21,20 @@ const provider = new GoogleAuthProvider();
 
 console.log("Firebase Initialized:", auth);
 
+// Get the modal
+var modal = document.getElementById("accountModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("accountButton");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+accountButton.onclick = function() {
+  modal.style.display = "block";
+}
+
 // ✅ Login Function Global Accessability
 window.login = function() {
     const email = document.getElementById("loginEmail").value;
@@ -36,9 +50,6 @@ window.login = function() {
         });
 };
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
 // ✅ Function to Show Login Form
 function showLoginForm() {
     const loginBtn = document.getElementById("loginToggleBtn");
@@ -53,11 +64,6 @@ function showLoginForm() {
     document.getElementById("signupForm").style.display = "none";
     loginBtn.classList.add("active");
     signupBtn.classList.remove("active");
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
 }
 
 // ✅ Function to Show Sign Up Form
@@ -80,6 +86,17 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("logoutButton").style.display = "none";
   }
 });
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 
 // ✅ Firebase Email/Password Login
 function login() {
@@ -122,11 +139,6 @@ function logout() {
       alert("❌ Logout failed: " + error.message);
     });
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
 }
 
 // ✅ Event Listener for Account Button
