@@ -220,13 +220,25 @@
         align-items: center;
     }
 
-    /* Email and Password Fields Styling */
-    input[type="email"], input[type="password"], button {
-        width: 100%;  /* Full width */
-        padding: 10px;
-        margin: 10px 0;
-        box-sizing: border-box;
-    }
+    /* Styling for the email field */
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;  /* Border style for email input */
+    border-radius: 5px;
+}
+
+/* Styling for the password field */
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;  /* Border style for password input */
+    border-radius: 5px;
+}
 
     /* Login/Sign Up Buttons Styling */
     button {
@@ -240,6 +252,12 @@
     button:hover {
         background-color: #333;
     }
+
+  /* Positioning for the eye icon in the password field */
+.password-field {
+    position: relative;
+    width: 100%;
+}
       /* Style for the "Sign Up" button on Login Form */
 #signupToggleBtn {
     background-color: white;
@@ -317,39 +335,51 @@
   <div class="modal-content">
     <span class="close">&times;</span>
 
-   <!-- Login Form -->
-    <div id="loginForm" style="display: block;">
-      <h2>Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <input type="password" id="loginPassword" placeholder="Password">
-      <button id="loginButton" type="button" onclick="login()">Login</button>
+  <!-- Login Form -->
+<div id="loginForm" style="display: block;">
+  <h2>Login</h2>
+  
+  <!-- Email Field -->
+  <input type="email" id="loginEmail" placeholder="Email">
+  
+  <!-- Password Field with Icon to toggle visibility -->
+  <div class="password-container">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <span class="toggle-password" onclick="toggleLoginPasswordVisibility()">👁️‍🗨️</span>
+  </div>
+
+  <!-- Login Button -->
+  <button id="loginButton" type="button" onclick="login()">Login</button>
 
       <!-- Login with Google Button -->
 <!-- 
       <button type="button" onclick="loginWithGoogle()">Login with Google</button>
 -->
-      <!-- Only show sign up button on login form -->
-      <div id="loginFormToggle" style="display: block;">
-        <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
-      </div>
-    </div>
+     <!-- Only show sign up button on login form -->
+  <div id="loginFormToggle" style="display: block;">
+    <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
+  </div>
+</div>
 
-    <!-- Signup Form -->
+  <!-- Signup Form -->
 <div id="signupForm" style="display: none;">
   <h2>Sign Up</h2>
   
   <!-- Email Field -->
   <input type="email" id="signupEmail" placeholder="Email">
   
-  <!-- Password Field -->
-  <input type="password" id="signupPassword" placeholder="Password">
+  <!-- Password Field with Icon to toggle visibility -->
+  <div class="password-container">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️‍🗨️</span>
+  </div>
   
-  <!-- Confirm Password Field -->
-  <input type="password" id="confirmPassword" placeholder="Confirm Password">
+  <!-- Confirm Password Field with Icon to toggle visibility -->
+  <div class="password-container">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️‍🗨️</span>
+  </div>
   
-  <!-- Show/Hide Password Toggle -->
-  <button type="button" onclick="togglePasswordVisibility()">Show/Hide Password</button>
-
   <!-- Sign Up Button -->
   <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
 </div>
