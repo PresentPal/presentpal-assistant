@@ -73,8 +73,6 @@ function showLoginForm() {
     signupBtn.classList.remove("active");
 }
 
-const provider = new GoogleAuthProvider();
-
 // ✅ Function to Show Sign Up Form
 function showSignUpForm() {
   document.getElementById("signupForm").style.display = "block";
