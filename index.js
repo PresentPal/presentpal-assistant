@@ -95,14 +95,15 @@ function signUp() {
 }
 
 // ✅ Firebase Google Login
+// ✅ Firebase Google Login
 function loginWithGoogle() {
   signInWithPopup(auth, provider)
     .then((result) => {
-      alert("Logged in as " + result.user.displayName);
+      alert("✅ Logged in as " + result.user.displayName);
       closeAccountModal();
     })
     .catch((error) => {
-      alert("Login failed: " + error.message);
+      alert("❌ Login failed: " + error.message);
     });
 }
 
