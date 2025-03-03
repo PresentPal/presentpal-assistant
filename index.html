@@ -306,9 +306,11 @@
 </div>
 
 <!-- Account Modal -->
-<div id="accountModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeAccountModal()">&times;</span>
+<div id="accountModal" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span onclick="document.getElementById('accountModal').style.display='none'"
+      class="w3-button w3-display-topright">&times;</span>
 
    <!-- Login Form -->
     <div id="loginForm" style="display: block;">
