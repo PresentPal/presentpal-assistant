@@ -337,10 +337,23 @@
     <!-- Signup Form -->
 <div id="signupForm" style="display: none;">
   <h2>Sign Up</h2>
+  
+  <!-- Email Field -->
   <input type="email" id="signupEmail" placeholder="Email">
+  
+  <!-- Password Field -->
   <input type="password" id="signupPassword" placeholder="Password">
-  <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
+  
+  <!-- Confirm Password Field -->
+  <input type="password" id="confirmPassword" placeholder="Confirm Password">
+  
+  <!-- Show/Hide Password Toggle -->
+  <button type="button" onclick="togglePasswordVisibility()">Show/Hide Password</button>
 
+  <!-- Sign Up Button -->
+  <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
+</div>
+    
   <!-- Google Sign Up Button -->
 <!-- 
   <button type="button" onclick="signupWithGoogle()">Sign Up with Google</button>
