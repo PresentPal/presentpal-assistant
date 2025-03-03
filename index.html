@@ -311,10 +311,10 @@ button[type="button"]:hover {
     <span class="close" onclick="closeAccountModal()">&times;</span>
 
     <!-- Toggle buttons to switch between login and signup -->
-    <div id="authToggle">
-      <button onclick="showLoginForm()">Login</button>
-      <button onclick="showSignUpForm()">Sign Up</button>
-    </div>
+ <div id="authToggle" style="margin-bottom: 20px;">
+    <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
+    <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
+</div>
 
     <!-- Login Form -->
     <div id="loginForm" style="display: block;">
