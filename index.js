@@ -91,37 +91,6 @@ function signUp() {
     });
 }
 
-// ✅ Google Login
-function loginWithGoogle() {
-  const provider = new GoogleAuthProvider(); // Create GoogleAuthProvider
-  const auth = getAuth();  // Get Firebase auth instance
-
-  // Sign-in with Google using the provider
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // User signed in successfully
-      const user = result.user;  // Access the signed-in user's info
-      alert("Logged in as " + user.displayName);
-      closeAccountModal(); // Close modal after successful login
-    })
-    .catch((error) => {
-      // Handle any errors during login
-      alert("Login failed: " + error.message);
-    });
-}
-
-// ✅ Firebase Google Signup
-function signupWithGoogle() {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      alert("✅ Signed up as " + result.user.displayName);
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("❌ Signup failed: " + error.message);
-    });
-}
-
 // ✅ Firebase Logout Function
 function logout() {
   signOut(auth)
