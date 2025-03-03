@@ -39,9 +39,6 @@ window.login = function() {
         .then((userCredential) => {
             alert("✅ Logged in successfully!");
             closeAccountModal();
-        })
-        .catch((error) => {
-            alert("❌ Login failed: " + error.message);
         });
 };
 
@@ -75,9 +72,6 @@ window.logout = function () {
     .then(() => {
       alert("✅ Logged out successfully!");
       closeAccountModal();
-    })
-    .catch((error) => {
-      alert("❌ Logout failed: " + error.message);
     });
 };
 
