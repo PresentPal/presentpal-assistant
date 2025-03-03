@@ -49,29 +49,22 @@ window.login = function() {
         });
 };
 
-// ✅ Function to Show Login Form
-function showLoginForm() {
-    const loginBtn = document.getElementById("loginToggleBtn");
-    const signupBtn = document.getElementById("signupToggleBtn");
+// ✅ Global function to show the login form
+window.showLoginForm = function() {
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("loginToggleBtn").classList.add("active");
+  document.getElementById("signupToggleBtn").classList.remove("active");
+};
 
-    if (!loginBtn || !signupBtn) {
-        console.error("❌ Elements not found! Check if loginToggleBtn and signupToggleBtn exist.");
-        return;
-    }
-
-    document.getElementById("loginForm").style.display = "block";
-    document.getElementById("signupForm").style.display = "none";
-    loginBtn.classList.add("active");
-    signupBtn.classList.remove("active");
-}
-
-// ✅ Function to Show Sign Up Form
-function showSignUpForm() {
+// ✅ Global function to show the signup form
+window.showSignUpForm = function() {
   document.getElementById("signupForm").style.display = "block";
   document.getElementById("loginForm").style.display = "none";
   document.getElementById("signupToggleBtn").classList.add("active");
   document.getElementById("loginToggleBtn").classList.remove("active");
-}
+};
+
 
 // ✅ Ensure logout function is globally accessible
 window.logout = function () {
