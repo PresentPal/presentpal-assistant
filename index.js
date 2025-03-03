@@ -19,6 +19,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+console.log("Firebase Initialized:", auth);
+
 // ✅ Function to Show Login Form
 function showLoginForm() {
   document.getElementById("loginForm").style.display = "block";
