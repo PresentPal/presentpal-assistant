@@ -176,27 +176,27 @@
         background-color: #f9f9f9;
     }
 
-    /* Modal Styles */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.5);
-    }
+   /* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
-    .modal-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border-radius: 10px;
-        width: 300px;
-        text-align: center;
-        position: relative;
-    }
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 320px; /* Adjust the modal width */
+    text-align: center;
+    position: relative;
+}
 
 /* The Close Button */
 .close {
@@ -206,76 +206,80 @@
   font-weight: bold;
 }
 
-  .close:hover,
+.close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-  
-    /* Email/Password Form Styling */
-    #loginForm, #signupForm {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 
-    /* Styling for the email field */
-input[type="email"] {
-    width: 100%;
+/* Email/Password Form Styling */
+#loginForm, #signupForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styling for the email field */
+input[type="email"], input[type="password"] {
+    width: 100%;  /* Full width */
     padding: 10px;
     margin: 10px 0;
     box-sizing: border-box;
-    border: 2px solid #ccc;  /* Border style for email input */
+    border: 2px solid #ccc;  /* Border style for inputs */
     border-radius: 5px;
 }
 
-/* Styling for the password field */
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    box-sizing: border-box;
-    border: 2px solid #ccc;  /* Border style for password input */
+/* Styling for the login and sign-up buttons */
+button {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
     border-radius: 5px;
+    width: 100%;  /* Full width of the form */
 }
 
-    /* Login/Sign Up Buttons Styling */
-    button {
-        background-color: black;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-      }
-    button:hover {
-        background-color: #333;
-    }
+button:hover {
+    background-color: #333;
+}
 
-  /* Positioning for the eye icon in the password field */
+/* Positioning for the eye icon in the password field */
 .password-field {
     position: relative;
     width: 100%;
 }
-      /* Style for the "Sign Up" button on Login Form */
+
+/* Eye Icon inside Password Field */
+.password-field .toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;  /* Make the icon smaller if needed */
+}
+
+/* Style for the "Sign Up" button on Login Form */
 #signupToggleBtn {
     background-color: white;
     color: black;
-    border: 2px solid black; /* Black border */
+    border: 2px solid black;  /* Black border */
 }
 
 /* Style for the "Login" button on Sign-Up Form */
 #loginToggleBtn {
     background-color: white;
     color: black;
-    border: 2px solid black; /* Black border */
+    border: 2px solid black;  /* Black border */
 }
-      
+
 /* Hover state for these buttons */
 #signupToggleBtn:hover, #loginToggleBtn:hover {
-    background-color: lightgray; /* Light grey on hover */
+    background-color: lightgray;  /* Light grey on hover */
     color: black;
+}
 
     /* Remove the extra "Login" and "Sign Up" buttons */
     #authToggle button {
