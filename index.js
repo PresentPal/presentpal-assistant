@@ -17,15 +17,15 @@ const firebaseConfig = {
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// ✅ Google Authentication Provider
 const provider = new GoogleAuthProvider();
 
-console.log("Firebase Initialized:", auth);
-
-// ✅ Login Function Global Accessability
+// ✅ Login Function Global Accessibility
 window.login = function() {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
-    
+
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             alert("✅ Logged in successfully!");
@@ -66,27 +66,15 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
+    
+    // Bind logout function to the logout button after user is authenticated
+    document.getElementById("logoutButton").addEventListener("click", logout);
   } else {
     document.getElementById("loginForm").style.display = "block";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
   }
 });
-
-// ✅ Firebase Email/Password Login
-function login() {
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Logged in successfully!");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("Login failed: " + error.message);
-    });
-}
 
 // ✅ Firebase Email/Password Signup
 function signUp() {
@@ -95,11 +83,11 @@ function signUp() {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert("Account created successfully!");
+      alert("✅ Account created successfully!");
       closeAccountModal();
     })
     .catch((error) => {
-      alert("Signup failed: " + error.message);
+      alert("❌ Signup failed: " + error.message);
     });
 }
 
@@ -125,6 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("accountButton").addEventListener("click", function () {
     document.getElementById("accountModal").style.display = "block";
   });
+
+  // Initialize UI with login form visible
+  showLoginForm();
 });
 
 // ✅ PWA Installation Handling
