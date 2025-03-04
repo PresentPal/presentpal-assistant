@@ -248,12 +248,12 @@ const userAgent = window.navigator.userAgent;
 if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
     iosInstructions.style.display = 'block'; // Show iOS instructions at the top
 }
-
+/*
 // ✅ Stripe Integration
 const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s");
 
 // ✅ Function to Redirect to Stripe Checkout
-function redirectToCheckout(priceId) {
+ function redirectToCheckout(priceId) {
     stripe.redirectToCheckout({
         lineItems: [{ price: priceId, quantity: 1 }],
         mode: "subscription", // Subscription mode for recurring payments
@@ -265,7 +265,7 @@ function redirectToCheckout(priceId) {
         }
     });
 }
-
+*/
 // ✅ Add Event Listeners for Subscription Buttons
 document.addEventListener("DOMContentLoaded", function () {
     const selectPlus = document.getElementById("selectPlus");
