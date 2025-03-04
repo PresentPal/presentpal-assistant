@@ -10,13 +10,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
     
      <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
+       body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    min-height: 100vh; /* Ensure body takes up at least full height */
+    overflow-x: hidden; /* Prevent horizontal overflow if necessary */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
 
         header {
             background-color: #f9f9f9;
