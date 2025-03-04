@@ -1,6 +1,6 @@
 // ✅ Firebase SDK Import
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } 
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider } 
 from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
@@ -20,6 +20,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
+
+console.log("Firebase Initialized:", auth);
 
 // ✅ Global close modal function
 window.closeAccountModal = function () {
@@ -151,7 +153,7 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
     
-    // Make sure the navigation buttons are visible for logged in users
+    // Show all navigation buttons for logged-in users
     homeButton.style.display = "block";
     accountButton.style.display = "block";
     upgradeButton.style.display = "block";
