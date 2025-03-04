@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>PresentPal</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PresentPal</title>
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
@@ -231,6 +227,7 @@ input[type="email"], input[type="password"] {
 }
 
 /* Styling for the login and sign-up buttons */
+/* Fix spacing for buttons */
 button {
     background-color: black;
     color: white;
@@ -239,8 +236,9 @@ button {
     border: none;
     border-radius: 5px;
     width: 100%;
-    padding: 12px;  /* Increase padding to fix button height */
-    font-size: 16px;  /* Make text easier to read */
+    padding: 12px; /* Fix button height */
+    font-size: 16px;
+    margin-top: 10px; /* Add spacing between buttons */
 }
 
 button:hover {
@@ -248,9 +246,28 @@ button:hover {
 }
 
 /* Positioning for the eye icon in the password field */
+/* Fix spacing for password field & icon */
 .password-field {
     position: relative;
     width: 100%;
+    margin-bottom: 15px; /* Add spacing between fields */
+}
+
+/* Fix password input fields from shrinking */
+.password-field input {
+    width: 100%;
+    height: 40px; /* Keep height consistent */
+    padding-right: 40px; /* Make space for the eye icon */
+}
+
+/* Fix the toggle icon */
+.password-field .toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
 }
 
 /* Eye Icon inside Password Field */
@@ -370,32 +387,29 @@ button:hover {
   </div>
 </div>
 
-<!-- Signup Form -->
-<div id="signupForm" style="display: none;">
-  <h2>Sign Up</h2>
+    <div id="signupForm" style="display: none;">
+      <h2>Sign Up</h2>
+      <input type="email" id="signupEmail" placeholder="Email">
+      
+      <div class="password-field">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁‍🗨</span>
+      </div>
 
-  <div class="password-field">
-    <input type="email" id="signupEmail" placeholder="Email">
-  </div>
+      <div class="password-field">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password">
+        <span id="toggleConfirmPassword" class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁‍🗨</span>
+      </div>
 
-  <div class="password-field">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁‍🗨</span>
-  </div>
+      <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
 
-  <div class="password-field">
-    <input type="password" id="confirmPassword" placeholder="Confirm Password">
-    <span id="toggleConfirmPassword" class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁‍🗨</span>
-  </div>
+      <div id="signupFormToggle" style="display: block;">
+        <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
+      </div>
+    </div>
 
-  <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
-
-  <!-- Toggle button to switch to login -->
-  <div id="signupFormToggle" style="display: block;">
-    <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
   </div>
 </div>
-
     
     <!-- Logout Button -->
     <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
