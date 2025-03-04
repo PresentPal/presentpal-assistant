@@ -18,7 +18,7 @@
     <link rel="manifest" href="/manifest.json">
 
 <style>
-   /* General Styles */
+ /* General Styles */
 body, html {
     margin: 0;
     padding: 0;
@@ -29,7 +29,6 @@ body, html {
     display: flex;
     flex-direction: column;
 }
-
     /* Navigation Bar */
     .nav-bar {
         background-color: white;
@@ -218,6 +217,7 @@ body, html {
     align-items: center;
     width: 100%;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Styling for the email and password fields */
@@ -229,9 +229,11 @@ input[type="email"], input[type="password"] {
     border: 2px solid #ccc;  /* Border style for inputs */
     border-radius: 5px;
     padding-right: 40px; /* Add space for the eye icon */
+    margin-right: 10px;  /* Add space on the right side */
 }
 
 /* Styling for the login and sign-up buttons */
+/* Fix spacing for buttons */
 button {
     background-color: black;
     color: white;
@@ -264,9 +266,10 @@ button:hover {
     border: 2px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    margin-right: 10px;  /* Add space on the right side */
 }
 
-/* Fix the toggle icon inside the password field */
+/* Fix the toggle icon */
 .password-field .toggle-icon {
     position: absolute;
     right: 10px;
