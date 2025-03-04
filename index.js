@@ -3,7 +3,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebas
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } 
 from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-// ✅ Firebase Configuration
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+// ✅ Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
   authDomain: "presentpal-9c74e.firebaseapp.com",
@@ -14,15 +16,10 @@ const firebaseConfig = {
   measurementId: "G-CF3XL2YYQ2"
 };
 
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-
-// ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
-
-console.log("Firebase Initialized:", auth);
 
 // ✅ Global close modal function
 window.closeAccountModal = function () {
@@ -90,7 +87,6 @@ window.showLoginForm = function() {
   document.getElementById("loginForm").style.display = "block";
   document.getElementById("signupForm").style.display = "none";
 
-  // Correct toggle visibility
   document.getElementById("loginFormToggle").style.display = "block"; // Show sign-up toggle
   document.getElementById("signupFormToggle").style.display = "none"; // Hide login toggle
 };
@@ -100,7 +96,6 @@ window.showSignUpForm = function() {
   document.getElementById("signupForm").style.display = "block";
   document.getElementById("loginForm").style.display = "none";
 
-  // Correct toggle visibility
   document.getElementById("signupFormToggle").style.display = "block"; // Show login toggle
   document.getElementById("loginFormToggle").style.display = "none"; // Hide sign-up toggle
 };
@@ -113,13 +108,12 @@ window.logout = function () {
       closeAccountModal();
 
     // Clear input fields
-   document.getElementById("loginEmail").value = "";
-   document.getElementById("loginPassword").value = "";
-   document.getElementById("signupEmail").value = "";
-   document.getElementById("signupPassword").value = "";
-   document.getElementById("confirmPassword").value = "";
-
-    });
+    document.getElementById("loginEmail").value = "";
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("signupEmail").value = "";
+    document.getElementById("signupPassword").value = "";
+    document.getElementById("confirmPassword").value = "";
+  });
 };
 
 // ✅ Check User Subscription Status
@@ -196,38 +190,3 @@ const userAgent = window.navigator.userAgent;
 if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
     iosInstructions.style.display = 'block'; // Show iOS instructions at the top
 }
-/*
-// ✅ Stripe Integration
-const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s");
-
-// ✅ Function to Redirect to Stripe Checkout
-function redirectToCheckout(priceId) {
-    stripe.redirectToCheckout({
-        lineItems: [{ price: priceId, quantity: 1 }],
-        mode: "subscription", // Subscription mode for recurring payments
-        successUrl: "https://presentpal.uk/success.html", // Redirect after successful payment
-        cancelUrl: "https://presentpal.uk/subscription-plans.html" // Redirect if user cancels payment
-    }).then((result) => {
-        if (result.error) {
-            alert(result.error.message);
-        }
-    });
-} */
-
-// ✅ Add Event Listeners for Subscription Buttons
-document.addEventListener("DOMContentLoaded", function () {
-    const selectPlus = document.getElementById("selectPlus");
-    const selectPremium = document.getElementById("selectPremium");
-
-    if (selectPlus) {
-        selectPlus.addEventListener("click", function () {
-            redirectToCheckout("price_1QxRLML0iXZqwWyU8I15Elna"); // Replace with your Stripe Price ID for Plus
-        });
-    }
-
-    if (selectPremium) {
-        selectPremium.addEventListener("click", function () {
-            redirectToCheckout("price_1QxRTTL0iXZqwWyUNyWg3oPh"); // Replace with your Stripe Price ID for Premium
-        });
-    }
-});
