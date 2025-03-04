@@ -226,7 +226,6 @@ if (!isPWAInstalled()) {
         event.stopPropagation();
         androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
     });
-}
 
 // Hide iOS instructions if installed
 if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
