@@ -38,6 +38,20 @@ var btn = document.getElementById("accountButton");
 // Get the <span> element that closes the modal
 var span = document.querySelector(".close");
 
+// ✅ Toggle password visibility function (global)
+window.togglePasswordVisibility = function(fieldId, iconId) {
+  const passwordField = document.getElementById(fieldId);
+  const toggleIcon = document.getElementById(iconId);
+
+  if (passwordField.type === "password") {
+    passwordField.type = "text"; // Show password
+    toggleIcon.textContent = "👁"; // Open eye icon
+  } else {
+    passwordField.type = "password"; // Hide password
+    toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
+  }
+};
+
 // ✅ Login Function Global Accessability
 window.login = function() {
     const email = document.getElementById("loginEmail").value;
@@ -72,21 +86,26 @@ window.signUp = function() {
     });
 };
 
-// ✅ Global function to show the login form
+// ✅ Global Function to Show Login Form
 window.showLoginForm = function() {
   document.getElementById("loginForm").style.display = "block";
   document.getElementById("signupForm").style.display = "none";
-  document.getElementById("loginToggleBtn").classList.add("active");
-  document.getElementById("signupToggleBtn").classList.remove("active");
+
+  // Correct toggle visibility
+  document.getElementById("loginFormToggle").style.display = "block"; // Show sign-up toggle
+  document.getElementById("signupFormToggle").style.display = "none"; // Hide login toggle
 };
 
-// ✅ Global function to show the signup form
+// ✅ Global Function to Show Sign Up Form
 window.showSignUpForm = function() {
   document.getElementById("signupForm").style.display = "block";
   document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupToggleBtn").classList.add("active");
-  document.getElementById("loginToggleBtn").classList.remove("active");
+
+  // Correct toggle visibility
+  document.getElementById("signupFormToggle").style.display = "block"; // Show login toggle
+  document.getElementById("loginFormToggle").style.display = "none"; // Hide sign-up toggle
 };
+
 
 
 // ✅ Ensure logout function is globally accessible
@@ -122,11 +141,6 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 };
-
-// Toggle password visibility
-function togglePasswordVisibility() {
-  const passwordField = document.getElementById("signupPassword");
-  const confirmPasswordField = document.getElementById("confirmPassword");
 
   // Check current type of the password field and toggle it
   if (passwordField.type === "password") {
