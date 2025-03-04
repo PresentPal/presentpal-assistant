@@ -8,6 +8,10 @@
  <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+
+<script async
+  src="https://js.stripe.com/v3/buy-button.js">
+</script>
     
      <style>
 body {
@@ -295,11 +299,19 @@ button:hover {
     <section class="plans-container">
         <div class="plan">
             <img src="presentpal-plus.png" alt="PresentPal+">
-            <button id="selectPlus">Select</button> <!-- Stripe Checkout for Plus Plan -->
+            <stripe-buy-button
+              buy-button-id="buy_btn_1QyvDPL0iXZqwWyUV35kBShf" 
+              publishable-key="pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s"
+            >
+            </stripe-buy-button>
         </div>
         <div class="plan">
             <img src="presentpal-premium.png" alt="PresentPal Premium">
-            <button id="selectPremium">Select</button> <!-- Stripe Checkout for Premium Plan -->
+            <stripe-buy-button
+              buy-button-id="buy_btn_1QxdqnL0iXZqwWyU02FgYI6H"
+              publishable-key="pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s"
+            >
+            </stripe-buy-button>
         </div>
     </section>
 </main>
