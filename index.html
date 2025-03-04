@@ -253,13 +253,15 @@ button:hover {
     margin-bottom: 15px; /* Add spacing between fields */
 }
 
-/* Fix password input fields from shrinking */
 .password-field input {
     width: 100%;
-    height: 40px; /* Keep height consistent */
-    padding-right: 40px; /* Make space for the eye icon */
+    height: 40px; /* Set a fixed height */
+    padding-right: 40px; /* Ensure space for the eye icon */
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
-
+  
 /* Fix the toggle icon */
 .password-field .toggle-icon {
     position: absolute;
