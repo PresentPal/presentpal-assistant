@@ -33,8 +33,7 @@ header {
     justify-content: center;
     flex-wrap: wrap; /* Allow wrapping of elements */
     margin: 40px;
-    gap: 20px; /* Add space between the containers */
-    width: 100%;
+    justify-content: space-evenly;  /* Ensures even distribution */
 }
 
 /* Each plan container styling */
@@ -44,7 +43,7 @@ header {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 300px;
-    margin: 10px;  /* Small margin for spacing */
+    margin: 10px;  /* Add small margin to keep spacing consistent */
     display: flex;
     flex-direction: column; /* Stack content vertically */
     align-items: center; /* Center the content */
@@ -96,7 +95,7 @@ header {
         flex-direction: column; /* Stack containers vertically */
         align-items: center; /* Center the content */
         gap: 20px; /* Add space between each plan */
-        padding: 0 10px; /* Add some padding on the sides for mobile */
+        padding: 0 20px; /* Add some padding on the sides for mobile */
     }
     .plan {
         width: 100%; /* Ensure plans take full width on small screens */
