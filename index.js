@@ -134,14 +134,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("accountModal");
   const span = document.querySelector(".close");
 
-  // ✅ Android Bubble: Adds to Home Screen
-    const androidBubble = document.getElementById("androidBubble");
-    
-    if (androidBubble) {
-        androidBubble.addEventListener("click", () => {
-            androidBubble.style.display = "none";
-        });
-    }
+  // ✅ Android Bubble: Adds to Home Screen (Handled once)
+  const androidBubble = document.getElementById("androidBubble");
+  if (androidBubble) {
+    androidBubble.addEventListener("click", () => {
+        androidBubble.style.display = "none"; // Close the bubble on click
+    });
+  }
 
   // ✅ Account Button: Opens Modal
   document.getElementById("accountButton").addEventListener("click", function () {
@@ -177,11 +176,9 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 });
 
-
 // ✅ PWA Installation Handling
 let deferredPrompt;
 const iosInstructions = document.getElementById('iosInstructions');
-const androidBubble = document.getElementById('androidBubble');
 const closeBubble = document.getElementById('closeBubble');
 
 // Function to check if PWA is installed
@@ -193,7 +190,6 @@ function isPWAInstalled() {
 function checkInstallationStatus() {
     if (isPWAInstalled()) {
         iosInstructions.style.display = 'none';
-        androidBubble.style.display = 'none';
     }
 }
 
@@ -206,41 +202,7 @@ if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
     iosInstructions.style.display = 'block'; // Show iOS instructions at the top
 }
 
-// Handle beforeinstallprompt for Android
-if (!isPWAInstalled()) {
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        androidBubble.style.display = 'block'; // Show floating speech bubble for Android
-    });
-
-    androidBubble.addEventListener('click', () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(choiceResult => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User installed the app');
-                    androidBubble.style.display = 'none'; // Hide after installation
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                deferredPrompt = null;
-            });
-        }
-    });
-
-    closeBubble.addEventListener('click', (event) => {
-        event.stopPropagation();
-        androidBubble.style.display = 'none'; // Hide when "Hide" is clicked
-    });
-}
-
-// Hide iOS instructions if installed
-if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
-    iosInstructions.style.display = 'none';
-}
-
-// ✅ Initialize Stripe (Replace with your actual publishable key)
+// ✅ Stripe Integration
 const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s");
 
 // ✅ Function to Redirect to Stripe Checkout
