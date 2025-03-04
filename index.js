@@ -5,7 +5,7 @@ from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
-// ✅ Initialize Firebase
+// ✅ Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
   authDomain: "presentpal-9c74e.firebaseapp.com",
@@ -140,6 +140,9 @@ function checkSubscriptionStatus(user) {
 
 onAuthStateChanged(auth, (user) => {
   const dashboardButton = document.getElementById("dashboardButton");
+  const homeButton = document.getElementById("homeButton");
+  const accountButton = document.getElementById("accountButton");
+  const upgradeButton = document.getElementById("upgradeButton");
 
   if (user) {
     checkSubscriptionStatus(user); // Check subscription status when user is logged in
@@ -147,8 +150,16 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
+    
+    // Make sure the navigation buttons are visible for logged in users
+    homeButton.style.display = "block";
+    accountButton.style.display = "block";
+    upgradeButton.style.display = "block";
   } else {
     dashboardButton.style.display = "none"; // Hide the dashboard button when logged out
+    homeButton.style.display = "none";
+    accountButton.style.display = "none";
+    upgradeButton.style.display = "none";
     document.getElementById("loginForm").style.display = "block";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
@@ -161,6 +172,28 @@ document.addEventListener("DOMContentLoaded", function () {
     if (dashboardButton) {
         dashboardButton.addEventListener("click", function () {
             window.location.href = "dashboard.html"; // Redirect to the dashboard page
+        });
+    }
+
+    // Add event listeners for Home, Account, and Upgrade buttons
+    const homeButton = document.getElementById("homeButton");
+    if (homeButton) {
+        homeButton.addEventListener("click", function () {
+            window.location.href = "https://presentpal.uk"; // Redirect to home page
+        });
+    }
+
+    const accountButton = document.getElementById("accountButton");
+    if (accountButton) {
+        accountButton.addEventListener("click", function () {
+            window.location.href = "account.html"; // Redirect to account page
+        });
+    }
+
+    const upgradeButton = document.getElementById("upgradeButton");
+    if (upgradeButton) {
+        upgradeButton.addEventListener("click", function () {
+            window.location.href = "subscription-plans.html"; // Redirect to subscription plans page
         });
     }
 });
