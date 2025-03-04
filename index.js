@@ -16,6 +16,14 @@ const firebaseConfig = {
 
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
+// ✅ Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+
+console.log("Firebase Initialized:", auth);
+
 // ✅ Global close modal function
 window.closeAccountModal = function () {
   const modal = document.getElementById("accountModal");
@@ -37,18 +45,6 @@ window.togglePasswordVisibility = function(fieldId, iconId) {
     toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
   }
 };
-
-// ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-console.log("Firebase Initialized:", auth);
-
-const db = getFirestore(app);
-
-// Get the button that opens the modal
-var btn = document.getElementById("accountButton");
 
 // ✅ Login Function Global Accessability
 window.login = function() {
@@ -130,48 +126,42 @@ window.logout = function () {
 function checkSubscriptionStatus(user) {
     if (!user) return;
 
-    user.getIdTokenResult().then((idTokenResult) => {
-        // Modify this condition once you integrate Firebase backend functions
-        if (idTokenResult.claims.subscribedUser) { 
-            document.getElementById("dashboardButton").style.display = "block";
+    // Fetch user's subscription status from Firestore
+    const userRef = doc(db, "users", user.uid);
+    getDoc(userRef).then((docSnap) => {
+        if (docSnap.exists()) {
+            const userData = docSnap.data();
+            if (userData.subscription === "subscribedUser") { // Check for "subscribedUser"
+                document.getElementById("dashboardButton").style.display = "block"; // Show dashboard button for subscribed users
+            } else {
+                document.getElementById("dashboardButton").style.display = "none"; // Hide dashboard button for non-subscribed users
+            }
+        } else {
+            console.log("No such document!");
         }
     }).catch((error) => {
-        console.error("Error checking subscription status:", error);
+        console.log("Error getting document:", error);
     });
 }
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, (user) => {
   const dashboardButton = document.getElementById("dashboardButton");
 
   if (user) {
-    // ✅ Fetch user's subscription status from Firestore
-    const userDoc = await getDoc(doc(db, "users", user.uid));
-
-    if (userDoc.exists()) {
-      const subscription = userDoc.data().subscription;
-
-      if (subscription === "paid") {
-        dashboardButton.style.display = "block"; // Show Dashboard button for paying users
-      } else {
-        dashboardButton.style.display = "none"; // Hide it for free users
-      }
-    }
+    checkSubscriptionStatus(user); // Check subscription status when user is logged in
 
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
   } else {
-    dashboardButton.style.display = "none"; // Hide Dashboard when logged out
+    dashboardButton.style.display = "none"; // Hide the dashboard button when logged out
     document.getElementById("loginForm").style.display = "block";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById("accountModal");
-  const span = document.querySelector(".close");
-
+// ✅ Add Event Listener for Dashboard Button
 document.addEventListener("DOMContentLoaded", function () {
     const dashboardButton = document.getElementById("dashboardButton");
     if (dashboardButton) {
@@ -179,48 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = "dashboard.html"; // Redirect to the dashboard page
         });
     }
-});
-
-  // ✅ Android Bubble: Adds to Home Screen (Handled once)
-  const androidBubble = document.getElementById("androidBubble");
-  if (androidBubble) {
-    androidBubble.addEventListener("click", () => {
-        androidBubble.style.display = "none"; // Close the bubble on click
-    });
-  }
-
-  // ✅ Account Button: Opens Modal
-  document.getElementById("accountButton").addEventListener("click", function () {
-    modal.style.display = "block";
-  });
-
-  // ✅ Home Button Navigation
-  const homeButton = document.getElementById("homeButton");
-  if (homeButton) {
-    homeButton.addEventListener("click", function () {
-      window.location.href = "https://presentpal.uk";
-    });
-  }
-
-  // ✅ Upgrade Button Navigation
-  const upgradeButton = document.getElementById("upgradeButton");
-  if (upgradeButton) {
-    upgradeButton.addEventListener("click", function () {
-      window.location.href = "subscription-plans.html"; // Update with the correct URL if needed
-    });
-  }
-
-  // ✅ Close Modal when clicking 'X'
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
-
-  // ✅ Close Modal when clicking outside
-  window.onclick = function(event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  };
 });
 
 // ✅ PWA Installation Handling
@@ -248,12 +196,12 @@ const userAgent = window.navigator.userAgent;
 if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
     iosInstructions.style.display = 'block'; // Show iOS instructions at the top
 }
-/*
+
 // ✅ Stripe Integration
 const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s");
 
 // ✅ Function to Redirect to Stripe Checkout
- function redirectToCheckout(priceId) {
+function redirectToCheckout(priceId) {
     stripe.redirectToCheckout({
         lineItems: [{ price: priceId, quantity: 1 }],
         mode: "subscription", // Subscription mode for recurring payments
@@ -265,7 +213,7 @@ const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxT
         }
     });
 }
-*/
+
 // ✅ Add Event Listeners for Subscription Buttons
 document.addEventListener("DOMContentLoaded", function () {
     const selectPlus = document.getElementById("selectPlus");
