@@ -191,12 +191,14 @@ body, html {
     width: 320px; /* Adjust the modal width */
     text-align: center;
     position: relative;
+    /* Add a bit of bottom padding when on desktop */
+    padding-bottom: 30px;  /* Add space at the bottom */
 }
 
 /* The Close Button */
 .close {
     color: #aaa;
-    position: absolute;  /* Fix position to the top right */
+    position: absolute; /* Fix position to the top right */
     top: 10px;
     right: 20px;
     font-size: 28px;
@@ -224,12 +226,11 @@ body, html {
 input[type="email"], input[type="password"] {
     width: 100%;  /* Full width */
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px 0;  /* Ensure consistent margin between fields */
     box-sizing: border-box;
     border: 2px solid #ccc;  /* Border style for inputs */
     border-radius: 5px;
     padding-right: 40px; /* Add space for the eye icon */
-    margin-right: 10px;  /* Add space on the right side */
 }
 
 /* Styling for the login and sign-up buttons */
@@ -279,6 +280,11 @@ button:hover {
     font-size: 18px;
 }
 
+/* Ensure the input fields retain consistent spacing even with toggle */
+.password-field input[type="password"], .password-field input[type="text"] {
+    padding-right: 40px; /* Ensure right padding is maintained when the icon is visible */
+}
+
 /* Style for the "Sign Up" button on Login Form */
 #signupToggleBtn {
     background-color: white;
@@ -305,6 +311,12 @@ button:hover {
     color: black;
 }
 
+/* Add space at the bottom of the form (for desktop) */
+@media (min-width: 768px) {
+    .modal-content {
+        padding-bottom: 40px; /* More space at the bottom on larger screens */
+    }
+}
     /* Remove the extra "Login" and "Sign Up" buttons */
     #authToggle button {
         display: none;
