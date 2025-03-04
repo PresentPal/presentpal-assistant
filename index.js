@@ -232,15 +232,15 @@ if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
 }
 
 // ✅ Initialize Stripe (Replace with your actual publishable key)
-const stripe = Stripe("your-publishable-key-here");
+const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s");
 
 // ✅ Function to Redirect to Stripe Checkout
 function redirectToCheckout(priceId) {
     stripe.redirectToCheckout({
         lineItems: [{ price: priceId, quantity: 1 }],
         mode: "subscription", // Subscription mode for recurring payments
-        successUrl: "https://yourwebsite.com/success.html", // Redirect after successful payment
-        cancelUrl: "https://yourwebsite.com/cancel.html" // Redirect if user cancels payment
+        successUrl: "https://presentpal.uk/success.html", // Redirect after successful payment
+        cancelUrl: "https://presentpal.uk/subscription-plans.html" // Redirect if user cancels payment
     }).then((result) => {
         if (result.error) {
             alert(result.error.message);
@@ -255,13 +255,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (selectPlus) {
         selectPlus.addEventListener("click", function () {
-            redirectToCheckout("price_123456789"); // Replace with your Stripe Price ID for Plus
+            redirectToCheckout("price_1QxRLML0iXZqwWyU8I15Elna"); // Replace with your Stripe Price ID for Plus
         });
     }
 
     if (selectPremium) {
         selectPremium.addEventListener("click", function () {
-            redirectToCheckout("price_987654321"); // Replace with your Stripe Price ID for Premium
+            redirectToCheckout("price_1QxRTTL0iXZqwWyUNyWg3oPh"); // Replace with your Stripe Price ID for Premium
         });
     }
 });
