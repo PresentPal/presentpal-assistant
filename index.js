@@ -14,6 +14,20 @@ const firebaseConfig = {
   measurementId: "G-CF3XL2YYQ2"
 };
 
+// ✅ Toggle password visibility function (global)
+window.togglePasswordVisibility = function(fieldId, iconId) {
+  const passwordField = document.getElementById(fieldId);
+  const toggleIcon = document.getElementById(iconId);
+
+  if (passwordField.type === "password") {
+    passwordField.type = "text"; // Show password
+    toggleIcon.textContent = "👁"; // Open eye icon
+  } else {
+    passwordField.type = "password"; // Hide password
+    toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
+  }
+};
+
 // ✅ Global close modal function
 window.closeAccountModal = function () {
   const modal = document.getElementById("accountModal");
@@ -37,20 +51,6 @@ var btn = document.getElementById("accountButton");
 
 // Get the <span> element that closes the modal
 var span = document.querySelector(".close");
-
-// ✅ Toggle password visibility function (global)
-window.togglePasswordVisibility = function(fieldId, iconId) {
-  const passwordField = document.getElementById(fieldId);
-  const toggleIcon = document.getElementById(iconId);
-
-  if (passwordField.type === "password") {
-    passwordField.type = "text"; // Show password
-    toggleIcon.textContent = "👁"; // Open eye icon
-  } else {
-    passwordField.type = "password"; // Hide password
-    toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
-  }
-};
 
 // ✅ Login Function Global Accessability
 window.login = function() {
