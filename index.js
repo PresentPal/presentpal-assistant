@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
         homeButton.addEventListener("click", function () {
             window.location.href = "https://presentpal.uk";
         });
+    }
 
   // Close modal when clicking 'X'
   span.onclick = function () {
