@@ -140,11 +140,12 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.style.display = "block";
   });
 
-  <script>
-document.getElementById("homeButton").addEventListener("click", function() {
-    window.location.href = "https://presentpal.uk";
-});
-</script>
+  // ✅ Home Button Navigation
+    const homeButton = document.getElementById("homeButton");
+    if (homeButton) {
+        homeButton.addEventListener("click", function () {
+            window.location.href = "https://presentpal.uk";
+        });
 
   // Close modal when clicking 'X'
   span.onclick = function () {
