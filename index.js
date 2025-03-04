@@ -117,22 +117,51 @@ window.logout = function () {
     });
 };
 
+// ✅ Check User Subscription Status
+function checkSubscriptionStatus(user) {
+    if (!user) return;
+
+    user.getIdTokenResult().then((idTokenResult) => {
+        // Modify this condition once you integrate Firebase backend functions
+        if (idTokenResult.claims.subscribedUser) { 
+            document.getElementById("dashboardButton").style.display = "block";
+        }
+    }).catch((error) => {
+        console.error("Error checking subscription status:", error);
+    });
+}
+
 // ✅ Monitor Authentication State Change
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
+
+    checkSubscriptionStatus(user); // ✅ Check if user has a subscription
+
   } else {
     document.getElementById("loginForm").style.display = "block";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
+
+    // Hide dashboard button if logged out
+    document.getElementById("dashboardButton").style.display = "none";
   }
 });
 
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("accountModal");
   const span = document.querySelector(".close");
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dashboardButton = document.getElementById("dashboardButton");
+    if (dashboardButton) {
+        dashboardButton.addEventListener("click", function () {
+            window.location.href = "dashboard.html"; // Redirect to the dashboard page
+        });
+    }
+});
 
   // ✅ Android Bubble: Adds to Home Screen (Handled once)
   const androidBubble = document.getElementById("androidBubble");
