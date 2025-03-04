@@ -18,17 +18,17 @@
     <link rel="manifest" href="/manifest.json">
 
 <style>
-    /* General Styles */
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: 'Roboto Slab', serif;
-        height: 100%;
-        background-color: #ffffff;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-    }
+   /* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Slab', serif;
+    height: 100%;
+    background-color: #ffffff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
 
     /* Navigation Bar */
     .nav-bar {
@@ -172,7 +172,7 @@
         background-color: #f9f9f9;
     }
 
-   /* Modal Styles */
+   /* Modal Styling */
 .modal {
     display: none;
     position: fixed;
@@ -196,17 +196,19 @@
 
 /* The Close Button */
 .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+    color: #aaa;
+    position: absolute;  /* Fix position to the top right */
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+    color: black;
+    text-decoration: none;
 }
 
 /* Email/Password Form Styling */
@@ -214,9 +216,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    padding: 20px;
 }
 
-/* Styling for the email field */
+/* Styling for the email and password fields */
 input[type="email"], input[type="password"] {
     width: 100%;  /* Full width */
     padding: 10px;
@@ -224,10 +228,10 @@ input[type="email"], input[type="password"] {
     box-sizing: border-box;
     border: 2px solid #ccc;  /* Border style for inputs */
     border-radius: 5px;
+    padding-right: 40px; /* Add space for the eye icon */
 }
 
 /* Styling for the login and sign-up buttons */
-/* Fix spacing for buttons */
 button {
     background-color: black;
     color: white;
@@ -261,8 +265,8 @@ button:hover {
     border-radius: 5px;
     box-sizing: border-box;
 }
-  
-/* Fix the toggle icon */
+
+/* Fix the toggle icon inside the password field */
 .password-field .toggle-icon {
     position: absolute;
     right: 10px;
@@ -272,22 +276,12 @@ button:hover {
     font-size: 18px;
 }
 
-/* Eye Icon inside Password Field */
-.password-field .toggle-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;  /* Make the icon smaller if needed */
-}
-
 /* Style for the "Sign Up" button on Login Form */
 #signupToggleBtn {
     background-color: white;
     color: black;
     border: 2px solid black;  /* Black border */
-  width: 100%;
+    width: 100%;
     padding: 12px;  /* Increase padding to fix button height */
     font-size: 16px;  /* Make text easier to read */
 }
@@ -297,7 +291,7 @@ button:hover {
     background-color: white;
     color: black;
     border: 2px solid black;  /* Black border */
-  width: 100%;
+    width: 100%;
     padding: 12px;  /* Increase padding to fix button height */
     font-size: 16px;  /* Make text easier to read */
 }
