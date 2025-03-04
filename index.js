@@ -185,12 +185,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const accountButton = document.getElementById("accountButton");
-    if (accountButton) {
-        accountButton.addEventListener("click", function () {
-            window.location.href = "account.html"; // Redirect to account page
-        });
-    }
+    // ✅ Add event listener for Account button
+const accountButton = document.getElementById("accountButton");
+if (accountButton) {
+    accountButton.addEventListener("click", function () {
+        const modal = document.getElementById("accountModal");
+        if (modal) {
+            modal.style.display = "block"; // Open the account modal
+        }
+    });
+}
 
     const upgradeButton = document.getElementById("upgradeButton");
     if (upgradeButton) {
