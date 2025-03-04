@@ -5,104 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscription Plans | PresentPal</title>
      <style>
-       body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
+        header {
+            background-color: #f9f9f9;
+            color: black;
+            padding: 20px;
+            font-size: 14px;
+        }
 
-header {
-    background-color: #f9f9f9;
-    color: black;
-    padding: 40px 20px 20px; /* More space above and less below */
-    font-size: 14px;
-}
+        .plans-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px;
+        }
 
-.plans-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* Allow wrapping of elements */
-    margin: 40px;
-    justify-content: space-evenly;  /* Ensures even distribution */
-}
+        .plan {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
 
-/* Each plan container styling */
+        .plan h2 {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        /* General Plan Section Styling */
 .plan {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    margin: 10px;  /* Add small margin to keep spacing consistent */
     display: flex;
     flex-direction: column; /* Stack content vertically */
     align-items: center; /* Center the content */
     justify-content: center;
-}
-
-.plan h2 {
-    margin-bottom: 10px;
+    padding: 20px;
+    border: 2px solid #ccc;  /* Optional border for styling */
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 /* Image Styling */
 .plan img {
     width: 100%;  /* Adjust width as needed */
-    max-width: 300px;  /* Ensure image doesn't exceed a specific width */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 15px; /* Add space below the image */
+    max-width: 300px;  /* Make sure the image doesn't exceed a specific width */
+    height: auto; /* Maintain the aspect ratio */
+    margin-bottom: 15px; /* Add some space below the image */
 }
 
 /* Button Styling */
 .plan button {
-    background-color: #fedc27;  /* Yellow background */
-    color: black;
+    background-color: #4CAF50;  /* Green background */
+    color: white;
     font-weight: bold;
     border: none;
     border-radius: 5px;
-    padding: 12px 20px;  /* Adjust padding to match the width */
+    padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%;
 }
 
 .plan button:hover {
-    background-color: #fdb800; /* Darker yellow on hover */
+    background-color: #45a049;  /* Darker green when hovered */
 }
 
 /* Desktop Layout - side by side */
 @media (min-width: 768px) {
     .plans-container {
         display: flex; /* Side-by-side layout */
-        justify-content: center; /* Center the plans */
-        gap: 20px; /* Add space between the plans */
+        justify-content: space-between;
+        gap: 20px;
     }
 }
 
-/* Mobile Layout - stacked vertically and centered */
+/* Mobile Layout - stacked vertically */
 @media (max-width: 767px) {
     .plans-container {
         display: flex;
         flex-direction: column; /* Stack containers vertically */
         align-items: center; /* Center the content */
         gap: 20px; /* Add space between each plan */
-        padding: 0 20px; /* Add some padding on the sides for mobile */
-    }
-    .plan {
-        width: 100%; /* Ensure plans take full width on small screens */
-        max-width: 300px; /* Keep the max-width to prevent stretching */
     }
 }
-
 
     </style>
 </head>
