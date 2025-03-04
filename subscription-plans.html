@@ -33,6 +33,7 @@ header {
     justify-content: center;
     flex-wrap: wrap; /* Allow wrapping of elements */
     margin: 40px;
+    justify-content: space-evenly;  /* Ensures even distribution */
 }
 
 /* Each plan container styling */
@@ -87,15 +88,21 @@ header {
     }
 }
 
-/* Mobile Layout - stacked vertically */
+/* Mobile Layout - stacked vertically and centered */
 @media (max-width: 767px) {
     .plans-container {
         display: flex;
         flex-direction: column; /* Stack containers vertically */
         align-items: center; /* Center the content */
         gap: 20px; /* Add space between each plan */
+        padding: 0 20px; /* Add some padding on the sides for mobile */
+    }
+    .plan {
+        width: 100%; /* Ensure plans take full width on small screens */
+        max-width: 300px; /* Keep the max-width to prevent stretching */
     }
 }
+
 
     </style>
 </head>
