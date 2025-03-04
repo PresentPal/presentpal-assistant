@@ -25,6 +25,49 @@
             font-size: 14px;
         }
 
+          /* Navigation Bar */
+    .nav-bar {
+        background-color: white;
+        padding: 10px;
+        box-sizing: border-box;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid #ddd;
+    }
+
+    /* Navigation Buttons */
+    .nav-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+/* Navigation Buttons - Hover Color */
+.nav-button:hover {
+    background-color: lightgray; /* Change to light grey */
+}
+
+    /* Navigation Images */
+    .nav-button img {
+        width: 28px;
+        height: auto;
+        margin-bottom: 4px;
+    }
+
+
         .plans-container {
             display: flex;
             justify-content: center;
@@ -130,6 +173,22 @@
 </div>
         </section>
     </main>
+
+     <!-- Navigation Bar -->
+<div class="nav-bar">
+   <button class="nav-button" id="homeButton">
+    <img src="home-icon.png" alt="Home">
+    Home
+</button>
+    <button class="nav-button" id="accountButton">
+    <img src="account-icon.png" alt="Account">
+    Account
+</button>
+    <button class="nav-button upgrade-button" id="upgradeButton">
+        <img src="upgrade-icon.png" alt="Upgrade">
+        Upgrade
+    </button>
+</div>
 
 </body>
 </html>
