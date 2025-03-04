@@ -14,6 +14,8 @@ const firebaseConfig = {
   measurementId: "G-CF3XL2YYQ2"
 };
 
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
 // ✅ Global close modal function
 window.closeAccountModal = function () {
   const modal = document.getElementById("accountModal");
@@ -43,6 +45,8 @@ const provider = new GoogleAuthProvider();
 
 console.log("Firebase Initialized:", auth);
 
+const db = getFirestore(app);
+
 // Get the button that opens the modal
 var btn = document.getElementById("accountButton");
 
@@ -58,26 +62,31 @@ window.login = function() {
 };
 
 // ✅ Global Firebase Email/Password Signup
-window.signUp = function() {
+window.signUp = async function() {
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
 
-  // Check if passwords match
   if (password !== confirmPassword) {
     alert("Passwords do not match. Please try again.");
-    return; // Stop function if passwords do not match
+    return;
   }
 
-  // Proceed with account creation
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      alert("Your account has been created.");
-      closeAccountModal();
-    })
-    .catch((error) => {
-      alert("Signup failed: " + error.message);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // ✅ Store user data in Firestore (default to "free" subscription)
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      subscription: "free" // Default to "free"
     });
+
+    alert("Your account has been created.");
+    closeAccountModal();
+  } catch (error) {
+    alert("Signup failed: " + error.message);
+  }
 };
 
 // ✅ Global Function to Show Login Form
@@ -131,22 +140,31 @@ function checkSubscriptionStatus(user) {
     });
 }
 
-// ✅ Monitor Authentication State Change
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
+  const dashboardButton = document.getElementById("dashboardButton");
+
   if (user) {
+    // ✅ Fetch user's subscription status from Firestore
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+
+    if (userDoc.exists()) {
+      const subscription = userDoc.data().subscription;
+
+      if (subscription === "paid") {
+        dashboardButton.style.display = "block"; // Show Dashboard button for paying users
+      } else {
+        dashboardButton.style.display = "none"; // Hide it for free users
+      }
+    }
+
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
-
-    checkSubscriptionStatus(user); // ✅ Check if user has a subscription
-
   } else {
+    dashboardButton.style.display = "none"; // Hide Dashboard when logged out
     document.getElementById("loginForm").style.display = "block";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
-
-    // Hide dashboard button if logged out
-    document.getElementById("dashboardButton").style.display = "none";
   }
 });
 
