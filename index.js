@@ -150,7 +150,6 @@ window.onclick = function(event) {
     passwordField.type = "password";
     confirmPasswordField.type = "password";
   }
-}
 
 // ✅ Event Listener for Account Button
 document.addEventListener("DOMContentLoaded", function () {
