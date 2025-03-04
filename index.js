@@ -230,3 +230,38 @@ if (!isPWAInstalled()) {
 if (isPWAInstalled() && iosInstructions.style.display !== 'none') {
     iosInstructions.style.display = 'none';
 }
+
+// ✅ Initialize Stripe (Replace with your actual publishable key)
+const stripe = Stripe("your-publishable-key-here");
+
+// ✅ Function to Redirect to Stripe Checkout
+function redirectToCheckout(priceId) {
+    stripe.redirectToCheckout({
+        lineItems: [{ price: priceId, quantity: 1 }],
+        mode: "subscription", // Subscription mode for recurring payments
+        successUrl: "https://yourwebsite.com/success.html", // Redirect after successful payment
+        cancelUrl: "https://yourwebsite.com/cancel.html" // Redirect if user cancels payment
+    }).then((result) => {
+        if (result.error) {
+            alert(result.error.message);
+        }
+    });
+}
+
+// ✅ Add Event Listeners for Subscription Buttons
+document.addEventListener("DOMContentLoaded", function () {
+    const selectPlus = document.getElementById("selectPlus");
+    const selectPremium = document.getElementById("selectPremium");
+
+    if (selectPlus) {
+        selectPlus.addEventListener("click", function () {
+            redirectToCheckout("price_123456789"); // Replace with your Stripe Price ID for Plus
+        });
+    }
+
+    if (selectPremium) {
+        selectPremium.addEventListener("click", function () {
+            redirectToCheckout("price_987654321"); // Replace with your Stripe Price ID for Premium
+        });
+    }
+});
