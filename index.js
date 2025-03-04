@@ -100,8 +100,6 @@ window.showSignUpForm = function() {
   document.getElementById("loginFormToggle").style.display = "none"; // Hide sign-up toggle
 };
 
-
-
 // ✅ Ensure logout function is globally accessible
 window.logout = function () {
   signOut(auth)
