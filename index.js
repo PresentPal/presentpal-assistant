@@ -146,22 +146,24 @@ onAuthStateChanged(auth, (user) => {
   const accountButton = document.getElementById("accountButton");
   const upgradeButton = document.getElementById("upgradeButton");
 
+  // Always show the navigation bar when logged in
   if (user) {
-    checkSubscriptionStatus(user); // Check subscription status when user is logged in
+    // Check user subscription status when logged in
+    checkSubscriptionStatus(user);
+
+    // Make sure the navigation bar is visible for all logged-in users
+    document.getElementByClass("nav-bar").style.display = "flex";  // Assuming your navbar has an ID of "navBar"
 
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "block";
-    
-    // Show all navigation buttons for logged-in users
-    homeButton.style.display = "block";
-    accountButton.style.display = "block";
-    upgradeButton.style.display = "block";
   } else {
-    dashboardButton.style.display = "none"; // Hide the dashboard button when logged out
-    homeButton.style.display = "none";
-    accountButton.style.display = "none";
-    upgradeButton.style.display = "none";
+    // Hide dashboard button when logged out
+    dashboardButton.style.display = "none";
+
+    // Make sure the navbar is visible even when logged out
+    document.getElementByClass("nav-bar").style.display = "flex";  // Keep the navbar visible for free users too
+
     document.getElementById("loginForm").style.display = "block";
     document.getElementById("signupForm").style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
