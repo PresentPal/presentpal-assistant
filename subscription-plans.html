@@ -13,6 +13,14 @@
     background-color: #f9f9f9;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
 header {
     background-color: #f9f9f9;
     color: black;
@@ -23,7 +31,7 @@ header {
 .plans-container {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Reduced gap between containers on desktop */
+    flex-wrap: wrap; /* Allow wrapping of elements */
     margin: 40px;
 }
 
@@ -34,11 +42,11 @@ header {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 300px;
+    margin: 10px;  /* Add small margin to keep spacing consistent */
     display: flex;
     flex-direction: column; /* Stack content vertically */
     align-items: center; /* Center the content */
     justify-content: center;
-    margin-bottom: 20px;
 }
 
 .plan h2 {
@@ -74,8 +82,8 @@ header {
 @media (min-width: 768px) {
     .plans-container {
         display: flex; /* Side-by-side layout */
-        justify-content: space-between; /* Ensure plans are spaced evenly */
-        gap: 10px; /* Reduced gap between plans */
+        justify-content: center; /* Center the plans */
+        gap: 20px; /* Add space between the plans */
     }
 }
 
