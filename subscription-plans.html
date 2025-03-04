@@ -10,117 +10,94 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
     
      <style>
-       body {
+body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
-    min-height: 100vh; /* Ensure body takes up at least full height */
-    overflow-x: hidden; /* Prevent horizontal overflow if necessary */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    min-height: 100vh; /* Ensure full height */
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 80px; /* Prevent content from being overlapped by the navbar */
 }
 
-        header {
-            background-color: #f9f9f9;
-            color: black;
-            padding: 20px;
-            font-size: 14px;
-        }
+header {
+    background-color: #f9f9f9;
+    color: black;
+    padding: 40px 20px 10px; /* More space above, less space below */
+    font-size: 14px;
+}
 
-          /* Navigation Bar */
-    .nav-bar {
-        background-color: white;
-        padding: 10px;
-        box-sizing: border-box;
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        border-top: 1px solid #ddd;
-    }
+/* Navigation Bar */
+.nav-bar {
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    z-index: 1000; /* Ensures navbar stays above other content */
+}
 
-    /* Navigation Buttons */
-    .nav-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 600;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
+/* Navigation Buttons */
+.nav-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
 
-/* Navigation Buttons - Hover Color */
 .nav-button:hover {
     background-color: lightgray; /* Change to light grey */
 }
 
-    /* Navigation Images */
-    .nav-button img {
-        width: 28px;
-        height: auto;
-        margin-bottom: 4px;
-    }
+/* Navigation Images */
+.nav-button img {
+    width: 28px;
+    height: auto;
+    margin-bottom: 4px;
+}
 
-
-        .plans-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 10px;
-        }
-
-        .plan {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        .plan h2 {
-            margin-bottom: 10px;
-        }
-
-        button {
-            background-color: black;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #333;
-        }
-
-        /* General Plan Section Styling */
-.plan {
-    display: fixed;
-    align-items: center; /* Center the content */
+/* Subscription Plans Container */
+.plans-container {
+    display: flex;
     justify-content: center;
+    gap: 20px;
+    margin: 10px auto;
+    max-width: 90%;
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+}
+
+/* Plan Box Styling */
+.plan {
+    background: white;
     padding: 20px;
-    border: 2px solid #ccc;  /* Optional border for styling */
     border-radius: 10px;
-    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    border: 2px solid #ddd; /* Optional border */
 }
 
 /* Image Styling */
 .plan img {
-    width: 100%;  /* Adjust width as needed */
-    max-width: 300px;  /* Make sure the image doesn't exceed a specific width */
-    height: auto; /* Maintain the aspect ratio */
-    margin-bottom: 15px; /* Add some space below the image */
+    width: 100%;
+    max-width: 250px; /* Keep images a similar size */
+    height: auto;
+    margin-bottom: 10px;
 }
 
 /* Button Styling */
@@ -133,28 +110,33 @@
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    width: 100%; /* Make buttons stretch */
+    margin-top: 10px; /* Add spacing */
 }
 
 .plan button:hover {
-    background-color: #45a049;  /* Darker green when hovered */
+    background-color: #e6b900; /* Slightly darker yellow */
 }
 
-/* Desktop Layout - side by side */
+/* Desktop: Side by Side Layout */
 @media (min-width: 768px) {
     .plans-container {
-        display: flex; /* Side-by-side layout */
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 30px;
     }
 }
 
-/* Mobile Layout - stacked vertically */
+/* Mobile: Stack Plans */
 @media (max-width: 767px) {
     .plans-container {
-        display: flex;
-        flex-direction: column; /* Stack containers vertically */
-        align-items: center; /* Center the content */
-        gap: 20px; /* Add space between each plan */
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
     }
 }
+
 
          /* Modal Styling */
 .modal {
@@ -307,7 +289,7 @@ button:hover {
 <body>
 
     <header>
-        <h1>Choose Your Plan</h1>
+        <h1>Select a Plan</h1>
     </header>
 
     <main>
