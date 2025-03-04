@@ -196,7 +196,7 @@ const userAgent = window.navigator.userAgent;
 if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
     iosInstructions.style.display = 'block'; // Show iOS instructions at the top
 }
-
+/*
 // ✅ Stripe Integration
 const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s");
 
@@ -212,7 +212,7 @@ function redirectToCheckout(priceId) {
             alert(result.error.message);
         }
     });
-}
+} */
 
 // ✅ Add Event Listeners for Subscription Buttons
 document.addEventListener("DOMContentLoaded", function () {
