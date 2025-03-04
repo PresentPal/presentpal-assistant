@@ -222,7 +222,7 @@ body, html {
     box-sizing: border-box;
 }
 
-/* Styling for the email and password fields */
+/* Styling for the email field */
 input[type="email"], input[type="password"] {
     width: 100%;  /* Full width */
     padding: 10px;
@@ -230,11 +230,11 @@ input[type="email"], input[type="password"] {
     box-sizing: border-box;
     border: 2px solid #ccc;  /* Border style for inputs */
     border-radius: 5px;
-    padding-right: 40px; /* Add space for the eye icon */
+    min-height: 40px;  /* Ensure input height is fixed */
+    padding-right: 40px; /* Space for the eye icon */
 }
 
 /* Styling for the login and sign-up buttons */
-/* Fix spacing for buttons */
 button {
     background-color: black;
     color: white;
@@ -317,6 +317,7 @@ button:hover {
         padding-bottom: 40px; /* More space at the bottom on larger screens */
     }
 }
+
     /* Remove the extra "Login" and "Sign Up" buttons */
     #authToggle button {
         display: none;
