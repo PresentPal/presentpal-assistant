@@ -238,7 +238,9 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    width: 100%;  /* Full width of the form */
+    width: 100%;
+    padding: 12px;  /* Increase padding to fix button height */
+    font-size: 16px;  /* Make text easier to read */
 }
 
 button:hover {
@@ -266,6 +268,9 @@ button:hover {
     background-color: white;
     color: black;
     border: 2px solid black;  /* Black border */
+  width: 100%;
+    padding: 12px;  /* Increase padding to fix button height */
+    font-size: 16px;  /* Make text easier to read */
 }
 
 /* Style for the "Login" button on Sign-Up Form */
@@ -273,6 +278,9 @@ button:hover {
     background-color: white;
     color: black;
     border: 2px solid black;  /* Black border */
+  width: 100%;
+    padding: 12px;  /* Increase padding to fix button height */
+    font-size: 16px;  /* Make text easier to read */
 }
 
 /* Hover state for these buttons */
@@ -365,30 +373,29 @@ button:hover {
 <!-- Signup Form -->
 <div id="signupForm" style="display: none;">
   <h2>Sign Up</h2>
-  <input type="email" id="signupEmail" placeholder="Email">
-  
+
   <div class="password-field">
-      <input type="password" id="signupPassword" placeholder="Password">
-      <span class="toggle-icon" onclick="togglePasswordVisibility('signupPassword')">👁️‍🗨️</span> <!-- Eye Icon for Password Toggle -->
+    <input type="email" id="signupEmail" placeholder="Email">
   </div>
 
   <div class="password-field">
-      <input type="password" id="confirmPassword" placeholder="Confirm Password">
-      <span class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword')">👁️‍🗨️</span> <!-- Eye Icon for Confirm Password Toggle -->
+    <input type="password" id="signupPassword" placeholder="Password">
+    <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁‍🗨</span>
+  </div>
+
+  <div class="password-field">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <span id="toggleConfirmPassword" class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁‍🗨</span>
   </div>
 
   <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
-</div>
-    
-  <!-- Google Sign Up Button -->
-<!-- 
-  <button type="button" onclick="signupWithGoogle()">Sign Up with Google</button>
--->
-  <!-- Only show login button on signup form -->
+
+  <!-- Toggle button to switch to login -->
   <div id="signupFormToggle" style="display: block;">
     <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
   </div>
 </div>
+
     
     <!-- Logout Button -->
     <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
