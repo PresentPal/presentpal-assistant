@@ -45,5 +45,56 @@
             border-bottom: 2px solid #fedc27;
             padding-bottom: 10px;
         }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <button class="nav-button" id="homeButton">
+            <img src="home-icon.png" alt="Home">
+            Home
+        </button>
+        <button class="nav-button" id="accountButton">
+            <img src="account-icon.png" alt="Account">
+            Account
+        </button>
+        <button class="nav-button" id="dashboardButton">
+            <img src="dashboard-icon.png" alt="Dashboard">
+            Dashboard
+        </button>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <header>
+            <h1>Welcome to Your Dashboard</h1>
+        </header>
+
+        <section class="user-info">
+            <h2>User Information</h2>
+            <p>Email: <span id="userEmail">Loading...</span></p>
+            <p>Subscription Status: <span id="subscriptionStatus">Loading...</span></p>
+        </section>
+
+        <section class="account-settings">
+            <h2>Account Settings</h2>
+            <button id="updateAccountButton">Update Account</button>
+            <button id="logoutButton">Log Out</button>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 PresentPal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js"></script>
+    <script src="dashboard.js"></script>
+
+</body>
+</html>
 
        
