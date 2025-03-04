@@ -364,33 +364,28 @@ button:hover {
   <div class="modal-content">
     <span class="close">&times;</span>
 
- <!-- Login Form -->
-<div id="loginForm" style="display: block;">
-  <h2>Login</h2>
-  <input type="email" id="loginEmail" placeholder="Email">
-  
-  <div class="password-field">
-      <input type="password" id="loginPassword" placeholder="Password">
-      <span class="toggle-icon" onclick="togglePasswordVisibility('loginPassword')">👁️‍🗨️</span> <!-- Eye Icon for Password Toggle -->
-  </div>
+    <!-- Login Form -->
+    <div id="loginForm" style="display: block;">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email">
+      
+      <div class="password-field">
+          <input type="password" id="loginPassword" placeholder="Password">
+          <span class="toggle-icon" onclick="togglePasswordVisibility('loginPassword')">👁️‍🗨️</span>
+      </div>
 
-  <button id="loginButton" type="button" onclick="login()">Login</button>
-</div>
+      <button id="loginButton" type="button" onclick="login()">Login</button>
+      <div id="loginFormToggle">
+        <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
+      </div>
+    </div>
 
-      <!-- Login with Google Button -->
-<!-- 
-      <button type="button" onclick="loginWithGoogle()">Login with Google</button>
--->
-     <!-- Only show sign up button on login form -->
-  <div id="loginFormToggle" style="display: block;">
-    <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
-  </div>
-</div>
-
+    <!-- Signup Form (INSIDE MODAL CONTENT) -->
     <div id="signupForm" style="display: none;">
       <h2>Sign Up</h2>
+
       <input type="email" id="signupEmail" placeholder="Email">
-      
+
       <div class="password-field">
         <input type="password" id="signupPassword" placeholder="Password">
         <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁‍🗨</span>
@@ -402,20 +397,17 @@ button:hover {
       </div>
 
       <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
-
-      <div id="signupFormToggle" style="display: block;">
+      
+      <div id="signupFormToggle">
         <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
       </div>
     </div>
 
-  </div>
-</div>
-    
     <!-- Logout Button -->
     <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
   </div>
 </div>
-
+  
 <!-- Account Button -->
 <button class="nav-button" id="accountButton" onclick="showLoginForm()">Account</button>
 
