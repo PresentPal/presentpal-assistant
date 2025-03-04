@@ -53,10 +53,10 @@
             background-color: #333;
         }
 
-         /* Plan Section Styling */
+        /* General Plan Section Styling */
 .plan {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Stack content vertically */
     align-items: center; /* Center the content */
     justify-content: center;
     padding: 20px;
@@ -88,6 +88,26 @@
 .plan button:hover {
     background-color: #45a049;  /* Darker green when hovered */
 }
+
+/* Desktop Layout - side by side */
+@media (min-width: 768px) {
+    .plans-container {
+        display: flex; /* Side-by-side layout */
+        justify-content: space-between;
+        gap: 20px;
+    }
+}
+
+/* Mobile Layout - stacked vertically */
+@media (max-width: 767px) {
+    .plans-container {
+        display: flex;
+        flex-direction: column; /* Stack containers vertically */
+        align-items: center; /* Center the content */
+        gap: 20px; /* Add space between each plan */
+    }
+}
+
     </style>
 </head>
 <body>
