@@ -134,33 +134,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("accountModal");
   const span = document.querySelector(".close");
 
+  // ✅ Account Button: Opens Modal
   document.getElementById("accountButton").addEventListener("click", function () {
     modal.style.display = "block";
   });
 
   // ✅ Home Button Navigation
-    const homeButton = document.getElementById("homeButton");
-    if (homeButton) {
-        homeButton.addEventListener("click", function () {
-            window.location.href = "https://presentpal.uk";
-        });
-    }
+  const homeButton = document.getElementById("homeButton");
+  if (homeButton) {
+    homeButton.addEventListener("click", function () {
+      window.location.href = "https://presentpal.uk";
+    });
+  }
 
   // ✅ Upgrade Button Navigation
-document.addEventListener("DOMContentLoaded", function () {
-    const upgradeButton = document.getElementById("upgradeButton");
-    if (upgradeButton) {
-        upgradeButton.addEventListener("click", function () {
-            window.location.href = "subscription-plans.html"; // Update with the correct URL if needed
-        });
-    }
+  const upgradeButton = document.getElementById("upgradeButton");
+  if (upgradeButton) {
+    upgradeButton.addEventListener("click", function () {
+      window.location.href = "subscription-plans.html"; // Update with the correct URL if needed
+    });
+  }
 
-  // Close modal when clicking 'X'
+  // ✅ Close Modal when clicking 'X'
   span.onclick = function () {
     modal.style.display = "none";
   };
 
-  // Close modal when clicking outside
+  // ✅ Close Modal when clicking outside
   window.onclick = function(event) {
     if (event.target === modal) {
       modal.style.display = "none";
