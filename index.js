@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("accountModal");
   const span = document.querySelector(".close");
 
-// ✅ Android Bubble: Adds to Home Screen
+  // ✅ Android Bubble: Adds to Home Screen
     const androidBubble = document.getElementById("androidBubble");
     
     if (androidBubble) {
