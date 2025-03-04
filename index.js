@@ -148,6 +148,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+  // ✅ Upgrade Button Navigation
+document.addEventListener("DOMContentLoaded", function () {
+    const upgradeButton = document.getElementById("upgradeButton");
+    if (upgradeButton) {
+        upgradeButton.addEventListener("click", function () {
+            window.location.href = "subscription-plans.html"; // Update with the correct URL if needed
+        });
+    }
+
   // Close modal when clicking 'X'
   span.onclick = function () {
     modal.style.display = "none";
