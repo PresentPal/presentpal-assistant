@@ -29,7 +29,7 @@ window.togglePasswordVisibility = function(fieldId, iconId) {
 
   if (passwordField.type === "password") {
     passwordField.type = "text"; // Show password
-    toggleIcon.textContent = "👁"; // Open eye icon
+    toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
   } else {
     passwordField.type = "password"; // Hide password
     toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
