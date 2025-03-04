@@ -14,6 +14,14 @@ const firebaseConfig = {
   measurementId: "G-CF3XL2YYQ2"
 };
 
+// ✅ Global close modal function
+window.closeAccountModal = function () {
+  const modal = document.getElementById("accountModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+};
+
 // ✅ Toggle password visibility function (global)
 window.togglePasswordVisibility = function(fieldId, iconId) {
   const passwordField = document.getElementById(fieldId);
@@ -28,14 +36,6 @@ window.togglePasswordVisibility = function(fieldId, iconId) {
   }
 };
 
-// ✅ Global close modal function
-window.closeAccountModal = function () {
-  const modal = document.getElementById("accountModal");
-  if (modal) {
-    modal.style.display = "none";
-  }
-};
-
 // ✅ Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -43,14 +43,8 @@ const provider = new GoogleAuthProvider();
 
 console.log("Firebase Initialized:", auth);
 
-// Get the modal
-var modal = document.getElementById("accountModal");
-
 // Get the button that opens the modal
 var btn = document.getElementById("accountButton");
-
-// Get the <span> element that closes the modal
-var span = document.querySelector(".close");
 
 // ✅ Login Function Global Accessability
 window.login = function() {
@@ -114,6 +108,14 @@ window.logout = function () {
     .then(() => {
       alert("✅ Logged out successfully!");
       closeAccountModal();
+
+    // Clear input fields
+   document.getElementById("loginEmail").value = "";
+   document.getElementById("loginPassword").value = "";
+   document.getElementById("signupEmail").value = "";
+   document.getElementById("signupPassword").value = "";
+   document.getElementById("confirmPassword").value = "";
+
     });
 };
 
@@ -130,33 +132,27 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-  // Check current type of the password field and toggle it
-  if (passwordField.type === "password") {
-    passwordField.type = "text";
-    confirmPasswordField.type = "text";
-  } else {
-    passwordField.type = "password";
-    confirmPasswordField.type = "password";
-  }
-
-// ✅ Event Listener for Account Button
 document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("accountModal");
+  const span = document.querySelector(".close");
+
   document.getElementById("accountButton").addEventListener("click", function () {
-    document.getElementById("accountModal").style.display = "block";
+    modal.style.display = "block";
   });
+
+  // Close modal when clicking 'X'
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
 });
+
 
 // ✅ PWA Installation Handling
 let deferredPrompt;
