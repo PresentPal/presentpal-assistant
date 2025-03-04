@@ -45,19 +45,19 @@ body, html {
     }
 
     /* Navigation Buttons */
-    .nav-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 600;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
+    .nav.nav-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
 
 /* Navigation Buttons - Hover Color */
 .nav-button:hover {
@@ -65,11 +65,14 @@ body, html {
 }
 
     /* Navigation Images */
-    .nav-button img {
-        width: 28px;
-        height: auto;
-        margin-bottom: 4px;
-    }
+.nav-button img {
+    width: 28px;
+    height: auto;
+    margin-bottom: 4px; /* Space between the icon and the text */
+}
+.nav-button span {
+    font-size: 14px;
+}
 
     /* Hide Upgrade button for Premium users */
     .premium-user .upgrade-button {
