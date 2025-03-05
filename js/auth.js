@@ -1,0 +1,61 @@
+import { auth, db } from "./firebase.js";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+// ✅ Global Login Function
+window.login = function() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => closeAccountModal())
+    .catch(error => alert("Login failed: " + error.message));
+};
+
+// ✅ Global Sign-Up Function
+window.signUp = async function() {
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    await setDoc(doc(db, "users", user.uid), { email: user.email, subscription: "free" });
+    alert("Account created successfully!");
+    closeAccountModal();
+  } catch (error) {
+    alert("Signup failed: " + error.message);
+  }
+};
+
+// ✅ Global Logout Function
+window.logout = function () {
+  signOut(auth).then(() => {
+    alert("Logged out successfully!");
+    closeAccountModal();
+  });
+};
+
+// ✅ Monitor Auth State
+onAuthStateChanged(auth, async (user) => {
+  const dashboardButton = document.getElementById("dashboardButton");
+  if (user) {
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists() && userDoc.data().subscription === "subscribedUser") {
+      dashboardButton.style.display = "block";
+    } else {
+      dashboardButton.style.display = "none";
+    }
+    document.getElementById("logoutButton").style.display = "block";
+  } else {
+    dashboardButton.style.display = "none";
+    document.getElementById("logoutButton").style.display = "none";
+  }
+});
