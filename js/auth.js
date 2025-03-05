@@ -59,3 +59,15 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("logoutButton").style.display = "none";
   }
 });
+
+// ✅ Function to Show Login Form
+window.showLoginForm = function() {
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+};
+
+// ✅ Function to Show Signup Form
+window.showSignUpForm = function() {
+  document.getElementById("signupForm").style.display = "block";
+  document.getElementById("loginForm").style.display = "none";
+};
