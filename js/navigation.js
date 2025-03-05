@@ -58,7 +58,6 @@ if (navBar) {
 } else {
   console.error("Navbar not found");
 }
-});
 
 // ✅ Event Listener for Dashboard Button
 document.getElementById("dashboardButton").addEventListener("click", () => {
