@@ -48,10 +48,16 @@ onAuthStateChanged(auth, (user) => {
       upgradeButton.style.display = "none";
 
       // Always show navigation bar even for free users
-      document.getElementByClass("nav-bar").style.display = "flex";
-      document.getElementById("loginForm").style.display = "block";
-      document.getElementById("signupForm").style.display = "none";
-  }
+const navBar = document.querySelector(".nav-bar"); // This selects the first element with the class "nav-bar"
+if (navBar) {
+  navBar.style.display = "flex"; // Ensure the navbar is visible (just in case you need to set display)
+
+  // Show login form for non-logged-in users
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("signupForm").style.display = "none";
+} else {
+  console.error("Navbar not found");
+}
 });
 
 // ✅ Event Listener for Dashboard Button
