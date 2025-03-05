@@ -48,7 +48,7 @@ onAuthStateChanged(auth, (user) => {
       upgradeButton.style.display = "none";
 
       // Always show navigation bar even for free users
-      document.getElementById("nav-bar").style.display = "flex";
+      document.getElementByClass("nav-bar").style.display = "flex";
       document.getElementById("loginForm").style.display = "block";
       document.getElementById("signupForm").style.display = "none";
   }
