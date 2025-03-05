@@ -1,4 +1,4 @@
-const stripe = Stripe("pk_live_51QxPo8L0iXZqwWy...");
+const stripe = Stripe("pk_live_51QxPo8L0iXZqwWyU2C3C2Uvro0Vqnyx1ConBqFZMRXP98UxTHKezDnvvFPurXS9KDWih5o0IAD7fGxhGs8UfYmge00isnX5Q5s");
 
 // ✅ Redirect to Stripe Checkout
 function redirectToCheckout(priceId) {
