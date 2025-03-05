@@ -4,6 +4,9 @@ import "./js/navigation.js";    // Handles navigation and UI updates
 import "./js/subscriptions.js"; // Handles Stripe payments
 import "./js/pwa.js";           // Handles Progressive Web App features
 
+// In index.js
+import { getAuth } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js';
+
 // Initialize Firebase Auth
 const auth = getAuth();
 
