@@ -48,34 +48,36 @@ onAuthStateChanged(auth, (user) => {
       upgradeButton.style.display = "none";
 
       // Always show navigation bar even for free users
-const navBar = document.querySelector(".nav-bar"); // This selects the first element with the class "nav-bar"
-if (navBar) {
-  navBar.style.display = "flex"; // Ensure the navbar is visible (just in case you need to set display)
+      const navBar = document.querySelector(".nav-bar"); // This selects the first element with the class "nav-bar"
+      if (navBar) {
+          navBar.style.display = "flex"; // Ensure the navbar is visible (just in case you need to set display)
 
-  // Show login form for non-logged-in users
-  document.getElementById("loginForm").style.display = "block";
-  document.getElementById("signupForm").style.display = "none";
-} else {
-  console.error("Navbar not found");
-}
+          // Show login form for non-logged-in users
+          document.getElementById("loginForm").style.display = "block";
+          document.getElementById("signupForm").style.display = "none";
+      } else {
+          console.error("Navbar not found");
+      }
+  }
 
-// ✅ Event Listener for Dashboard Button
-document.getElementById("dashboardButton").addEventListener("click", () => {
-  window.location.href = "dashboard.html"; // Redirect to the dashboard page
-});
+  // ✅ Event Listener for Dashboard Button
+  document.getElementById("dashboardButton").addEventListener("click", () => {
+    window.location.href = "dashboard.html"; // Redirect to the dashboard page
+  });
 
-// ✅ Event Listener for Home Button
-document.getElementById("homeButton").addEventListener("click", () => {
-  window.location.href = "https://presentpal.uk"; // Go to the home page
-});
+  // ✅ Event Listener for Home Button
+  document.getElementById("homeButton").addEventListener("click", () => {
+    window.location.href = "https://presentpal.uk"; // Go to the home page
+  });
 
-// ✅ Event Listener for Account Button
-document.getElementById("accountButton").addEventListener("click", () => {
-  const modal = document.getElementById("accountModal");
-  if (modal) modal.style.display = "block"; // Open account modal
-});
+  // ✅ Event Listener for Account Button
+  document.getElementById("accountButton").addEventListener("click", () => {
+    const modal = document.getElementById("accountModal");
+    if (modal) modal.style.display = "block"; // Open account modal
+  });
 
-// ✅ Event Listener for Upgrade Button
-document.getElementById("upgradeButton").addEventListener("click", () => {
-  window.location.href = "subscription-plans.html"; // Go to the subscription page
+  // ✅ Event Listener for Upgrade Button
+  document.getElementById("upgradeButton").addEventListener("click", () => {
+    window.location.href = "subscription-plans.html"; // Go to the subscription page
+  });
 });
