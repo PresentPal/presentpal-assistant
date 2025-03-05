@@ -1,8 +1,8 @@
-import "./js/firebase.js";
-import "./js/auth.js";
-import "./js/subscriptions.js";
-import "./js/navigation.js";
-import "./js/pwa.js";
+import "./firebase.js";
+import "./auth.js";
+import "./subscriptions.js";
+import "./navigation.js";
+import "./pwa.js";
 
 // ✅ Close Modal Function
 window.closeAccountModal = function () {
