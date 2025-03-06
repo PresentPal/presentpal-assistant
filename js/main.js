@@ -34,8 +34,16 @@ document.getElementById("accountButton")?.addEventListener("click", function () 
   }
 });
 
-// ✅ Toggle Password Visibility
-window.togglePasswordVisibility = function(fieldId) {
-  const passwordField = document.getElementById(fieldId);
-  passwordField.type = passwordField.type === "password" ? "text" : "password";
+// ✅ Toggle password visibility function
+window.togglePasswordVisibility = function(fieldId, iconId) {
+    const passwordField = document.getElementById(fieldId);
+    const toggleIcon = document.getElementById(iconId);
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text"; // Show password
+        toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
+    } else {
+        passwordField.type = "password"; // Hide password
+        toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
+    }
 };
