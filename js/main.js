@@ -36,14 +36,18 @@ document.getElementById("accountButton")?.addEventListener("click", function () 
 
 // ✅ Toggle password visibility function
 window.togglePasswordVisibility = function(fieldId, iconId) {
-  const passwordField = document.getElementById(fieldId);
-  const toggleIcon = document.getElementById(iconId);
+  const passwordField = document.getElementById(fieldId);  // Get the password field
+  const toggleIcon = document.getElementById(iconId);      // Get the toggle icon
 
-  if (passwordField.type === "password") {
-    passwordField.type = "text"; // Show password
-    toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
+  if (passwordField && toggleIcon) {  // Ensure the password field and icon are found
+    if (passwordField.type === "password") {
+      passwordField.type = "text";   // Show password
+      toggleIcon.textContent = "👁️‍🗨️";  // Open eye icon
+    } else {
+      passwordField.type = "password";  // Hide password
+      toggleIcon.textContent = "👁‍🗨";  // Closed eye icon
+    }
   } else {
-    passwordField.type = "password"; // Hide password
-    toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
+    console.error('Password field or icon not found');
   }
 };
