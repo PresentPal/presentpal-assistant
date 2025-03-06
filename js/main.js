@@ -50,4 +50,12 @@ window.togglePasswordVisibility = function(fieldId, iconId) {
   } else {
     console.error('Password field or icon not found');
   }
+}
+
+export { 
+  closeAccountModal, 
+  addCloseButtonListener, 
+  addOutsideClickListener, 
+  addAccountButtonListener, 
+  togglePasswordVisibility 
 };
