@@ -4,27 +4,33 @@ import "./subscriptions.js";
 import "./navigation.js";
 import "./pwa.js";
 
-// ✅ Close Account Modal function
-window.closeAccountModal = function () {
-  const modal = document.getElementById("accountModal");
-  if (modal) {
-    modal.style.display = "none"; // Close modal
-  }
-};
+document.addEventListener("DOMContentLoaded", () => {
+  // ✅ Close Account Modal function
+  window.closeAccountModal = function () {
+    const modal = document.getElementById("accountModal");
+    if (modal) {
+      modal.style.display = "none"; // Close modal
+      console.log("Modal closed."); // Debugging log
+    } else {
+      console.log("Modal not found!"); // Debugging log
+    }
+  };
 
-// ✅ Event listener for the close button inside the modal
-document.querySelector(".close")?.addEventListener("click", () => {
-  closeAccountModal(); // Close modal when the close button is clicked
-});
-
-// ✅ Event listener to close modal when clicking outside the modal
-window.onclick = function(event) {
-  const modal = document.getElementById("accountModal");
-  // Close modal if the user clicks outside of the modal content
-  if (event.target === modal) {
+  // ✅ Event listener for the close button inside the modal
+  document.getElementById("closeModal")?.addEventListener("click", () => {
+    console.log("Close button clicked."); // Debugging log
     closeAccountModal();
-  }
-};
+  });
+
+  // ✅ Event listener to close modal when clicking outside the modal
+  window.addEventListener("click", (event) => {
+    const modal = document.getElementById("accountModal");
+    if (event.target === modal) {
+      console.log("Clicked outside modal."); // Debugging log
+      closeAccountModal();
+    }
+  });
+});
 
 // ✅ Event listener for Account Button to open modal
 document.getElementById("accountButton")?.addEventListener("click", function () {
