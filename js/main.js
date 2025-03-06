@@ -36,14 +36,14 @@ document.getElementById("accountButton")?.addEventListener("click", function () 
 
 // ✅ Toggle password visibility function
 window.togglePasswordVisibility = function(fieldId, iconId) {
-    const passwordField = document.getElementById(fieldId);
-    const toggleIcon = document.getElementById(iconId);
+  const passwordField = document.getElementById(fieldId);
+  const toggleIcon = document.getElementById(iconId);
 
-    if (passwordField.type === "password") {
-        passwordField.type = "text"; // Show password
-        toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
-    } else {
-        passwordField.type = "password"; // Hide password
-        toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
-    }
+  if (passwordField.type === "password") {
+    passwordField.type = "text"; // Show password
+    toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
+  } else {
+    passwordField.type = "password"; // Hide password
+    toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
+  }
 };
