@@ -5,7 +5,7 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/11.4.0/firebase
 
 // ✅ Firebase Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSy...",
+  apiKey: "AIzaSyAHKBY8jlUy2X6V-UJBqV8loINe5it73XQ",
   authDomain: "presentpal-9c74e.firebaseapp.com",
   projectId: "presentpal-9c74e",
   storageBucket: "presentpal-9c74e.appspot.com",
