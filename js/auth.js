@@ -3,6 +3,17 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, on
 from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
+// ✅ Close Account Modal function
+export function closeAccountModal() {
+  const modal = document.getElementById("accountModal");
+  if (modal) {
+    modal.style.display = "none"; // Close modal
+  }
+}
+
+// ✅ Ensure the function is globally available
+window.closeAccountModal = closeAccountModal;
+
 // ✅ Global Login Function
 window.login = function() {
   const email = document.getElementById("loginEmail").value;
@@ -71,3 +82,19 @@ window.showSignUpForm = function() {
   document.getElementById("signupForm").style.display = "block";
   document.getElementById("loginForm").style.display = "none";
 };
+
+// ✅ Close Modal When Clicking Outside
+document.addEventListener("click", (event) => {
+  const modal = document.getElementById("accountModal");
+  if (modal && event.target === modal) {
+    closeAccountModal();
+  }
+});
+
+// ✅ Event Listener for Close Button
+document.addEventListener("DOMContentLoaded", () => {
+  const closeButton = document.querySelector(".close");
+  if (closeButton) {
+    closeButton.addEventListener("click", closeAccountModal);
+  }
+});
