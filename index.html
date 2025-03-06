@@ -399,43 +399,46 @@ button:hover {
     <span class="close">&times;</span>
 
     <!-- Login Form -->
-    <div id="loginForm" style="display: block;">
-      <h2>Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email">
-      
-      <div class="password-field">
-          <input type="password" id="loginPassword" placeholder="Password">
-          <span class="toggle-icon" onclick="togglePasswordVisibility('loginPassword')">👁️‍🗨️</span>
-      </div>
+<div id="loginForm" style="display: block;">
+  <h2>Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email">
 
-      <button id="loginButton" type="button" onclick="login()">Login</button>
-      <div id="loginFormToggle">
-        <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
-      </div>
-    </div>
+  <div class="password-field">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <!-- Toggle password visibility for login -->
+    <span class="toggle-icon" id="toggleLoginPassword" onclick="togglePasswordVisibility('loginPassword', 'toggleLoginPassword')">👁️‍🗨️</span>
+  </div>
 
-    <!-- Signup Form (INSIDE MODAL CONTENT) -->
-    <div id="signupForm" style="display: none;">
-      <h2>Sign Up</h2>
+  <button id="loginButton" type="button" onclick="login()">Login</button>
+  <div id="loginFormToggle">
+    <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
+  </div>
+</div>
 
-      <input type="email" id="signupEmail" placeholder="Email">
+<!-- Signup Form (INSIDE MODAL CONTENT) -->
+<div id="signupForm" style="display: none;">
+  <h2>Sign Up</h2>
 
-      <div class="password-field">
-        <input type="password" id="signupPassword" placeholder="Password">
-        <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁‍🗨</span>
-      </div>
+  <input type="email" id="signupEmail" placeholder="Email">
 
-      <div class="password-field">
-        <input type="password" id="confirmPassword" placeholder="Confirm Password">
-        <span id="toggleConfirmPassword" class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁‍🗨</span>
-      </div>
+  <div class="password-field">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <!-- Toggle password visibility for signup -->
+    <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁️‍🗨</span>
+  </div>
 
-      <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
-      
-      <div id="signupFormToggle">
-        <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
-      </div>
-    </div>
+  <div class="password-field">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <!-- Toggle password visibility for confirm password -->
+    <span id="toggleConfirmPassword" class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁‍🗨</span>
+  </div>
+
+  <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
+
+  <div id="signupFormToggle">
+    <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
+  </div>
+</div>
 
     <!-- Logout Button -->
     <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
