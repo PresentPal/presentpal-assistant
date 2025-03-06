@@ -396,20 +396,17 @@ button:hover {
 <!-- Account Modal -->
 <div id="accountModal" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close" id="closeModal">&times;</span>
 
     <!-- Login Form -->
-<div id="loginForm" style="display: block;">
-  <h2>Login</h2>
-  <input type="email" id="loginEmail" placeholder="Email">
-
-  <div class="password-field">
-    <input type="password" id="loginPassword" placeholder="Password">
-    <!-- Toggle password visibility for login -->
-    <span class="toggle-icon" id="toggleLoginPassword" onclick="togglePasswordVisibility('loginPassword', 'toggleLoginPassword')">👁️‍🗨️</span>
-  </div>
-
-  <button id="loginButton" type="button" onclick="login()">Login</button>
+    <div id="loginForm" style="display: block;">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <div class="password-field">
+          <input type="password" id="loginPassword" placeholder="Password">
+          <span class="toggle-icon" onclick="togglePasswordVisibility('loginPassword')">👁️‍🗨️</span>
+      </div>
+      <button id="loginButton" type="button" onclick="login()">Login</button>
   <div id="loginFormToggle">
     <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
   </div>
