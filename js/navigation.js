@@ -1,7 +1,4 @@
-// navigation.js
 import { auth } from './firebase.js';  // Import auth from firebase.js
-
-// ✅ Import Firebase Authentication functions
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
 // ✅ Check User Subscription Status
@@ -28,13 +25,15 @@ onAuthStateChanged(auth, (user) => {
   const accountButton = document.getElementById("accountButton");
   const upgradeButton = document.getElementById("upgradeButton");
 
+  console.log("User Status:", user);  // Log the user status to check if it's working
+
   if (user) {
       checkSubscriptionStatus(user); // Check subscription
 
       // Always show navigation bar for logged-in users
-      document.getElementById("nav-bar").style.display = "flex";
+      document.querySelector(".nav-bar").style.display = "flex";
 
-      // Hide or show buttons based on user login
+      // Show the buttons when the user is logged in
       accountButton.style.display = "block";
       upgradeButton.style.display = "block";
       dashboardButton.style.display = "block"; // Display dashboard for subscribers
@@ -48,36 +47,41 @@ onAuthStateChanged(auth, (user) => {
       upgradeButton.style.display = "none";
 
       // Always show navigation bar even for free users
-      const navBar = document.querySelector(".nav-bar"); // This selects the first element with the class "nav-bar"
+      const navBar = document.querySelector(".nav-bar");
       if (navBar) {
-          navBar.style.display = "flex"; // Ensure the navbar is visible (just in case you need to set display)
-
-          // Show login form for non-logged-in users
-          document.getElementById("loginForm").style.display = "block";
-          document.getElementById("signupForm").style.display = "none";
-      } else {
-          console.error("Navbar not found");
+          navBar.style.display = "flex"; // Ensure the navbar is visible
       }
+
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("signupForm").style.display = "none";
   }
 
   // ✅ Event Listener for Dashboard Button
-  document.getElementById("dashboardButton").addEventListener("click", () => {
-    window.location.href = "dashboard.html"; // Redirect to the dashboard page
-  });
+  if (dashboardButton) {
+    dashboardButton.addEventListener("click", () => {
+      window.location.href = "dashboard.html"; // Redirect to the dashboard page
+    });
+  }
 
   // ✅ Event Listener for Home Button
-  document.getElementById("homeButton").addEventListener("click", () => {
-    window.location.href = "https://presentpal.uk"; // Go to the home page
-  });
+  if (homeButton) {
+    homeButton.addEventListener("click", () => {
+      window.location.href = "https://presentpal.uk"; // Go to the home page
+    });
+  }
 
   // ✅ Event Listener for Account Button
-  document.getElementById("accountButton").addEventListener("click", () => {
-    const modal = document.getElementById("accountModal");
-    if (modal) modal.style.display = "block"; // Open account modal
-  });
+  if (accountButton) {
+    accountButton.addEventListener("click", () => {
+      const modal = document.getElementById("accountModal");
+      if (modal) modal.style.display = "block"; // Open account modal
+    });
+  }
 
   // ✅ Event Listener for Upgrade Button
-  document.getElementById("upgradeButton").addEventListener("click", () => {
-    window.location.href = "subscription-plans.html"; // Go to the subscription page
-  });
+  if (upgradeButton) {
+    upgradeButton.addEventListener("click", () => {
+      window.location.href = "subscription-plans.html"; // Go to the subscription page
+    });
+  }
 });
