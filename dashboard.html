@@ -112,75 +112,57 @@
             background-color: #e6b900;
         }
 
-           /* Navigation Bar */
-.nav-bar {
-    background-color: white;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #ddd;
-    z-index: 1000; /* Ensures navbar stays above other content */
-    min-height: 60px; /* Ensure there's enough space for navbar */
-}
+        /* Navigation Bar */
+        .nav-bar {
+            background-color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #ddd;
+            z-index: 1000;
+            min-height: 60px;
+        }
 
-/* Ensure the body has padding-bottom to avoid content being hidden by navbar */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    min-height: 100vh;
-    padding-bottom: 80px; /* Prevent content from being overlapped by the navbar */
-    overflow-x: hidden;
-    overflow-y: auto;
-}
+        /* Prevent content from being overlapped by navbar */
+        body {
+            min-height: 100vh;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
 
-/* Ensure navbar doesn't get pushed out of screen */
-@media (max-width: 768px) {
-    .nav-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-        min-height: 60px;
-    }
-}
+        /* Navigation Buttons */
+        .nav-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
 
-    /* Navigation Buttons */
-    .nav-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 600;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-    }
+        /* Navigation Buttons - Hover */
+        .nav-button:hover {
+            background-color: lightgray;
+        }
 
-/* Navigation Buttons - Hover Color */
-.nav-button:hover {
-    background-color: lightgray; /* Change to light grey */
-}
-
-    /* Navigation Images */
-    .nav-button img {
-        width: 28px;
-        height: auto;
-        margin-bottom: 4px;
-    }
+        /* Navigation Images */
+        .nav-button img {
+            width: 28px;
+            height: auto;
+            margin-bottom: 4px;
+        }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
@@ -192,8 +174,17 @@ body {
             .dashboard-buttons button {
                 width: 90%;
             }
-        }
 
+            .nav-bar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                min-height: 60px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -219,9 +210,7 @@ body {
 
         <!-- Dashboard Buttons -->
         <div class="dashboard-buttons">
-           <button onclick="window.location.href='https://billing.stripe.com/p/login/6oE9CYa2Q8BvebKbII'">
-  Manage Subscription
-</button>
+            <button id="manageSubscriptionButton">Manage Subscription</button>
             <button onclick="editProfile()">Edit Profile</button>
             <button onclick="logout()">Logout</button>
         </div>
@@ -248,8 +237,35 @@ body {
     </div>
 
     <!-- JavaScript -->
-    <script type="module" src="dashboard.js"></script>
+    <script>
+        document.getElementById("manageSubscriptionButton").addEventListener("click", async function() {
+            try {
+                const customerId = localStorage.getItem("customerId"); // Retrieve customer ID from local storage
 
+                if (!customerId) {
+                    alert("Error: Customer ID not found.");
+                    return;
+                }
+
+                const response = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ customerId })
+                });
+
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url; // Redirect user to Stripe portal
+                } else {
+                    alert("Error retrieving portal URL");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while opening the customer portal.");
+            }
+        });
+    </script>
 </body>
 </html>
-       
