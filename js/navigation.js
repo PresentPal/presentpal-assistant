@@ -1,14 +1,13 @@
 // ✅ Import Firebase Authentication functions
-import { auth } from './firebase.js';  // Import auth from firebase.js
+import { auth, db } from './firebase.js';  // Import auth and db from firebase.js
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"; // Correct import
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-
 
 // ✅ Check User Subscription Status
 function checkSubscriptionStatus(user) {
     if (!user) return;
 
-    const userRef = doc(db, "users", user.uid);
+    const userRef = doc(db, "users", user.uid);  // Referencing the user document
     getDoc(userRef).then((docSnap) => {
         if (docSnap.exists()) {
             const userData = docSnap.data();
