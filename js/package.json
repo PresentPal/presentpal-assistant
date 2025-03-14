@@ -1,0 +1,17 @@
+{
+  "name": "evening-basin-64817",
+  "version": "1.0.0",
+  "description": "Your project description",
+  "main": "server.js",  // Replace this with your server file name (e.g., `server.js` or `index.js`)
+  "scripts": {
+    "start": "node server.js"  // This is how Heroku will start your app
+  },
+  "dependencies": {
+    "express": "^4.17.1",  // Add your actual dependencies
+    "stripe": "^8.0.0",
+    "firebase": "^11.4.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "18.19.0"
+}
