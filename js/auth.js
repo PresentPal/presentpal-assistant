@@ -20,7 +20,11 @@ window.login = function() {
   const password = document.getElementById("loginPassword").value;
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => closeAccountModal())
+    .then(() => {
+      // After login, fetch and store the Stripe customer ID
+      fetchCustomerId(); 
+      closeAccountModal();
+    })
     .catch(error => alert("Login failed: " + error.message));
 };
 
@@ -38,7 +42,17 @@ window.signUp = async function() {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    await setDoc(doc(db, "users", user.uid), { email: user.email, subscription: "free" });
+    
+    // Create a Stripe customer for the new user
+    const stripeCustomer = await createStripeCustomer(user.email);
+
+    // Save user information and Stripe customer ID in Firestore
+    await setDoc(doc(db, "users", user.uid), { 
+      email: user.email, 
+      subscription: "free", 
+      stripeCustomerId: stripeCustomer.id 
+    });
+
     alert("Account created successfully!");
     closeAccountModal();
   } catch (error) {
@@ -51,6 +65,7 @@ window.logout = function () {
   signOut(auth).then(() => {
     alert("Logged out successfully!");
     closeAccountModal();
+    localStorage.removeItem("stripeCustomerId"); // Clear Stripe customer ID on logout
   });
 };
 
@@ -90,6 +105,25 @@ async function fetchCustomerId() {
       console.error("Error fetching user data:", error);
     }
   }
+}
+
+// ✅ Function to create a Stripe customer
+async function createStripeCustomer(email) {
+  const response = await fetch("YOUR_BACKEND_ENDPOINT_TO_CREATE_STRIPE_CUSTOMER", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email })
+  });
+  
+  const data = await response.json();
+  
+  if (data.error) {
+    throw new Error(data.error.message);
+  }
+
+  return data.customer;
 }
 
 // ✅ Function to Show Login Form
@@ -137,4 +171,5 @@ export function togglePasswordVisibility(fieldId, iconId) {
 }
 
 // ✅ Make sure it's globally available
+window.togglePasswordVisibility = togglePasswordVisibility;
 window.togglePasswordVisibility = togglePasswordVisibility;
