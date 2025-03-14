@@ -3,41 +3,54 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/fi
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 // Wait for the DOM to load before running the script
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const dashboardContainer = document.querySelector(".dashboard-container");
   const dashboardButton = document.getElementById("dashboardButton");
 
   // Function to update the dashboard container
-  const updateDashboardUI = (user) => {
+  const updateDashboardUI = async (user) => {
     if (!user) {
       dashboardContainer.style.display = "none"; // Hide the dashboard if the user is not logged in
       return;
     }
 
-    // If the user is logged in, show the dashboard container
-    dashboardContainer.style.display = "block"; 
+    // Show the dashboard container if the user is logged in
+    dashboardContainer.style.display = "block";
 
-    // Fetch user data from Firestore
-    const userRef = doc(db, "users", user.uid);
-    getDoc(userRef).then((docSnap) => {
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
-        document.getElementById("userName").innerText = userData.name || "User Name";
-        document.getElementById("userEmail").innerText = userData.email;
-        document.getElementById("subscriptionStatus").innerText = userData.subscription || "Loading...";
+    try {
+      // Check if customerId is stored in local storage
+      let customerId = localStorage.getItem("customerId");
 
-        // Update the dashboard button visibility based on subscription
-        if (userData.subscription === "subscribedUser") {
-          dashboardButton.style.display = "block"; // Show dashboard button if the user is subscribed
+      if (!customerId) {
+        // Fetch from Firestore if not found in local storage
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          document.getElementById("userName").innerText = userData.name || "User Name";
+          document.getElementById("userEmail").innerText = userData.email;
+          document.getElementById("subscriptionStatus").innerText = userData.subscription || "Loading...";
+
+          // Store customerId in local storage if it exists
+          if (userData.customerId) {
+            customerId = userData.customerId;
+            localStorage.setItem("customerId", customerId);
+          }
+
+          // Update the dashboard button visibility based on subscription
+          if (userData.subscription === "subscribedUser") {
+            dashboardButton.style.display = "block"; // Show dashboard button if the user is subscribed
+          } else {
+            dashboardButton.style.display = "none"; // Hide the dashboard button if not subscribed
+          }
         } else {
-          dashboardButton.style.display = "none"; // Hide the dashboard button if not subscribed
+          console.warn("User data not found in Firestore.");
         }
-      } else {
-        console.log("User data not found in Firestore.");
       }
-    }).catch((error) => {
+    } catch (error) {
       console.error("Error fetching user data:", error);
-    });
+    }
   };
 
   // Listen for authentication state changes
@@ -53,8 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Initial check in case the user is already logged in before page load
-  const user = auth.currentUser;
-  if (user) {
-    updateDashboardUI(user); // Update the UI immediately for already logged-in users
+  if (auth.currentUser) {
+    updateDashboardUI(auth.currentUser);
   }
 });
