@@ -109,7 +109,7 @@ async function fetchCustomerId() {
 
 // ✅ Function to create a Stripe customer
 async function createStripeCustomer(email) {
-  const response = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-stripe-customer", {
+  const response = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
