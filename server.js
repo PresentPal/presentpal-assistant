@@ -1,3 +1,14 @@
+const cors = require('cors'); // Import CORS
+const express = require('express');
+const app = express();
+
+app.use(cors({
+    origin: 'https://www.presentpal.uk', // Allow requests from your website
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(express.json()); // Ensure backend can handle JSON requests
 
 // Load environment variables
 require("dotenv").config();
