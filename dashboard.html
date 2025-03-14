@@ -163,6 +163,30 @@
             height: auto;
             margin-bottom: 4px;
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .dashboard-buttons {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+
+            .dashboard-buttons button {
+                width: 90%;
+                margin-bottom: 10px; /* Stack buttons */
+            }
+
+            .nav-bar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                min-height: 60px;
+            }
+        }
     </style>
 </head>
 <body>
