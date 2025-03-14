@@ -1,7 +1,13 @@
 const cors = require('cors'); // Import CORS
 const express = require('express');
+const dotenv = require("dotenv");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+dotenv.config(); // Load environment variables
+
 const app = express();
 
+// ✅ CORS Setup
 app.use(cors({
     origin: 'https://www.presentpal.uk', // Allow requests from your website
     methods: ['GET', 'POST'],
@@ -9,14 +15,6 @@ app.use(cors({
 }));
 
 app.use(express.json()); // Ensure backend can handle JSON requests
-
-// Load environment variables
-require("dotenv").config();
-const express = require("express");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
-const app = express();
-app.use(express.json());
 
 // ✅ Route to Create a Stripe Customer Portal Session
 app.post("/create-customer-portal", async (req, res) => {
