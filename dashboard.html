@@ -93,7 +93,7 @@
         /* Dashboard Buttons */
         .dashboard-buttons {
             display: flex;
-            flex-direction: column; /* Stack buttons on mobile */
+            flex-direction: column;
             align-items: center;
             gap: 15px;
         }
@@ -199,15 +199,17 @@
                 let user = JSON.parse(localStorage.getItem("authUser"));
 
                 if (!user || !user.uid) {
-                    alert("Error: No user found. Redirecting to login.");
-                    window.location.href = "/login.html";
+                    document.getElementById("userName").textContent = "Guest User";
+                    document.getElementById("userEmail").textContent = "Please log in to view your details.";
+                    document.getElementById("subscriptionStatus").textContent = "Please log in to view subscription.";
                     return;
                 }
 
+                // Populate profile details
                 document.getElementById("userName").textContent = user.displayName || "User";
                 document.getElementById("userEmail").textContent = user.email || "No email found";
 
-                // Fetch customer ID again if not in local storage
+                // Fetch customer ID
                 let customerId = localStorage.getItem("customerId");
                 if (!customerId) {
                     const response = await fetch(`https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/get-customer-id?uid=${user.uid}`);
@@ -216,7 +218,7 @@
                         customerId = data.customerId;
                         localStorage.setItem("customerId", customerId);
                     } else {
-                        document.getElementById("subscriptionStatus").textContent = "No subscription found";
+                        document.getElementById("subscriptionStatus").textContent = "No active subscription.";
                         return;
                     }
                 }
@@ -226,6 +228,7 @@
                 const subData = await subResponse.json();
                 document.getElementById("subscriptionStatus").textContent = subData.subscription || "No active subscription";
 
+                // Show dashboard if data is valid
                 document.querySelector(".dashboard-container").style.display = "block";
             } catch (error) {
                 console.error("Error loading user data:", error);
@@ -237,12 +240,8 @@
                 let customerId = localStorage.getItem("customerId");
 
                 if (!customerId) {
-                    await loadUserData(); // Refresh user data
-                    customerId = localStorage.getItem("customerId");
-                    if (!customerId) {
-                        alert("Error: No customer ID found.");
-                        return;
-                    }
+                    alert("Error: No customer ID found.");
+                    return;
                 }
 
                 const portalResponse = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
