@@ -71,6 +71,27 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+// ✅ Fetch Customer ID from Firebase and store in localStorage
+async function fetchCustomerId() {
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.stripeCustomerId) {
+          localStorage.setItem("stripeCustomerId", userData.stripeCustomerId);
+          console.log("Stripe Customer ID stored:", userData.stripeCustomerId);
+        } else {
+          console.warn("No Stripe Customer ID found.");
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  }
+}
+
 // ✅ Function to Show Login Form
 window.showLoginForm = function() {
   document.getElementById("loginForm").style.display = "block";
