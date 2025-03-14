@@ -23,7 +23,7 @@ async function manageSubscription() {
     }
 
     try {
-        const response = await fetch("https://your-app-name.herokuapp.com/create-customer-portal", {
+        const response = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ customerId }),
