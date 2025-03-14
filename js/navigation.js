@@ -34,6 +34,9 @@ onAuthStateChanged(auth, (user) => {
   const accountButton = document.getElementById("accountButton");
   const upgradeButton = document.getElementById("upgradeButton");
 
+  // Initially hide the dashboard button until we verify the user's subscription
+  dashboardButton.style.display = "none";
+
   // Always show navigation bar
   document.querySelector(".nav-bar").style.display = "flex";
 
@@ -47,7 +50,6 @@ onAuthStateChanged(auth, (user) => {
       checkSubscriptionStatus(user); // Check subscription
 
       // Show dashboard button for subscribed users
-      dashboardButton.style.display = "block"; // Display dashboard for subscribers
       document.getElementById("loginForm").style.display = "none";
       document.getElementById("signupForm").style.display = "none";
   } else {
