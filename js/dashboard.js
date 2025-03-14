@@ -1,52 +1,54 @@
-import { auth, db } from "./firebase.js";
+import { auth, db } from './firebase.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
-// ✅ Function to Fetch and Display User Info
-async function fetchUserData(user) {
-    if (!user) return;
+// Wait for the DOM to load before running the script
+document.addEventListener("DOMContentLoaded", () => {
+  const dashboardContainer = document.querySelector(".dashboard-container");
+  const dashboardButton = document.getElementById("dashboardButton");
 
-    const userDocRef = doc(db, "users", user.uid);
-    const userDoc = await getDoc(userDocRef);
-
-    if (userDoc.exists()) {
-        const userData = userDoc.data();
-        document.getElementById("userName").textContent = userData.name || "User Name";
-        document.getElementById("userEmail").textContent = user.email;
-        document.getElementById("subscriptionStatus").textContent = userData.subscription || "Free Plan";
+  // Function to update the dashboard container
+  const updateDashboardUI = (user) => {
+    if (!user) {
+      dashboardContainer.style.display = "none"; // Hide the dashboard if the user is not logged in
+      return;
     }
-}
 
-// ✅ Handle Stripe Customer Portal Redirect
-async function redirectToCustomerPortal() {
-    try {
-        const response = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: auth.currentUser?.uid })
-        });
+    // If the user is logged in, show the dashboard container
+    dashboardContainer.style.display = "block"; 
 
-        const data = await response.json();
-        if (data.url) {
-            window.location.href = data.url;
+    // Fetch user data from Firestore
+    const userRef = doc(db, "users", user.uid);
+    getDoc(userRef).then((docSnap) => {
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        document.getElementById("userName").innerText = userData.name || "User Name";
+        document.getElementById("userEmail").innerText = userData.email;
+        document.getElementById("subscriptionStatus").innerText = userData.subscription || "Loading...";
+
+        // Update the dashboard button visibility based on subscription
+        if (userData.subscription === "subscribedUser") {
+          dashboardButton.style.display = "block"; // Show dashboard button if the user is subscribed
         } else {
-            alert("Error retrieving portal URL.");
+          dashboardButton.style.display = "none"; // Hide the dashboard button if not subscribed
         }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Failed to open customer portal.");
-    }
-}
+      } else {
+        console.log("User data not found in Firestore.");
+      }
+    }).catch((error) => {
+      console.error("Error fetching user data:", error);
+    });
+  };
 
-// ✅ Listen for Auth Changes
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        fetchUserData(user);
-        document.getElementById("dashboardContainer").style.display = "block";
-    } else {
-        window.location.href = "index.html"; // Redirect if not logged in
+  // Listen for authentication state changes
+  onAuthStateChanged(auth, (user) => {
+    updateDashboardUI(user); // Call the function to update UI based on authentication state
+
+    // Event listener for the dashboard button
+    if (dashboardButton) {
+      dashboardButton.addEventListener("click", () => {
+        window.location.href = "dashboard.html"; // Redirect to the dashboard page
+      });
     }
+  });
 });
-
-// ✅ Attach Event Listener to Manage Subscription Button
-document.getElementById("manageSubscription")?.addEventListener("click", redirectToCustomerPortal);
