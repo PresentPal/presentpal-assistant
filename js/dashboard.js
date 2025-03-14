@@ -20,7 +20,7 @@ async function fetchUserData(user) {
 // ✅ Handle Stripe Customer Portal Redirect
 async function redirectToCustomerPortal() {
     try {
-        const response = await fetch("https://your-heroku-app.herokuapp.com/create-customer-portal", {
+        const response = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId: auth.currentUser?.uid })
