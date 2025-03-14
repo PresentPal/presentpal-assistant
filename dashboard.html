@@ -99,8 +99,7 @@
         }
 
         .dashboard-buttons button {
-            background-color: black;
-            color: white;
+            background-color: #fedc27;
             border: none;
             padding: 12px 18px;
             border-radius: 6px;
@@ -111,7 +110,7 @@
         }
 
         .dashboard-buttons button:hover {
-            background-color: #333;
+            background-color: #e6b900;
         }
 
         /* Navigation Bar */
@@ -200,8 +199,8 @@
         <div class="profile">
             <img src="profile-placeholder.png" alt="Profile Picture">
             <div class="profile-info">
-                <h2 id="userName">Loading...</h2>
-                <p id="userEmail">Loading...</p>
+                <h2 id="userName">User Name</h2>
+                <p id="userEmail">user@example.com</p>
             </div>
         </div>
 
@@ -240,46 +239,50 @@
 
     <!-- JavaScript -->
     <script>
-        document.addEventListener("DOMContentLoaded", async function() {
+        document.getElementById("manageSubscriptionButton").addEventListener("click", async function() {
             try {
-                const user = JSON.parse(localStorage.getItem("authUser"));
-                if (user && user.uid) {
-                    document.getElementById("userName").textContent = user.displayName || "User";
-                    document.getElementById("userEmail").textContent = user.email || "No email found";
+                let customerId = localStorage.getItem("customerId"); // Retrieve customer ID from local storage
 
-                    const response = await fetch(`https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/get-customer-id?uid=${user.uid}`);
-                    const data = await response.json();
+                if (!customerId) {
+                    // Fetch from Firestore if not found in local storage
+                    const user = JSON.parse(localStorage.getItem("authUser"));
+                    if (user && user.uid) {
+                        const response = await fetch(`https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/get-customer-id?uid=${user.uid}`);
+                        const data = await response.json();
 
-                    if (data.customerId) {
-                        localStorage.setItem("customerId", data.customerId);
-                        
-                        const subResponse = await fetch(`https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/get-subscription?customerId=${data.customerId}`);
-                        const subData = await subResponse.json();
-                        
-                        document.getElementById("subscriptionStatus").textContent = subData.subscription || "No subscription found";
+                        if (data.customerId) {
+                            customerId = data.customerId;
+                            localStorage.setItem("customerId", customerId);
+                        } else {
+                            alert("Error: Customer ID not found.");
+                            return;
+                        }
                     } else {
-                        document.getElementById("subscriptionStatus").textContent = "Not found";
+                        alert("Error: No user found.");
+                        return;
                     }
+                }
+
+                const portalResponse = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ customerId })
+                });
+
+                const portalData = await portalResponse.json();
+                if (portalData.url) {
+                    window.location.href = portalData.url; // Redirect user to Stripe portal
                 } else {
-                    document.getElementById("subscriptionStatus").textContent = "User not logged in";
+                    alert("Error retrieving portal URL.");
                 }
             } catch (error) {
-                console.error("Error loading user data:", error);
+                console.error("Error:", error);
+                alert("An error occurred while opening the customer portal.");
             }
-
-            document.querySelector(".dashboard-container").style.display = "block";
         });
-
-        function editProfile() {
-            alert("Edit Profile clicked!");
-        }
-
-        function logout() {
-            localStorage.removeItem("authUser");
-            localStorage.removeItem("customerId");
-            window.location.href = "/login.html";
-        }
     </script>
+
+    <script type="module" src="js/dashboard.js"></script>
 
 </body>
 </html>
