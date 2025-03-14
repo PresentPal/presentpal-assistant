@@ -51,4 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  // Initial check in case the user is already logged in before page load
+  const user = auth.currentUser;
+  if (user) {
+    updateDashboardUI(user); // Update the UI immediately for already logged-in users
+  }
 });
