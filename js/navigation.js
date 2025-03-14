@@ -1,6 +1,8 @@
 // ✅ Import Firebase Authentication functions
 import { auth } from './firebase.js';  // Import auth from firebase.js
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"; // Correct import
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
 
 // ✅ Check User Subscription Status
 function checkSubscriptionStatus(user) {
