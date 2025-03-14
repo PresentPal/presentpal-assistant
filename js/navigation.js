@@ -11,12 +11,19 @@ function checkSubscriptionStatus(user) {
     getDoc(userRef).then((docSnap) => {
         if (docSnap.exists()) {
             const userData = docSnap.data();
+            console.log("User Data: ", userData); // Debugging log
             if (userData.subscription === "subscribedUser") { 
+                console.log("User is subscribed, showing dashboard button"); // Debugging log
                 document.getElementById("dashboardButton").style.display = "block"; // Show dashboard for paid users
             } else {
+                console.log("User is not subscribed, hiding dashboard button"); // Debugging log
                 document.getElementById("dashboardButton").style.display = "none"; // Hide it for free users
             }
+        } else {
+            console.log("User document does not exist"); // Debugging log
         }
+    }).catch((error) => {
+        console.error("Error getting user data: ", error); // Debugging log for errors
     });
 }
 
@@ -36,6 +43,7 @@ onAuthStateChanged(auth, (user) => {
   upgradeButton.style.display = "block";
 
   if (user) {
+      console.log("User logged in, checking subscription status");
       checkSubscriptionStatus(user); // Check subscription
 
       // Show dashboard button for subscribed users
