@@ -12,8 +12,41 @@ function redirectToCheckout(priceId) {
   });
 }
 
+// ✅ Handle Stripe Customer Portal
+async function manageSubscription() {
+    // Retrieve the customer ID (ensure it's stored correctly)
+    const customerId = localStorage.getItem("stripeCustomerId");
+
+    if (!customerId) {
+        alert("Customer ID not found. Please ensure you are logged in.");
+        return;
+    }
+
+    try {
+        const response = await fetch("https://your-app-name.herokuapp.com/create-customer-portal", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ customerId }),
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+            window.location.href = data.url; // Redirect to Stripe Customer Portal
+        } else {
+            alert("Failed to retrieve the portal URL.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while opening the portal.");
+    }
+}
+
 // ✅ Event Listeners for Subscription Buttons
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("selectPlus")?.addEventListener("click", () => redirectToCheckout("price_1QxRLML0iXZqwWyU8I15Elna"));
   document.getElementById("selectPremium")?.addEventListener("click", () => redirectToCheckout("price_1QxRTTL0iXZqwWyUNyWg3oPh"));
+
+  // ✅ Add event listener for Manage Subscription button
+  document.getElementById("manageSubscription")?.addEventListener("click", manageSubscription);
 });
