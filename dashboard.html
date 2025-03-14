@@ -35,7 +35,7 @@
             background: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            display: none; /* Initially hidden, to be displayed after user login */
+            display: none;
         }
 
         h1 {
@@ -99,7 +99,8 @@
         }
 
         .dashboard-buttons button {
-            background-color: #fedc27;
+            background-color: black;
+            color: white;
             border: none;
             padding: 12px 18px;
             border-radius: 6px;
@@ -110,7 +111,7 @@
         }
 
         .dashboard-buttons button:hover {
-            background-color: #e6b900;
+            background-color: #333;
         }
 
         /* Navigation Bar */
@@ -153,38 +154,14 @@
             padding: 10px;
         }
 
-        /* Navigation Buttons - Hover */
         .nav-button:hover {
             background-color: lightgray;
         }
 
-        /* Navigation Images */
         .nav-button img {
             width: 28px;
             height: auto;
             margin-bottom: 4px;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .dashboard-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .dashboard-buttons button {
-                width: 90%;
-            }
-
-            .nav-bar {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                padding: 10px;
-                box-sizing: border-box;
-                min-height: 60px;
-            }
         }
     </style>
 </head>
@@ -199,8 +176,8 @@
         <div class="profile">
             <img src="profile-placeholder.png" alt="Profile Picture">
             <div class="profile-info">
-                <h2 id="userName">User Name</h2>
-                <p id="userEmail">user@example.com</p>
+                <h2 id="userName">Loading...</h2>
+                <p id="userEmail">Loading...</p>
             </div>
         </div>
 
@@ -217,50 +194,51 @@
         </div>
     </div>
 
-    <!-- Navigation Bar -->
-    <div class="nav-bar">
-        <button class="nav-button" id="homeButton">
-            <img src="home-icon.png" alt="Home">
-            Home
-        </button>
-        <button class="nav-button" id="accountButton">
-            <img src="account-icon.png" alt="Account">
-            Account
-        </button>
-        <button class="nav-button" id="dashboardButton">
-            <img src="dashboard-icon.png" alt="Dashboard">
-            Dashboard
-        </button>
-        <button class="nav-button upgrade-button" id="upgradeButton">
-            <img src="upgrade-icon.png" alt="Upgrade">
-            Upgrade
-        </button>
-    </div>
-
     <!-- JavaScript -->
     <script>
-        document.getElementById("manageSubscriptionButton").addEventListener("click", async function() {
+        async function loadUserData() {
             try {
-                let customerId = localStorage.getItem("customerId"); // Retrieve customer ID from local storage
+                const user = JSON.parse(localStorage.getItem("authUser"));
 
-                if (!customerId) {
-                    // Fetch from Firestore if not found in local storage
-                    const user = JSON.parse(localStorage.getItem("authUser"));
-                    if (user && user.uid) {
+                if (user && user.uid) {
+                    document.getElementById("userName").textContent = user.displayName || "User";
+                    document.getElementById("userEmail").textContent = user.email || "No email found";
+
+                    // Fetch customer ID
+                    let customerId = localStorage.getItem("customerId");
+                    if (!customerId) {
                         const response = await fetch(`https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/get-customer-id?uid=${user.uid}`);
                         const data = await response.json();
-
                         if (data.customerId) {
                             customerId = data.customerId;
                             localStorage.setItem("customerId", customerId);
                         } else {
-                            alert("Error: Customer ID not found.");
+                            document.getElementById("subscriptionStatus").textContent = "No subscription found";
                             return;
                         }
-                    } else {
-                        alert("Error: No user found.");
-                        return;
                     }
+
+                    // Fetch subscription details
+                    const subResponse = await fetch(`https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/get-subscription?customerId=${customerId}`);
+                    const subData = await subResponse.json();
+                    document.getElementById("subscriptionStatus").textContent = subData.subscription || "No active subscription";
+
+                } else {
+                    document.getElementById("subscriptionStatus").textContent = "User not logged in";
+                }
+
+                document.querySelector(".dashboard-container").style.display = "block";
+            } catch (error) {
+                console.error("Error loading user data:", error);
+            }
+        }
+
+        document.getElementById("manageSubscriptionButton").addEventListener("click", async function() {
+            try {
+                const customerId = localStorage.getItem("customerId");
+                if (!customerId) {
+                    alert("Error: No customer ID found.");
+                    return;
                 }
 
                 const portalResponse = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-customer-portal", {
@@ -271,7 +249,7 @@
 
                 const portalData = await portalResponse.json();
                 if (portalData.url) {
-                    window.location.href = portalData.url; // Redirect user to Stripe portal
+                    window.location.href = portalData.url;
                 } else {
                     alert("Error retrieving portal URL.");
                 }
@@ -280,9 +258,19 @@
                 alert("An error occurred while opening the customer portal.");
             }
         });
-    </script>
 
-    <script type="module" src="js/dashboard.js"></script>
+        function editProfile() {
+            alert("Edit Profile clicked!");
+        }
+
+        function logout() {
+            localStorage.removeItem("authUser");
+            localStorage.removeItem("customerId");
+            window.location.href = "/login.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", loadUserData);
+    </script>
 
 </body>
 </html>
