@@ -24,18 +24,22 @@ window.login = function() {
   signInWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       const user = userCredential.user;
-
-      // ✅ Fetch the Firebase ID Token
-      const idToken = await user.getIdToken();
-
-      // ✅ Send the ID token to the backend (for verification and further actions)
-      sendTokenToBackend(idToken);
-
-      // Fetch and store the Stripe customer ID
-      await fetchCustomerId(user.uid);
-      closeAccountModal();
+      try {
+        // Fetch the Firebase ID Token
+        const idToken = await user.getIdToken();
+        // Send the ID token to the backend (for verification and further actions)
+        sendTokenToBackend(idToken);
+        // Fetch and store the Stripe customer ID
+        await fetchCustomerId(user.uid);
+        closeAccountModal();
+      } catch (error) {
+        console.error("Error getting ID token: ", error);
+        alert("Failed to get ID token.");
+      }
     })
-    .catch(error => alert("Login failed: " + error.message));
+    .catch(error => {
+      alert("Login failed: " + error.message);
+    });
 };
 
 // Function to send the ID token to your backend
