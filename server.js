@@ -59,7 +59,7 @@ app.post("/create-customer-portal", async (req, res) => {
 
         if (!customerId) {
             return res.status(400).send({ error: "Customer ID is required" });
-        
+       } 
         const session = await stripe.billingPortal.sessions.create({
             customer: customerId,
             return_url: "https://presentpal.uk/dashboard.html", // Change this to your actual return URL
