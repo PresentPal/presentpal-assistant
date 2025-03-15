@@ -5,6 +5,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 dotenv.config(); // Load environment variables
 
+// Log the Stripe secret key to check if it's loaded correctly
+console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY);
+
 const app = express();
 
 // ✅ Initialize Firebase Admin SDK
@@ -59,7 +62,7 @@ app.post("/create-customer-portal", async (req, res) => {
 
         if (!customerId) {
             return res.status(400).send({ error: "Customer ID is required" });
-
+        }
         const session = await stripe.billingPortal.sessions.create({
             customer: customerId,
             return_url: "https://presentpal.uk/dashboard.html", // Change this to your actual return URL
