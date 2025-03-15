@@ -1,4 +1,9 @@
 {
+
+"scripts": {
+  "start": "node index.js"
+}
+
   "name": "stripe-customer-portal",
   "version": "1.0.0",
   "description": "",
@@ -9,6 +14,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+"engines": {
+  "node": "20.x"
+}
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
