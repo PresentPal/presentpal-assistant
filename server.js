@@ -7,6 +7,11 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 
+// ✅ Initialize Firebase Admin SDK
+admin.initializeApp({
+    credential: admin.credential.applicationDefault() // Uses environment credentials if available
+});
+
 // ✅ CORS Setup
 app.use(cors({
     origin: 'https://www.presentpal.uk', // Allow requests from your website
