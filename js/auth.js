@@ -25,12 +25,41 @@ window.login = function() {
     .then(async (userCredential) => {
       const user = userCredential.user;
 
+      // ✅ Fetch the Firebase ID Token
+      const idToken = await user.getIdToken();
+
+      // ✅ Send the ID token to the backend (for verification and further actions)
+      sendTokenToBackend(idToken);
+
       // Fetch and store the Stripe customer ID
       await fetchCustomerId(user.uid);
       closeAccountModal();
     })
     .catch(error => alert("Login failed: " + error.message));
 };
+
+// Function to send the ID token to your backend
+async function sendTokenToBackend(idToken) {
+  try {
+    const response = await fetch('https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/verify-token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}` // Send token as a Bearer token
+      },
+      body: JSON.stringify({ idToken })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log('Backend response:', data);
+    } else {
+      console.error('Error verifying token:', data.error);
+    }
+  } catch (error) {
+    console.error('Error sending token to backend:', error);
+  }
+}
 
 // ✅ Global Sign-Up Function (Creates Firebase user + Stripe customer)
 window.signUp = async function() {
