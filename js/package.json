@@ -2,16 +2,19 @@
   "name": "evening-basin-64817",
   "version": "1.0.0",
   "description": "Your project description",
-  "main": "server.js",  // Replace this with your server file name (e.g., `server.js` or `index.js`)
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js"  // This is how Heroku will start your app
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1",  // Add your actual dependencies
+    "express": "^4.17.1",
     "stripe": "^8.0.0",
-    "firebase": "^11.4.0"
+    "firebase": "^11.4.0",
+    "firebase-admin": "^11.4.0", 
+    "body-parser": "^1.19.0"
   },
   "devDependencies": {},
   "engines": {
     "node": "18.19.0"
+  }
 }
