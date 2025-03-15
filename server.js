@@ -8,9 +8,15 @@ dotenv.config(); // Load environment variables
 const app = express();
 
 // ✅ Initialize Firebase Admin SDK
+var admin = require("firebase-admin");
+
+// Parse Firebase credentials from environment variable
+var serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS);
+
 admin.initializeApp({
-    credential: admin.credential.applicationDefault() // Uses environment credentials if available
+    credential: admin.credential.cert(serviceAccount),
 });
+
 
 // ✅ CORS Setup
 app.use(cors({
