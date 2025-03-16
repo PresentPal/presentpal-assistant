@@ -2,9 +2,9 @@
   "name": "stripe-customer-portal",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",  // Change from index.js to server.js
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",  // Change from index.js to server.js
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
