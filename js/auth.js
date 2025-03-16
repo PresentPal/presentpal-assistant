@@ -42,6 +42,11 @@ window.login = function() {
     });
 };
 
+// Log Token
+const idToken = await user.getIdToken();
+console.log("Retrieved ID Token:", idToken);
+sendTokenToBackend(idToken);
+
 // Function to send the ID token to your backend
 async function sendTokenToBackend(idToken) {
   try {
