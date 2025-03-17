@@ -24,11 +24,16 @@ window.login = function() {
   signInWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       const user = userCredential.user;
+      if (!user) {
+        console.error("No user object returned from sign-in.");
+        return;
+      }
+
       try {
         // Fetch the Firebase ID Token
         const idToken = await user.getIdToken();
         // Send the ID token to the backend (for verification and further actions)
-        sendTokenToBackend(idToken);
+        sendTokenToBackend(idToken);  // This is where you only need to call it once
         // Fetch and store the Stripe customer ID
         await fetchCustomerId(user.uid);
         closeAccountModal();
@@ -37,15 +42,11 @@ window.login = function() {
         alert("Failed to get ID token.");
       }
     })
-    .catch(error => {
+    .catch((error) => {
+      console.error("Login failed:", error);
       alert("Login failed: " + error.message);
     });
 };
-
-// Log Token
-const idToken = await user.getIdToken();
-console.log("Retrieved ID Token:", idToken);
-sendTokenToBackend(idToken);
 
 // Function to send the ID token to your backend
 async function sendTokenToBackend(idToken) {
@@ -55,8 +56,7 @@ async function sendTokenToBackend(idToken) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${idToken}` // Send token as a Bearer token in the Authorization header
-      },
-      body: JSON.stringify({ idToken }) // No need to send the token in the body anymore
+      }
     });
 
     const data = await response.json();
