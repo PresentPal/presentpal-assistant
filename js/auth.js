@@ -56,7 +56,8 @@ async function sendTokenToBackend(idToken) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${idToken}` // Send token as a Bearer token in the Authorization header
-      }
+      },
+      body: JSON.stringify({})
     });
 
     const data = await response.json();
