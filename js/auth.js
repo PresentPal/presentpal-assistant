@@ -183,14 +183,7 @@ onAuthStateChanged(auth, async (user) => {
     // If no user is logged in, default to the free version chatbot
     showChatbotBasedOnSubscription("freeUser", "free");
   }
-});
-    
-    document.getElementById("logoutButton").style.display = "block";
-  } else {
-    dashboardButton.style.display = "none";
-    document.getElementById("logoutButton").style.display = "none";
-  }
-});
+}); // End of onAuthStateChanged function
 
 // ✅ Fetch Customer ID from Firebase and Store in Local Storage
 async function fetchCustomerId(userId) {
