@@ -108,6 +108,7 @@ window.signUp = async function() {
   }
 };
 
+// ✅ Global Logout Function
 window.logout = function () {
   signOut(auth).then(() => {
     alert("Logged out successfully!");
