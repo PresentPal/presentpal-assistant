@@ -370,18 +370,37 @@ button:hover {
 <!-- Load Landbot once -->
  <script type="module" src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs"></script>
  
- <!-- Chatbot Containers -->
- <div id="chatbotFree" style="display: none;">
-   <div id="landbotContainer"></div>
- </div>
- 
- <div id="chatbotPlus" style="display: none;">
-   <div id="landbotContainer"></div>
- </div>
- 
- <div id="chatbotPremium" style="display: none;">
-   <div id="landbotContainer"></div>
- </div>
+<!-- Chatbot Containers -->
+<div id="chatbotFree" style="display: none;">
+  <div id="landbotContainerFree"></div>
+  <script type="module">
+    var myLandbotFree = new Landbot.Container({
+      container: '#landbotContainerFree',
+      configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2769762-VQ3B8OLEKLOSPJSC/index.json',
+    });
+  </script>
+</div>
+
+<div id="chatbotPlus" style="display: none;">
+  <div id="landbotContainerPlus"></div>
+  <script type="module">
+    var myLandbotPlus = new Landbot.Container({
+      container: '#landbotContainerPlus',
+      configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2834423-29VBX8T7M9HF9JZQ/index.json',
+    });
+  </script>
+</div>
+
+<div id="chatbotPremium" style="display: none;">
+  <div id="landbotContainerPremium"></div>
+  <script type="module">
+    var myLandbotPremium = new Landbot.Container({
+      container: '#landbotContainerPremium',
+      configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2836767-VUKNK95YMC1683Y0/index.json',
+    });
+  </script>
+</div>
+
     
     <!-- Navigation Bar -->
 <div class="nav-bar">
