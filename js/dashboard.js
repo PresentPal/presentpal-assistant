@@ -8,47 +8,48 @@ document.addEventListener("DOMContentLoaded", async () => {
   const dashboardButton = document.getElementById("dashboardButton");
 
   // Function to update the dashboard container
- const updateDashboardUI = async (user) => {
+const updateDashboardUI = async (user) => {
     if (!user) {
-        dashboardContainer.style.display = "none"; // Hide dashboard if no user is logged in
+        console.warn("No user detected, hiding dashboard.");
+        dashboardContainer.style.display = "none"; 
         return;
     }
 
-    // Show the dashboard container since the user is logged in
+    console.log("User detected:", user); // ✅ Log the user object
+
     dashboardContainer.style.display = "block";
 
     try {
-        // Fetch user data from Firestore
         const userRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(userRef);
 
         if (docSnap.exists()) {
             const userData = docSnap.data();
-            console.log("Fetched User Data:", userData); // Debugging log
+            console.log("Fetched User Data:", userData); // ✅ Log fetched user data
 
-            // Update the UI elements with the correct Firestore data
-            document.getElementById("userName").innerText = userData.userName || "User Name";
-            document.getElementById("userEmail").innerText = userData.email || "Email not found";
+            // Check if values exist before updating the UI
+            document.getElementById("userName").innerText = userData.userName || "No Name Found";
+            document.getElementById("userEmail").innerText = userData.email || "No Email Found";
             document.getElementById("subscriptionStatus").innerText = userData.package || "No Package Found";
 
-            // Store customerId in local storage if it exists
             if (userData.customerId) {
                 localStorage.setItem("customerId", userData.customerId);
+                console.log("Stored customerId:", userData.customerId);
             }
 
-            // Update dashboard button visibility based on subscription
+            // Show dashboard button for subscribed users
             if (userData.subscription === "subscribedUser") {
-                dashboardButton.style.display = "block"; // Show dashboard button if the user is subscribed
+                dashboardButton.style.display = "block"; 
             } else {
-                dashboardButton.style.display = "none"; // Hide it for free users
+                dashboardButton.style.display = "none";
             }
         } else {
-            console.warn("User data not found in Firestore.");
-            alert("No user data found.");
+            console.warn("User document does not exist in Firestore.");
+            alert("No user data found in Firestore.");
         }
     } catch (error) {
         console.error("Error fetching user data:", error);
-        alert("Error fetching user data. Please try again later.");
+        alert("Error loading user data.");
     }
 };
 
