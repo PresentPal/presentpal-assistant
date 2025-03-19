@@ -202,11 +202,15 @@ body {
 
         }
 
-        .frame-content {
-    z-index: 999; /* Lower than the navbar */
-    position: fixed;
-    bottom: 70px; /* Moves it above the navbar */
-    right: 20px; /* Adjusts its placement */
+      /* Prevent the Landbot popup from overlapping the navigation bar */
+.frame-content {
+    z-index: 9999; /* Ensure it stays above other elements */
+    bottom: 60px;  /* Adjust based on your nav bar height */
+}
+
+/* If you need to adjust the container height of the popup */
+.frame-content .landbot-container {
+    max-height: calc(100vh - 60px); /* Adjust popup size so it doesn't overlap nav */
 }
 
     </style>
