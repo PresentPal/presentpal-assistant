@@ -141,12 +141,19 @@ onAuthStateChanged(auth, async (user) => {
       if (userData.customerId) {
         localStorage.setItem("customerId", userData.customerId);
       }
+
+      // Show the correct chatbot based on the user's subscription and package
+      showChatbotBasedOnSubscription(userData.subscription, userData.package);
     }
     
     document.getElementById("logoutButton").style.display = "block";
   } else {
+    // No user logged in, show the free version of the chatbot
     dashboardButton.style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
+    
+    // Show the free chatbot for unauthenticated users
+    showChatbotBasedOnSubscription("freeUser", "free");
   }
 });
 
