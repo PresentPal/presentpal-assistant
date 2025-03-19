@@ -79,4 +79,3 @@ if (auth.currentUser) {
   if (auth.currentUser) {
     updateDashboardUI(auth.currentUser);
   }
-});
