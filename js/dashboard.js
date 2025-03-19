@@ -54,8 +54,18 @@ const updateDashboardUI = async (user) => {
 };
 
   // Listen for authentication state changes
-  onAuthStateChanged(auth, (user) => {
-    updateDashboardUI(user); // Call the function to update UI based on authentication state
+ onAuthStateChanged(auth, (user) => {
+    if (user) {
+        updateDashboardUI(user);
+    } else {
+        console.warn("No user detected in auth state.");
+    }
+});
+
+// Ensure UI updates if the user is already signed in
+if (auth.currentUser) {
+    updateDashboardUI(auth.currentUser);
+}
 
     // Event listener for the dashboard button
     if (dashboardButton) {
