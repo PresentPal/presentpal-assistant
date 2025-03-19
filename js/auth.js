@@ -108,12 +108,14 @@ window.signUp = async function() {
   }
 };
 
-// ✅ Global Logout Function
 window.logout = function () {
   signOut(auth).then(() => {
     alert("Logged out successfully!");
     closeAccountModal();
     localStorage.removeItem("customerId"); // Clear customer ID from local storage
+    window.location.href = "https://presentpal.uk"; // Redirect to homepage
+  }).catch((error) => {
+    console.error("Logout failed:", error);
   });
 };
 
