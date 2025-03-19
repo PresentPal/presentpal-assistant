@@ -11,5 +11,7 @@ import { getAuth } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth
 // Initialize Firebase Auth
 const auth = getAuth();
 
+import { showChatbotBasedOnSubscription } from "./js/index.js";
+
 // Export auth for other files to use
 export { auth };
