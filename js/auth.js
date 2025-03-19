@@ -121,6 +121,8 @@ window.logout = function () {
 };
 
 // ✅ Monitor Auth State & Show Dashboard Button for Subscribed Users
+// Inside auth.js
+
 onAuthStateChanged(auth, async (user) => {
   const dashboardButton = document.getElementById("dashboardButton");
 
@@ -130,7 +132,7 @@ onAuthStateChanged(auth, async (user) => {
     if (userDoc.exists()) {
       const userData = userDoc.data();
 
-      // Show dashboard button only for subscribed users
+      // Show the dashboard button only for subscribed users
       if (userData.subscription === "subscribedUser") {
         dashboardButton.style.display = "block";
       } else {
@@ -146,11 +148,20 @@ onAuthStateChanged(auth, async (user) => {
       showChatbotBasedOnSubscription(userData.subscription, userData.package);
     }
     
-    document.getElementById("logoutButton").style.display = "block";
+    // Show the logout button when user is logged in (inside modal)
+    const logoutButton = document.getElementById("logoutButton");
+    if (logoutButton) {
+        logoutButton.style.display = "block";
+    } else {
+        console.error("Logout button not found in modal!");
+    }
   } else {
     // No user logged in, show the free version of the chatbot
     dashboardButton.style.display = "none";
-    document.getElementById("logoutButton").style.display = "none";
+    const logoutButton = document.getElementById("logoutButton");
+    if (logoutButton) {
+        logoutButton.style.display = "none";
+    }
     
     // Show the free chatbot for unauthenticated users
     showChatbotBasedOnSubscription("freeUser", "free");
