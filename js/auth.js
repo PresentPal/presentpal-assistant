@@ -141,49 +141,14 @@ onAuthStateChanged(auth, async (user) => {
       if (userData.customerId) {
         localStorage.setItem("customerId", userData.customerId);
       }
-
-      // Fetch subscription and package from Firestore
-      const subscription = userData.subscription || "freeUser"; // Default to freeUser if not found
-      const packageType = userData.package || "free"; // Default to "free" if no package found
-
-      // Function to show the correct chatbot based on the user's subscription and package
-      function showChatbotBasedOnSubscription(subscription, packageType) {
-        const chatbotFree = document.getElementById("chatbotFree");
-        const chatbotPlus = document.getElementById("chatbotPlus");
-        const chatbotPremium = document.getElementById("chatbotPremium");
-
-        // Hide all chatbots initially
-        chatbotFree.style.display = "none";
-        chatbotPlus.style.display = "none";
-        chatbotPremium.style.display = "none";
-
-        // Logic to show the correct chatbot based on subscription and package
-        if (subscription === "freeUser") {
-          // For free users, show PresentPal chatbot
-          chatbotFree.style.display = "block";
-        } else if (subscription === "subscribedUser") {
-          // For subscribed users, check the package
-          if (packageType === "PresentPal+") {
-            chatbotPlus.style.display = "block";
-          } else if (packageType === "PresentPal Premium") {
-            chatbotPremium.style.display = "block";
-          }
-        }
-      }
-
-      // Show the correct chatbot based on the user's subscription and package
-      showChatbotBasedOnSubscription(subscription, packageType);
     }
     
     document.getElementById("logoutButton").style.display = "block";
   } else {
     dashboardButton.style.display = "none";
     document.getElementById("logoutButton").style.display = "none";
-
-    // If no user is logged in, default to the free version chatbot
-    showChatbotBasedOnSubscription("freeUser", "free");
   }
-}); // End of onAuthStateChanged function
+});
 
 // ✅ Fetch Customer ID from Firebase and Store in Local Storage
 async function fetchCustomerId(userId) {
