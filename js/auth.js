@@ -108,18 +108,6 @@ window.signUp = async function() {
   }
 };
 
-// Function to manage subscription (this will be executed when the user clicks on the "Manage Subscription" button)
-function manageSubscription() {
-    // Your logic to handle subscription management
-    alert("Manage Subscription clicked!");
-}
-
-// Function to edit profile (this can be customized as per your needs)
-function editProfile() {
-    // Your logic to handle editing the profile
-    alert("Edit Profile clicked!");
-}
-
 // ✅ Global Logout Function
 window.logout = function () {
   signOut(auth).then(() => {
@@ -217,32 +205,6 @@ document.addEventListener("click", (event) => {
   if (modal && event.target === modal) {
     closeAccountModal();
   }
-});
-
-// Listen for authentication state changes
-onAuthStateChanged(auth, (user) => {
-    const manageSubscriptionButton = document.getElementById("manageSubscriptionButton");
-    const editProfileButton = document.getElementById("editProfileButton");
-
-    if (user) {
-        // If user is logged in, show the buttons and add event listeners
-        manageSubscriptionButton.style.display = "inline-block";
-        editProfileButton.style.display = "inline-block";
-
-        // Event listener for "Manage Subscription" button
-        manageSubscriptionButton.addEventListener("click", manageSubscription);
-
-        // Event listener for "Edit Profile" button
-        editProfileButton.addEventListener("click", editProfile);
-    } else {
-        // If no user is logged in, hide the buttons
-        manageSubscriptionButton.style.display = "none";
-        editProfileButton.style.display = "none";
-
-        // Remove event listeners if no user (to avoid memory leaks)
-        manageSubscriptionButton.removeEventListener("click", manageSubscription);
-        editProfileButton.removeEventListener("click", editProfile);
-    }
 });
 
 // ✅ Event Listener for Close Button
