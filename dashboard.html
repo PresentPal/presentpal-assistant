@@ -88,15 +88,19 @@ body, html {
         }
 
         /* Dashboard Buttons */
-        .dashboard-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
+       .dashboard-buttons {
+       display: flex;
+       flex-direction: column; /* Stack buttons vertically */
+       align-items: center; /* Center buttons */
+       gap: 15px; /* Keep spacing between buttons */
+       width: 100%; /* Ensure it takes full width of container */
         }
 
-        .dashboard-buttons button {
-            background-color: black;
+            .dashboard-buttons button {
+            width: 90%; /* Make buttons span 90% of the container */
+            display: block; /* Ensure buttons are stacked */
+            text-align: center; /* Center button text */
+            background-color: #252524;
             color: white;
             border: none;
             padding: 12px 18px;
@@ -239,11 +243,6 @@ body {
     <button class="nav-button upgrade-button" id="upgradeButton">
         <img src="upgrade-icon.png" alt="Upgrade">
     </button>
-</div>
-
-    <!-- Logout Button -->
-    <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
-  </div>
 </div>
 
     <!-- Landbot Popup -->
