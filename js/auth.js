@@ -108,6 +108,34 @@ window.signUp = async function() {
   }
 };
 
+// Function to toggle the visibility of the new buttons based on auth state
+function toggleAccountModalButtons(user) {
+    const manageSubscriptionButton = document.getElementById("manageSubscriptionButton");
+    const editProfileButton = document.getElementById("editProfileButton");
+
+    if (user) {
+        // If user is logged in, show the buttons
+        manageSubscriptionButton.style.display = "inline-block";
+        editProfileButton.style.display = "inline-block";
+    } else {
+        // If user is not logged in, hide the buttons
+        manageSubscriptionButton.style.display = "none";
+        editProfileButton.style.display = "none";
+    }
+}
+
+// Function to manage subscription (this will be executed when the user clicks on the "Manage Subscription" button)
+function manageSubscription() {
+    // Your logic to handle subscription management
+    alert("Manage Subscription clicked!");
+}
+
+// Function to edit profile (this can be customized as per your needs)
+function editProfile() {
+    // Your logic to handle editing the profile
+    alert("Edit Profile clicked!");
+}
+
 // ✅ Global Logout Function
 window.logout = function () {
   signOut(auth).then(() => {
