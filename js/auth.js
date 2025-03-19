@@ -175,33 +175,36 @@ function showChatbotBasedOnSubscription(subscription, packageType) {
     const chatbotPremium = document.getElementById("chatbotPremium");
 
     // Hide all chatbots initially
-    chatbotFree.style.display = "none";
-    chatbotPlus.style.display = "none";
-    chatbotPremium.style.display = "none";
+    if (chatbotFree) chatbotFree.style.display = "none";
+    if (chatbotPlus) chatbotPlus.style.display = "none";
+    if (chatbotPremium) chatbotPremium.style.display = "none";
 
     let configUrl = "";
 
     // Determine which chatbot to show based on subscription type
     if (subscription === "freeUser") {
-        chatbotFree.style.display = "block";
+        if (chatbotFree) chatbotFree.style.display = "block";
         configUrl = "https://storage.googleapis.com/landbot.online/v3/H-2769762-VQ3B8OLEKLOSPJSC/index.json";
     } else if (subscription === "subscribedUser") {
         if (packageType === "PresentPal+") {
-            chatbotPlus.style.display = "block";
+            if (chatbotPlus) chatbotPlus.style.display = "block";
             configUrl = "https://storage.googleapis.com/landbot.online/v3/H-2834423-29VBX8T7M9HF9JZQ/index.json";
         } else if (packageType === "PresentPal Premium") {
-            chatbotPremium.style.display = "block";
+            if (chatbotPremium) chatbotPremium.style.display = "block";
             configUrl = "https://storage.googleapis.com/landbot.online/v3/H-2836767-VUKNK95YMC1683Y0/index.json";
         }
     }
 
     // Load Landbot chatbot dynamically
     if (configUrl) {
-        document.getElementById("landbotContainer").innerHTML = ""; // Clear old chatbot
-        new Landbot.Container({
-            container: "#landbotContainer",
-            configUrl: configUrl,
-        });
+        const landbotContainer = document.getElementById("landbotContainer");
+        if (landbotContainer) {
+            landbotContainer.innerHTML = ""; // Clear old chatbot
+            new Landbot.Container({
+                container: "#landbotContainer",
+                configUrl: configUrl,
+            });
+        }
     }
 }
 
