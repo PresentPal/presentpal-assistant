@@ -172,6 +172,52 @@ async function fetchCustomerId(userId) {
   }
 }
 
+// ✅ Update Dashboard UI
+const updateDashboardUI = async (user) => {
+    if (!user) {
+        console.warn("No user detected, hiding dashboard.");
+        dashboardContainer.style.display = "none"; 
+        return;
+    }
+
+    console.log("User detected:", user); // ✅ Log the user object
+
+    dashboardContainer.style.display = "block";
+
+    try {
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+            const userData = docSnap.data();
+            console.log("Fetched User Data:", userData); // ✅ Log fetched user data
+
+            // Check if values exist before updating the UI
+            document.getElementById("userName").innerText = userData.userName || "No Name Found";
+            document.getElementById("userEmail").innerText = userData.email || "No Email Found";
+            document.getElementById("subscriptionStatus").innerText = userData.package || "No Package Found";
+
+            if (userData.customerId) {
+                localStorage.setItem("customerId", userData.customerId);
+                console.log("Stored customerId:", userData.customerId);
+            }
+
+            // Show dashboard button for subscribed users
+            if (userData.subscription === "subscribedUser") {
+                dashboardButton.style.display = "block"; 
+            } else {
+                dashboardButton.style.display = "none";
+            }
+        } else {
+            console.warn("User document does not exist in Firestore.");
+            alert("No user data found in Firestore.");
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        alert("Error loading user data.");
+    }
+};
+
 // ✅ Function to Create a Stripe Customer (Updated API Call)
 async function createStripeCustomer(email) {
   const response = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/create-stripe-customer", {
