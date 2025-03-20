@@ -2,6 +2,8 @@
 import { auth, db } from './firebase.js';  // Import auth and db from firebase.js
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"; // Correct import
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { updateDashboardUI } from './dashboard.js';  // Correct import path
+
 
 // Declare a global variable to store the userData
 let userData = null;
