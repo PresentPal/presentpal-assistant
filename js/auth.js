@@ -76,6 +76,7 @@ window.signUp = async function() {
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
+  const userName = document.getElementById("signupName").value;
 
   if (password !== confirmPassword) {
     alert("Passwords do not match!");
@@ -88,6 +89,7 @@ window.signUp = async function() {
 
     // 1️⃣ Store basic user data in Firestore
     await setDoc(doc(db, "users", user.uid), { 
+      userName,
       email: user.email, 
       subscription: "freeUser", 
       customerId: null // Initially null, will be updated after Stripe creation
