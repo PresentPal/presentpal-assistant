@@ -174,51 +174,15 @@ async function fetchCustomerId(userId) {
 
 // ✅ Update Dashboard UI
 const updateDashboardUI = async (user) => {
-  const dashboardContainer = document.getElementById("dashboardContainer");
-  
-    if (!user) {
-        console.warn("No user detected, hiding dashboard.");
-        dashboardContainer.style.display = "none"; 
-        return;
-    }
+  if (!user) return;
 
-    console.log("User detected:", user); // ✅ Log the user object
+  const userData = await checkSubscriptionStatus(user); // ✅ Now waits for userData
 
-    dashboardContainer.style.display = "block";
-
-    try {
-        // Ensure user data is fetched and available
-        await checkSubscriptionStatus(user); // This will set userData
-
-        const userData = getUserData(); // Now userData should be populated
-        console.log("User Data from navigation.js:", userData); // ✅ Log fetched user data
-
-        if (userData) {
-            // Check if values exist before updating the UI
-            document.getElementById("userName").innerText = userData.userName || "No Name Found";
-            document.getElementById("userEmail").innerText = userData.email || "No Email Found";
-            document.getElementById("subscriptionStatus").innerText = userData.package || "No Package Found";
-
-            if (userData.customerId) {
-                localStorage.setItem("customerId", userData.customerId);
-                console.log("Stored customerId:", userData.customerId);
-            }
-
-            // Show dashboard button for subscribed users
-            if (userData.subscription === "subscribedUser") {
-              document.getElementById("dashboardButton").style.display = "block";
-                dashboardButton.style.display = "block"; 
-            } else {
-                document.getElementById("dashboardButton").style.display = "none";
-            }
-        } else {
-            console.warn("User data is not available.");
-            alert("No user data found.");
-        }
-    } catch (error) {
-        console.error("Error fetching user data:", error);
-        alert("Error loading user data.");
-    }
+  if (userData) {
+    document.getElementById("userName").innerText = userData.userName || "No Name Found";
+    document.getElementById("userEmail").innerText = userData.email || "No Email Found";
+    document.getElementById("subscriptionStatus").innerText = userData.package || "No Package Found";
+  }
 };
 
 // ✅ Function to Create a Stripe Customer (Updated API Call)
