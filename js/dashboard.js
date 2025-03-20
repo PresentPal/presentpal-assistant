@@ -173,7 +173,7 @@ async function fetchCustomerId(userId) {
 }
 
 // ✅ Update Dashboard UI with User Data
-function updateDashboardUI(userData) {
+export function updateDashboardUI(userData) {
     const userNameElement = document.getElementById("userName");
     const userEmailElement = document.getElementById("userEmail");
     const userSubscriptionElement = document.getElementById("userSubscription");
