@@ -152,9 +152,9 @@ onAuthStateChanged(auth, async (user) => {
     const logoutButton = document.getElementById("logoutButton");
     if (logoutButton) {
         logoutButton.style.display = "block";
-    } else {
-        console.error("Logout button not found in modal!");
+    }
   }
+});
 
 // ✅ Fetch Customer ID from Firebase and Store in Local Storage
 async function fetchCustomerId(userId) {
