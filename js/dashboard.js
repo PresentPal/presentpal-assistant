@@ -185,13 +185,13 @@ const updateDashboardUI = async (user) => {
     dashboardContainer.style.display = "block";
 
     try {
-        const userRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(userRef);
+        // Ensure user data is fetched and available
+        await checkSubscriptionStatus(user); // This will set userData
 
-        if (docSnap.exists()) {
-            const userData = getUserData();
-console.log("User Data from navigation.js:", userData); // ✅ Log fetched user data
+        const userData = getUserData(); // Now userData should be populated
+        console.log("User Data from navigation.js:", userData); // ✅ Log fetched user data
 
+        if (userData) {
             // Check if values exist before updating the UI
             document.getElementById("userName").innerText = userData.userName || "No Name Found";
             document.getElementById("userEmail").innerText = userData.email || "No Email Found";
@@ -209,8 +209,8 @@ console.log("User Data from navigation.js:", userData); // ✅ Log fetched user 
                 dashboardButton.style.display = "none";
             }
         } else {
-            console.warn("User document does not exist in Firestore.");
-            alert("No user data found in Firestore.");
+            console.warn("User data is not available.");
+            alert("No user data found.");
         }
     } catch (error) {
         console.error("Error fetching user data:", error);
