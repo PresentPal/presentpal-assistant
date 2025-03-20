@@ -168,6 +168,7 @@ async function fetchCustomerId(userId) {
     console.error("Error fetching customerId:", error);
   }
 }
+  });
 
 // ✅ Function to Create a Stripe Customer (Updated API Call)
 async function createStripeCustomer(email) {
