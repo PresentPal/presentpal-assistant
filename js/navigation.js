@@ -14,7 +14,14 @@ async function checkSubscriptionStatus(user) {
   try {
     const docSnap = await getDoc(userRef);
     if (docSnap.exists()) {
-      userData = docSnap.data(); // ✅ Ensure userData is updated properly
+      userData = docSnap.data();
+      const dashboardButton = document.getElementById("dashboardButton");
+      
+      if (userData.subscription === "subscribedUser" && userData.package) {
+        dashboardButton.style.display = "block";
+      } else {
+        dashboardButton.style.display = "none";
+      }
       return userData;
     } else {
       console.log("User document does not exist");
