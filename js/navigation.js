@@ -37,66 +37,74 @@ export { checkSubscriptionStatus };
 
 // ✅ onAuthStateChanged for Navigation Button Updates
 onAuthStateChanged(auth, (user) => {
-  const dashboardButton = document.getElementById("dashboardButton");
-  const homeButton = document.getElementById("homeButton");
-  const accountButton = document.getElementById("accountButton");
-  const upgradeButton = document.getElementById("upgradeButton");
+    const accountButton = document.getElementById("accountButton");
+    const dashboardButton = document.getElementById("dashboardButton");
+    const homeButton = document.getElementById("homeButton");
+    const upgradeButton = document.getElementById("upgradeButton");
 
-  // Initially hide the dashboard button until we verify the user's subscription
-  dashboardButton.style.display = "none";
+    // Initially hide the dashboard button until we verify the user's subscription
+    dashboardButton.style.display = "none";
 
-  // Always show navigation bar
-  document.querySelector(".nav-bar").style.display = "flex";
+    // Always show navigation bar
+    document.querySelector(".nav-bar").style.display = "flex";
 
-  // Always show Home, Account, and Upgrade buttons for all users
-  homeButton.style.display = "block";
-  accountButton.style.display = "block";
-  upgradeButton.style.display = "block";
+    // Always show Home, Account, and Upgrade buttons for all users
+    homeButton.style.display = "block";
+    accountButton.style.display = "block";
+    upgradeButton.style.display = "block";
 
-  if (user) {
-      console.log("User logged in, checking subscription status");
-      checkSubscriptionStatus(user); // Check subscription
+    if (user) {
+        console.log("User logged in, checking subscription status");
+        checkSubscriptionStatus(user); // Check subscription
 
-      // Show dashboard button for subscribed users
-      document.getElementById("loginForm").style.display = "none";
-      document.getElementById("signupForm").style.display = "none";
-  } else {
-      console.log("User is not authenticated");
+        // Show dashboard button for subscribed users
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("signupForm").style.display = "none";
 
-      // Hide dashboard button when logged out
-      dashboardButton.style.display = "none";
+        // Change the 'account' button to redirect to 'account.html' for logged-in users
+        accountButton.removeEventListener("click", showLoginModal); // Remove modal listener
+        accountButton.addEventListener("click", () => {
+            window.location.href = "account.html"; // Redirect to account page
+        });
+    } else {
+        console.log("User is not authenticated");
 
-      // Show login form for non-logged-in users
-      document.getElementById("loginForm").style.display = "block";
-      document.getElementById("signupForm").style.display = "none";
-  }
+        // Hide dashboard button when logged out
+        dashboardButton.style.display = "none";
 
-  // ✅ Event Listener for Dashboard Button
-  if (dashboardButton) {
-    dashboardButton.addEventListener("click", () => {
-        window.location.href = "account.html"; // Redirect to the dashboard page
-    });
-  }
+        // Show login form for non-logged-in users
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("signupForm").style.display = "none";
 
-  // ✅ Event Listener for Home Button
-  if (homeButton) {
-    homeButton.addEventListener("click", () => {
-        window.location.href = "https://presentpal.uk"; // Go to the home page
-    });
-  }
+        // Change the 'account' button to open the login/signup modal when not logged in
+        accountButton.removeEventListener("click", showLoginModal); // Remove existing listener
+        accountButton.addEventListener("click", showLoginModal); // Show modal when clicked
+    }
 
-  // ✅ Event Listener for Account Button
-  if (accountButton) {
-    accountButton.addEventListener("click", () => {
-        const modal = document.getElementById("accountModal");
-        if (modal) modal.style.display = "block"; // Open account modal
-    });
-  }
+    // ✅ Event Listener for Dashboard Button
+    if (dashboardButton) {
+        dashboardButton.addEventListener("click", () => {
+            window.location.href = "account.html"; // Redirect to the account page
+        });
+    }
 
-  // ✅ Event Listener for Upgrade Button
-  if (upgradeButton) {
-    upgradeButton.addEventListener("click", () => {
-        window.location.href = "subscription-plans.html"; // Go to the subscription page
-    });
-  }
+    // ✅ Event Listener for Home Button
+    if (homeButton) {
+        homeButton.addEventListener("click", () => {
+            window.location.href = "https://presentpal.uk"; // Go to the home page
+        });
+    }
+
+    // ✅ Event Listener for Account Button
+    if (accountButton) {
+        // Initially, this will open the modal for non-logged-in users
+        accountButton.addEventListener("click", showLoginModal);
+    }
+
+    // ✅ Event Listener for Upgrade Button
+    if (upgradeButton) {
+        upgradeButton.addEventListener("click", () => {
+            window.location.href = "subscription-plans.html"; // Go to the subscription page
+        });
+    }
 });
