@@ -173,16 +173,27 @@ async function fetchCustomerId(userId) {
 }
 
 // ✅ Update Dashboard UI with User Data
-export function updateDashboardUI(userData) {
+function updateDashboardUI(userData) {
     const userNameElement = document.getElementById("userName");
     const userEmailElement = document.getElementById("userEmail");
     const userSubscriptionElement = document.getElementById("userSubscription");
 
+    console.log("Updating dashboard UI with data: ", userData);
+
     if (userData) {
-        // Set the user info dynamically
-        if (userNameElement) userNameElement.textContent = userData.name || "No Name"; // Use a fallback if no name is found
-        if (userEmailElement) userEmailElement.textContent = userData.email;
-        if (userSubscriptionElement) userSubscriptionElement.textContent = userData.subscription || "No subscription info"; // Handle missing subscription info
+        // Set userName, email, and package
+        if (userNameElement) {
+            console.log("Setting userName to:", userData.userName);
+            userNameElement.textContent = userData.userName || "No Name"; // Default to "No Name"
+        }
+        if (userEmailElement) {
+            console.log("Setting userEmail to:", userData.email);
+            userEmailElement.textContent = userData.email || "No Email"; // Default to "No Email"
+        }
+        if (userSubscriptionElement) {
+            console.log("Setting userSubscription to:", userData.package);
+            userSubscriptionElement.textContent = userData.package || "No subscription info"; // Default to "No subscription info"
+        }
     }
 }
 
