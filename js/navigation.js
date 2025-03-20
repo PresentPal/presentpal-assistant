@@ -3,6 +3,9 @@ import { auth, db } from './firebase.js';  // Import auth and db from firebase.j
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"; // Correct import
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
+// Declare a global variable to store the userData
+let userData = null;
+
 // ✅ Check User Subscription Status
 function checkSubscriptionStatus(user) {
     if (!user) return;
@@ -10,20 +13,20 @@ function checkSubscriptionStatus(user) {
     const userRef = doc(db, "users", user.uid);  // Referencing the user document
     getDoc(userRef).then((docSnap) => {
         if (docSnap.exists()) {
-            userData = docSnap.data();
+            userData = docSnap.data();  // Store the fetched data
             console.log("User Data: ", userData); // Debugging log
             if (userData.subscription === "subscribedUser") { 
-                console.log("User is subscribed, showing dashboard button"); // Debugging log
+                console.log("User is subscribed, showing dashboard button");
                 document.getElementById("dashboardButton").style.display = "block"; // Show dashboard for paid users
             } else {
-                console.log("User is not subscribed, hiding dashboard button"); // Debugging log
+                console.log("User is not subscribed, hiding dashboard button");
                 document.getElementById("dashboardButton").style.display = "none"; // Hide it for free users
             }
         } else {
-            console.log("User document does not exist"); // Debugging log
+            console.log("User document does not exist");
         }
     }).catch((error) => {
-        console.error("Error getting user data: ", error); // Debugging log for errors
+        console.error("Error getting user data: ", error);
     });
 }
 
@@ -93,4 +96,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-export { userData };
+// ✅ Getter function to access userData
+export function getUserData() {
+  return userData;
+}
