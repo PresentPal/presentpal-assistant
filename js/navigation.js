@@ -30,6 +30,13 @@ function checkSubscriptionStatus(user) {
     });
 }
 
+// ✅ Getter function to access userData
+export function getUserData() {
+  return userData;
+}
+
+export { checkSubscriptionStatus };
+
 // ✅ onAuthStateChanged for Navigation Button Updates
 onAuthStateChanged(auth, (user) => {
   const dashboardButton = document.getElementById("dashboardButton");
@@ -96,7 +103,3 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// ✅ Getter function to access userData
-export function getUserData() {
-  return userData;
-}
