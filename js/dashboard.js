@@ -6,6 +6,7 @@ import {
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import "./navigation.js";
 
 // ✅ Close Account Modal function
 export function closeAccountModal() {
