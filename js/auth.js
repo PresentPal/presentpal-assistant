@@ -1,3 +1,21 @@
+function togglePasswordVisibility(fieldId, iconId) {
+    const passwordField = document.getElementById(fieldId);
+    const toggleIcon = document.getElementById(iconId);
+
+    if (passwordField && toggleIcon) {
+        // Toggle the password field type between 'password' and 'text'
+        if (passwordField.type === "password") {
+            passwordField.type = "text"; // Show password
+            toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
+        } else {
+            passwordField.type = "password"; // Hide password
+            toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
+        }
+    } else {
+        console.error('Password field or toggle icon not found!');
+    }
+}
+
 import { auth, db } from "./firebase.js";
 import { 
   signInWithEmailAndPassword, 
