@@ -150,6 +150,8 @@ onAuthStateChanged(auth, async (user) => {
         logoutButton.style.display = "block";
     }
   }
+  }
+});
 
 // ✅ Fetch Customer ID from Firebase and Store in Local Storage
 async function fetchCustomerId(userId) {
