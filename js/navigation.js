@@ -92,3 +92,5 @@ onAuthStateChanged(auth, (user) => {
     });
   }
 });
+
+export { userData };
