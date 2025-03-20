@@ -103,11 +103,20 @@ onAuthStateChanged(auth, (user) => {
         });
     }
 
-    // ✅ Event Listener for Account Button
-    if (accountButton) {
-        // Initially, this will open the modal for non-logged-in users
-        accountButton.addEventListener("click", showLoginModal);
-    }
+   // ✅ Event Listener for Account Button
+if (accountButton) {
+    accountButton.addEventListener("click", () => {
+        const user = auth.currentUser; // Get current user from Firebase
+
+        // If user is authenticated, redirect to account.html
+        if (user) {
+            window.location.href = "account.html"; // Redirect to account page
+        } else {
+            // If not authenticated, show the login/signup modal
+            showLoginModal(); // Open the account modal
+        }
+    });
+}
 
     // ✅ Event Listener for Upgrade Button
     if (upgradeButton) {
