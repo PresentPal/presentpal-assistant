@@ -6,7 +6,7 @@ import {
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-import { userData } from "./navigation.js";
+import { getUserData } from "./navigation.js";  // Import the getter function
 
 // ✅ Close Account Modal function
 export function closeAccountModal() {
@@ -189,8 +189,8 @@ const updateDashboardUI = async (user) => {
         const docSnap = await getDoc(userRef);
 
         if (docSnap.exists()) {
-            const userData = docSnap.data();
-            console.log("Fetched User Data:", userData); // ✅ Log fetched user data
+            const userData = getUserData();
+console.log("User Data from navigation.js:", userData); // ✅ Log fetched user data
 
             // Check if values exist before updating the UI
             document.getElementById("userName").innerText = userData.userName || "No Name Found";
