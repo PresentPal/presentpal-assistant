@@ -60,7 +60,11 @@ async function sendTokenToBackend(idToken) {
       body: JSON.stringify({})
     });
 
-    const data = await response.json();
+// Log the response to check what is returned
+    const textResponse = await response.text();
+    console.log('Raw response:', textResponse); // Log the raw response before parsing it
+    
+   const data = JSON.parse(textResponse);
     if (response.ok) {
       console.log('Backend response:', data);
     } else {
