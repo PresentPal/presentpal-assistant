@@ -172,18 +172,19 @@ async function fetchCustomerId(userId) {
   }
 }
 
-// ✅ Update Dashboard UI
-const updateDashboardUI = async (user) => {
-  if (!user) return;
+// ✅ Update Dashboard UI with User Data
+function updateDashboardUI(userData) {
+    const userNameElement = document.getElementById("userName");
+    const userEmailElement = document.getElementById("userEmail");
+    const userSubscriptionElement = document.getElementById("userSubscription");
 
-  const userData = await checkSubscriptionStatus(user); // ✅ Now waits for userData
-
-  if (userData) {
-    document.getElementById("userName").innerText = userData.userName || "No Name Found";
-    document.getElementById("userEmail").innerText = userData.email || "No Email Found";
-    document.getElementById("subscriptionStatus").innerText = userData.package || "No Package Found";
-  }
-};
+    if (userData) {
+        // Set the user info dynamically
+        if (userNameElement) userNameElement.textContent = userData.name || "No Name"; // Use a fallback if no name is found
+        if (userEmailElement) userEmailElement.textContent = userData.email;
+        if (userSubscriptionElement) userSubscriptionElement.textContent = userData.subscription || "No subscription info"; // Handle missing subscription info
+    }
+}
 
 // ✅ Function to Create a Stripe Customer (Updated API Call)
 async function createStripeCustomer(email) {
