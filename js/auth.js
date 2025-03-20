@@ -1,3 +1,4 @@
+// ✅ Password Visibility Function
 function togglePasswordVisibility(fieldId, iconId) {
     const passwordField = document.getElementById(fieldId);
     const toggleIcon = document.getElementById(iconId);
@@ -15,6 +16,9 @@ function togglePasswordVisibility(fieldId, iconId) {
         console.error('Password field or toggle icon not found!');
     }
 }
+
+// ✅ Make sure it's globally available
+window.togglePasswordVisibility = togglePasswordVisibility;
 
 import { auth, db } from "./firebase.js";
 import { 
@@ -301,22 +305,3 @@ document.addEventListener("DOMContentLoaded", () => {
     closeButton.addEventListener("click", closeAccountModal);
   }
 });
-
-// ✅ Toggle Password Visibility Function
-export function togglePasswordVisibility(fieldId, iconId) {
-    const passwordField = document.getElementById(fieldId);
-    const toggleIcon = document.getElementById(iconId);
-
-    if (passwordField && toggleIcon) {
-        if (passwordField.type === "password") {
-            passwordField.type = "text"; // Show password
-            toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
-        } else {
-            passwordField.type = "password"; // Hide password
-            toggleIcon.textContent = "👁‍🗨"; // Closed eye icon
-        }
-    }
-}
-
-// ✅ Make sure it's globally available
-window.togglePasswordVisibility = togglePasswordVisibility;
