@@ -28,6 +28,14 @@ function checkSubscriptionStatus(user) {
     });
 }
 
+// Function to show the login/signup modal
+function showLoginModal() {
+    const modal = document.getElementById("accountModal");
+    if (modal) {
+        modal.style.display = "block"; // Open the account modal
+    }
+}
+
 // ✅ Getter function to access userData
 export function getUserData() {
   return userData;
