@@ -10,7 +10,7 @@ function checkSubscriptionStatus(user) {
     const userRef = doc(db, "users", user.uid);  // Referencing the user document
     getDoc(userRef).then((docSnap) => {
         if (docSnap.exists()) {
-            const userData = docSnap.data();
+            window.userData = docSnap.data();
             console.log("User Data: ", userData); // Debugging log
             if (userData.subscription === "subscribedUser") { 
                 console.log("User is subscribed, showing dashboard button"); // Debugging log
