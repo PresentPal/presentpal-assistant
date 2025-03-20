@@ -6,7 +6,7 @@ import {
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-import { getUserData } from "./navigation.js";  // Import the getter function
+import { getUserData, checkSubscriptionStatus } from "./navigation.js";  // Import the getter function
 
 // ✅ Close Account Modal function
 export function closeAccountModal() {
@@ -174,6 +174,8 @@ async function fetchCustomerId(userId) {
 
 // ✅ Update Dashboard UI
 const updateDashboardUI = async (user) => {
+  const dashboardContainer = document.getElementById("dashboardContainer");
+  
     if (!user) {
         console.warn("No user detected, hiding dashboard.");
         dashboardContainer.style.display = "none"; 
@@ -204,9 +206,10 @@ const updateDashboardUI = async (user) => {
 
             // Show dashboard button for subscribed users
             if (userData.subscription === "subscribedUser") {
+              document.getElementById("dashboardButton").style.display = "block";
                 dashboardButton.style.display = "block"; 
             } else {
-                dashboardButton.style.display = "none";
+                document.getElementById("dashboardButton").style.display = "none";
             }
         } else {
             console.warn("User data is not available.");
