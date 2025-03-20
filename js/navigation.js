@@ -7,27 +7,23 @@ import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-
 let userData = null;
 
 // ✅ Check User Subscription Status
-function checkSubscriptionStatus(user) {
-    if (!user) return;
+async function checkSubscriptionStatus(user) {
+  if (!user) return null;
 
-    const userRef = doc(db, "users", user.uid);  // Referencing the user document
-    getDoc(userRef).then((docSnap) => {
-        if (docSnap.exists()) {
-            userData = docSnap.data();  // Store the fetched data
-            console.log("User Data: ", userData); // Debugging log
-            if (userData.subscription === "subscribedUser") { 
-                console.log("User is subscribed, showing dashboard button");
-                document.getElementById("dashboardButton").style.display = "block"; // Show dashboard for paid users
-            } else {
-                console.log("User is not subscribed, hiding dashboard button");
-                document.getElementById("dashboardButton").style.display = "none"; // Hide it for free users
-            }
-        } else {
-            console.log("User document does not exist");
-        }
-    }).catch((error) => {
-        console.error("Error getting user data: ", error);
-    });
+  const userRef = doc(db, "users", user.uid);
+  try {
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      userData = docSnap.data(); // ✅ Ensure userData is updated properly
+      return userData;
+    } else {
+      console.log("User document does not exist");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error getting user data: ", error);
+    return null;
+  }
 }
 
 // ✅ Getter function to access userData
