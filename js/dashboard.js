@@ -143,10 +143,6 @@ onAuthStateChanged(auth, async (user) => {
       if (userData.customerId) {
         localStorage.setItem("customerId", userData.customerId);
       }
-
-      // Show the correct chatbot based on the user's subscription and package
-      showChatbotBasedOnSubscription(userData.subscription, userData.package);
-    }
     
     // Show the logout button when user is logged in (inside modal)
     const logoutButton = document.getElementById("logoutButton");
