@@ -4,7 +4,8 @@ function togglePasswordVisibility(fieldId, iconId) {
     const toggleIcon = document.getElementById(iconId);
 
     if (passwordField && toggleIcon) {
-        // Toggle the password field type between 'password' and 'text'
+         console.log(`Toggling visibility for: ${fieldId}`); // Debugging line
+
         if (passwordField.type === "password") {
             passwordField.type = "text"; // Show password
             toggleIcon.textContent = "👁️‍🗨️"; // Open eye icon
