@@ -6,10 +6,8 @@
     <title>Recipients</title>
      <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
-
-
+    
    <style>
-
 /* General Page Styling */
 body {
     font-family: "Arial", sans-serif;
@@ -210,6 +208,7 @@ input, select {
 .table-container {
     max-height: 400px;
     overflow-y: auto;
+    margin-top: 15px;
 }
 
 /* Empty State */
@@ -217,6 +216,20 @@ input, select {
     color: #777;
     font-size: 16px;
     margin-top: 20px;
+}
+
+/* Clear Fix for Flex Table */
+.table-container .recipient-row::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* Styling for Clearfix in Modal (if needed) */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
          /* Navigation Bar */
