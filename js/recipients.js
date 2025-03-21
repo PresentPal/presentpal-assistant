@@ -1,5 +1,5 @@
-import { auth, db } from "./firebase.js";
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { auth, db } from "./firebase.js"; 
+import { collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 // Fetch and display recipient list
 async function loadRecipients() {
