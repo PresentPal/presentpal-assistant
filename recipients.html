@@ -4,7 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipients</title>
-    <link rel="stylesheet" href="styles.css">
+   <style>
+
+/* General Page Styling */
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Page Container */
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Recipient List Header */
+.recipient-list-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Recipient Rows */
+.recipient-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    transition: background 0.3s ease-in-out;
+}
+
+.recipient-row:hover {
+    background: #f1f1f1;
+}
+
+/* Buttons */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Add New Button */
+#addRecipientBtn {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#addRecipientBtn:hover {
+    background-color: #218838;
+}
+
+/* Edit & Delete Buttons */
+.edit-btn {
+    background-color: #ffc107;
+    color: black;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+input, select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Modal (for Editing Recipients) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.modal-buttons button {
+    width: 48%;
+}
+       
+   </style>
 </head>
 <body>
     <h1>Recipient Profiles</h1>
