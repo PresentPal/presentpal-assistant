@@ -1,4 +1,4 @@
-import { auth, db } from "./firebaseConfig.js";
+import { auth, db } from "./firebase.js";
 import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 // Fetch and display recipient list
