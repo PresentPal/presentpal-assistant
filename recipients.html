@@ -235,18 +235,15 @@ body {
         </tbody>
     </table>
 
-    <!-- Add Recipient Modal -->
-    <div id="addRecipientModal" class="modal">
-        <div class="modal-content">
-            <h2>Add Recipient</h2>
-            <input type="text" id="recipientName" placeholder="Name">
-            <input type="text" id="recipientRelationship" placeholder="Relationship">
-            <input type="text" id="recipientOccasion" placeholder="Occasion (optional)">
-            <button onclick="addRecipient()">Save</button>
-            <button onclick="closeModal()">Cancel</button>
-        </div>
-    </div>
-
+    <!-- Modal for adding new recipient -->
+<div id="addRecipientModal" style="display: none;">
+  <h3>Add New Recipient</h3>
+  <input type="text" id="recipientName" placeholder="Recipient Name">
+  <input type="text" id="recipientRelationship" placeholder="Relationship">
+  <input type="text" id="recipientOccasion" placeholder="Occasion (Optional)">
+  <button onclick="addRecipient()">Add</button>
+  <button onclick="closeModal()">Cancel</button>
+</div>
     
     <!-- Navigation Bar -->
     <div class="nav-bar">
