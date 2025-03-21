@@ -30,6 +30,7 @@ async function loadRecipients() {
     }
 }
 
+// Add Recipient Function
 window.addRecipient = async function () {
     const user = auth.currentUser;
     if (!user) {
