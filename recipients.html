@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipients</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Recipient Profiles</h1>
+    <button onclick="openAddRecipientModal()">+ Add New</button>
+    <table class="recipient-list">
+        <thead>
+            <tr>
+                <th>Recipient</th>
+                <th>Relationship</th>
+                <th>Occasions</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="recipientTable">
+            <!-- Full recipient list will load here -->
+        </tbody>
+    </table>
+
+    <!-- Add Recipient Modal -->
+    <div id="addRecipientModal" class="modal">
+        <div class="modal-content">
+            <h2>Add Recipient</h2>
+            <input type="text" id="recipientName" placeholder="Name">
+            <input type="text" id="recipientRelationship" placeholder="Relationship">
+            <input type="text" id="recipientOccasion" placeholder="Occasion (optional)">
+            <button onclick="addRecipient()">Save</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script type="module" src="recipients.js"></script>
+</body>
+</html>
