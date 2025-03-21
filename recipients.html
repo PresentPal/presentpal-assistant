@@ -40,10 +40,11 @@ h2 {
     justify-content: space-between;
     font-weight: bold;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #007bff; /* Blue background */
     color: white;
     border-radius: 8px 8px 0 0;
     font-size: 16px;
+    text-align: left;
 }
 
 /* Table Container */
@@ -53,19 +54,26 @@ h2 {
     margin-top: 20px;
 }
 
-/* Recipient Rows */
+/* Recipient Rows (Alternating Row Colors) */
+.recipient-row:nth-child(even) {
+    background-color: #f2f2f2; /* Light grey for even rows */
+}
+
+.recipient-row:nth-child(odd) {
+    background-color: #ffffff; /* White for odd rows */
+}
+
 .recipient-row {
     display: flex;
     justify-content: space-between;
     padding: 12px;
     border-bottom: 1px solid #ddd;
-    background: white;
-    transition: background 0.3s ease-in-out;
     font-size: 16px;
+    transition: background 0.3s ease-in-out;
 }
 
 .recipient-row:hover {
-    background: #f1f1f1;
+    background: #f1f1f1; /* Hover effect */
 }
 
 /* Table Columns */
@@ -86,9 +94,9 @@ button {
     text-transform: uppercase;
 }
 
-/* Add New Button */
+/* Add New Button (Green color changed to match header blue) */
 #addRecipientBtn {
-    background-color: #28a745;
+    background-color: #007bff; /* Same blue as the header */
     color: white;
     font-weight: bold;
     margin-top: 15px;
@@ -96,7 +104,7 @@ button {
 }
 
 #addRecipientBtn:hover {
-    background-color: #218838;
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 /* Edit & Delete Buttons */
@@ -310,7 +318,8 @@ body {
 <body>
  <div class="container">
 
-        <!-- Page Title -->
+         <!-- Page Container -->
+    <div class="container">
         <h2>Recipient Profiles</h2>
 
         <!-- Recipient List Table -->
@@ -325,7 +334,7 @@ body {
                     </tr>
                 </thead>
                 <tbody id="recipientTable">
-                    <!-- Full recipient list will load here -->
+                    <!-- Recipient data will be loaded here -->
                 </tbody>
             </table>
         </div>
@@ -334,8 +343,8 @@ body {
         <div id="emptyState" class="empty-state" style="display: none;">
             No recipients added yet. Click '+ Add New' to get started!
         </div>
-     
- <!-- Add New Button -->
+
+        <!-- Add New Button -->
         <button id="addRecipientBtn" onclick="openAddRecipientModal()">+ Add New</button>
     </div>
 
