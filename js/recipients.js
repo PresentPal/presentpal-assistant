@@ -30,14 +30,21 @@ async function loadRecipients() {
     }
 }
 
-// ✅ Make addRecipient globally available
 window.addRecipient = async function () {
     const user = auth.currentUser;
-    if (!user) return;
+    if (!user) {
+        console.log('No user logged in');
+        return;
+    }
     
     const name = document.getElementById("recipientName").value;
     const relationship = document.getElementById("recipientRelationship").value;
     const occasion = document.getElementById("recipientOccasion").value;
+
+    // Logging values for debugging
+    console.log('Recipient Name:', name);
+    console.log('Recipient Relationship:', relationship);
+    console.log('Recipient Occasion:', occasion);
 
     if (!name || !relationship) {
         alert("Name and relationship are required!");
@@ -48,6 +55,7 @@ window.addRecipient = async function () {
 
     try {
         await addDoc(recipientsRef, { name, relationship, occasion });
+        console.log('Recipient added successfully');
         window.closeModal(); // Close modal after adding recipient
         window.loadRecipients(); // Refresh list
     } catch (error) {
