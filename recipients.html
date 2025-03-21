@@ -170,6 +170,28 @@ input, select {
         </div>
     </div>
 
+    
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <button class="nav-button" id="homeButton">
+            <img src="home-icon.png" alt="Home">
+        </button>
+        <button class="nav-button" id="accountButton">
+            <img src="account-icon.png" alt="Account">
+        </button>
+        <button class="nav-button" id="dashboardButton" style="display: none;">
+            <img src="dashboard-icon.png" alt="Dashboard">
+        </button>
+        <button class="nav-button upgrade-button" id="upgradeButton">
+            <img src="upgrade-icon.png" alt="Upgrade">
+        </button>
+    </div>
+
+    <!-- Script Imports -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="module" src="index.js"></script>
+    <script src="js/dashboard.js"></script>
+
     <script type="module" src="recipients.js"></script>
 </body>
 </html>
