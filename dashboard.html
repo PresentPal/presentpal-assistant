@@ -84,6 +84,30 @@ header {
     font-size: 14px;
     color: #555;
 }
+
+       .recipient-preview {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.recipient-preview th, .recipient-preview td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.recipient-preview th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.view-more {
+    color: #007bff;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 8px;
+}
        
         /* Navigation Bar */
 .nav-bar {
@@ -168,13 +192,22 @@ body {
 
     <!-- Dashboard Sections -->
     <main class="dashboard-container">
-        <section class="dashboard-section">
-            <a href="feature1.html">
-                <img src="feature1-icon.png" alt="Feature 1">
-                <h2>Feature 1</h2>
-                <p>Short description of Feature 1.</p>
-            </a>
-        </section>
+       <div class="dashboard-section" onclick="window.location.href='recipients.html'">
+    <h2>Recipient Profiles</h2>
+    <table class="recipient-preview">
+        <thead>
+            <tr>
+                <th>Recipient</th>
+                <th>Relationship</th>
+                <th>Occasions</th>
+            </tr>
+        </thead>
+        <tbody id="recipientPreviewTable">
+            <!-- Recipient data will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <p class="view-more">Tap to view all</p>
+</div>
 
         <section class="dashboard-section">
             <a href="feature2.html">
