@@ -95,7 +95,7 @@ if (signupForm) signupForm.style.display = "none";
     // ✅ Event Listener for Dashboard Button
     if (dashboardButton) {
         dashboardButton.addEventListener("click", () => {
-            window.location.href = "account.html"; // Redirect to the account page
+            window.location.href = "dashboard.html"; // Redirect to the account page
         });
     }
 
