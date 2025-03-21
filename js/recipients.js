@@ -4,13 +4,17 @@ import { collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic
 // Fetch and display recipient list
 async function loadRecipients() {
     const user = auth.currentUser;
-    if (!user) return;
+    if (!user) {
+        console.log('No user logged in');
+        return;
+    }
     
     const recipientsRef = collection(db, "users", user.uid, "recipients");
     const recipientTable = document.getElementById("recipientTable");
 
     try {
         const querySnapshot = await getDocs(recipientsRef);
+        console.log('Fetched recipients:', querySnapshot.docs.length);
         recipientTable.innerHTML = ""; // Clear old data
 
         querySnapshot.forEach((doc) => {
