@@ -308,32 +308,53 @@ body {
    </style>
 </head>
 <body>
-    <h1>Recipient Profiles</h1>
-    <button onclick="openAddRecipientModal()">+ Add New</button>
-    <table class="recipient-list">
-        <thead>
-            <tr>
-                <th>Recipient</th>
-                <th>Relationship</th>
-                <th>Occasions</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="recipientTable">
-            <!-- Full recipient list will load here -->
-        </tbody>
-    </table>
+ <div class="container">
 
-    <!-- Modal for adding new recipient -->
-<div id="addRecipientModal" style="display: none;">
-  <h3>Add New Recipient</h3>
-  <input type="text" id="recipientName" placeholder="Recipient Name">
-  <input type="text" id="recipientRelationship" placeholder="Relationship">
-  <input type="text" id="recipientOccasion" placeholder="Occasion (Optional)">
-  <button onclick="addRecipient()">Add</button>
-  <button onclick="closeModal()">Cancel</button>
-</div>
-    
+        <!-- Page Title -->
+        <h2>Recipient Profiles</h2>
+
+        <!-- Add New Button -->
+        <button id="addRecipientBtn" onclick="openAddRecipientModal()">+ Add New</button>
+
+        <!-- Recipient List Table -->
+        <div class="table-container">
+            <table class="recipient-list">
+                <thead>
+                    <tr class="recipient-list-header">
+                        <th>Recipient</th>
+                        <th>Relationship</th>
+                        <th>Occasions</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="recipientTable">
+                    <!-- Full recipient list will load here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Empty State Message -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            No recipients added yet. Click '+ Add New' to get started!
+        </div>
+
+    </div>
+
+    <!-- Modal for Adding New Recipient -->
+    <div id="addRecipientModal" class="modal">
+        <h3>Add New Recipient</h3>
+        <form>
+            <input type="text" id="recipientName" placeholder="Recipient Name" required>
+            <input type="text" id="recipientRelationship" placeholder="Relationship" required>
+            <input type="text" id="recipientOccasion" placeholder="Occasion (Optional)">
+        </form>
+        <div class="modal-buttons">
+            <button onclick="addRecipient()">Add</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+        <span class="close-modal" onclick="closeModal()">X</span>
+    </div>
+
     <!-- Navigation Bar -->
     <div class="nav-bar">
         <button class="nav-button" id="homeButton">
