@@ -30,8 +30,8 @@ async function loadRecipients() {
     }
 }
 
-// Add new recipient
-async function addRecipient() {
+// ✅ Make addRecipient globally available
+window.addRecipient = async function () {
     const user = auth.currentUser;
     if (!user) return;
     
@@ -48,33 +48,34 @@ async function addRecipient() {
 
     try {
         await addDoc(recipientsRef, { name, relationship, occasion });
-        closeModal();
-        loadRecipients(); // Refresh list
+        window.closeModal(); // Close modal after adding recipient
+        window.loadRecipients(); // Refresh list
     } catch (error) {
         console.error("Error adding recipient:", error);
     }
-}
+};
 
-// Delete recipient
-async function deleteRecipient(recipientId) {
+// ✅ Make deleteRecipient globally available
+window.deleteRecipient = async function (recipientId) {
     const user = auth.currentUser;
     if (!user) return;
 
     try {
         await deleteDoc(doc(db, "users", user.uid, "recipients", recipientId));
-        loadRecipients(); // Refresh list
+        window.loadRecipients(); // Refresh list
     } catch (error) {
         console.error("Error deleting recipient:", error);
     }
-}
+};
 
-// Open/Close modal
-function openAddRecipientModal() {
+// ✅ Make modal functions globally available
+window.openAddRecipientModal = function () {
     document.getElementById("addRecipientModal").style.display = "block";
-}
-function closeModal() {
+};
+
+window.closeModal = function () {
     document.getElementById("addRecipientModal").style.display = "none";
-}
+};
 
 // Ensure recipients load on page load
 document.addEventListener("DOMContentLoaded", () => {
