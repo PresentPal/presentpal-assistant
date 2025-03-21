@@ -313,9 +313,6 @@ body {
         <!-- Page Title -->
         <h2>Recipient Profiles</h2>
 
-        <!-- Add New Button -->
-        <button id="addRecipientBtn" onclick="openAddRecipientModal()">+ Add New</button>
-
         <!-- Recipient List Table -->
         <div class="table-container">
             <table class="recipient-list">
@@ -337,7 +334,9 @@ body {
         <div id="emptyState" class="empty-state" style="display: none;">
             No recipients added yet. Click '+ Add New' to get started!
         </div>
-
+     
+ <!-- Add New Button -->
+        <button id="addRecipientBtn" onclick="openAddRecipientModal()">+ Add New</button>
     </div>
 
     <!-- Modal for Adding New Recipient -->
@@ -352,7 +351,6 @@ body {
             <button onclick="addRecipient()">Add</button>
             <button onclick="closeModal()">Cancel</button>
         </div>
-        <span class="close-modal" onclick="closeModal()">X</span>
     </div>
 
     <!-- Navigation Bar -->
