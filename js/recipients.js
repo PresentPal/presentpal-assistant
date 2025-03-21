@@ -13,10 +13,22 @@ async function loadRecipients() {
     const recipientTable = document.getElementById("recipientTable");
 
     try {
-        const querySnapshot = await getDocs(recipientsRef);
-        console.log('Fetched recipients:', querySnapshot.docs.length);
-        recipientTable.innerHTML = ""; // Clear old data
+        // Start by clearing the existing rows
+        recipientTable.innerHTML = "<tr><td colspan='4'>Loading...</td></tr>";
 
+        // Fetch the documents
+        const querySnapshot = await getDocs(recipientsRef);
+        
+        // Clear loading message
+        recipientTable.innerHTML = "";
+
+        // Check if there are no recipients
+        if (querySnapshot.empty) {
+            recipientTable.innerHTML = "<tr><td colspan='4'>No recipients found.</td></tr>";
+            return;
+        }
+
+        // Add rows for each recipient
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const row = `
@@ -34,7 +46,7 @@ async function loadRecipients() {
     }
 }
 
-// Add Recipient Function
+// ✅ Make addRecipient globally available
 window.addRecipient = async function () {
     const user = auth.currentUser;
     if (!user) {
@@ -62,7 +74,7 @@ window.addRecipient = async function () {
         await addDoc(recipientsRef, { name, relationship, occasion });
         console.log('Recipient added successfully');
         window.closeModal(); // Close modal after adding recipient
-        window.loadRecipients(); // Refresh list
+        loadRecipients(); // Refresh list immediately after adding
     } catch (error) {
         console.error("Error adding recipient:", error);
     }
@@ -71,11 +83,14 @@ window.addRecipient = async function () {
 // ✅ Make deleteRecipient globally available
 window.deleteRecipient = async function (recipientId) {
     const user = auth.currentUser;
-    if (!user) return;
+    if (!user) {
+        console.log('No user logged in');
+        return;
+    }
 
     try {
         await deleteDoc(doc(db, "users", user.uid, "recipients", recipientId));
-        window.loadRecipients(); // Refresh list
+        loadRecipients(); // Refresh list immediately after deletion
     } catch (error) {
         console.error("Error deleting recipient:", error);
     }
@@ -93,6 +108,8 @@ window.closeModal = function () {
 // Ensure recipients load on page load
 document.addEventListener("DOMContentLoaded", () => {
     auth.onAuthStateChanged((user) => {
-        if (user) loadRecipients();
+        if (user) {
+            loadRecipients(); // Load recipients when user is authenticated
+        }
     });
 });
