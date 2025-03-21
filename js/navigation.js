@@ -65,9 +65,12 @@ onAuthStateChanged(auth, (user) => {
         console.log("User logged in, checking subscription status");
         checkSubscriptionStatus(user); // Check subscription
 
-        // Show dashboard button for subscribed users
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("signupForm").style.display = "none";
+       // Ensure the script only modifies elements that exist
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
+
+if (loginForm) loginForm.style.display = "none";
+if (signupForm) signupForm.style.display = "none";
 
         // Change the 'account' button to redirect to 'account.html' for logged-in users
         accountButton.removeEventListener("click", showLoginModal); // Remove modal listener
