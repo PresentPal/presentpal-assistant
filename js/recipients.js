@@ -28,18 +28,26 @@ async function loadRecipients() {
             return;
         }
 
-        // Add rows for each recipient
+        // Add rows for each recipient with alternating colors
+        let counter = 0;
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            const row = `
-                <tr>
-                    <td>${data.name}</td>
-                    <td>${data.relationship}</td>
-                    <td>${data.occasion || "N/A"}</td>
-                    <td><button onclick="deleteRecipient('${doc.id}')">Remove</button></td>
-                </tr>
+            const row = document.createElement("tr");
+            
+            // Add class for alternating row colors
+            row.classList.add(counter % 2 === 0 ? "recipient-row" : "recipient-row-alt");
+
+            row.innerHTML = `
+                <td>${data.name}</td>
+                <td>${data.relationship}</td>
+                <td>${data.occasion || "N/A"}</td>
+                <td><button class="delete-btn" onclick="deleteRecipient('${doc.id}')">Remove</button></td>
             `;
-            recipientTable.innerHTML += row;
+
+            recipientTable.appendChild(row);
+
+            // Increment counter for alternating rows
+            counter++;
         });
     } catch (error) {
         console.error("Error fetching recipients:", error);
