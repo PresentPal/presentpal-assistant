@@ -288,91 +288,116 @@ body {
    </style>
 </head>
 <body>
-<div class="container">
-        <h2>Recipient Profiles</h2>
+ <div class="container">
+    <h2>Recipient Profiles</h2>
 
-        <!-- Recipient List Table -->
-        <div class="table-container">
-            <table class="recipient-list">
-                <thead>
-                    <tr>
-                        <th>Recipient</th>
-                        <th>Relationship</th>
-                        <th>Occasion(s)</th>
-                        <th>Date</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Interests</th>
-                    </tr>
-                </thead>
-                <tbody id="recipientTable">
-                    <!-- Full recipient list will load here -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Empty State Message -->
-        <div id="emptyState" class="empty-state" style="display: none;">
-            No recipients added yet. Click '+ Add New' to get started!
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="button-container">
-            <button id="addRecipientBtn" onclick="openAddRecipientModal()">+ Add New</button>
-            <button id="manageRecipientBtn" onclick="openManageRecipientModal()">Manage</button>
-        </div>
+    <!-- ✅ Recipient Table -->
+    <div class="table-container">
+      <table class="recipient-list">
+        <thead>
+          <tr>
+            <th>Recipient</th>
+            <th>Relationship</th>
+            <th>Occasion(s)</th>
+            <th>Date</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Interests</th>
+          </tr>
+        </thead>
+        <tbody id="recipientTable">
+          <!-- JS will populate here -->
+        </tbody>
+      </table>
     </div>
 
-    <!-- Modal for Adding / Editing Recipient -->
-    <div id="recipientModal" class="modal">
-        <h3 id="modalTitle">Add New Recipient</h3>
-        <form>
-            <input type="text" id="recipientName" placeholder="Recipient Name" required>
-            <input type="text" id="recipientRelationship" placeholder="Relationship" required>
-            <input type="text" id="recipientOccasion" placeholder="Occasion(s) (e.g. Birthday, Anniversary)">
-            <input type="date" id="recipientDate" placeholder="Date of Occasion">
-            <input type="number" id="recipientAge" placeholder="Age">
-            <select id="recipientGender">
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-            <input type="text" id="recipientInterests" placeholder="Interests (e.g. Books, Music, Travel)">
-        </form>
-        <div class="modal-buttons">
-            <button onclick="saveRecipient()">Save</button>
-            <button onclick="closeModal()">Cancel</button>
-        </div>
+    <!-- Empty Message -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+      No recipients added yet. Click '+ Add New' to get started!
     </div>
 
-    <!-- Modal for Managing Recipient -->
-<div id="manageRecipientModal" class="modal">
+    <!-- ✅ Action Buttons -->
+    <div class="button-container">
+      <button id="addRecipientBtn" onclick="openAddRecipientModal()">+ Add New</button>
+    </div>
+  </div>
+
+  <!-- ✅ Add Recipient Modal -->
+  <div id="addRecipientModal" class="modal">
+    <h3>Add New Recipient</h3>
+    <form>
+      <input type="text" id="recipientName" placeholder="Recipient Name" required />
+      <input type="text" id="recipientRelationship" placeholder="Relationship" required />
+      <input type="text" id="recipientOccasion" placeholder="Occasion(s) (e.g. Birthday, Christmas)" />
+      <input type="date" id="recipientDate" placeholder="Date of Occasion" />
+      <input type="number" id="recipientAge" placeholder="Age" />
+      <select id="recipientGender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+      <input type="text" id="recipientInterests" placeholder="Interests (e.g. Music, Cooking)" />
+    </form>
+    <div class="modal-buttons">
+      <button onclick="addRecipient()">Add</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ✅ Manage Modal -->
+  <div id="manageRecipientModal" class="modal">
     <h3>Manage Recipient</h3>
-    <button onclick="editRecipient()">Edit</button>
-    <button onclick="closeManageModal()">Cancel</button>
-</div>
-
-    <!-- Navigation Bar -->
-    <div class="nav-bar">
-        <button class="nav-button" id="homeButton">
-            <img src="home-icon.png" alt="Home">
-        </button>
-        <button class="nav-button" id="accountButton">
-            <img src="account-icon.png" alt="Account">
-        </button>
-        <button class="nav-button" id="dashboardButton" style="display: none;">
-            <img src="dashboard-icon.png" alt="Dashboard">
-        </button>
-        <button class="nav-button upgrade-button" id="upgradeButton">
-            <img src="upgrade-icon.png" alt="Upgrade">
-        </button>
+    <div class="modal-buttons">
+      <button id="editRecipientBtn">Edit</button>
+      <button id="deleteRecipientBtn">Delete</button>
+      <button onclick="closeManageModal()">Cancel</button>
     </div>
+  </div>
 
-    <!-- Script Imports -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <script type="module" src="index.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script type="module" src="js/recipients.js"></script>
+  <!-- ✅ Edit Modal -->
+  <div id="editRecipientModal" class="modal">
+    <h3>Edit Recipient</h3>
+    <form>
+      <input type="text" id="editName" placeholder="Recipient Name" required />
+      <input type="text" id="editRelationship" placeholder="Relationship" required />
+      <input type="text" id="editOccasion" placeholder="Occasion(s)" />
+      <input type="date" id="editDate" />
+      <input type="number" id="editAge" placeholder="Age" />
+      <select id="editGender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+      <input type="text" id="editInterests" placeholder="Interests" />
+    </form>
+    <div class="modal-buttons">
+      <button id="saveEditBtn">Save</button>
+      <button onclick="closeEditModal()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ✅ Navigation Bar -->
+  <div class="nav-bar">
+    <button class="nav-button" id="homeButton">
+      <img src="home-icon.png" alt="Home" />
+    </button>
+    <button class="nav-button" id="accountButton">
+      <img src="account-icon.png" alt="Account" />
+    </button>
+    <button class="nav-button" id="dashboardButton" style="display: none;">
+      <img src="dashboard-icon.png" alt="Dashboard" />
+    </button>
+    <button class="nav-button upgrade-button" id="upgradeButton">
+      <img src="upgrade-icon.png" alt="Upgrade" />
+    </button>
+  </div>
+
+  <!-- ✅ Scripts -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script type="module" src="index.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script type="module" src="js/recipients.js"></script>
 </body>
 </html>
