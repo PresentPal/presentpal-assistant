@@ -1,5 +1,5 @@
-import { auth, db } from "./firebase.js"; 
-import { collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { auth, db } from "./firebase.js";
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 // Fetch and display recipient list
 async function loadRecipients() {
@@ -13,111 +13,113 @@ async function loadRecipients() {
     const recipientTable = document.getElementById("recipientTable");
 
     try {
-        // Start by clearing the existing rows
-        recipientTable.innerHTML = "<tr><td colspan='4'>Loading...</td></tr>";
-
-        // Fetch the documents
+        recipientTable.innerHTML = "<tr><td colspan='7'>Loading...</td></tr>";
         const querySnapshot = await getDocs(recipientsRef);
-        
-        // Clear loading message
         recipientTable.innerHTML = "";
 
-        // Check if there are no recipients
         if (querySnapshot.empty) {
-            recipientTable.innerHTML = "<tr><td colspan='4'>No recipients found.</td></tr>";
+            recipientTable.innerHTML = "<tr><td colspan='7'>No recipients found.</td></tr>";
             return;
         }
 
-        // Add rows for each recipient with alternating colors
-        let counter = 0;
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const row = document.createElement("tr");
+            row.classList.add("recipient-row");
+            row.setAttribute("data-id", doc.id);
             
-            // Add class for alternating row colors
-            row.classList.add(counter % 2 === 0 ? "recipient-row" : "recipient-row-alt");
-
             row.innerHTML = `
                 <td>${data.name}</td>
                 <td>${data.relationship}</td>
-                <td>${data.occasion || "N/A"}</td>
-                <td><button class="delete-btn" onclick="deleteRecipient('${doc.id}')">Remove</button></td>
+                <td>${data.occasion ? data.occasion.join(", ") : "N/A"}</td>
+                <td>${data.date || "N/A"}</td>
+                <td>${data.age || "N/A"}</td>
+                <td>${data.gender || "N/A"}</td>
+                <td>${data.interests ? data.interests.join(", ") : "N/A"}</td>
             `;
-
+            row.addEventListener("click", () => openManageModal(doc.id, data));
             recipientTable.appendChild(row);
-
-            // Increment counter for alternating rows
-            counter++;
         });
     } catch (error) {
         console.error("Error fetching recipients:", error);
     }
 }
 
-// ✅ Make addRecipient globally available
+// Open the manage modal
+window.openManageModal = function (recipientId, data) {
+    document.getElementById("manageModal").style.display = "block";
+    document.getElementById("editRecipientBtn").onclick = () => openEditModal(recipientId, data);
+    document.getElementById("deleteRecipientBtn").onclick = () => deleteRecipient(recipientId);
+};
+
+// Open the edit modal
+window.openEditModal = function (recipientId, data) {
+    document.getElementById("editModal").style.display = "block";
+    document.getElementById("editName").value = data.name;
+    document.getElementById("editRelationship").value = data.relationship;
+    document.getElementById("editOccasion").value = data.occasion ? data.occasion.join(", ") : "";
+    document.getElementById("editDate").value = data.date || "";
+    document.getElementById("editAge").value = data.age || "";
+    document.getElementById("editGender").value = data.gender || "";
+    document.getElementById("editInterests").value = data.interests ? data.interests.join(", ") : "";
+
+    document.getElementById("saveEditBtn").onclick = async () => {
+        await updateDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId), {
+            name: document.getElementById("editName").value,
+            relationship: document.getElementById("editRelationship").value,
+            occasion: document.getElementById("editOccasion").value.split(", "),
+            date: document.getElementById("editDate").value,
+            age: document.getElementById("editAge").value,
+            gender: document.getElementById("editGender").value,
+            interests: document.getElementById("editInterests").value.split(", ")
+        });
+        loadRecipients();
+        closeModal();
+    };
+};
+
+// Add recipient
 window.addRecipient = async function () {
     const user = auth.currentUser;
-    if (!user) {
-        console.log('No user logged in');
-        return;
-    }
+    if (!user) return;
     
     const name = document.getElementById("recipientName").value;
     const relationship = document.getElementById("recipientRelationship").value;
-    const occasion = document.getElementById("recipientOccasion").value;
-
-    // Logging values for debugging
-    console.log('Recipient Name:', name);
-    console.log('Recipient Relationship:', relationship);
-    console.log('Recipient Occasion:', occasion);
+    const occasion = document.getElementById("recipientOccasion").value.split(", ");
+    const date = document.getElementById("recipientDate").value;
+    const age = document.getElementById("recipientAge").value;
+    const gender = document.getElementById("recipientGender").value;
+    const interests = document.getElementById("recipientInterests").value.split(", ");
 
     if (!name || !relationship) {
         alert("Name and relationship are required!");
         return;
     }
-
-    const recipientsRef = collection(db, "users", user.uid, "recipients");
-
-    try {
-        await addDoc(recipientsRef, { name, relationship, occasion });
-        console.log('Recipient added successfully');
-        window.closeModal(); // Close modal after adding recipient
-        loadRecipients(); // Refresh list immediately after adding
-    } catch (error) {
-        console.error("Error adding recipient:", error);
-    }
+    
+    await addDoc(collection(db, "users", user.uid, "recipients"), {
+        name, relationship, occasion, date, age, gender, interests
+    });
+    loadRecipients();
+    closeModal();
 };
 
-// ✅ Make deleteRecipient globally available
+// Delete recipient
 window.deleteRecipient = async function (recipientId) {
-    const user = auth.currentUser;
-    if (!user) {
-        console.log('No user logged in');
-        return;
-    }
-
-    try {
-        await deleteDoc(doc(db, "users", user.uid, "recipients", recipientId));
-        loadRecipients(); // Refresh list immediately after deletion
-    } catch (error) {
-        console.error("Error deleting recipient:", error);
-    }
+    if (!confirm("Are you sure you want to delete this recipient?")) return;
+    await deleteDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId));
+    loadRecipients();
+    closeModal();
 };
 
-// ✅ Make modal functions globally available
-window.openAddRecipientModal = function () {
-    document.getElementById("addRecipientModal").style.display = "block";
-};
-
+// Close modals
 window.closeModal = function () {
-    document.getElementById("addRecipientModal").style.display = "none";
+    document.querySelectorAll(".modal").forEach(modal => modal.style.display = "none");
 };
 
-// Ensure recipients load on page load
+// Load recipients on page load
 document.addEventListener("DOMContentLoaded", () => {
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            loadRecipients(); // Load recipients when user is authenticated
-        }
+    auth.onAuthStateChanged(user => {
+        if (user) loadRecipients();
     });
 });
+
