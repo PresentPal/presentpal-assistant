@@ -71,8 +71,8 @@ window.openEditRecipientModal = function (recipientId, data) {
 
     document.getElementById("editName").value = data.name || "";
     document.getElementById("editRelationship").value = data.relationship || "";
-    document.getElementById("editOccasion").value = Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || "";
-    document.getElementById("editDate").value = data.date || "";
+    document.getElementById("editRecipientOccasion").value = data.occasion || "";
+    document.getElementById("editRecipientDate").value = data.date || "";
     document.getElementById("editAge").value = data.age || "";
     document.getElementById("editGender").value = data.gender || "";
     document.getElementById("editInterests").value = Array.isArray(data.interests) ? data.interests.join(", ") : data.interests || "";
@@ -84,8 +84,8 @@ window.openEditRecipientModal = function (recipientId, data) {
                 await updateDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId), {
                     name: document.getElementById("editName").value,
                     relationship: document.getElementById("editRelationship").value,
-                    occasion: document.getElementById("editOccasion").value.split(",").map(o => o.trim()),
-                    date: document.getElementById("editDate").value,
+                    occasion: document.getElementById("editRecipientOccasion").value.trim(),
+                     date: document.getElementById("editRecipientDate").value,
                     age: document.getElementById("editAge").value,
                     gender: document.getElementById("editGender").value,
                     interests: document.getElementById("editInterests").value.split(",").map(i => i.trim())
