@@ -46,8 +46,6 @@ async function loadRecipientPreview(user) {
 
             row.innerHTML = `
                 <td>${data.name || "N/A"}</td>
-                <td>${data.relationship || "N/A"}</td>
-                <td>${Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || "N/A"}</td>
             `;
 
             previewTable.appendChild(row);
