@@ -15,6 +15,10 @@ body {
     margin: 0;
     padding: 20px;
     text-align: center;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Page Container */
@@ -48,12 +52,10 @@ h2 {
     width: 8px;
     height: 8px;
 }
-
 .table-container::-webkit-scrollbar-thumb {
     background: #aaa;
     border-radius: 4px;
 }
-
 .table-container::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
@@ -79,21 +81,18 @@ h2 {
     border-bottom: 2px solid #ddd;
 }
 
-/* Table Row */
+/* Table Row Styling */
 .recipient-row {
-    padding: 12px;
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer; /* Makes entire row clickable */
+    cursor: pointer;
 }
-
-.recipient-row:hover {
-    background-color: #f1f1f1;
-}
-
-/* Alternating Row Colors */
 .recipient-row:nth-child(even) {
     background-color: #f9f9f9;
+}
+.recipient-row:nth-child(odd) {
+    background-color: #ffffff;
+}
+.recipient-row:hover {
+    background-color: #f1f1f1;
 }
 
 /* Table Cells */
@@ -103,32 +102,17 @@ h2 {
     vertical-align: middle;
     border-right: 1px solid #ddd;
 }
-
 .recipient-list td:last-child {
     border-right: none;
 }
 
-/* Edit Button */
-.edit-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.edit-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Manage & Add Buttons */
+/* Buttons Below Table */
 .button-container {
     margin-top: 20px;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .manage-btn,
@@ -142,13 +126,12 @@ h2 {
     cursor: pointer;
     border: none;
 }
-
 .manage-btn:hover,
 #addRecipientBtn:hover {
     background-color: #0056b3;
 }
 
-/* Modal */
+/* Modal Styling */
 .modal {
     display: none;
     position: fixed;
@@ -165,56 +148,87 @@ h2 {
     text-align: center;
 }
 
-/* Modal Fields */
+.modal h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+/* Modal Form Fields */
 .modal form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-.modal input {
+.modal input,
+.modal select {
     width: 90%;
     padding: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+    appearance: none;
+    background-color: white;
+}
+
+/* Placeholder for date field */
+input[type="date"]::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+/* Gender Dropdown Styling */
+.modal select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" viewBox="0 0 20 20"><path d="M5.516 7.548l4.484 4.426 4.484-4.426a1 1 0 0 1 1.4 1.428l-5.184 5.114a1 1 0 0 1-1.4 0L4.116 8.976a1 1 0 1 1 1.4-1.428z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
 }
 
 /* Modal Buttons */
 .modal-buttons {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
 }
-
-/* Rounded Buttons */
 .modal-buttons button {
-    width: 45%;
-    padding: 12px 20px;
+    width: 90%;
+    padding: 12px;
     font-size: 16px;
     text-transform: uppercase;
     border-radius: 8px;
     border: none;
     cursor: pointer;
 }
-
 .modal-buttons button:first-child {
     background-color: #007bff;
     color: white;
 }
-
 .modal-buttons button:first-child:hover {
     background-color: #0056b3;
 }
-
 .modal-buttons button:last-child {
     background-color: #ccc;
     color: black;
 }
-
 .modal-buttons button:last-child:hover {
     background-color: #999;
+}
+
+/* Manage Modal Delete Button */
+#deleteRecipientBtn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#deleteRecipientBtn:hover {
+    background-color: #b02a37;
 }
 
 /* Navigation Bar */
@@ -329,7 +343,7 @@ body {
       <input type="text" id="recipientName" placeholder="Recipient Name" required />
       <input type="text" id="recipientRelationship" placeholder="Relationship" required />
       <input type="text" id="recipientOccasion" placeholder="Occasion(s) (e.g. Birthday, Christmas)" />
-      <input type="date" id="recipientDate" placeholder="Date of Occasion" />
+      <input type="date" id="recipientDate" placeholder="Date of Occasion (dd/mm)" />
       <input type="number" id="recipientAge" placeholder="Age" />
       <select id="recipientGender">
         <option value="">Select Gender</option>
