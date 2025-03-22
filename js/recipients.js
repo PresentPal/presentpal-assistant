@@ -38,7 +38,7 @@ async function loadRecipients() {
                 <td>${data.interests ? data.interests.join(", ") : "N/A"}</td>
             `;
 
-            // Clicking a row opens the manage modal
+            // Open manage modal when row is clicked
             row.addEventListener("click", () => openManageRecipientModal(docSnapshot.id, data));
 
             recipientTable.appendChild(row);
@@ -48,64 +48,69 @@ async function loadRecipients() {
     }
 }
 
-// Open the manage modal
+// ✅ Open the "Manage" modal
 window.openManageRecipientModal = function (recipientId, data) {
     const modal = document.getElementById("manageRecipientModal");
+    if (!modal) return;
     modal.style.display = "block";
 
-    // Attach recipient ID to modal for further actions
     modal.setAttribute("data-recipient-id", recipientId);
 
-    document.getElementById("editRecipientBtn").onclick = () => openEditRecipientModal(recipientId, data);
-    document.getElementById("deleteRecipientBtn").onclick = () => deleteRecipient(recipientId);
+    const editBtn = document.getElementById("editRecipientBtn");
+    const deleteBtn = document.getElementById("deleteRecipientBtn");
+
+    if (editBtn) editBtn.onclick = () => openEditRecipientModal(recipientId, data);
+    if (deleteBtn) deleteBtn.onclick = () => deleteRecipient(recipientId);
 };
 
-// Open the edit recipient modal
+// ✅ Open the "Edit" modal with prefilled values
 window.openEditRecipientModal = function (recipientId, data) {
     const modal = document.getElementById("editRecipientModal");
+    if (!modal) return;
     modal.style.display = "block";
 
-    document.getElementById("editName").value = data.name;
-    document.getElementById("editRelationship").value = data.relationship;
+    document.getElementById("editName").value = data.name || "";
+    document.getElementById("editRelationship").value = data.relationship || "";
     document.getElementById("editOccasion").value = Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || "";
     document.getElementById("editDate").value = data.date || "";
     document.getElementById("editAge").value = data.age || "";
     document.getElementById("editGender").value = data.gender || "";
-    document.getElementById("editInterests").value = data.interests ? data.interests.join(", ") : "";
+    document.getElementById("editInterests").value = Array.isArray(data.interests) ? data.interests.join(", ") : data.interests || "";
 
-    // Save button updates the recipient in Firestore
-    document.getElementById("saveEditBtn").onclick = async () => {
-        try {
-            await updateDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId), {
-                name: document.getElementById("editName").value,
-                relationship: document.getElementById("editRelationship").value,
-                occasion: document.getElementById("editOccasion").value.split(", ").map(item => item.trim()),
-                date: document.getElementById("editDate").value,
-                age: document.getElementById("editAge").value,
-                gender: document.getElementById("editGender").value,
-                interests: document.getElementById("editInterests").value.split(", ").map(item => item.trim()),
-            });
-
-            loadRecipients();
-            closeModal();
-        } catch (error) {
-            console.error("Error updating recipient:", error);
-        }
-    };
+    const saveBtn = document.getElementById("saveEditBtn");
+    if (saveBtn) {
+        saveBtn.onclick = async () => {
+            try {
+                await updateDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId), {
+                    name: document.getElementById("editName").value,
+                    relationship: document.getElementById("editRelationship").value,
+                    occasion: document.getElementById("editOccasion").value.split(",").map(o => o.trim()),
+                    date: document.getElementById("editDate").value,
+                    age: document.getElementById("editAge").value,
+                    gender: document.getElementById("editGender").value,
+                    interests: document.getElementById("editInterests").value.split(",").map(i => i.trim())
+                });
+                loadRecipients();
+                closeModal();
+            } catch (error) {
+                console.error("Error updating recipient:", error);
+            }
+        };
+    }
 };
 
-// Add a new recipient
+// ✅ Add new recipient
 window.addRecipient = async function () {
     const user = auth.currentUser;
     if (!user) return;
 
     const name = document.getElementById("recipientName").value;
     const relationship = document.getElementById("recipientRelationship").value;
-    const occasion = document.getElementById("recipientOccasion").value.split(", ").map(item => item.trim());
+    const occasion = document.getElementById("recipientOccasion").value.split(",").map(o => o.trim());
     const date = document.getElementById("recipientDate").value;
     const age = document.getElementById("recipientAge").value;
     const gender = document.getElementById("recipientGender").value;
-    const interests = document.getElementById("recipientInterests").value.split(", ").map(item => item.trim());
+    const interests = document.getElementById("recipientInterests").value.split(",").map(i => i.trim());
 
     if (!name || !relationship) {
         alert("Name and relationship are required!");
@@ -116,7 +121,6 @@ window.addRecipient = async function () {
         await addDoc(collection(db, "users", user.uid, "recipients"), {
             name, relationship, occasion, date, age, gender, interests
         });
-
         loadRecipients();
         closeModal();
     } catch (error) {
@@ -124,7 +128,7 @@ window.addRecipient = async function () {
     }
 };
 
-// Delete a recipient
+// ✅ Delete recipient
 window.deleteRecipient = async function (recipientId) {
     if (!confirm("Are you sure you want to delete this recipient?")) return;
 
@@ -137,14 +141,28 @@ window.deleteRecipient = async function (recipientId) {
     }
 };
 
-// Close all modals
-window.closeModal = function () {
-    document.querySelectorAll(".modal").forEach(modal => modal.style.display = "none");
+// ✅ Modal control functions
+window.openAddRecipientModal = function () {
+    document.getElementById("addRecipientModal").style.display = "block";
 };
 
-// Ensure recipients load on page load
+window.closeManageModal = function () {
+    document.getElementById("manageRecipientModal").style.display = "none";
+};
+
+window.closeEditModal = function () {
+    document.getElementById("editRecipientModal").style.display = "none";
+};
+
+window.closeModal = function () {
+    document.querySelectorAll(".modal").forEach(modal => {
+        modal.style.display = "none";
+    });
+};
+
+// ✅ Load recipients when page is ready
 document.addEventListener("DOMContentLoaded", () => {
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged((user) => {
         if (user) loadRecipients();
     });
 });
