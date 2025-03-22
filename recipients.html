@@ -319,9 +319,8 @@ body {
    </style>
 </head>
 <body>
- <div class="container">
 
-         <!-- Page Container -->
+           <!-- Page Container -->
     <div class="container">
         <h2>Recipient Profiles</h2>
 
@@ -337,7 +336,7 @@ body {
                     </tr>
                 </thead>
                 <tbody id="recipientTable">
-                    <!-- Recipient data will be loaded here -->
+                    <!-- Recipient rows will be added dynamically -->
                 </tbody>
             </table>
         </div>
@@ -357,14 +356,14 @@ body {
         <form>
             <input type="text" id="recipientName" placeholder="Recipient Name" required>
             <input type="text" id="recipientRelationship" placeholder="Relationship" required>
-            <input type="text" id="recipientOccasion" placeholder="Occasion" required>
+            <input type="text" id="recipientOccasion" placeholder="Occasion (Optional)">
         </form>
         <div class="modal-buttons">
             <button onclick="addRecipient()">Add</button>
             <button onclick="closeModal()">Cancel</button>
         </div>
     </div>
-
+    
     <!-- Navigation Bar -->
     <div class="nav-bar">
         <button class="nav-button" id="homeButton">
