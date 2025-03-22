@@ -42,11 +42,16 @@ h2 {
     padding: 12px;
     background-color: #007bff; /* Blue background */
     color: white;
-    border-radius: 8px 8px 0 0;
     font-size: 16px;
     text-align: left;
 }
-       .recipient-list-header th {
+
+/* Fix header with sticky positioning */
+.recipient-list-header th {
+    position: sticky;
+    top: 0;
+    background-color: #007bff; /* Blue background */
+    z-index: 2; /* Ensure header stays on top */
     flex: 1;
 }
 
@@ -55,6 +60,8 @@ h2 {
     max-width: 100%;
     overflow-x: auto;
     margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto; /* Ensure scrolling on long lists */
 }
 
 /* Recipient Rows (Alternating Row Colors) */
@@ -81,7 +88,7 @@ h2 {
 
 /* Table Columns */
 .recipient-column {
-    width: 30%;
+    width: 25%; /* Ensuring columns have fixed width */
     text-align: left;
     padding-left: 10px;
 }
@@ -215,25 +222,11 @@ input, select {
     cursor: pointer;
 }
 
-/* Scrollable Table */
-.table-container {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-top: 15px;
-}
-
 /* Empty State */
 .empty-state {
     color: #777;
     font-size: 16px;
     margin-top: 20px;
-}
-
-/* Clear Fix for Flex Table */
-.table-container .recipient-row::after {
-    content: '';
-    display: block;
-    clear: both;
 }
 
 /* Styling for Clearfix in Modal (if needed) */
@@ -242,7 +235,7 @@ input, select {
     clear: both;
     display: table;
 }
-
+       
          /* Navigation Bar */
 .nav-bar {
     background-color: white;
