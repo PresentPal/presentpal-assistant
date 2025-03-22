@@ -46,6 +46,9 @@ h2 {
     font-size: 16px;
     text-align: left;
 }
+       .recipient-list-header th {
+    flex: 1;
+}
 
 /* Table Container */
 .table-container {
@@ -354,7 +357,7 @@ body {
         <form>
             <input type="text" id="recipientName" placeholder="Recipient Name" required>
             <input type="text" id="recipientRelationship" placeholder="Relationship" required>
-            <input type="text" id="recipientOccasion" placeholder="Occasion (Optional)">
+            <input type="text" id="recipientOccasion" placeholder="Occasion" required>
         </form>
         <div class="modal-buttons">
             <button onclick="addRecipient()">Add</button>
