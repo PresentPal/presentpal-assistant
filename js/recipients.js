@@ -30,12 +30,6 @@ async function loadRecipients() {
 
             row.innerHTML = `
                 <td>${data.name}</td>
-                <td>${data.relationship}</td>
-                <td>${Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || "N/A"}</td>
-                <td>${data.date || "N/A"}</td>
-                <td>${data.age || "N/A"}</td>
-                <td>${data.gender || "N/A"}</td>
-                <td>${data.interests ? data.interests.join(", ") : "N/A"}</td>
             `;
 
             // Open manage modal when row is clicked
