@@ -78,11 +78,10 @@ h2 {
   font-size: 16px;
   text-align: center;
   padding: 12px;
-  border-bottom: 2px solid #0056b3; /* Strong bottom divider */
-  border-right: 1px solid #0056b3;  /* Vertical divider between headers */
+  border-bottom: 2px solid #0056b3;
+  border-right: 1px solid #0056b3;
   z-index: 1;
 }
-
 .recipient-list th:last-child {
   border-right: none;
 }
@@ -90,17 +89,14 @@ h2 {
 /* Table Row Styling */
 .recipient-row {
   cursor: pointer;
-  border-bottom: 1px solid #ccc; /* Divider between rows */
+  border-bottom: 1px solid #ccc;
 }
-
 .recipient-row:nth-child(even) {
   background-color: #f9f9f9;
 }
-
 .recipient-row:nth-child(odd) {
   background-color: #ffffff;
 }
-
 .recipient-row:hover {
   background-color: #f1f1f1;
 }
@@ -109,10 +105,9 @@ h2 {
 .recipient-list td {
   padding: 12px;
   text-align: left;
-  vertical-align: middle; /* Ensure consistency */
-  border-right: 1px solid #ddd; /* Vertical dividers between cells */
+  vertical-align: middle;
+  border-right: 1px solid #ddd;
 }
-
 .recipient-list td:last-child {
   border-right: none;
 }
@@ -125,7 +120,6 @@ h2 {
   flex-wrap: wrap;
   gap: 10px;
 }
-
 .manage-btn,
 #addRecipientBtn {
   background-color: #007bff;
@@ -150,22 +144,23 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
   z-index: 2000;
-  background-color: rgba(0, 0, 0, 0.5); /* optional dim */
-
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-content {
   background: white;
-  margin: 40px auto;
   padding: 20px;
   border-radius: 10px;
   width: 90%;
   max-width: 500px;
   box-sizing: border-box;
-  max-height: calc(100vh - 80px);
+  max-height: 90vh;
   overflow-y: auto;
+  margin: 0;
 }
 
 /* Scrollbar inside modal */
@@ -194,7 +189,7 @@ h2 {
 }
 .modal input,
 .modal select {
-  width: 90%;
+  width: 100%;
   padding: 12px;
   margin-bottom: 12px;
   border: 1px solid #ddd;
@@ -202,28 +197,30 @@ h2 {
   font-size: 16px;
   appearance: none;
   background-color: white;
+  box-sizing: border-box;
 }
 
 /* Label Styling in Modal */
 .modal-label {
   display: block;
-  width: 90%;
+  width: 100%;
   margin: 10px auto 4px;
-  text-align: center;
+  text-align: left;
   color: #666;
   font-size: 14px;
   font-weight: normal;
+  box-sizing: border-box;
 }
 
 /* Grouping labels + inputs */
 .input-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 90%;
-  margin: 0 auto 12px;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 12px;
+  box-sizing: border-box;
 }
-.input-group input {
+.input-group input,
+.input-group select {
   width: 100%;
 }
 
@@ -250,8 +247,19 @@ input[type="date"]:valid::before {
 .modal-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-buttons button,
+.add-occasion-btn,
+.btn-primary,
+.btn-secondary,
+.btn-delete {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .btn-primary {
@@ -262,7 +270,6 @@ input[type="date"]:valid::before {
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  width: 90%;
 }
 .btn-primary:hover {
   background-color: #0056b3;
@@ -276,7 +283,6 @@ input[type="date"]:valid::before {
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  width: 90%;
 }
 .btn-secondary:hover {
   background-color: #999;
@@ -290,7 +296,6 @@ input[type="date"]:valid::before {
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  width: 90%;
 }
 .btn-delete:hover {
   background-color: #b02a37;
@@ -305,7 +310,7 @@ input[type="date"]:valid::before {
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  width: 90%;
+  width: 100%;
 }
 #deleteRecipientBtn:hover {
   background-color: #b02a37;
@@ -320,11 +325,9 @@ input[type="date"]:valid::before {
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  width: 90%;
+  width: 100%;
   text-align: center;
 }
-
-/* Hover state */
 .add-occasion-btn:hover {
   background-color: #b02a37;
 }
