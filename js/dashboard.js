@@ -85,14 +85,15 @@ async function loadCalendar(user) {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
 
-            if (data.date && data.name) {
-                const title = Array.isArray(data.occasion)
-                    ? `${data.name} - ${data.occasion.join(", ")}`
-                    : `${data.name} - ${data.occasion || "Occasion"}`;
-
-                events.push({
-                    title,
-                    start: data.date
+            // Ensure recipient has occasions
+            if (Array.isArray(data.occasions)) {
+                data.occasions.forEach((occ) => {
+                    if (occ.date) {
+                        events.push({
+                            title: `${data.name || "Recipient"} - ${occ.title || "Occasion"}`,
+                            start: occ.date
+                        });
+                    }
                 });
             }
         });
@@ -100,7 +101,7 @@ async function loadCalendar(user) {
         console.error("Error fetching calendar events:", error);
     }
 
-    // Destroy previous instance if needed
+    // Destroy previous calendar instance
     if (calendar) calendar.destroy();
 
     const isMobile = window.innerWidth < 768;
@@ -110,7 +111,7 @@ async function loadCalendar(user) {
         headerToolbar: {
             left: 'prev,next',
             center: 'title',
-            right: 'dayGridMonth,listMonth' // Always show toggle
+            right: 'dayGridMonth,listMonth'
         },
         height: 'auto',
         events: events
