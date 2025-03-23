@@ -138,7 +138,7 @@ h2 {
 
 /* Modal Styling */
 .modal {
-  display: none; !important;
+  display: none !important;
   position: fixed;
   top: 0;
   left: 0;
@@ -366,19 +366,6 @@ input[type="date"]:valid::before {
     border-top: 1px solid #ddd;
     z-index: 1000; /* Ensures navbar stays above other content */
     min-height: 60px; /* Ensure there's enough space for navbar */
-}
-
-/* Ensure the body has padding-bottom to avoid content being hidden by navbar */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    min-height: 100vh;
-    padding-bottom: 80px; /* Prevent content from being overlapped by the navbar */
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 /* Ensure navbar doesn't get pushed out of screen */
