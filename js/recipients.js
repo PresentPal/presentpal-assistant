@@ -67,7 +67,13 @@ row.innerHTML = `
         row.classList.add("recipient-row");
         row.innerHTML = `
           <td>${data.name}</td>
+          <td>${data.relationship || ""}</td>
           <td colspan="2">No occasions found</td>
+          <td>${data.age || ""}</td>
+          <td>${data.gender || ""}</td>
+          <td>${Array.isArray(data.interests) ? data.interests.join(", ") : data.interests || ""}</td>
+          
+          
         `;
         recipientTable.appendChild(row);
       }
