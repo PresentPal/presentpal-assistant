@@ -186,14 +186,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ✅ Close modals on outside click
-document.addEventListener("click", (event) => {
-  document.querySelectorAll(".modal").forEach((modal) => {
-    const content = modal.querySelector(".modal-content");
+document.addEventListener("click", function (event) {
+  const openModals = document.querySelectorAll(".modal");
 
-    const isVisible = window.getComputedStyle(modal).display === "block";
-    const clickedOutside = !content.contains(event.target) && modal.contains(event.target);
+  openModals.forEach((modal) => {
+    const isVisible = getComputedStyle(modal).display === "block";
+    const modalContent = modal.querySelector(".modal-content");
 
-    if (isVisible && clickedOutside) {
+    if (
+      isVisible &&
+      modalContent &&
+      !modalContent.contains(event.target) &&
+      modal.contains(event.target)
+    ) {
       modal.style.display = "none";
     }
   });
