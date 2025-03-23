@@ -34,7 +34,12 @@ async function loadRecipients() {
 
       row.innerHTML = `
         <td>${data.name || ""}</td>
+        <td>${data.relatiobship || ""}</td>
         <td>${Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || ""}</td>
+        <td>${data.date || ""}</td>
+        <td>${data.age || ""}</td>
+        <td>${data.gender || ""}</td>
+        <td>${Array.isArray(data.interests) ? data.interests.join(", ") : data.interests || ""}</td>
       `;
 
       row.addEventListener("click", (event) => {
