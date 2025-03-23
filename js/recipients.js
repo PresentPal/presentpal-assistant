@@ -178,6 +178,13 @@ window.closeModal = function () {
   });
 };
 
+// ✅ Load recipients when page is ready
+document.addEventListener("DOMContentLoaded", () => {
+  auth.onAuthStateChanged((user) => {
+    if (user) loadRecipients();
+  });
+});
+
 // ✅ Close modals on outside click
 document.addEventListener("click", (event) => {
   document.querySelectorAll(".modal").forEach((modal) => {
@@ -189,12 +196,5 @@ document.addEventListener("click", (event) => {
     if (isVisible && clickedOutside) {
       modal.style.display = "none";
     }
-  });
-});
-
-// ✅ Load recipients when page is ready
-document.addEventListener("DOMContentLoaded", () => {
-  auth.onAuthStateChanged((user) => {
-    if (user) loadRecipients();
   });
 });
