@@ -22,9 +22,11 @@ async function loadRecipients() {
     recipientTable.innerHTML = "";
 
     if (querySnapshot.empty) {
-      recipientTable.innerHTML = "<tr><td>No recipients found.</td></tr>";
-      return;
-    }
+  document.getElementById("emptyState").style.display = "block";
+  return;
+} else {
+  document.getElementById("emptyState").style.display = "none";
+}
 
     querySnapshot.forEach((docSnapshot) => {
       const data = docSnapshot.data();
