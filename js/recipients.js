@@ -178,11 +178,15 @@ window.closeModal = function () {
   });
 };
 
-// ✅ Close modal when clicking outside
-window.addEventListener("click", function (event) {
-  document.querySelectorAll(".modal").forEach(modal => {
-    const modalContent = modal.querySelector(".modal-content");
-    if (modal.style.display === "block" && event.target === modal) {
+// ✅ Close modals on outside click
+document.addEventListener("click", (event) => {
+  document.querySelectorAll(".modal").forEach((modal) => {
+    const content = modal.querySelector(".modal-content");
+
+    const isVisible = window.getComputedStyle(modal).display === "block";
+    const clickedOutside = !content.contains(event.target) && modal.contains(event.target);
+
+    if (isVisible && clickedOutside) {
       modal.style.display = "none";
     }
   });
