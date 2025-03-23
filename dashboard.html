@@ -85,30 +85,6 @@ header {
     color: #555;
 }
 
-       .recipient-preview {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.recipient-preview th, .recipient-preview td {
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-.recipient-preview th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-.view-more {
-    color: #007bff;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 8px;
-}
-
 .recipient-preview {
   width: 100%;
   border-collapse: collapse;
@@ -116,23 +92,42 @@ header {
   margin-top: 10px;
 }
 
-.recipient-preview th,
+/* Header row styling */
+.recipient-preview th {
+  background-color: #007bff; /* Match recipient profiles header blue */
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 2px solid #0056b3; /* Darker blue divider */
+  text-align: left;
+}
+
+/* Table cells */
 .recipient-preview td {
   padding: 8px;
   border-bottom: 1px solid #ddd;
   text-align: left;
 }
 
+/* Row striping */
 .recipient-preview tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* Add vertical line between Name and Occasion columns */
+/* Vertical divider between columns */
 .recipient-preview td.with-separator {
   border-right: 1px solid #ccc;
   padding-right: 16px;
 }
-       
+
+/* View more link styling */
+.view-more {
+  color: #007bff;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
         /* Navigation Bar */
 .nav-bar {
     background-color: white;
