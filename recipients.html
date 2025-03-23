@@ -146,24 +146,26 @@ h2 {
 .modal {
   display: none;
   position: fixed;
-  top: 0; 
+  top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.3); /* translucent backdrop */
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
   z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.5); /* optional dim */
+
 }
 
 .modal-content {
   background: white;
-  padding: 30px 20px;
+  margin: 40px auto;
+  padding: 20px;
   border-radius: 10px;
-  max-width: 500px;
   width: 90%;
-  margin: auto;
-  position: relative;
+  max-width: 500px;
+  box-sizing: border-box;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
 }
 
 /* Scrollbar inside modal */
@@ -248,11 +250,11 @@ input[type="date"]:valid::before {
 .modal-buttons {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 15px;
-  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
 }
-.modal-buttons button:first-child {
+
+.btn-primary {
   background-color: #007bff;
   color: white;
   border: none;
@@ -262,10 +264,11 @@ input[type="date"]:valid::before {
   cursor: pointer;
   width: 90%;
 }
-.modal-buttons button:first-child:hover {
+.btn-primary:hover {
   background-color: #0056b3;
 }
-.modal-buttons button:last-child {
+
+.btn-secondary {
   background-color: #ccc;
   color: black;
   border: none;
@@ -275,8 +278,22 @@ input[type="date"]:valid::before {
   cursor: pointer;
   width: 90%;
 }
-.modal-buttons button:last-child:hover {
+.btn-secondary:hover {
   background-color: #999;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 90%;
+}
+.btn-delete:hover {
+  background-color: #b02a37;
 }
 
 /* Manage Modal Delete Button */
@@ -403,25 +420,26 @@ body {
   </div>
 
   <!-- ✅ Add Recipient Modal -->
-  <div id="addRecipientModal" class="modal">
-    <div class="modal-content">
+<div id="addRecipientModal" class="modal">
+  <div class="modal-content">
     <h3>Add New Recipient</h3>
     <form>
       <input type="text" id="recipientName" placeholder="Recipient Name" required />
       <input type="text" id="recipientRelationship" placeholder="Relationship" required />
+
       <!-- Occasion Row -->
-<div class="input-group">
-  <label class="modal-label" for="recipientOccasion">What are you celebrating?</label>
-  <input type="text" id="recipientOccasion" placeholder="e.g. Birthday">
-</div>
+      <div class="input-group">
+        <label class="modal-label" for="recipientOccasion">What are you celebrating?</label>
+        <input type="text" id="recipientOccasion" placeholder="e.g. Birthday">
+      </div>
 
-<div class="input-group">
-  <label class="modal-label" for="recipientDate">When is the occasion?</label>
-  <input type="date" id="recipientDate" placeholder="Date of Occasion">
-</div>
+      <div class="input-group">
+        <label class="modal-label" for="recipientDate">When is the occasion?</label>
+        <input type="date" id="recipientDate" placeholder="Date of Occasion">
+      </div>
 
-<button type="button" onclick="addOccasionToList()">Add Occasion</button>
-<ul id="occasionList"></ul>
+      <button type="button" onclick="addOccasionToList()">Add Occasion</button>
+      <ul id="occasionList"></ul>
 
       <input type="number" id="recipientAge" placeholder="Age" />
       <select id="recipientGender">
@@ -432,41 +450,43 @@ body {
       <input type="text" id="recipientInterests" placeholder="Interests (e.g. Music, Cooking)" />
     </form>
     <div class="modal-buttons">
-      <button onclick="addRecipient()">Add</button>
-      <button onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="addRecipient()">Add</button>
+      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
     </div>
   </div>
-  </div>
+</div>
 
-  <!-- ✅ Manage Modal -->
-  <div id="manageRecipientModal" class="modal">
-    <div class="modal-content">
+<!-- ✅ Manage Modal -->
+<div id="manageRecipientModal" class="modal">
+  <div class="modal-content">
     <h3>Manage Recipient</h3>
     <div class="modal-buttons">
-      <button id="editRecipientBtn">Edit</button>
-      <button id="deleteRecipientBtn">Delete</button>
-      <button onclick="closeManageModal()">Cancel</button>
+      <button id="editRecipientBtn" class="btn-primary">Edit</button>
+      <button id="deleteRecipientBtn" class="btn-delete">Delete</button>
+      <button class="btn-secondary" onclick="closeManageModal()">Cancel</button>
     </div>
   </div>
-  </div>
+</div>
 
-  <!-- ✅ Edit Modal -->
-  <div id="editRecipientModal" class="modal">
-    <div class="modal-content">
+<!-- ✅ Edit Modal -->
+<div id="editRecipientModal" class="modal">
+  <div class="modal-content">
     <h3>Edit Recipient</h3>
     <form>
       <input type="text" id="editName" placeholder="Recipient Name" required />
       <input type="text" id="editRelationship" placeholder="Relationship" required />
-      <!-- Occasion Row -->
-<div class="input-group">
-  <label class="modal-label" for="editRecipientOccasion">What are you celebrating?</label>
-  <input type="text" id="editRecipientOccasion" placeholder="e.g. Birthday">
-</div>
 
-<div class="input-group">
-  <label class="modal-label" for="editRecipientDate">When is the occasion?</label>
-  <input type="date" id="editRecipientDate" placeholder="Date of Occasion">
-</div>
+      <!-- Occasion Row -->
+      <div class="input-group">
+        <label class="modal-label" for="editRecipientOccasion">What are you celebrating?</label>
+        <input type="text" id="editRecipientOccasion" placeholder="e.g. Birthday">
+      </div>
+
+      <div class="input-group">
+        <label class="modal-label" for="editRecipientDate">When is the occasion?</label>
+        <input type="date" id="editRecipientDate" placeholder="Date of Occasion">
+      </div>
+
       <input type="number" id="editAge" placeholder="Age" />
       <select id="editGender">
         <option value="">Select Gender</option>
@@ -476,11 +496,11 @@ body {
       <input type="text" id="editInterests" placeholder="Interests" />
     </form>
     <div class="modal-buttons">
-      <button id="saveEditBtn">Save</button>
-      <button onclick="closeEditModal()">Cancel</button>
+      <button id="saveEditBtn" class="btn-primary">Save</button>
+      <button class="btn-secondary" onclick="closeEditModal()">Cancel</button>
     </div>
   </div>
-  </div>
+</div>
 
   <!-- ✅ Navigation Bar -->
   <div class="nav-bar">
