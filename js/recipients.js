@@ -140,12 +140,17 @@ window.openEditRecipientModal = function (recipientId, data) {
   }
 };
 
-// ✅ Add New Recipient Modal
+// ✅ Open Add Recipient Modal (Step 1)
 window.openAddRecipientModal = function () {
   const modal = document.getElementById("addRecipientModal");
   if (!modal) return;
   modal.style.display = "flex";
 
+  // Show step 1 and hide step 2 initially
+  document.getElementById("step1").style.display = "block";
+  document.getElementById("step2").style.display = "none";
+
+  // Reset all input fields
   document.getElementById("recipientName").value = "";
   document.getElementById("recipientRelationship").value = "";
   document.getElementById("recipientAge").value = "";
@@ -155,9 +160,25 @@ window.openAddRecipientModal = function () {
   document.getElementById("recipientDate").value = new Date().toISOString().split("T")[0];
   document.getElementById("occasionList").innerHTML = "";
 
+  // Reset occasion list
   occasionList = [];
 };
 
+// ✅ Step 1 -> Step 2 navigation
+window.goToStep2 = function () {
+  const name = document.getElementById("recipientName").value.trim();
+  const relationship = document.getElementById("recipientRelationship").value.trim();
+
+  if (!name || !relationship) {
+    alert("Please fill out required fields (Name and Relationship)");
+    return;
+  }
+
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+};
+
+// ✅ Add Occasion to Occasion List
 window.addOccasionToList = function () {
   const title = document.getElementById("recipientOccasion").value.trim();
   const date = document.getElementById("recipientDate").value;
