@@ -78,8 +78,8 @@ h2 {
   font-size: 16px;
   text-align: left;
   padding: 12px;
-  border-bottom: 2px solid #0056b3; /* Changed from #ddd to darker blue */
-  border-right: 1px solid #0056b3; /* Match for vertical divider */
+  border-bottom: 2px solid #0056b3; /* Strong bottom divider */
+  border-right: 1px solid #0056b3;  /* Vertical divider between headers */
   z-index: 1;
 }
 
@@ -90,14 +90,17 @@ h2 {
 /* Table Row Styling */
 .recipient-row {
   cursor: pointer;
-  border-bottom: 1px solid #ccc; /* Slightly darker than before for row dividers */
+  border-bottom: 1px solid #ccc; /* Divider between rows */
 }
+
 .recipient-row:nth-child(even) {
   background-color: #f9f9f9;
 }
+
 .recipient-row:nth-child(odd) {
   background-color: #ffffff;
 }
+
 .recipient-row:hover {
   background-color: #f1f1f1;
 }
@@ -106,9 +109,10 @@ h2 {
 .recipient-list td {
   padding: 12px;
   text-align: left;
-  vertical-align: center;
-  border-right: 1px solid #ddd;
+  vertical-align: middle; /* Ensure consistency */
+  border-right: 1px solid #ddd; /* Vertical dividers between cells */
 }
+
 .recipient-list td:last-child {
   border-right: none;
 }
@@ -366,7 +370,12 @@ body {
     <thead>
       <tr>
         <th>Name</th>
+        <th>Relationship</th>
         <th>Occasion</th>
+        <th>Date</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Interests</th>
       </tr>
     </thead>
     <tbody id="recipientTable">
