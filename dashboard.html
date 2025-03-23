@@ -8,7 +8,9 @@
      <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
-    
+    <!-- FullCalendar Styles -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+   
    <style>
 
 /* General Page Styling */
@@ -134,6 +136,21 @@ header {
   margin-top: 8px;
 }
 
+#calendar-container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  min-height: 500px;
+  overflow-x: auto;
+}
+
+#calendar {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
         /* Navigation Bar */
 .nav-bar {
     background-color: white;
@@ -234,11 +251,13 @@ body {
 </div>
 
         <section class="dashboard-section">
-                <img src="feature2-icon.png" alt="Feature 2">
-                <h2>Upcoming Occasions</h2>
-                <p>View and manage your upcoming events</p>
-            <iframe src="https://calendar.google.com/calendar/embed?src=c_01b666929fdc3c9ea8afea447b931397f07b82115ed3f7c8ede9d98f2e57c976%40group.calendar.google.com&ctz=Europe%2FLondon" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-        </section>
+  <h2>Upcoming Occasions</h2>
+  <p>View and manage your upcoming events</p>
+
+  <div id="calendar-container">
+    <div id="calendar"></div>
+  </div>
+</section>
 
         <section class="dashboard-section">
             <a href="feature3.html">
@@ -277,6 +296,8 @@ body {
     <script type="module" src="https://js.stripe.com/v3/"></script>
     <script type="module" src="index.js"></script>
     <script type="module" src="js/dashboard.js"></script>
+   <!-- FullCalendar Script -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 
 </body>
