@@ -34,7 +34,7 @@ async function loadRecipients() {
 
       row.innerHTML = `
         <td>${data.name || ""}</td>
-        <td>${data.relatiobship || ""}</td>
+        <td>${data.relationship || ""}</td>
         <td>${Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || ""}</td>
         <td>${data.date || ""}</td>
         <td>${data.age || ""}</td>
