@@ -196,6 +196,17 @@ h2 {
   background-color: white;
 }
 
+/* Label Styling in Modal */
+.modal-label {
+  display: block;
+  width: 90%;
+  margin: 10px auto 4px;
+  text-align: left;
+  color: #666;
+  font-size: 14px;
+  font-weight: normal;
+}
+
 /* Occasion + Date row */
 .occasion-row {
   display: flex;
@@ -401,10 +412,10 @@ body {
       <input type="text" id="recipientRelationship" placeholder="Relationship" required />
       <!-- Occasion Row -->
 <div class="occasion-row">
-  <label class="field-label" for="recipientOccasion">What are you celebrating?</label>
+  <label class="modal-label" for="recipientOccasion">What are you celebrating?</label>
 <input type="text" id="recipientOccasion" placeholder="e.g. Birthday">
 
-<label class="field-label" for="recipientDate">When is the occasion?</label>
+<label class="modal-label" for="recipientDate">When is the occasion?</label>
 <input type="date" id="recipientDate" placeholder="Date of Occasion">
 </div>
       <input type="number" id="recipientAge" placeholder="Age" />
@@ -439,10 +450,10 @@ body {
       <input type="text" id="editRelationship" placeholder="Relationship" required />
       <!-- Occasion Row -->
 <div class="occasion-row">
-  <label class="field-label" for="editRecipientOccasion">What are you celebrating?</label>
+  <label class="modal-label" for="editRecipientOccasion">What are you celebrating?</label>
 <input type="text" id="editRecipientOccasion" placeholder="e.g. Birthday">
 
-<label class="field-label" for="editRecipientDate">When is the occasion?</label>
+<label class="modal-label" for="editRecipientDate">When is the occasion?</label>
 <input type="date" id="editRecipientDate" placeholder="Date of Occasion">
 </div>
       <input type="number" id="editAge" placeholder="Age" />
