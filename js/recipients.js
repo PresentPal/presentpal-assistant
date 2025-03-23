@@ -171,3 +171,22 @@ document.addEventListener("DOMContentLoaded", () => {
         if (user) loadRecipients();
     });
 });
+
+// Close all modals
+window.closeModal = function () {
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.style.display = "none";
+  });
+};
+
+// ✅ Close modal on outside click
+window.addEventListener("click", function (event) {
+  document.querySelectorAll(".modal").forEach(modal => {
+    if (
+      event.target === modal && // clicked on background
+      getComputedStyle(modal).display === "block"
+    ) {
+      modal.style.display = "none";
+    }
+  });
+});
