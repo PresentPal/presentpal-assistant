@@ -79,12 +79,18 @@ h2 {
   text-align: center;
   padding: 12px;
   border-bottom: 2px solid #ddd;
+  border-right: 1px solid #ddd;
   z-index: 1;
+}
+
+.recipient-list th:last-child {
+  border-right: none;
 }
 
 /* Table Row Styling */
 .recipient-row {
   cursor: pointer;
+  border-bottom: 1px solid #ddd;
 }
 .recipient-row:nth-child(even) {
   background-color: #f9f9f9;
