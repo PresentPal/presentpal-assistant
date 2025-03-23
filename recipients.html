@@ -423,11 +423,28 @@ body {
 <div id="addRecipientModal" class="modal">
   <div class="modal-content">
     <h3>Add New Recipient</h3>
-    <form>
-      <input type="text" id="recipientName" placeholder="Recipient Name" required />
-      <input type="text" id="recipientRelationship" placeholder="Relationship" required />
 
-      <!-- Occasion Row -->
+    <!-- Step 1: Basic Details -->
+    <div id="recipientStep1">
+      <form>
+        <input type="text" id="recipientName" placeholder="Recipient Name" required />
+        <input type="text" id="recipientRelationship" placeholder="Relationship" required />
+        <input type="number" id="recipientAge" placeholder="Age" />
+        <select id="recipientGender">
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+        <input type="text" id="recipientInterests" placeholder="Interests (e.g. Music, Cooking)" />
+      </form>
+      <div class="modal-buttons">
+        <button class="btn-primary" onclick="goToStep2()">Next</button>
+        <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Occasion Info -->
+    <div id="recipientStep2" style="display: none;">
       <div class="input-group">
         <label class="modal-label" for="recipientOccasion">What are you celebrating?</label>
         <input type="text" id="recipientOccasion" placeholder="e.g. Birthday">
@@ -441,17 +458,10 @@ body {
       <button type="button" onclick="addOccasionToList()">Add Occasion</button>
       <ul id="occasionList"></ul>
 
-      <input type="number" id="recipientAge" placeholder="Age" />
-      <select id="recipientGender">
-        <option value="">Select Gender</option>
-        <option>Male</option>
-        <option>Female</option>
-      </select>
-      <input type="text" id="recipientInterests" placeholder="Interests (e.g. Music, Cooking)" />
-    </form>
-    <div class="modal-buttons">
-      <button class="btn-primary" onclick="addRecipient()">Add</button>
-      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      <div class="modal-buttons">
+        <button id="createRecipientBtn" class="btn-primary" disabled onclick="addRecipient()">Create Recipient</button>
+        <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      </div>
     </div>
   </div>
 </div>
