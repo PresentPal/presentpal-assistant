@@ -13,12 +13,12 @@ async function loadRecipients() {
     const recipientTable = document.getElementById("recipientTable");
 
     try {
-        recipientTable.innerHTML = "<tr><td colspan='7'>Loading...</td></tr>";
+        recipientTable.innerHTML = "<tr><td>Loading...</td></tr>";
         const querySnapshot = await getDocs(recipientsRef);
         recipientTable.innerHTML = "";
 
         if (querySnapshot.empty) {
-            recipientTable.innerHTML = "<tr><td colspan='7'>No recipients found.</td></tr>";
+            recipientTable.innerHTML = "<tr><td>No recipients found.</td></tr>";
             return;
         }
 
@@ -32,9 +32,7 @@ async function loadRecipients() {
                 <td>${data.name}</td>
             `;
 
-            // Open manage modal when row is clicked
             row.addEventListener("click", () => openManageRecipientModal(docSnapshot.id, data));
-
             recipientTable.appendChild(row);
         });
     } catch (error) {
@@ -79,7 +77,7 @@ window.openEditRecipientModal = function (recipientId, data) {
                     name: document.getElementById("editName").value,
                     relationship: document.getElementById("editRelationship").value,
                     occasion: document.getElementById("editRecipientOccasion").value.trim(),
-                     date: document.getElementById("editRecipientDate").value,
+                    date: document.getElementById("editRecipientDate").value,
                     age: document.getElementById("editAge").value,
                     gender: document.getElementById("editGender").value,
                     interests: document.getElementById("editInterests").value.split(",").map(i => i.trim())
@@ -137,7 +135,20 @@ window.deleteRecipient = async function (recipientId) {
 
 // ✅ Modal control functions
 window.openAddRecipientModal = function () {
-    document.getElementById("addRecipientModal").style.display = "block";
+    const modal = document.getElementById("addRecipientModal");
+    modal.style.display = "block";
+
+    // Clear all fields
+    document.getElementById("recipientName").value = "";
+    document.getElementById("recipientRelationship").value = "";
+    document.getElementById("recipientOccasion").value = "";
+    document.getElementById("recipientAge").value = "";
+    document.getElementById("recipientGender").value = "";
+    document.getElementById("recipientInterests").value = "";
+
+    // Set today's date as default
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("recipientDate").value = today;
 };
 
 window.closeManageModal = function () {
