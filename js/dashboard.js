@@ -49,7 +49,7 @@ async function loadRecipientPreview(user) {
 
             row.innerHTML = `
                 <td class="with-separator">${data.name || "N/A"}</td>
-                <td>${Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || "N/A"}</td>
+                <td>${Array.isArray(data.occasions) ? data.occasions.join(", ") : data.occasions || "N/A"}</td>
             `;
 
             previewTable.appendChild(row);
