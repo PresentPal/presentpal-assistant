@@ -8,13 +8,10 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
-// Fetch and display recipient list
+// ✅ Fetch and display recipient list
 async function loadRecipients() {
   const user = auth.currentUser;
-  if (!user) {
-    console.log("No user logged in");
-    return;
-  }
+  if (!user) return;
 
   const recipientsRef = collection(db, "users", user.uid, "recipients");
   const recipientTable = document.getElementById("recipientTable");
@@ -36,7 +33,7 @@ async function loadRecipients() {
       row.setAttribute("data-id", docSnapshot.id);
 
       row.innerHTML = `
-        <td>${data.name}</td>
+        <td>${data.name || ""}</td>
         <td>${Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || ""}</td>
       `;
 
@@ -52,7 +49,7 @@ async function loadRecipients() {
   }
 }
 
-// Open the Manage modal
+// ✅ Open "Manage" modal
 window.openManageRecipientModal = function (recipientId, data) {
   const modal = document.getElementById("manageRecipientModal");
   if (!modal) return;
@@ -67,7 +64,7 @@ window.openManageRecipientModal = function (recipientId, data) {
   if (deleteBtn) deleteBtn.onclick = () => deleteRecipient(recipientId);
 };
 
-// Open the Edit modal
+// ✅ Open "Edit" modal
 window.openEditRecipientModal = function (recipientId, data) {
   const modal = document.getElementById("editRecipientModal");
   if (!modal) return;
@@ -105,16 +102,95 @@ window.openEditRecipientModal = function (recipientId, data) {
   }
 };
 
-// Add recipient
-window.openAddRecipientModal = function (event) {
-  if (event) event.stopPropagation();
-
+// ✅ Open "Add New" modal
+window.openAddRecipientModal = function () {
   const modal = document.getElementById("addRecipientModal");
+  if (!modal) return;
   modal.style.display = "block";
 
-  // Clear all inputs
+  // Clear all fields
   document.getElementById("recipientName").value = "";
   document.getElementById("recipientRelationship").value = "";
   document.getElementById("recipientOccasion").value = "";
   document.getElementById("recipientAge").value = "";
- 
+  document.getElementById("recipientGender").value = "";
+  document.getElementById("recipientInterests").value = "";
+
+  // Set today's date
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("recipientDate").value = today;
+};
+
+// ✅ Add recipient to Firestore
+window.addRecipient = async function () {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const name = document.getElementById("recipientName").value;
+  const relationship = document.getElementById("recipientRelationship").value;
+  const occasion = document.getElementById("recipientOccasion").value.split(",").map(o => o.trim());
+  const date = document.getElementById("recipientDate").value;
+  const age = document.getElementById("recipientAge").value;
+  const gender = document.getElementById("recipientGender").value;
+  const interests = document.getElementById("recipientInterests").value.split(",").map(i => i.trim());
+
+  if (!name || !relationship) {
+    alert("Name and relationship are required!");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "users", user.uid, "recipients"), {
+      name, relationship, occasion, date, age, gender, interests
+    });
+    loadRecipients();
+    closeModal();
+  } catch (error) {
+    console.error("Error adding recipient:", error);
+  }
+};
+
+// ✅ Delete a recipient
+window.deleteRecipient = async function (recipientId) {
+  if (!confirm("Are you sure you want to delete this recipient?")) return;
+
+  try {
+    await deleteDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId));
+    loadRecipients();
+    closeModal();
+  } catch (error) {
+    console.error("Error deleting recipient:", error);
+  }
+};
+
+// ✅ Modal control functions
+window.closeManageModal = function () {
+  document.getElementById("manageRecipientModal").style.display = "none";
+};
+
+window.closeEditModal = function () {
+  document.getElementById("editRecipientModal").style.display = "none";
+};
+
+window.closeModal = function () {
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.style.display = "none";
+  });
+};
+
+// ✅ Close modal when clicking outside
+window.addEventListener("click", function (event) {
+  document.querySelectorAll(".modal").forEach(modal => {
+    const modalContent = modal.querySelector(".modal-content");
+    if (modal.style.display === "block" && event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+
+// ✅ Load recipients when page is ready
+document.addEventListener("DOMContentLoaded", () => {
+  auth.onAuthStateChanged((user) => {
+    if (user) loadRecipients();
+  });
+});
