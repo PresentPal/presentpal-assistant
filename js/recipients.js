@@ -152,8 +152,6 @@ window.openAddRecipientModal = function () {
   occasionList = [];
 };
 
-let occasionList = [];
-
 window.addOccasionToList = function () {
   const title = document.getElementById("occasionTitle").value.trim();
   const date = document.getElementById("occasionDate").value;
