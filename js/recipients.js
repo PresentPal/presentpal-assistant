@@ -30,6 +30,7 @@ async function loadRecipients() {
 
             row.innerHTML = `
                 <td>${data.name}</td>
+                <td>${data.name}</td>
             `;
 
             row.addEventListener("click", () => openManageRecipientModal(docSnapshot.id, data));
