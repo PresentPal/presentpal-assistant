@@ -136,6 +136,7 @@ header {
   margin-top: 8px;
 }
 
+/* Calendar Styling */
 #calendar-container {
   background: white;
   padding: 20px;
@@ -144,11 +145,50 @@ header {
   margin-top: 20px;
   min-height: 500px;
   overflow-x: auto;
+  box-sizing: border-box;
 }
 
+/* Calendar Container */
 #calendar {
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Responsive Styling for FullCalendar on Mobile */
+@media (max-width: 768px) {
+  #calendar {
+    font-size: 14px;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 16px;
+  }
+
+  .fc .fc-button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .fc-list-day-text,
+  .fc-list-day-side-text,
+  .fc-list-event-title {
+    font-size: 14px;
+  }
+
+  .fc-header-toolbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1rem;
+  }
+
+  .fc .fc-daygrid-day-number {
+    font-size: 12px;
+  }
 }
 
         /* Navigation Bar */
