@@ -16,7 +16,7 @@ body {
   padding: 20px;
   text-align: center;
   min-height: 100vh;
-  padding-bottom: 100px; /* Increased to give space for modals and navbar */
+  padding-bottom: 100px;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -36,15 +36,6 @@ h2 {
   color: #333;
   margin-bottom: 20px;
   font-size: 24px;
-}
-
-.field-label {
-    font-size: 14px;
-    color: #777;
-    margin: 8px 0 4px;
-    display: block;
-    text-align: left;
-    width: 90%;
 }
 
 /* Table Container (Scrollable) */
@@ -207,31 +198,26 @@ h2 {
   font-weight: normal;
 }
 
-/* Occasion + Date row */
-.occasion-row {
+/* Grouping labels + inputs */
+.input-group {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
   width: 90%;
-  margin-bottom: 12px;
+  margin: 0 auto 12px;
 }
-.occasion-row input[type="text"],
-.occasion-row input[type="date"] {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
+.input-group input {
+  width: 100%;
 }
 
 /* Date placeholder formatting */
-.occasion-row input[type="date"]::before {
+input[type="date"]::before {
   content: attr(placeholder);
   color: #888;
   font-style: italic;
 }
-.occasion-row input[type="date"]:focus::before,
-.occasion-row input[type="date"]:valid::before {
+input[type="date"]:focus::before,
+input[type="date"]:valid::before {
   content: "";
 }
 
@@ -263,12 +249,6 @@ h2 {
 }
 .modal-buttons button:first-child:hover {
   background-color: #0056b3;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 90%;
 }
 .modal-buttons button:last-child {
   background-color: #ccc;
@@ -282,12 +262,6 @@ h2 {
 }
 .modal-buttons button:last-child:hover {
   background-color: #999;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 90%;
 }
 
 /* Manage Modal Delete Button */
@@ -303,76 +277,72 @@ h2 {
 }
 #deleteRecipientBtn:hover {
   background-color: #b02a37;
-  }
+}
 
 /* Navigation Bar */
 .nav-bar {
-    background-color: white;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
+  background-color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  z-index: 1000;
+  min-height: 60px;
+}
+
+/* Body padding for navbar */
+body {
+  min-height: 100vh;
+  padding-bottom: 80px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .nav-bar {
     position: fixed;
     bottom: 0;
     left: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #ddd;
-    z-index: 1000;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
     min-height: 60px;
-}
-
-/* Ensure body has padding-bottom to avoid content being hidden by navbar */
-body {
-    min-height: 100vh;
-    padding-bottom: 80px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-/* Ensure navbar doesn't get pushed out of screen */
-@media (max-width: 768px) {
-    .nav-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-        min-height: 60px;
-    }
+  }
 }
 
 /* Navigation Buttons */
 .nav-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    transition: background-color 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  transition: background-color 0.3s ease;
 }
-
-/* Navigation Buttons - Hover Effect */
 .nav-button:hover {
-    background-color: lightgray;
-    border-radius: 5px;
+  background-color: lightgray;
+  border-radius: 5px;
 }
-
-/* Navigation Icons */
 .nav-button img {
-    width: 28px;
-    height: auto;
-    margin-bottom: 4px;
+  width: 28px;
+  height: auto;
+  margin-bottom: 4px;
 }
-       
+      
    </style>
 </head>
 <body>
@@ -411,12 +381,14 @@ body {
       <input type="text" id="recipientName" placeholder="Recipient Name" required />
       <input type="text" id="recipientRelationship" placeholder="Relationship" required />
       <!-- Occasion Row -->
-<div class="occasion-row">
+<div class="input-group">
   <label class="modal-label" for="recipientOccasion">What are you celebrating?</label>
-<input type="text" id="recipientOccasion" placeholder="e.g. Birthday">
+  <input type="text" id="recipientOccasion" placeholder="e.g. Birthday">
+</div>
 
-<label class="modal-label" for="recipientDate">When is the occasion?</label>
-<input type="date" id="recipientDate" placeholder="Date of Occasion">
+<div class="input-group">
+  <label class="modal-label" for="recipientDate">When is the occasion?</label>
+  <input type="date" id="recipientDate" placeholder="Date of Occasion">
 </div>
       <input type="number" id="recipientAge" placeholder="Age" />
       <select id="recipientGender">
@@ -449,12 +421,14 @@ body {
       <input type="text" id="editName" placeholder="Recipient Name" required />
       <input type="text" id="editRelationship" placeholder="Relationship" required />
       <!-- Occasion Row -->
-<div class="occasion-row">
+<div class="input-group">
   <label class="modal-label" for="editRecipientOccasion">What are you celebrating?</label>
-<input type="text" id="editRecipientOccasion" placeholder="e.g. Birthday">
+  <input type="text" id="editrRecipientOccasion" placeholder="e.g. Birthday">
+</div>
 
-<label class="modal-label" for="editRecipientDate">When is the occasion?</label>
-<input type="date" id="editRecipientDate" placeholder="Date of Occasion">
+<div class="input-group">
+  <label class="modal-label" for="editRecipientDate">When is the occasion?</label>
+  <input type="date" id="editRecipientDate" placeholder="Date of Occasion">
 </div>
       <input type="number" id="editAge" placeholder="Age" />
       <select id="editGender">
