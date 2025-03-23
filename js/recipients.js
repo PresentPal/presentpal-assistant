@@ -10,6 +10,137 @@ import {
 
 let occasionList = [];
 
+// ✅ Fetch and display recipient list
+async function loadRecipients() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const recipientsRef = collection(db, "users", user.uid, "recipients");
+  const recipientTable = document.getElementById("recipientTable");
+
+  try {
+    recipientTable.innerHTML = "<tr><td>Loading...</td></tr>";
+    const querySnapshot = await getDocs(recipientsRef);
+    recipientTable.innerHTML = "";
+
+    if (querySnapshot.empty) {
+      document.getElementById("emptyState").style.display = "block";
+      return;
+    } else {
+      document.getElementById("emptyState").style.display = "none";
+    }
+
+    querySnapshot.forEach((docSnapshot) => {
+      const data = docSnapshot.data();
+      if (Array.isArray(data.occasions) && data.occasions.length > 0) {
+        data.occasions.forEach((occ, index) => {
+          const row = document.createElement("tr");
+          row.classList.add("recipient-row");
+          row.setAttribute("data-id", docSnapshot.id);
+
+          row.innerHTML = `
+            <td>${index === 0 ? data.name : ""}</td>
+            <td>${occ.title}</td>
+            <td>${occ.date}</td>
+          `;
+
+          row.addEventListener("click", (event) => {
+            event.stopPropagation();
+            openManageRecipientModal(docSnapshot.id, data);
+          });
+
+          recipientTable.appendChild(row);
+        });
+      } else {
+        const row = document.createElement("tr");
+        row.classList.add("recipient-row");
+        row.innerHTML = `
+          <td>${data.name}</td>
+          <td colspan="2">No occasions found</td>
+        `;
+        recipientTable.appendChild(row);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching recipients:", error);
+  }
+}
+
+// ✅ Open "Manage" modal
+window.openManageRecipientModal = function (recipientId, data) {
+  const modal = document.getElementById("manageRecipientModal");
+  if (!modal) return;
+  modal.style.display = "flex";
+
+  modal.setAttribute("data-recipient-id", recipientId);
+
+  const editBtn = document.getElementById("editRecipientBtn");
+  const deleteBtn = document.getElementById("deleteRecipientBtn");
+
+  if (editBtn) editBtn.onclick = () => openEditRecipientModal(recipientId, data);
+  if (deleteBtn) deleteBtn.onclick = () => deleteRecipient(recipientId);
+};
+
+// ✅ Open "Edit" modal
+window.openEditRecipientModal = function (recipientId, data) {
+  const modal = document.getElementById("editRecipientModal");
+  if (!modal) return;
+  modal.style.display = "flex";
+
+  document.getElementById("editName").value = data.name || "";
+  document.getElementById("editRelationship").value = data.relationship || "";
+  document.getElementById("editAge").value = data.age || "";
+  document.getElementById("editGender").value = data.gender || "";
+  document.getElementById("editInterests").value = Array.isArray(data.interests) ? data.interests.join(", ") : data.interests || "";
+
+  occasionList = Array.isArray(data.occasions) ? [...data.occasions] : [];
+  const list = document.getElementById("editOccasionList");
+  list.innerHTML = "";
+  occasionList.forEach((o) => {
+    const item = document.createElement("li");
+    item.textContent = `${o.title} - ${o.date}`;
+    list.appendChild(item);
+  });
+
+  const saveBtn = document.getElementById("saveEditBtn");
+  if (saveBtn) {
+    saveBtn.onclick = async () => {
+      try {
+        await updateDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId), {
+          name: document.getElementById("editName").value,
+          relationship: document.getElementById("editRelationship").value,
+          age: document.getElementById("editAge").value,
+          gender: document.getElementById("editGender").value,
+          interests: document.getElementById("editInterests").value.split(",").map(i => i.trim()),
+          occasions: occasionList
+        });
+        loadRecipients();
+        closeModal();
+      } catch (error) {
+        console.error("Error updating recipient:", error);
+      }
+    };
+  }
+};
+
+// ✅ Add New Recipient Modal
+window.openAddRecipientModal = function () {
+  const modal = document.getElementById("addRecipientModal");
+  if (!modal) return;
+  modal.style.display = "flex";
+
+  document.getElementById("recipientName").value = "";
+  document.getElementById("recipientRelationship").value = "";
+  document.getElementById("recipientAge").value = "";
+  document.getElementById("recipientGender").value = "";
+  document.getElementById("recipientInterests").value = "";
+  document.getElementById("occasionTitle").value = "";
+  document.getElementById("occasionDate").value = new Date().toISOString().split("T")[0];
+  document.getElementById("occasionList").innerHTML = "";
+
+  occasionList = [];
+};
+
 window.addOccasionToList = function () {
   const title = document.getElementById("occasionTitle").value.trim();
   const date = document.getElementById("occasionDate").value;
@@ -30,136 +161,7 @@ window.addOccasionToList = function () {
   document.getElementById("occasionDate").value = "";
 };
 
-// ✅ Load recipient table
-async function loadRecipients() {
-  const user = auth.currentUser;
-  if (!user) return;
-
-  const recipientsRef = collection(db, "users", user.uid, "recipients");
-  const recipientTable = document.getElementById("recipientTable");
-
-  try {
-    recipientTable.innerHTML = "<tr><td>Loading...</td></tr>";
-    const querySnapshot = await getDocs(recipientsRef);
-    recipientTable.innerHTML = "";
-
-    const emptyState = document.getElementById("emptyState");
-    emptyState.style.display = querySnapshot.empty ? "block" : "none";
-
-    querySnapshot.forEach((docSnapshot) => {
-      const data = docSnapshot.data();
-      const recipientId = docSnapshot.id;
-
-      const occasions = Array.isArray(data.occasions) ? data.occasions : [];
-
-      if (occasions.length === 0) {
-        const row = createRecipientRow(data, recipientId, "", "");
-        recipientTable.appendChild(row);
-      } else {
-        occasions.forEach((occ, i) => {
-          const row = createRecipientRow(data, recipientId, occ.title, occ.date, i === 0);
-          recipientTable.appendChild(row);
-        });
-      }
-    });
-  } catch (error) {
-    console.error("Error fetching recipients:", error);
-  }
-}
-
-function createRecipientRow(data, recipientId, occasionTitle, occasionDate, showName = true) {
-  const row = document.createElement("tr");
-  row.classList.add("recipient-row");
-  row.setAttribute("data-id", recipientId);
-
-  row.innerHTML = `
-    <td>${showName ? data.name : ""}</td>
-    <td>${occasionTitle}</td>
-    <td>${occasionDate}</td>
-  `;
-
-  row.addEventListener("click", (event) => {
-    event.stopPropagation();
-    openManageRecipientModal(recipientId, data);
-  });
-
-  return row;
-}
-
-// ✅ Open "Manage" modal
-window.openManageRecipientModal = function (recipientId, data) {
-  const modal = document.getElementById("manageRecipientModal");
-  if (!modal) return;
-  modal.style.display = "flex";
-  modal.setAttribute("data-recipient-id", recipientId);
-
-  document.getElementById("editRecipientBtn").onclick = () => openEditRecipientModal(recipientId, data);
-  document.getElementById("deleteRecipientBtn").onclick = () => deleteRecipient(recipientId);
-};
-
-// ✅ Open "Edit" modal
-window.openEditRecipientModal = function (recipientId, data) {
-  const modal = document.getElementById("editRecipientModal");
-  if (!modal) return;
-  modal.style.display = "flex";
-
-  document.getElementById("editName").value = data.name || "";
-  document.getElementById("editRelationship").value = data.relationship || "";
-  document.getElementById("editAge").value = data.age || "";
-  document.getElementById("editGender").value = data.gender || "";
-  document.getElementById("editInterests").value = Array.isArray(data.interests)
-    ? data.interests.join(", ")
-    : data.interests || "";
-
-  // Load existing occasions
-  const editOccasionList = document.getElementById("editOccasionList");
-  editOccasionList.innerHTML = "";
-  occasionList = Array.isArray(data.occasions) ? data.occasions : [];
-
-  occasionList.forEach((occ) => {
-    const li = document.createElement("li");
-    li.textContent = `${occ.title} - ${occ.date}`;
-    editOccasionList.appendChild(li);
-  });
-
-  document.getElementById("saveEditBtn").onclick = async () => {
-    try {
-      await updateDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId), {
-        name: document.getElementById("editName").value,
-        relationship: document.getElementById("editRelationship").value,
-        age: document.getElementById("editAge").value,
-        gender: document.getElementById("editGender").value,
-        interests: document.getElementById("editInterests").value.split(",").map(i => i.trim()),
-        occasions: occasionList
-      });
-      loadRecipients();
-      closeModal();
-    } catch (error) {
-      console.error("Error updating recipient:", error);
-    }
-  };
-};
-
-// ✅ Open "Add" modal
-window.openAddRecipientModal = function () {
-  const modal = document.getElementById("addRecipientModal");
-  if (!modal) return;
-  modal.style.display = "flex";
-
-  document.getElementById("recipientName").value = "";
-  document.getElementById("recipientRelationship").value = "";
-  document.getElementById("recipientAge").value = "";
-  document.getElementById("recipientGender").value = "";
-  document.getElementById("recipientInterests").value = "";
-
-  occasionList = [];
-  document.getElementById("occasionList").innerHTML = "";
-
-  const today = new Date().toISOString().split("T")[0];
-  document.getElementById("occasionDate").value = today;
-};
-
-// ✅ Add new recipient
+// ✅ Add recipient to Firestore
 window.addRecipient = async function () {
   const user = auth.currentUser;
   if (!user) return;
@@ -186,7 +188,7 @@ window.addRecipient = async function () {
   }
 };
 
-// ✅ Delete recipient
+// ✅ Delete a recipient
 window.deleteRecipient = async function (recipientId) {
   if (!confirm("Are you sure you want to delete this recipient?")) return;
 
@@ -199,7 +201,7 @@ window.deleteRecipient = async function (recipientId) {
   }
 };
 
-// ✅ Close modals
+// ✅ Modal control functions
 window.closeManageModal = function () {
   document.getElementById("manageRecipientModal").style.display = "none";
 };
@@ -214,16 +216,18 @@ window.closeModal = function () {
   });
 };
 
-// ✅ Load on page ready
+// ✅ Load recipients when page is ready
 document.addEventListener("DOMContentLoaded", () => {
   auth.onAuthStateChanged((user) => {
     if (user) loadRecipients();
   });
 });
 
-// ✅ Close modal on outside click
+// ✅ Close modals on outside click
 document.addEventListener("click", function (event) {
-  document.querySelectorAll(".modal").forEach((modal) => {
+  const openModals = document.querySelectorAll(".modal");
+
+  openModals.forEach((modal) => {
     const isVisible = getComputedStyle(modal).display === "flex";
     const modalContent = modal.querySelector(".modal-content");
 
