@@ -114,6 +114,8 @@ async function loadCalendar(user) {
             right: 'dayGridMonth,listMonth'
         },
         height: 'auto',
+        contentHeight: 'auto',
+        expandRows: false,
         events: events
     });
 
