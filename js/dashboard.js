@@ -1,6 +1,7 @@
 // ✅ Enable ES module functionality
 import { auth, db } from "./firebase.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { Calendar } from 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("homeButton").addEventListener("click", function () {
@@ -18,14 +19,17 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("upgradeButton").addEventListener("click", function () {
         window.location.href = "upgrade.html";
     });
-    
- // ✅ Load the recipient preview once auth is ready
+
+    // ✅ Load preview + calendar when user is authenticated
     auth.onAuthStateChanged((user) => {
-        if (user) loadRecipientPreview(user);
+        if (user) {
+            loadRecipientPreview(user);
+            loadCalendar(user);
+        }
     });
 });
 
-// ✅ Function to fetch and display preview data
+// ✅ Load Recipient Preview for Dashboard
 async function loadRecipientPreview(user) {
     const previewTable = document.getElementById("recipientPreviewTable");
     if (!previewTable) return;
@@ -61,4 +65,48 @@ async function loadRecipientPreview(user) {
         console.error("Error loading recipient preview:", error);
         previewTable.innerHTML = "<tr><td colspan='3'>Error loading data.</td></tr>";
     }
+}
+
+// ✅ Load FullCalendar with user occasions
+async function loadCalendar(user) {
+    const calendarEl = document.getElementById("calendar");
+    if (!calendarEl) return;
+
+    const events = [];
+
+    try {
+        const recipientsRef = collection(db, "users", user.uid, "recipients");
+        const querySnapshot = await getDocs(recipientsRef);
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+
+            // Only include event if there's a date
+            if (data.date && data.name) {
+                const title = Array.isArray(data.occasion)
+                    ? `${data.name} - ${data.occasion.join(", ")}`
+                    : `${data.name} - ${data.occasion || "Occasion"}`;
+
+                events.push({
+                    title,
+                    start: data.date
+                });
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching calendar events:", error);
+    }
+
+    const calendar = new Calendar(calendarEl, {
+        initialView: "dayGridMonth",
+        headerToolbar: {
+            start: "title",
+            center: "",
+            end: "prev,next"
+        },
+        height: "auto",
+        events
+    });
+
+    calendar.render();
 }
