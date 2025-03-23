@@ -102,4 +102,28 @@ async function loadCalendar(user) {
 
     const isMobile = window.innerWidth < 768;
 
-    calendar = new window
+    calendar = new window.FullCalendar.Calendar(calendarEl, {
+        initialView: isMobile ? 'listMonth' : 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'dayGridMonth,listMonth' // Always show toggle
+        },
+        height: 'auto',
+        events: events
+    });
+
+    calendar.render();
+}
+
+// ✅ Responsive view switching on resize
+window.addEventListener('resize', () => {
+    if (calendar) {
+        const isMobile = window.innerWidth < 768;
+        const newView = isMobile ? 'listMonth' : 'dayGridMonth';
+
+        if (calendar.view.type !== newView) {
+            calendar.changeView(newView);
+        }
+    }
+});
