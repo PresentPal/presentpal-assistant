@@ -53,7 +53,7 @@ async function loadRecipients() {
 window.openManageRecipientModal = function (recipientId, data) {
   const modal = document.getElementById("manageRecipientModal");
   if (!modal) return;
-  modal.style.display = "block";
+  modal.style.display = "flex";
 
   modal.setAttribute("data-recipient-id", recipientId);
 
@@ -68,7 +68,7 @@ window.openManageRecipientModal = function (recipientId, data) {
 window.openEditRecipientModal = function (recipientId, data) {
   const modal = document.getElementById("editRecipientModal");
   if (!modal) return;
-  modal.style.display = "block";
+  modal.style.display = "flex";
 
   document.getElementById("editName").value = data.name || "";
   document.getElementById("editRelationship").value = data.relationship || "";
@@ -106,7 +106,7 @@ window.openEditRecipientModal = function (recipientId, data) {
 window.openAddRecipientModal = function () {
   const modal = document.getElementById("addRecipientModal");
   if (!modal) return;
-  modal.style.display = "block";
+  modal.style.display = "flex";
 
   // Clear all fields
   document.getElementById("recipientName").value = "";
@@ -190,7 +190,7 @@ document.addEventListener("click", function (event) {
   const openModals = document.querySelectorAll(".modal");
 
   openModals.forEach((modal) => {
-    const isVisible = getComputedStyle(modal).display === "block";
+    const isVisible = getComputedStyle(modal).display === "flex";
     const modalContent = modal.querySelector(".modal-content");
 
     if (
