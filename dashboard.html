@@ -85,18 +85,12 @@ header {
     color: #555;
 }
 
-.recipient-preview th {
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-  padding: 10px;
-  text-align: left;
-  border-bottom: 2px solid #0056b3;
-  border-right: 1px solid #0056b3; /* Add vertical divider */
-}
-
-.recipient-preview th:last-child {
-  border-right: none;
+/* Recipient Preview Table Styling */
+.recipient-preview {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 /* Header row styling */
@@ -105,8 +99,13 @@ header {
   color: white;
   font-weight: bold;
   padding: 10px;
-  border-bottom: 2px solid #0056b3; /* Darker blue divider */
   text-align: left;
+  border-bottom: 2px solid #0056b3; /* Darker blue divider */
+  border-right: 1px solid #0056b3; /* Vertical divider between columns */
+}
+
+.recipient-preview th:last-child {
+  border-right: none;
 }
 
 /* Table cells */
