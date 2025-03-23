@@ -45,7 +45,7 @@ async function loadRecipientPreview(user) {
             const row = document.createElement("tr");
 
             row.innerHTML = `
-                <td>${data.name || "N/A"}</td>
+                <td class="with-separator">${data.name || "N/A"}</td>
                 <td>${Array.isArray(data.occasion) ? data.occasion.join(", ") : data.occasion || "N/A"}</td>
             `;
 
