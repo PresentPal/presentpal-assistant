@@ -138,7 +138,7 @@ h2 {
 
 /* Modal Styling */
 .modal {
-  display: none;
+  display: none; !important;
   position: fixed;
   top: 0;
   left: 0;
@@ -450,7 +450,7 @@ body {
   </div>
 
   <!-- ✅ Add Recipient Modal -->
-<div id="addRecipientModal" class="modal">
+<div id="addRecipientModal" class="modal" style="display: none;">
   <div class="modal-content">
     <h3>Add New Recipient</h3>
 
@@ -497,7 +497,7 @@ body {
 </div>
 
 <!-- ✅ Manage Modal -->
-<div id="manageRecipientModal" class="modal">
+<div id="manageRecipientModal" class="modal" style="display: none;">
   <div class="modal-content">
     <h3>Manage Recipient</h3>
     <div class="modal-buttons">
@@ -509,7 +509,7 @@ body {
 </div>
 
 <!-- ✅ Edit Modal -->
-<div id="editRecipientModal" class="modal">
+<div id="editRecipientModal" class="modal" style="display: none;">
   <div class="modal-content">
     <h3>Edit Recipient</h3>
     <form>
