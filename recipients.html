@@ -311,6 +311,25 @@ input[type="date"]:valid::before {
   background-color: #b02a37;
 }
 
+/* "Add Occasion" BUTTON */
+.add-occasion-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 90%;
+  margin: 10px auto;
+  display: block;
+  text-align: center;
+}
+
+.add-occasion-btn:hover {
+  background-color: #b02a37;
+}
+
 .empty-state {
   color: #666;
   font-style: italic;
@@ -455,7 +474,7 @@ body {
         <input type="date" id="recipientDate" placeholder="Date of Occasion">
       </div>
 
-      <button type="button" onclick="addOccasionToList()">Add Occasion</button>
+      <button type="button" class="add-occasion-btn" onclick="addOccasionToList()">Add Occasion</button>
       <ul id="occasionList"></ul>
 
       <div class="modal-buttons">
