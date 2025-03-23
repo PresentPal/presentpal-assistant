@@ -38,11 +38,22 @@ async function loadRecipients() {
           row.classList.add("recipient-row");
           row.setAttribute("data-id", docSnapshot.id);
 
-          row.innerHTML = `
-            <td>${index === 0 ? data.name : ""}</td>
-            <td>${occ.title}</td>
-            <td>${occ.date}</td>
-          `;
+          // Format multiple occasions into a readable string
+let formattedOccasions = "No occasions found";
+if (Array.isArray(data.occasions) && data.occasions.length > 0) {
+  formattedOccasions = data.occasions
+    .map((occ) => `${occ.title || "Occasion"} - ${occ.date || "No date"}`)
+    .join("<br>");
+}
+
+row.innerHTML = `
+  <td>${data.name || ""}</td>
+  <td>${data.relationship || ""}</td>
+  <td>${formattedOccasions}</td>
+  <td>${data.age || ""}</td>
+  <td>${data.gender || ""}</td>
+  <td>${Array.isArray(data.interests) ? data.interests.join(", ") : data.interests || ""}</td>
+`;
 
           row.addEventListener("click", (event) => {
             event.stopPropagation();
@@ -140,6 +151,8 @@ window.openAddRecipientModal = function () {
 
   occasionList = [];
 };
+
+let occasionList = [];
 
 window.addOccasionToList = function () {
   const title = document.getElementById("occasionTitle").value.trim();
