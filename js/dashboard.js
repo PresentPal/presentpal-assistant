@@ -97,15 +97,15 @@ async function loadCalendar(user) {
     }
 
     const calendar = new window.FullCalendar.Calendar(calendarEl, {
-        initialView: "dayGridMonth",
-        headerToolbar: {
-            start: "title",
-            center: "",
-            end: "prev,next"
-        },
-        height: "auto",
-        events
-    });
+  initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
+  headerToolbar: {
+    left: 'prev,next',
+    center: 'title',
+    right: window.innerWidth < 768 ? '' : 'dayGridMonth,listMonth'
+  },
+  height: 'auto',
+  events: events,
+});
 
     calendar.render();
 }
