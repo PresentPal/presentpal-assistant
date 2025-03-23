@@ -1,7 +1,6 @@
 // ✅ Enable ES module functionality
 import { auth, db } from "./firebase.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-import { Calendar } from 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("homeButton").addEventListener("click", function () {
@@ -97,7 +96,7 @@ async function loadCalendar(user) {
         console.error("Error fetching calendar events:", error);
     }
 
-    const calendar = new Calendar(calendarEl, {
+    const calendar = new window.FullCalendar.Calendar(calendarEl, {
         initialView: "dayGridMonth",
         headerToolbar: {
             start: "title",
