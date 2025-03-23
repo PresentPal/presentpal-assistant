@@ -67,6 +67,8 @@ async function loadRecipientPreview(user) {
 }
 
 // ✅ Load FullCalendar with user occasions
+let calendar = null;
+
 async function loadCalendar(user) {
     const calendarEl = document.getElementById("calendar");
     if (!calendarEl) return;
@@ -80,7 +82,6 @@ async function loadCalendar(user) {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
 
-            // Only include event if there's a date
             if (data.date && data.name) {
                 const title = Array.isArray(data.occasion)
                     ? `${data.name} - ${data.occasion.join(", ")}`
@@ -96,16 +97,9 @@ async function loadCalendar(user) {
         console.error("Error fetching calendar events:", error);
     }
 
-    const calendar = new window.FullCalendar.Calendar(calendarEl, {
-  initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
-  headerToolbar: {
-    left: 'prev,next',
-    center: 'title',
-    right: window.innerWidth < 768 ? '' : 'dayGridMonth,listMonth'
-  },
-  height: 'auto',
-  events: events,
-});
+    // Destroy previous instance if needed
+    if (calendar) calendar.destroy();
 
-    calendar.render();
-}
+    const isMobile = window.innerWidth < 768;
+
+    calendar = new window
