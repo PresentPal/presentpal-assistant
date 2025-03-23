@@ -145,16 +145,16 @@ window.openAddRecipientModal = function () {
   document.getElementById("recipientAge").value = "";
   document.getElementById("recipientGender").value = "";
   document.getElementById("recipientInterests").value = "";
-  document.getElementById("occasionTitle").value = "";
-  document.getElementById("occasionDate").value = new Date().toISOString().split("T")[0];
+  document.getElementById("recipientOccasion").value = "";
+  document.getElementById("recipientDate").value = new Date().toISOString().split("T")[0];
   document.getElementById("occasionList").innerHTML = "";
 
   occasionList = [];
 };
 
 window.addOccasionToList = function () {
-  const title = document.getElementById("occasionTitle").value.trim();
-  const date = document.getElementById("occasionDate").value;
+  const title = document.getElementById("recipientOccasion").value.trim();
+  const date = document.getElementById("recipientDate").value;
 
   if (!title || !date) {
     alert("Please enter both occasion and date.");
@@ -168,8 +168,8 @@ window.addOccasionToList = function () {
   item.textContent = `${title} - ${date}`;
   list.appendChild(item);
 
-  document.getElementById("occasionTitle").value = "";
-  document.getElementById("occasionDate").value = "";
+  document.getElementById("recipientOccasion").value = "";
+  document.getElementById("recipientDate").value = "";
 };
 
 // ✅ Add recipient to Firestore
