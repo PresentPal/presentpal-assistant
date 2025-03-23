@@ -311,7 +311,7 @@ input[type="date"]:valid::before {
   background-color: #b02a37;
 }
 
-/* "Add Occasion" BUTTON */
+/* Add Occasion Button (aligned with modal buttons) */
 .add-occasion-btn {
   background-color: #dc3545;
   color: white;
@@ -321,13 +321,20 @@ input[type="date"]:valid::before {
   font-size: 16px;
   cursor: pointer;
   width: 90%;
-  margin: 10px auto;
-  display: block;
   text-align: center;
 }
 
+/* Hover state */
 .add-occasion-btn:hover {
   background-color: #b02a37;
+}
+
+/* Occasion List Cleanup */
+#occasionList {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+  text-align: left;
 }
 
 .empty-state {
