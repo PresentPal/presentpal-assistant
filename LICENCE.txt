@@ -1,0 +1,13 @@
+Copyright (c) 2025 PresentPal
+
+All rights reserved.
+
+This project and all associated code, design, assets, and content are the intellectual property of PresentPal.
+
+As of March 24, 2024, this repository is no longer open source and is no longer available under the MIT License.
+
+Permission is **not granted** to copy, modify, publish, distribute, sublicense, or use any part of this software for commercial or private purposes without **explicit written consent** from the owner.
+
+Unauthorized use may result in legal action or a DMCA takedown.
+
+This repository remains public for **transparency and portfolio purposes only**.
