@@ -1,7 +1,7 @@
 # NOTICE
 
-This repository is publicly viewable for transparency, not for reuse.
+This repository is publicly viewable for transparency purposes only. It is **not licensed for reuse, redistribution, or modification**.
 
-Unauthorized reproduction, redistribution, or commercial use of any code, design, or content within this repository is prohibited without express permission.
+Unauthorized copying, reproduction, or commercial use of any code, design, or content within this repository is strictly prohibited.
 
-Violators may be subject to DMCA takedown notices or legal action.
+Violators may be subject to DMCA takedown requests, legal action, or other consequences under applicable copyright laws.
