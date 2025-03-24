@@ -1,4 +1,4 @@
-# presentpal-assistant
+# PresentPal
 
 ## ⚠️ Licensing Notice
 
