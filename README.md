@@ -1,4 +1,4 @@
-# presentpal-chatbot
+# presentpal-assistant
 
 ## Licensing Notice
 
