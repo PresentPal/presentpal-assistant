@@ -39,9 +39,17 @@
       margin: 10px 0 5px;
     }
     .product p {
-      font-size: 14px;
-      color: #666;
-    }
+  font-size: 14px;
+  color: #666;
+  max-height: 3.6em; /* roughly 2 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
     .pagination {
       margin-top: 20px;
     }
