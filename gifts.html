@@ -21,19 +21,20 @@
       margin-bottom: 20px;
     }
 
-    .product {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin: 10px;
-      padding: 15px;
-      width: 250px;
-      height: 420px;
-      display: inline-flex;
-      flex-direction: column;
-      justify-content: space-between;
-      vertical-align: top;
-    }
+   .product {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin: 10px;
+  padding: 15px;
+  width: 250px;
+  height: 380px; /* Fixed height for uniformity */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  box-sizing: border-box;
+}
 
     .product img {
       width: 100%;
@@ -111,6 +112,7 @@
 <body>
   <h1>Gift Catalogue</h1>
   <input type="file" id="csvFile" accept=".csv" />
+  <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
 
@@ -147,33 +149,46 @@
       });
     }
 
-  function displayProducts() {
+ function displayProducts() {
   const container = document.getElementById("productContainer");
-  container.innerHTML = "";
+  const spinner = document.getElementById("spinner");
+   
+  spinner.style.display = "block";
+  container.classList.add("fade-out");
 
-  const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const pageProducts = allProducts.slice(start, end);
+  setTimeout(() => {
+    container.innerHTML = "";
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageProducts = allProducts.slice(start, end);
 
-  pageProducts.forEach(product => {
-    const image = product.merchant_image_url?.trim();
-    const link = product.aw_deep_link?.trim();
-    const name = product.product_name?.replace(/"/g, '').trim();
+    pageProducts.forEach(product => {
+      const image = product.merchant_image_url?.trim();
+      const link = product.aw_deep_link?.trim();
+      const name = product.product_name?.replace(/"/g, '').trim();
 
-    // Skip if image or link is missing
-    if (!image || !link) return;
+      if (!image || !link) return;
 
-    const div = document.createElement("div");
-    div.classList.add("product");
+      const div = document.createElement("div");
+      div.classList.add("product");
 
-    div.innerHTML = `
-      <img src="${image}" alt="${name || 'Product'}" />
-      <h3>${name || 'Unnamed Product'}</h3>
-      <a href="${link}" target="_blank">View Product</a>
-    `;
+      div.innerHTML = `
+        <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none';" />
+        <h3>${name}</h3>
+        <a href="${link}" target="_blank" class="btn">View Product</a>
+      `;
 
-    container.appendChild(div);
-  });
+      container.appendChild(div);
+    });
+
+    spinner.style.display = "none";
+    container.classList.remove("fade-out");
+    container.classList.add("fade-in");
+
+    document.getElementById("pageInfo").textContent = `Page ${currentPage} of ${Math.ceil(allProducts.length / itemsPerPage)}`;
+    document.getElementById("prevBtn").disabled = currentPage === 1;
+    document.getElementById("nextBtn").disabled = currentPage * itemsPerPage >= allProducts.length;
+  }, 200);
 }
 
     function renderPagination() {
