@@ -21,48 +21,37 @@
       margin-bottom: 20px;
     }
 
-   .product {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  margin: 10px;
-  padding: 15px;
-  width: 250px;
-  height: 380px; /* Fixed height for uniformity */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  box-sizing: border-box;
-}
+    .product {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin: 10px;
+      padding: 15px;
+      width: 250px;
+      height: 380px;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      box-sizing: border-box;
+    }
 
     .product img {
       width: 100%;
-      height: auto;
-      max-height: 200px;
+      height: 200px;
       object-fit: contain;
+      margin-bottom: 10px;
     }
 
     .product h3 {
       font-size: 16px;
-      margin: 10px 0 5px;
-    }
-
-    .product p {
-      font-size: 14px;
-      color: #666;
-      max-height: 3.6em;
+      margin: 10px 0;
+      height: 3em;
       overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1.2em;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
     }
 
     .product a {
       display: inline-block;
-      margin-top: auto;
       padding: 10px 16px;
       background-color: #007bff;
       color: white;
@@ -107,6 +96,16 @@
       padding: 8px 10px;
       color: #555;
     }
+
+    #productContainer.fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #productContainer.fade-in {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
   </style>
 </head>
 <body>
@@ -149,54 +148,63 @@
       });
     }
 
- function displayProducts() {
-  const container = document.getElementById("productContainer");
-  const spinner = document.getElementById("spinner");
-   
-  spinner.style.display = "block";
-  container.classList.add("fade-out");
+    function displayProducts() {
+      const container = document.getElementById("productContainer");
+      const spinner = document.getElementById("spinner");
 
-  setTimeout(() => {
-    container.innerHTML = "";
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageProducts = allProducts.slice(start, end);
+      spinner.style.display = "block";
+      container.classList.remove("fade-in");
+      container.classList.add("fade-out");
 
-    pageProducts.forEach(product => {
-      const image = product.merchant_image_url?.trim();
-      const link = product.aw_deep_link?.trim();
-      const name = product.product_name?.replace(/"/g, '').trim();
+      setTimeout(() => {
+        container.innerHTML = "";
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageProducts = allProducts.slice(start, end);
 
-      if (!image || !link) return;
+        pageProducts.forEach(product => {
+          const image = product.merchant_image_url?.trim();
+          const link = product.aw_deep_link?.trim();
+          const name = product.product_name?.replace(/"/g, '').trim();
 
-      const div = document.createElement("div");
-      div.classList.add("product");
+          if (!image || !link || !link.startsWith("http")) return;
 
-      div.innerHTML = `
-        <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none';" />
-        <h3>${name}</h3>
-        <a href="${link}" target="_blank" class="btn">View Product</a>
-      `;
+          const div = document.createElement("div");
+          div.classList.add("product");
 
-      container.appendChild(div);
-    });
+          div.innerHTML = `
+            <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none';" />
+            <h3>${name}</h3>
+            <a href="${link}" target="_blank">View Product</a>
+          `;
 
-    spinner.style.display = "none";
-    container.classList.remove("fade-out");
-    container.classList.add("fade-in");
+          container.appendChild(div);
+        });
 
-    document.getElementById("pageInfo").textContent = `Page ${currentPage} of ${Math.ceil(allProducts.length / itemsPerPage)}`;
-    document.getElementById("prevBtn").disabled = currentPage === 1;
-    document.getElementById("nextBtn").disabled = currentPage * itemsPerPage >= allProducts.length;
-  }, 200);
-}
+        spinner.style.display = "none";
+        container.classList.remove("fade-out");
+        container.classList.add("fade-in");
+      }, 200);
+    }
 
     function renderPagination() {
       const totalPages = Math.ceil(allProducts.length / itemsPerPage);
       const pagination = document.getElementById("paginationControls");
       pagination.innerHTML = "";
 
-      // Previous Button
+      const addPageButton = (pageNum) => {
+        const btn = document.createElement("button");
+        btn.textContent = pageNum;
+        if (pageNum === currentPage) btn.classList.add("active");
+        btn.onclick = () => {
+          currentPage = pageNum;
+          displayProducts();
+          renderPagination();
+        };
+        pagination.appendChild(btn);
+      };
+
+      // Prev Button
       const prevBtn = document.createElement("button");
       prevBtn.textContent = "Previous";
       prevBtn.disabled = currentPage === 1;
@@ -207,7 +215,7 @@
       };
       pagination.appendChild(prevBtn);
 
-      // Always show Page 1
+      // Always show page 1
       addPageButton(1);
 
       if (currentPage > 6) {
@@ -231,6 +239,7 @@
         pagination.appendChild(ellipsis);
       }
 
+      // Always show last page
       if (totalPages > 1) addPageButton(totalPages);
 
       // Next Button
@@ -243,18 +252,6 @@
         renderPagination();
       };
       pagination.appendChild(nextBtn);
-
-      function addPageButton(pageNum) {
-        const btn = document.createElement("button");
-        btn.textContent = pageNum;
-        if (pageNum === currentPage) btn.classList.add("active");
-        btn.onclick = () => {
-          currentPage = pageNum;
-          displayProducts();
-          renderPagination();
-        };
-        pagination.appendChild(btn);
-      }
     }
   </script>
 </body>
