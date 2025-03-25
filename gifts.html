@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Awin Feed Parser</title>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+  <h2>Upload Awin Product Feed (CSV)</h2>
+  <input type="file" id="csvFile" accept=".csv" />
+
+  <div id="output"></div>
+
+  <script>
+    document.getElementById("csvFile").addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: function (results) {
+          const data = results.data;
+          displayTable(data);
+        }
+      });
+    });
+
+    function displayTable(products) {
+      const output = document.getElementById("output");
+      if (products.length === 0) return;
+
+      let table = "<table><thead><tr>";
+
+      // Show first 5 headers
+      const headers = Object.keys(products[0]).slice(0, 5);
+      headers.forEach(h => table += `<th>${h}</th>`);
+      table += "</tr></thead><tbody>";
+
+      // Show first 10 rows
+      products.slice(0, 10).forEach(row => {
+        table += "<tr>";
+        headers.forEach(h => table += `<td>${row[h]}</td>`);
+        table += "</tr>";
+      });
+
+      table += "</tbody></table>";
+      output.innerHTML = table;
+    }
+  </script>
+
+</body>
+</html>
