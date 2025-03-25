@@ -12,32 +12,48 @@
       color: #333;
       text-align: center;
     }
+
     h1 {
       margin-bottom: 20px;
     }
+
     input[type="file"] {
       margin-bottom: 20px;
     }
+
+    #productContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     .product {
       background: white;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       margin: 10px;
       padding: 15px;
-      max-width: 250px;
-      display: inline-block;
-      vertical-align: top;
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 400px; /* Fixed consistent height */
+      box-sizing: border-box;
     }
+
     .product img {
       width: 100%;
-      height: auto;
-      max-height: 200px;
+      height: 180px;
       object-fit: contain;
+      margin-bottom: 10px;
     }
+
     .product h3 {
       font-size: 16px;
       margin: 10px 0 5px;
+      min-height: 40px;
     }
+
     .product p {
       font-size: 14px;
       color: #666;
@@ -49,32 +65,56 @@
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
     }
-    .product a {
-      display: inline-block;
-      margin-top: 10px;
-      color: #007bff;
-      text-decoration: none;
-      font-weight: bold;
-    }
+
+   .product a {
+  display: inline-block;
+  margin-top: auto;
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.product a:hover {
+  background-color: #0056b3;
+}
+
+
     .pagination {
       margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
     }
+
     .pagination button {
       background: #007bff;
       color: white;
       border: none;
       padding: 8px 14px;
-      margin: 2px;
+      margin: 3px;
       border-radius: 5px;
       cursor: pointer;
     }
+
     .pagination button:disabled {
       background: #ccc;
       cursor: default;
     }
+
     .pagination .active-page {
       background-color: #0056b3;
       font-weight: bold;
+    }
+
+    .ellipsis {
+      padding: 8px 14px;
+      margin: 3px;
+      color: #555;
+      user-select: none;
     }
   </style>
 </head>
@@ -152,15 +192,16 @@
 
       if (totalPages <= 1) return;
 
-      // Previous
       const prev = document.createElement("button");
       prev.textContent = "Previous";
       prev.disabled = currentPage === 1;
       prev.onclick = () => changePage(-1);
       paginationContainer.appendChild(prev);
 
-      // Page numbers
-      for (let i = 1; i <= totalPages; i++) {
+      const maxButtons = 10;
+      const showEllipsis = totalPages > maxButtons;
+
+      for (let i = 1; i <= Math.min(maxButtons, totalPages); i++) {
         const pageBtn = document.createElement("button");
         pageBtn.textContent = i;
         if (i === currentPage) pageBtn.classList.add("active-page");
@@ -168,7 +209,18 @@
         paginationContainer.appendChild(pageBtn);
       }
 
-      // Next
+      if (showEllipsis) {
+        const dots = document.createElement("span");
+        dots.textContent = "...";
+        dots.classList.add("ellipsis");
+        paginationContainer.appendChild(dots);
+
+        const lastPageBtn = document.createElement("button");
+        lastPageBtn.textContent = totalPages;
+        lastPageBtn.onclick = () => goToPage(totalPages);
+        paginationContainer.appendChild(lastPageBtn);
+      }
+
       const next = document.createElement("button");
       next.textContent = "Next";
       next.disabled = currentPage === totalPages;
