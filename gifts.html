@@ -17,8 +17,12 @@
       margin-bottom: 20px;
     }
 
-    input[type="file"] {
-      margin-bottom: 20px;
+    input[type="file"],
+    #searchBar,
+    #merchantFilter {
+      margin: 10px 10px 20px;
+      padding: 8px;
+      font-size: 14px;
     }
 
     .product {
@@ -28,7 +32,7 @@
       margin: 10px;
       padding: 15px;
       width: 250px;
-      height: 380px;
+      height: 360px;
       display: inline-flex;
       flex-direction: column;
       justify-content: space-between;
@@ -38,20 +42,21 @@
 
     .product img {
       width: 100%;
-      height: 200px;
+      height: 180px;
       object-fit: contain;
-      margin-bottom: 10px;
     }
 
     .product h3 {
-      font-size: 16px;
-      margin: 10px 0;
-      height: 3em;
+      font-size: 14px;
+      margin: 10px 0 0;
+      line-height: 1.2em;
+      max-height: 2.4em;
       overflow: hidden;
     }
 
     .product a {
       display: inline-block;
+      margin-top: 10px;
       padding: 10px 16px;
       background-color: #007bff;
       color: white;
@@ -80,6 +85,11 @@
       padding: 8px 14px;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .pagination button:hover {
+      background-color: #0056b3;
     }
 
     .pagination button.active {
@@ -111,12 +121,16 @@
 <body>
   <h1>Gift Catalogue</h1>
   <input type="file" id="csvFile" accept=".csv" />
+  <input type="text" id="searchBar" placeholder="Search product name..." />
+  <select id="merchantFilter"><option value="">Filter by merchant</option></select>
+  
   <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
 
   <script>
     let allProducts = [];
+    let filteredProducts = [];
     let currentPage = 1;
     const itemsPerPage = 50;
 
@@ -127,13 +141,15 @@
       const reader = new FileReader();
       reader.onload = function (e) {
         const csv = e.target.result;
-        allProducts = parseCSV(csv);
-        currentPage = 1;
-        displayProducts();
-        renderPagination();
+        allProducts = parseCSV(csv).filter(p => p.merchant_image_url && p.aw_deep_link);
+        populateMerchantFilter();
+        applyFilters();
       };
       reader.readAsText(file);
     });
+
+    document.getElementById("searchBar").addEventListener("input", applyFilters);
+    document.getElementById("merchantFilter").addEventListener("change", applyFilters);
 
     function parseCSV(data) {
       const lines = data.split("\n").filter(Boolean);
@@ -148,6 +164,31 @@
       });
     }
 
+    function populateMerchantFilter() {
+      const select = document.getElementById("merchantFilter");
+      const merchants = [...new Set(allProducts.map(p => p.merchant_name).filter(Boolean))].sort();
+      merchants.forEach(name => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        select.appendChild(opt);
+      });
+    }
+
+    function applyFilters() {
+      const keyword = document.getElementById("searchBar").value.toLowerCase();
+      const selectedMerchant = document.getElementById("merchantFilter").value;
+
+      filteredProducts = allProducts.filter(p =>
+        (!selectedMerchant || p.merchant_name === selectedMerchant) &&
+        (!keyword || p.product_name.toLowerCase().includes(keyword))
+      );
+
+      currentPage = 1;
+      displayProducts();
+      renderPagination();
+    }
+
     function displayProducts() {
       const container = document.getElementById("productContainer");
       const spinner = document.getElementById("spinner");
@@ -160,12 +201,12 @@
         container.innerHTML = "";
         const start = (currentPage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
-        const pageProducts = allProducts.slice(start, end);
+        const pageProducts = filteredProducts.slice(start, end);
 
         pageProducts.forEach(product => {
+          const name = product.product_name?.replace(/"/g, '').trim();
           const image = product.merchant_image_url?.trim();
           const link = product.aw_deep_link?.trim();
-          const name = product.product_name?.replace(/"/g, '').trim();
 
           if (!image || !link || !link.startsWith("http")) return;
 
@@ -173,8 +214,10 @@
           div.classList.add("product");
 
           div.innerHTML = `
-            <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none';" />
-            <h3>${name}</h3>
+            <a href="${link}" target="_blank">
+              <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none';" />
+            </a>
+            <a href="${link}" target="_blank"><h3>${name}</h3></a>
             <a href="${link}" target="_blank">View Product</a>
           `;
 
@@ -188,7 +231,7 @@
     }
 
     function renderPagination() {
-      const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
       const pagination = document.getElementById("paginationControls");
       pagination.innerHTML = "";
 
@@ -204,7 +247,6 @@
         pagination.appendChild(btn);
       };
 
-      // Prev Button
       const prevBtn = document.createElement("button");
       prevBtn.textContent = "Previous";
       prevBtn.disabled = currentPage === 1;
@@ -215,7 +257,6 @@
       };
       pagination.appendChild(prevBtn);
 
-      // Always show page 1
       addPageButton(1);
 
       if (currentPage > 6) {
@@ -225,11 +266,13 @@
         pagination.appendChild(ellipsis);
       }
 
-      const start = Math.max(2, currentPage - 4);
-      const end = Math.min(totalPages - 1, currentPage + 4);
+      const start = Math.max(2, currentPage - 2);
+      const end = Math.min(totalPages - 1, currentPage + 2);
 
       for (let i = start; i <= end; i++) {
-        addPageButton(i);
+        if (i !== 1 && i !== totalPages) {
+          addPageButton(i);
+        }
       }
 
       if (end < totalPages - 1) {
@@ -239,10 +282,8 @@
         pagination.appendChild(ellipsis);
       }
 
-      // Always show last page
       if (totalPages > 1) addPageButton(totalPages);
 
-      // Next Button
       const nextBtn = document.createElement("button");
       nextBtn.textContent = "Next";
       nextBtn.disabled = currentPage === totalPages;
