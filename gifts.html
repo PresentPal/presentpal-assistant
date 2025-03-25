@@ -147,28 +147,34 @@
       });
     }
 
-    function displayProducts() {
-      const container = document.getElementById("productContainer");
-      container.innerHTML = "";
+  function displayProducts() {
+  const container = document.getElementById("productContainer");
+  container.innerHTML = "";
 
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageProducts = allProducts.slice(start, end);
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const pageProducts = allProducts.slice(start, end);
 
-      pageProducts.forEach(product => {
-        const div = document.createElement("div");
-        div.classList.add("product");
+  pageProducts.forEach(product => {
+    const image = product.merchant_image_url?.trim();
+    const link = product.aw_deep_link?.trim();
+    const name = product.product_name?.replace(/"/g, '').trim();
 
-        div.innerHTML = `
-          <img src="${product.merchant_image_url || ''}" alt="${product.product_name || 'Product'}" />
-          <h3>${product.product_name?.replace(/"/g, '') || 'Unnamed Product'}</h3>
-          <p>${product.merchant_name || ''}</p>
-          <a href="${product.aw_deep_link || '#'}" target="_blank">View Product</a>
-        `;
+    // Skip if image or link is missing
+    if (!image || !link) return;
 
-        container.appendChild(div);
-      });
-    }
+    const div = document.createElement("div");
+    div.classList.add("product");
+
+    div.innerHTML = `
+      <img src="${image}" alt="${name || 'Product'}" />
+      <h3>${name || 'Unnamed Product'}</h3>
+      <a href="${link}" target="_blank">View Product</a>
+    `;
+
+    container.appendChild(div);
+  });
+}
 
     function renderPagination() {
       const totalPages = Math.ceil(allProducts.length / itemsPerPage);
