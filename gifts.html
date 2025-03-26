@@ -163,9 +163,8 @@
 <body>
   <h1>Gift Catalogue</h1>
   <input type="file" id="csvFile" accept=".csv" />
-
-  <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
-  <div class="filter-bar">
+  
+ <div class="filter-bar">
   <input type="text" id="searchInput" placeholder="Search products..." />
   <select id="merchantFilter">
     <option value="">Filter by Merchant</option>
@@ -174,6 +173,8 @@
     <option value="">Filter by Category</option>
   </select>
 </div>
+  
+  <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
 
