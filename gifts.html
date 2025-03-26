@@ -485,9 +485,12 @@ select:focus {
 
   let effectiveKeywords = [];
   const negativeKeywords = {
-    "Special Occasions - Halloween": ["cruise", "holiday", "soiree", "trip"],
-    "Cooking & Kitchen": ["foundation", "makeup", "beauty", "lipstick"]
-  };
+  "Special Occasions - Halloween": ["cruise", "holiday", "soiree", "trip"],
+  "Cooking & Kitchen": ["foundation", "makeup", "beauty", "lipstick"],
+  "Games - Video Games": ["necklace", "earrings", "bracelet"], // prevent jewellery from sneaking in
+  "Women's Jewellery": ["xbox", "game", "playstation", "psp", "controller", "cruise", "getaway", "costa", "caribbean", "miami", "auckland", "ship", "ocean",
+    "holiday cruise", "tropical", "cruise deal", "all inclusive cruise", "voyage"]
+};
 
   // ✅ Set effective keywords
   if (categoryKeywords[selectedCategory]) {
@@ -511,8 +514,18 @@ select:focus {
     let keywordScore = 0;
     for (const term of effectiveKeywords) {
       const regex = new RegExp(`\\b${term}\\b`, 'i');
-      if (regex.test(cleanedCategory)) keywordScore += 2;
-      else if (regex.test(cleanedName) || regex.test(custom1) || regex.test(custom2)) keywordScore += 1;
+      const cleanedTerm = term.toLowerCase().replace(/[^\w\s]/g, '');
+const exactRegex = new RegExp(`\\b${cleanedTerm}\\b`, 'i');
+
+if (exactRegex.test(cleanedCategory)) keywordScore += 2;
+else if (
+  exactRegex.test(cleanedName) ||
+  exactRegex.test(custom1) ||
+  exactRegex.test(custom2)
+) {
+  keywordScore += 1;
+}
+
     }
 
     let isCategoryMatch = keywordScore > 0;
