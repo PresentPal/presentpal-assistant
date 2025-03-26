@@ -334,42 +334,45 @@ select:focus {
   });
 }
     function applyFilters() {
-      const keyword = document.getElementById("searchInput").value.toLowerCase();
-      const selectedMerchant = document.getElementById("merchantFilter").value;
-      const selectedCategory = document.getElementById("categoryFilter").value;
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  const selectedMerchant = document.getElementById("merchantFilter").value;
+  const selectedCategory = document.getElementById("categoryFilter").value;
 
-      let effectiveKeywords = [];
+  let effectiveKeywords = [];
 
-if (categoryKeywords[selectedCategory]) {
-  // Sub-category selected
-  effectiveKeywords = categoryKeywords[selectedCategory];
-} else if (selectedCategory) {
-  // Parent category selected — gather all subcategory keywords under it
-  const groupMatch = Object.entries(categoryKeywords)
-    .filter(([key]) => key.startsWith(selectedCategory + " -"))
-    .flatMap(([, keywords]) => keywords);
+  if (categoryKeywords[selectedCategory]) {
+    // Sub-category selected
+    effectiveKeywords = categoryKeywords[selectedCategory];
+  } else if (selectedCategory) {
+    // Parent category selected — gather all subcategory keywords under it
+    const groupMatch = Object.entries(categoryKeywords)
+      .filter(([key]) => key.startsWith(selectedCategory + " -"))
+      .flatMap(([, keywords]) => keywords);
 
-  effectiveKeywords = groupMatch;
-}
+    effectiveKeywords = groupMatch;
+  }
 
-      filteredProducts = allProducts.filter(p => {
-        const productName = p.product_name?.toLowerCase() || "";
-        const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
+  filteredProducts = allProducts.filter(p => {
+    const productName = p.product_name?.toLowerCase() || "";
+    const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
-        let isCategoryMatch = true;
-if (selectedCategory) {
-  isCategoryMatch = effectiveKeywords.some(term => productName.includes(term));
-}
-
-        const isKeywordMatch = !keyword || productName.includes(keyword);
-
-        return isMerchantMatch && isCategoryMatch && isKeywordMatch;
+    let isCategoryMatch = true;
+    if (selectedCategory && effectiveKeywords.length > 0) {
+      isCategoryMatch = effectiveKeywords.some(term => {
+        const regex = new RegExp(`\\b${term}\\b`, 'i');
+        return regex.test(productName);
       });
-
-      currentPage = 1;
-      displayProducts();
-      renderPagination();
     }
+
+    const isKeywordMatch = !keyword || productName.includes(keyword);
+
+    return isMerchantMatch && isCategoryMatch && isKeywordMatch;
+  });
+
+  currentPage = 1;
+  displayProducts();
+  renderPagination();
+}
 
     function displayProducts() {
       const container = document.getElementById("productContainer");
