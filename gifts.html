@@ -446,7 +446,7 @@ select:focus {
 
           div.innerHTML = `
             <a href="${link}" target="_blank" class="image-link">
-              <img src="${image}" alt="${name}" onerror="this.style.display='none';" />
+              <img src="${image}" alt="${name}" onerror="this.closest('.product').remove();" />
             </a>
             <a href="${link}" target="_blank" class="title-link"><h3>${name}</h3></a>
             <a href="${link}" target="_blank">View Product</a>
