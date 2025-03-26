@@ -347,35 +347,42 @@ select:focus {
   const selectedCategory = document.getElementById("categoryFilter").value;
 
   let effectiveKeywords = [];
+  const negativeKeywords = {
+    "Special Occasions - Halloween": ["cruise", "holiday", "soiree", "trip"],
+    "Cooking & Kitchen": ["foundation", "makeup", "beauty", "lipstick"],
+  };
 
   if (categoryKeywords[selectedCategory]) {
-    // Sub-category selected
     effectiveKeywords = categoryKeywords[selectedCategory];
   } else if (selectedCategory) {
-    // Parent category selected — gather all subcategory keywords under it
     const groupMatch = Object.entries(categoryKeywords)
       .filter(([key]) => key.startsWith(selectedCategory + " -"))
       .flatMap(([, keywords]) => keywords);
-
     effectiveKeywords = groupMatch;
   }
 
   filteredProducts = allProducts.filter(p => {
-    const productName = p.product_name?.toLowerCase() || "";
+    const searchableText = `${p.product_name || ''} ${p.merchant_category || ''}`.toLowerCase();
     const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
-    let isCategoryMatch = true;
-    if (selectedCategory && effectiveKeywords.length > 0) {
-      isCategoryMatch = effectiveKeywords.some(term => {
-        const regex = new RegExp(`\\b${term}\\b`, 'i');
-        return regex.test(productName);
-      });
+    // 🧠 Match ANY keyword for category
+    let isCategoryMatch = !selectedCategory || effectiveKeywords.some(term =>
+      searchableText.includes(term)
+    );
+
+    // ⛔ Exclude false positives
+    if (isCategoryMatch && negativeKeywords[selectedCategory]) {
+      isCategoryMatch = !negativeKeywords[selectedCategory].some(term =>
+        searchableText.includes(term)
+      );
     }
 
-    const isKeywordMatch = !keyword || productName.includes(keyword);
+    const isKeywordMatch = !keyword || searchableText.includes(keyword);
 
     return isMerchantMatch && isCategoryMatch && isKeywordMatch;
   });
+
+  console.log(`Filtered ${filteredProducts.length} products for category: ${selectedCategory}`);
 
   currentPage = 1;
   displayProducts();
