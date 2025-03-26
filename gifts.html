@@ -184,6 +184,35 @@
     let currentPage = 1;
     const itemsPerPage = 24;
 
+    const approvedMerchants = [
+  "Theatre Tickets Direct", "Wowow Toys", "Plusshop UK", "Tisserand Aromatherapy", "Game Over",
+  "Kaliese", "Uud fragrances", "Tooled Up", "Forever Lily", "Little Women Lingerie",
+  "Vistaexpert UK", "My Kind of Cruise", "Sport and Leisure UK", "Webbs Motorcycles",
+  "Mafett UK", "Edx Education UK Limited", "Spoiled Brat", "Pott'd UK", "Kokoso Baby",
+  "We are Nutrified", "Polaris Bikewear", "T.LUXY", "Cronjager", "Furniture Life",
+  "Fishcave Aquatics", "Love Tech Hate Waste", "Vintage Wine Gifts", "OFFSCENT",
+  "Simply LED", "MyBeauty.Boutique"
+];
+
+// Keyword mapping for custom category filter
+const categoryKeywords = {
+  "Special Occasions - Mothers Day": ["mother"],
+  "Special Occasions - Mummy to be": ["mummy to be"],
+  "Special Occasions - Valentine’s gifts": ["valentines", "valentines gifts", "valentine"],
+  "Special Occasions - Weddings": ["brides", "bride to be", "bridesmaids"],
+  "Special Occasions - Birthday": ["birthday", "bday"],
+  "Special Occasions - Halloween": ["halloween"],
+  "Special Occasions - Easter": ["easter"],
+  "Special Occasions - Christmas": ["christmas", "santa", "snowman", "xmas"],
+  "Gifting - Flowers": ["flowers"],
+  "Gifting - Candles": ["candle", "candles"],
+  "Gifting - Gift Bags": ["gift bag"],
+  "Gifting - Cards": ["card"],
+  "Health & Beauty - Skincare": ["pigmentation", "rehydrate", "skin", "wrinkles", "collagen", "personal care", "soap", "mousse", "foot cream", "cleanser"],
+  "Health & Beauty - Self Tanning": ["tanning", "tan"],
+  "Health & Beauty -
+
+
     document.getElementById("csvFile").addEventListener("change", function (event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -215,48 +244,52 @@
       });
     }
 
-    function populateFilters() {
-      const merchantSet = new Set();
-      const categorySet = new Set();
+   function populateFilters() {
+  const merchantFilter = document.getElementById("merchantFilter");
+  const categoryFilter = document.getElementById("categoryFilter");
 
-      allProducts.forEach(p => {
-        if (p.merchant_name) merchantSet.add(p.merchant_name);
-        if (p.merchant_category) categorySet.add(p.merchant_category);
-      });
+  // ✅ Merchants
+  approvedMerchants.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    merchantFilter.appendChild(opt);
+  });
 
-      const merchantFilter = document.getElementById("merchantFilter");
-      const categoryFilter = document.getElementById("categoryFilter");
-
-      merchantSet.forEach(name => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        merchantFilter.appendChild(opt);
-      });
-
-      categorySet.forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        categoryFilter.appendChild(opt);
-      });
-    }
+  // ✅ Categories (from keyword map)
+  Object.keys(categoryKeywords).forEach(cat => {
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = cat;
+    categoryFilter.appendChild(opt);
+  });
+}
 
     function applyFilters() {
-      const keyword = document.getElementById("searchBar").value.toLowerCase();
-      const selectedMerchant = document.getElementById("merchantFilter").value;
-      const selectedCategory = document.getElementById("categoryFilter").value;
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  const selectedMerchant = document.getElementById("merchantFilter").value;
+  const selectedCategory = document.getElementById("categoryFilter").value;
 
-      filteredProducts = allProducts.filter(p =>
-        (!selectedMerchant || p.merchant_name === selectedMerchant) &&
-        (!selectedCategory || p.merchant_category === selectedCategory) &&
-        (!keyword || p.product_name.toLowerCase().includes(keyword))
+  filteredProducts = allProducts.filter(p => {
+    const productName = p.product_name?.toLowerCase() || "";
+    const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
+
+    let isCategoryMatch = true;
+    if (selectedCategory && categoryKeywords[selectedCategory]) {
+      isCategoryMatch = categoryKeywords[selectedCategory].some(term =>
+        productName.includes(term)
       );
-
-      currentPage = 1;
-      displayProducts();
-      renderPagination();
     }
+
+    const isKeywordMatch = !keyword || productName.includes(keyword);
+
+    return isMerchantMatch && isCategoryMatch && isKeywordMatch;
+  });
+
+  currentPage = 1;
+  displayProducts();
+  renderPagination();
+}
 
    function displayProducts() {
   const container = document.getElementById("productContainer");
