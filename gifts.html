@@ -341,6 +341,19 @@ select:focus {
     });
   });
 }
+
+    function cleanText(str) {
+  const noiseWords = [
+    "with", "for", "and", "gift", "set", "of", "in", "on", "the", "a", "an", "to", "includes", "by"
+  ];
+  return str
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '') // remove punctuation
+    .split(/\s+/)
+    .filter(word => !noiseWords.includes(word))
+    .join(' ');
+}
+
     function applyFilters() {
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   const selectedMerchant = document.getElementById("merchantFilter").value;
@@ -362,7 +375,7 @@ select:focus {
   }
 
   filteredProducts = allProducts.filter(p => {
-    const searchableText = `${p.product_name || ''} ${p.merchant_category || ''}`.toLowerCase();
+    const searchableText = cleanText(`${p.product_name || ''} ${p.merchant_category || ''}`);
     const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
     // 🧠 Match ANY keyword for category
