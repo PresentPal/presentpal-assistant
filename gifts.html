@@ -374,7 +374,7 @@ select:focus {
     effectiveKeywords = groupMatch;
   }
 
-  // ✅ Step 4: Match using multiple fields
+  // ✅ Step 5: Scoring-based filtering
   filteredProducts = allProducts.filter(p => {
     const cleanedName = (p.product_name || '').toLowerCase();
     const cleanedCategory = (p.merchant_category || '').toLowerCase();
@@ -384,12 +384,18 @@ select:focus {
     const searchableText = `${cleanedName} ${cleanedCategory} ${custom1} ${custom2}`;
     const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
-    // ✅ Try matching category keywords in all searchable fields
-    let isCategoryMatch = effectiveKeywords.some(term =>
-      new RegExp(`\\b${term}\\b`, 'i').test(searchableText)
-    );
+    // 🔢 Score keyword matches
+    let keywordScore = 0;
+    effectiveKeywords.forEach(term => {
+      const regex = new RegExp(`\\b${term}\\b`, 'i');
+      if (regex.test(cleanedCategory)) keywordScore += 2;      // stronger match in category
+      else if (regex.test(cleanedName)) keywordScore += 1;     // lighter match in title
+      else if (regex.test(custom1) || regex.test(custom2)) keywordScore += 1;
+    });
 
-    // ⛔ Exclude false positives (negative keywords)
+    let isCategoryMatch = keywordScore > 0;
+
+    // ⛔ Exclude false positives
     if (isCategoryMatch && negativeKeywords[selectedCategory]) {
       const negativeTerms = negativeKeywords[selectedCategory];
       isCategoryMatch = !negativeTerms.some(term =>
@@ -397,7 +403,6 @@ select:focus {
       );
     }
 
-    // ✅ Free-text search across all fields
     const isKeywordMatch = !keyword || searchableText.includes(keyword);
 
     return isMerchantMatch && isCategoryMatch && isKeywordMatch;
