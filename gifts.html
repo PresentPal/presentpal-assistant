@@ -30,6 +30,26 @@
     #filters {
       margin-bottom: 20px;
     }
+    
+    .filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-bar input,
+.filter-bar select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 220px;
+  max-width: 90%;
+}
+
 
     .product {
       background: white;
@@ -151,6 +171,15 @@
   </div>
 
   <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
+  <div class="filter-bar">
+  <input type="text" id="searchInput" placeholder="Search products..." />
+  <select id="merchantFilter">
+    <option value="">Filter by Merchant</option>
+  </select>
+  <select id="categoryFilter">
+    <option value="">Filter by Category</option>
+  </select>
+</div>
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
 
@@ -234,46 +263,55 @@
       renderPagination();
     }
 
-    function displayProducts() {
-      const container = document.getElementById("productContainer");
-      const spinner = document.getElementById("spinner");
+   function displayProducts() {
+  const container = document.getElementById("productContainer");
+  const spinner = document.getElementById("spinner");
 
-      spinner.style.display = "block";
-      container.classList.remove("fade-in");
-      container.classList.add("fade-out");
+  spinner.style.display = "block";
+  container.classList.remove("fade-in");
+  container.classList.add("fade-out");
 
-      setTimeout(() => {
-        container.innerHTML = "";
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const pageProducts = filteredProducts.slice(start, end);
+  setTimeout(() => {
+    container.innerHTML = "";
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageProducts = filteredProducts.slice(start, end);
 
-        pageProducts.forEach(product => {
-          const name = product.product_name?.replace(/"/g, '').trim();
-          const image = product.merchant_image_url?.trim();
-          const link = product.aw_deep_link?.trim();
+    pageProducts.forEach(product => {
+      const name = product.product_name?.replace(/"/g, '').trim();
+      const image = product.merchant_image_url?.trim();
+      const link = product.aw_deep_link?.trim();
 
-          if (!image || !link || !link.startsWith("http")) return;
+      // 🧼 Validate: Exclude broken image URLs or invalid links
+      if (
+        !image ||
+        image.length < 10 ||
+        image.includes("noimage") ||
+        image.includes("placeholder") ||
+        image.includes("default") ||
+        !link ||
+        !link.startsWith("http")
+      ) return;
 
-          const div = document.createElement("div");
-          div.classList.add("product");
+      const div = document.createElement("div");
+      div.classList.add("product");
 
-          div.innerHTML = `
-            <a href="${link}" target="_blank" class="image-link">
-              <img src="${image}" alt="${name}" onerror="this.parentElement.style.display='none';" />
-            </a>
-            <a href="${link}" target="_blank" class="title-link"><h3>${name}</h3></a>
-            <a href="${link}" target="_blank">View Product</a>
-          `;
+      div.innerHTML = `
+        <a href="${link}" target="_blank" class="image-link">
+          <img src="${image}" alt="${name}" onerror="this.closest('.product').remove();" />
+        </a>
+        <a href="${link}" target="_blank" class="title-link"><h3>${name}</h3></a>
+        <a href="${link}" target="_blank">View Product</a>
+      `;
 
-          container.appendChild(div);
-        });
+      container.appendChild(div);
+    });
 
-        spinner.style.display = "none";
-        container.classList.remove("fade-out");
-        container.classList.add("fade-in");
-      }, 200);
-    }
+    spinner.style.display = "none";
+    container.classList.remove("fade-out");
+    container.classList.add("fade-in");
+  }, 200);
+}
 
     function renderPagination() {
       const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
