@@ -374,33 +374,31 @@ select:focus {
     effectiveKeywords = groupMatch;
   }
 
-  // ✨ Step 3: Improved filtering using merchant_category as priority
+  // ✅ Step 4: Match using multiple fields
   filteredProducts = allProducts.filter(p => {
     const cleanedName = (p.product_name || '').toLowerCase();
     const cleanedCategory = (p.merchant_category || '').toLowerCase();
+    const custom1 = (p.custom_1 || '').toLowerCase();
+    const custom2 = (p.custom_2 || '').toLowerCase();
+
+    const searchableText = `${cleanedName} ${cleanedCategory} ${custom1} ${custom2}`;
     const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
-    // 🧠 Match keywords in merchant_category first
+    // ✅ Try matching category keywords in all searchable fields
     let isCategoryMatch = effectiveKeywords.some(term =>
-      new RegExp(`\\b${term}\\b`, 'i').test(cleanedCategory)
+      new RegExp(`\\b${term}\\b`, 'i').test(searchableText)
     );
-
-    // 🔁 Fallback to product_name if merchant_category didn't match
-    if (!isCategoryMatch) {
-      isCategoryMatch = effectiveKeywords.some(term =>
-        new RegExp(`\\b${term}\\b`, 'i').test(cleanedName)
-      );
-    }
 
     // ⛔ Exclude false positives (negative keywords)
     if (isCategoryMatch && negativeKeywords[selectedCategory]) {
       const negativeTerms = negativeKeywords[selectedCategory];
       isCategoryMatch = !negativeTerms.some(term =>
-        cleanedName.includes(term) || cleanedCategory.includes(term)
+        searchableText.includes(term)
       );
     }
 
-    const isKeywordMatch = !keyword || cleanedName.includes(keyword) || cleanedCategory.includes(keyword);
+    // ✅ Free-text search across all fields
+    const isKeywordMatch = !keyword || searchableText.includes(keyword);
 
     return isMerchantMatch && isCategoryMatch && isKeywordMatch;
   });
