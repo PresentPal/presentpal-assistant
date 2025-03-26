@@ -366,9 +366,9 @@ select:focus {
     const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
     // 🧠 Match ANY keyword for category
-    let isCategoryMatch = !selectedCategory || effectiveKeywords.some(term =>
-      searchableText.includes(term)
-    );
+    let isCategoryMatch = effectiveKeywords.some(term =>
+  new RegExp(`\\b${term}\\b`, 'i').test(searchableText)
+);
 
     // ⛔ Exclude false positives
     if (isCategoryMatch && negativeKeywords[selectedCategory]) {
