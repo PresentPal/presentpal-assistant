@@ -300,10 +300,7 @@ select:focus {
   const merchantFilter = document.getElementById("merchantFilter");
   const categoryFilter = document.getElementById("categoryFilter");
 
-  merchantFilter.innerHTML = `<option value="">Filter by Merchant</option>`;
-  categoryFilter.innerHTML = `<option value="">Filter by Category</option>`;
-
-  // ✅ Merchants
+  // Merchants
   approvedMerchants.forEach(name => {
     const opt = document.createElement("option");
     opt.value = name;
@@ -311,33 +308,32 @@ select:focus {
     merchantFilter.appendChild(opt);
   });
 
-  // ✅ Group categories by parent (e.g., "Special Occasions")
-  const groupedCategories = {};
-
-  Object.keys(categoryKeywords).forEach(fullCat => {
-    const [group, subcat] = fullCat.split(" - ");
-    if (!groupedCategories[group]) groupedCategories[group] = [];
-    groupedCategories[group].push({ label: subcat, value: fullCat });
+  // Categories with hierarchy
+  const categoryGroups = {};
+  Object.keys(categoryKeywords).forEach(cat => {
+    const [main, sub] = cat.split(" - ");
+    if (!categoryGroups[main]) categoryGroups[main] = [];
+    categoryGroups[main].push({ label: sub || main, value: cat });
   });
 
-  // ✅ Inject bold (All) options only, and subcategories beneath
-  Object.entries(groupedCategories).forEach(([group, subcats]) => {
-    // ⬇️ Main Category (All) – bolded
+  Object.entries(categoryGroups).forEach(([main, subs]) => {
+    // Main category "All" option
     const mainOpt = document.createElement("option");
-    mainOpt.value = group;
-    mainOpt.innerHTML = `<strong>${group} (All)</strong>`;
+    mainOpt.value = main; // Match main title for filtering
+    mainOpt.textContent = `${main} (All)`;
+    mainOpt.className = "main-category";
     categoryFilter.appendChild(mainOpt);
 
-    // ⬇️ Subcategories
-    subcats.forEach(subcat => {
-      const opt = document.createElement("option");
-      opt.value = subcat.value;
-      opt.textContent = subcat.label;
-      categoryFilter.appendChild(opt);
+    // Subcategories
+    subs.forEach(({ label, value }) => {
+      const subOpt = document.createElement("option");
+      subOpt.value = value;
+      subOpt.textContent = label;
+      subOpt.className = "sub-category";
+      categoryFilter.appendChild(subOpt);
     });
   });
 }
-
     function applyFilters() {
       const keyword = document.getElementById("searchInput").value.toLowerCase();
       const selectedMerchant = document.getElementById("merchantFilter").value;
