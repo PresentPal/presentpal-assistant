@@ -323,11 +323,9 @@ if (categoryKeywords[selectedCategory]) {
         const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
         let isCategoryMatch = true;
-        if (selectedCategory && categoryKeywords[selectedCategory]) {
-          isCategoryMatch = categoryKeywords[selectedCategory].some(term =>
-            productName.includes(term)
-          );
-        }
+if (selectedCategory) {
+  isCategoryMatch = effectiveKeywords.some(term => productName.includes(term));
+}
 
         const isKeywordMatch = !keyword || productName.includes(keyword);
 
