@@ -252,29 +252,71 @@
       });
     }
 
-    function populateFilters() {
-      const merchantFilter = document.getElementById("merchantFilter");
-      const categoryFilter = document.getElementById("categoryFilter");
+   function populateFilters() {
+  const merchantFilter = document.getElementById("merchantFilter");
+  const categoryFilter = document.getElementById("categoryFilter");
 
-      approvedMerchants.forEach(name => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        merchantFilter.appendChild(opt);
-      });
+  merchantFilter.innerHTML = `<option value="">Filter by Merchant</option>`;
+  categoryFilter.innerHTML = `<option value="">Filter by Category</option>`;
 
-      Object.keys(categoryKeywords).forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        categoryFilter.appendChild(opt);
-      });
-    }
+  // ✅ Add merchants from whitelist
+  approvedMerchants.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    merchantFilter.appendChild(opt);
+  });
+
+  // ✅ Organize subcategories by group
+  const groupedCategories = {};
+
+  Object.keys(categoryKeywords).forEach(fullCat => {
+    const [group, subcategory] = fullCat.split(" - ");
+    if (!groupedCategories[group]) groupedCategories[group] = [];
+    groupedCategories[group].push({ label: subcategory, value: fullCat });
+  });
+
+  // ✅ Insert parent categories and subcategories
+  Object.entries(groupedCategories).forEach(([group, subcats]) => {
+    // ⬇️ Add parent group as a selectable option
+    const parentOption = document.createElement("option");
+    parentOption.value = group;
+    parentOption.textContent = `${group} (All)`;
+    categoryFilter.appendChild(parentOption);
+
+    // ⬇️ Create <optgroup> for visual grouping
+    const groupEl = document.createElement("optgroup");
+    groupEl.label = group;
+
+    subcats.forEach(subcat => {
+      const opt = document.createElement("option");
+      opt.value = subcat.value;
+      opt.textContent = subcat.label;
+      groupEl.appendChild(opt);
+    });
+
+    categoryFilter.appendChild(groupEl);
+  });
+}
 
     function applyFilters() {
       const keyword = document.getElementById("searchInput").value.toLowerCase();
       const selectedMerchant = document.getElementById("merchantFilter").value;
       const selectedCategory = document.getElementById("categoryFilter").value;
+
+      let effectiveKeywords = [];
+
+if (categoryKeywords[selectedCategory]) {
+  // Sub-category selected
+  effectiveKeywords = categoryKeywords[selectedCategory];
+} else if (selectedCategory) {
+  // Parent category selected — gather all subcategory keywords under it
+  const groupMatch = Object.entries(categoryKeywords)
+    .filter(([key]) => key.startsWith(selectedCategory + " -"))
+    .flatMap(([, keywords]) => keywords);
+
+  effectiveKeywords = groupMatch;
+}
 
       filteredProducts = allProducts.filter(p => {
         const productName = p.product_name?.toLowerCase() || "";
