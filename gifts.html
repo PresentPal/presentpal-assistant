@@ -17,6 +17,42 @@
       margin-bottom: 20px;
     }
 
+    /* General Styling for Dropdowns */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+  padding-right: 36px;
+}
+
+/* Hover & Focus */
+select:hover {
+  border-color: #007bff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+}
+
+/* Dropdown Options (optional) */
+option {
+  padding: 10px;
+}
+
     input[type="file"],
     #searchBar,
     select {
@@ -158,6 +194,12 @@
       opacity: 1;
       transition: opacity 0.3s ease;
     }
+
+    select option strong {
+  font-weight: bold;
+  color: #333;
+}
+
   </style>
 </head>
 <body>
@@ -259,7 +301,7 @@
   merchantFilter.innerHTML = `<option value="">Filter by Merchant</option>`;
   categoryFilter.innerHTML = `<option value="">Filter by Category</option>`;
 
-  // ✅ Add merchants from whitelist
+  // ✅ Merchants
   approvedMerchants.forEach(name => {
     const opt = document.createElement("option");
     opt.value = name;
@@ -267,35 +309,30 @@
     merchantFilter.appendChild(opt);
   });
 
-  // ✅ Organize subcategories by group
+  // ✅ Group categories by parent (e.g., "Special Occasions")
   const groupedCategories = {};
 
   Object.keys(categoryKeywords).forEach(fullCat => {
-    const [group, subcategory] = fullCat.split(" - ");
+    const [group, subcat] = fullCat.split(" - ");
     if (!groupedCategories[group]) groupedCategories[group] = [];
-    groupedCategories[group].push({ label: subcategory, value: fullCat });
+    groupedCategories[group].push({ label: subcat, value: fullCat });
   });
 
-  // ✅ Insert parent categories and subcategories
+  // ✅ Inject bold (All) options only, and subcategories beneath
   Object.entries(groupedCategories).forEach(([group, subcats]) => {
-    // ⬇️ Add parent group as a selectable option
-    const parentOption = document.createElement("option");
-    parentOption.value = group;
-    parentOption.textContent = `${group} (All)`;
-    categoryFilter.appendChild(parentOption);
+    // ⬇️ Main Category (All) – bolded
+    const mainOpt = document.createElement("option");
+    mainOpt.value = group;
+    mainOpt.innerHTML = `<strong>${group} (All)</strong>`;
+    categoryFilter.appendChild(mainOpt);
 
-    // ⬇️ Create <optgroup> for visual grouping
-    const groupEl = document.createElement("optgroup");
-    groupEl.label = group;
-
+    // ⬇️ Subcategories
     subcats.forEach(subcat => {
       const opt = document.createElement("option");
       opt.value = subcat.value;
       opt.textContent = subcat.label;
-      groupEl.appendChild(opt);
+      categoryFilter.appendChild(opt);
     });
-
-    categoryFilter.appendChild(groupEl);
   });
 }
 
