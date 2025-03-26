@@ -163,17 +163,17 @@
 <body>
   <h1>Gift Catalogue</h1>
   <input type="file" id="csvFile" accept=".csv" />
-  
- <div class="filter-bar">
-  <input type="text" id="searchInput" placeholder="Search products..." />
-  <select id="merchantFilter">
-    <option value="">Filter by Merchant</option>
-  </select>
-  <select id="categoryFilter">
-    <option value="">Filter by Category</option>
-  </select>
-</div>
-  
+
+  <div class="filter-bar">
+    <input type="text" id="searchInput" placeholder="Search products..." />
+    <select id="merchantFilter">
+      <option value="">Filter by Merchant</option>
+    </select>
+    <select id="categoryFilter">
+      <option value="">Filter by Category</option>
+    </select>
+  </div>
+
   <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
@@ -185,44 +185,41 @@
     const itemsPerPage = 24;
 
     const approvedMerchants = [
-  "Theatre Tickets Direct", "Wowow Toys", "Plusshop UK", "Tisserand Aromatherapy", "Game Over",
-  "Kaliese", "Uud fragrances", "Tooled Up", "Forever Lily", "Little Women Lingerie",
-  "Vistaexpert UK", "My Kind of Cruise", "Sport and Leisure UK", "Webbs Motorcycles",
-  "Mafett UK", "Edx Education UK Limited", "Spoiled Brat", "Pott'd UK", "Kokoso Baby",
-  "We are Nutrified", "Polaris Bikewear", "T.LUXY", "Cronjager", "Furniture Life",
-  "Fishcave Aquatics", "Love Tech Hate Waste", "Vintage Wine Gifts", "OFFSCENT",
-  "Simply LED", "MyBeauty.Boutique"
-];
+      "Theatre Tickets Direct", "Wowow Toys", "Plusshop UK", "Tisserand Aromatherapy", "Game Over",
+      "Kaliese", "Uud fragrances", "Tooled Up", "Forever Lily", "Little Women Lingerie",
+      "Vistaexpert UK", "My Kind of Cruise", "Sport and Leisure UK", "Webbs Motorcycles",
+      "Mafett UK", "Edx Education UK Limited", "Spoiled Brat", "Pott'd UK", "Kokoso Baby",
+      "We are Nutrified", "Polaris Bikewear", "T.LUXY", "Cronjager", "Furniture Life",
+      "Fishcave Aquatics", "Love Tech Hate Waste", "Vintage Wine Gifts", "OFFSCENT",
+      "Simply LED", "MyBeauty.Boutique"
+    ];
 
-// Keyword mapping for custom category filter
-const categoryKeywords = {
-  "Special Occasions - Mothers Day": ["mother"],
-  "Special Occasions - Mummy to be": ["mummy to be"],
-  "Special Occasions - Valentine’s gifts": ["valentines", "valentines gifts", "valentine"],
-  "Special Occasions - Weddings": ["brides", "bride to be", "bridesmaids"],
-  "Special Occasions - Birthday": ["birthday", "bday"],
-  "Special Occasions - Halloween": ["halloween"],
-  "Special Occasions - Easter": ["easter"],
-  "Special Occasions - Christmas": ["christmas", "santa", "snowman", "xmas"],
-  "Gifting - Flowers": ["flowers"],
-  "Gifting - Candles": ["candle", "candles"],
-  "Gifting - Gift Bags": ["gift bag"],
-  "Gifting - Cards": ["card"],
-  "Health & Beauty - Skincare": ["pigmentation", "rehydrate", "skin", "wrinkles", "collagen", "personal care", "soap", "mousse", "foot cream", "cleanser"],
-  "Health & Beauty - Self Tanning": ["tanning", "tan"],
-  "Health & Beauty - - Haircare": ["hair", "scalp", "conditioner", "shampoo"],
-  "Health & Beauty - Perfume": ["perfume", "feminine"],
-  "Health & Beauty - Cologne": ["cologne", "hugo boss", "masculine"],
-  "Health & Beauty - Makeup": ["eyeshadow", "concealer", "makeup", "lip"],
-  "Clothing & Accessories - Men": ["men", "men’s"],
-  "Clothing & Accessories - Women": ["ladies", "women", "lingerie"],
-  "Women’s Jewellery": ["charm", "necklace", "bracelet", "pendant", "studs", "earrings"],
-  "Children & Baby": ["children", "child", "baby", "babies"],
-  "Cooking & Kitchen": ["air fryer", "coffee", "utensil", "knife", "oven", "blender", "kitchen"],
-  "Vintage Wines": ["wine", "vintage", "port", "shiraz"]
-  // Add more if needed
-};
-
+    const categoryKeywords = {
+      "Special Occasions - Mothers Day": ["mother"],
+      "Special Occasions - Mummy to be": ["mummy to be"],
+      "Special Occasions - Valentine’s gifts": ["valentines", "valentines gifts", "valentine"],
+      "Special Occasions - Weddings": ["brides", "bride to be", "bridesmaids"],
+      "Special Occasions - Birthday": ["birthday", "bday"],
+      "Special Occasions - Halloween": ["halloween"],
+      "Special Occasions - Easter": ["easter"],
+      "Special Occasions - Christmas": ["christmas", "santa", "snowman", "xmas"],
+      "Gifting - Flowers": ["flowers"],
+      "Gifting - Candles": ["candle", "candles"],
+      "Gifting - Gift Bags": ["gift bag"],
+      "Gifting - Cards": ["card"],
+      "Health & Beauty - Skincare": ["pigmentation", "rehydrate", "skin", "wrinkles", "collagen", "personal care", "soap", "mousse", "foot cream", "cleanser"],
+      "Health & Beauty - Self Tanning": ["tanning", "tan"],
+      "Health & Beauty - - Haircare": ["hair", "scalp", "conditioner", "shampoo"],
+      "Health & Beauty - Perfume": ["perfume", "feminine"],
+      "Health & Beauty - Cologne": ["cologne", "hugo boss", "masculine"],
+      "Health & Beauty - Makeup": ["eyeshadow", "concealer", "makeup", "lip"],
+      "Clothing & Accessories - Men": ["men", "men’s"],
+      "Clothing & Accessories - Women": ["ladies", "women", "lingerie"],
+      "Women’s Jewellery": ["charm", "necklace", "bracelet", "pendant", "studs", "earrings"],
+      "Children & Baby": ["children", "child", "baby", "babies"],
+      "Cooking & Kitchen": ["air fryer", "coffee", "utensil", "knife", "oven", "blender", "kitchen"],
+      "Vintage Wines": ["wine", "vintage", "port", "shiraz"]
+    };
 
     document.getElementById("csvFile").addEventListener("change", function (event) {
       const file = event.target.files[0];
@@ -238,7 +235,7 @@ const categoryKeywords = {
       reader.readAsText(file);
     });
 
-   document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
     document.getElementById("merchantFilter").addEventListener("change", applyFilters);
     document.getElementById("categoryFilter").addEventListener("change", applyFilters);
 
@@ -255,95 +252,91 @@ const categoryKeywords = {
       });
     }
 
-   function populateFilters() {
-  const merchantFilter = document.getElementById("merchantFilter");
-  const categoryFilter = document.getElementById("categoryFilter");
+    function populateFilters() {
+      const merchantFilter = document.getElementById("merchantFilter");
+      const categoryFilter = document.getElementById("categoryFilter");
 
-  // ✅ Merchants
-  approvedMerchants.forEach(name => {
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = name;
-    merchantFilter.appendChild(opt);
-  });
+      approvedMerchants.forEach(name => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        merchantFilter.appendChild(opt);
+      });
 
-  // ✅ Categories (from keyword map)
-  Object.keys(categoryKeywords).forEach(cat => {
-    const opt = document.createElement("option");
-    opt.value = cat;
-    opt.textContent = cat;
-    categoryFilter.appendChild(opt);
-  });
-}
-
-    function applyFilters() {
-  const keyword = document.getElementById("searchInput").value.toLowerCase();
-  const selectedMerchant = document.getElementById("merchantFilter").value;
-  const selectedCategory = document.getElementById("categoryFilter").value;
-
-  filteredProducts = allProducts.filter(p => {
-    const productName = p.product_name?.toLowerCase() || "";
-    const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
-
-    let isCategoryMatch = true;
-    if (selectedCategory && categoryKeywords[selectedCategory]) {
-      isCategoryMatch = categoryKeywords[selectedCategory].some(term =>
-        productName.includes(term)
-      );
+      Object.keys(categoryKeywords).forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categoryFilter.appendChild(opt);
+      });
     }
 
-    const isKeywordMatch = !keyword || productName.includes(keyword);
+    function applyFilters() {
+      const keyword = document.getElementById("searchInput").value.toLowerCase();
+      const selectedMerchant = document.getElementById("merchantFilter").value;
+      const selectedCategory = document.getElementById("categoryFilter").value;
 
-    return isMerchantMatch && isCategoryMatch && isKeywordMatch;
-  });
+      filteredProducts = allProducts.filter(p => {
+        const productName = p.product_name?.toLowerCase() || "";
+        const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
-  currentPage = 1;
-  displayProducts();
-  renderPagination();
-}
+        let isCategoryMatch = true;
+        if (selectedCategory && categoryKeywords[selectedCategory]) {
+          isCategoryMatch = categoryKeywords[selectedCategory].some(term =>
+            productName.includes(term)
+          );
+        }
 
-   function displayProducts() {
-  const container = document.getElementById("productContainer");
-  const spinner = document.getElementById("spinner");
+        const isKeywordMatch = !keyword || productName.includes(keyword);
 
-  spinner.style.display = "block";
-  container.classList.remove("fade-in");
-  container.classList.add("fade-out");
+        return isMerchantMatch && isCategoryMatch && isKeywordMatch;
+      });
 
-  setTimeout(() => {
-    container.innerHTML = "";
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageProducts = filteredProducts.slice(start, end);
+      currentPage = 1;
+      displayProducts();
+      renderPagination();
+    }
 
-    console.log("Displaying", pageProducts.length, "products on page", currentPage);
+    function displayProducts() {
+      const container = document.getElementById("productContainer");
+      const spinner = document.getElementById("spinner");
 
-    pageProducts.forEach(product => {
-      const name = product.product_name?.replace(/"/g, '').trim();
-      const image = product.merchant_image_url?.trim();
-      const link = product.aw_deep_link?.trim();
+      spinner.style.display = "block";
+      container.classList.remove("fade-in");
+      container.classList.add("fade-out");
 
-     if (!image || !link || !link.startsWith("http")) return;
+      setTimeout(() => {
+        container.innerHTML = "";
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageProducts = filteredProducts.slice(start, end);
 
-      const div = document.createElement("div");
-      div.classList.add("product");
+        pageProducts.forEach(product => {
+          const name = product.product_name?.replace(/"/g, '').trim();
+          const image = product.merchant_image_url?.trim();
+          const link = product.aw_deep_link?.trim();
 
-      div.innerHTML = `
-        <a href="${link}" target="_blank" class="image-link">
-          <img src="${image}" alt="${name}" onerror="this.closest('.product').remove();" />
-        </a>
-        <a href="${link}" target="_blank" class="title-link"><h3>${name}</h3></a>
-        <a href="${link}" target="_blank">View Product</a>
-      `;
+          if (!image || !link || !link.startsWith("http")) return;
 
-      container.appendChild(div);
-    });
+          const div = document.createElement("div");
+          div.classList.add("product");
 
-    spinner.style.display = "none";
-    container.classList.remove("fade-out");
-    container.classList.add("fade-in");
-  }, 200);
-}
+          div.innerHTML = `
+            <a href="${link}" target="_blank" class="image-link">
+              <img src="${image}" alt="${name}" onerror="this.closest('.product').remove();" />
+            </a>
+            <a href="${link}" target="_blank" class="title-link"><h3>${name}</h3></a>
+            <a href="${link}" target="_blank">View Product</a>
+          `;
+
+          container.appendChild(div);
+        });
+
+        spinner.style.display = "none";
+        container.classList.remove("fade-out");
+        container.classList.add("fade-in");
+      }, 200);
+    }
 
     function renderPagination() {
       const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
