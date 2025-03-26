@@ -244,7 +244,8 @@ select:focus {
     ];
 
     const categoryKeywords = {
-  "Special Occasions - Mothers Day": ["mother's day", "mum gift", "gift for mum", "mothers day"],
+  // 🎉 SPECIAL OCCASIONS
+  "Special Occasions - Mothers Day": ["mother's day", "mum gift", "gift for mum"],
   "Special Occasions - Mummy to be": ["mummy to be", "expecting mum", "baby shower"],
   "Special Occasions - Valentine’s gifts": ["valentine's gift", "valentines", "romantic gift"],
   "Special Occasions - Weddings": ["wedding gift", "bride to be", "bridesmaids", "bridal", "engagement gift"],
@@ -253,10 +254,12 @@ select:focus {
   "Special Occasions - Easter": ["easter", "easter egg", "easter bunny"],
   "Special Occasions - Christmas": ["christmas gift", "xmas", "santa", "stocking filler", "holiday gift"],
 
+  // 🎁 GIFTING
   "Gifting - Candles": ["scented candle", "candles", "aroma candle", "candle set"],
   "Gifting - Gift Bags": ["gift bag", "present bag"],
   "Gifting - Cards": ["greeting card", "birthday card", "valentine card"],
 
+  // 💄 HEALTH & BEAUTY
   "Health & Beauty - Skincare": ["moisturiser", "face wash", "cleanser", "serum", "face cream", "skincare", "eye cream", "hydrating cream"],
   "Health & Beauty - Self Tanning": ["self tan", "tanning mousse", "bronzing lotion", "tanning spray"],
   "Health & Beauty - Haircare": ["shampoo", "conditioner", "hair mask", "scalp treatment", "hair oil"],
@@ -264,17 +267,47 @@ select:focus {
   "Health & Beauty - Cologne": ["men's cologne", "aftershave", "eau de toilette", "fragrance for him"],
   "Health & Beauty - Makeup": ["foundation", "lipstick", "mascara", "eyeshadow", "blush", "concealer", "makeup palette"],
 
-  "Clothing & Accessories - Men": ["men's t-shirt", "men's hoodie", "menswear", "men's jacket"],
-  "Clothing & Accessories - Women": ["women's dress", "women's clothing", "ladies top", "lingerie", "womenswear"],
-  "Women’s Jewellery": ["necklace", "bracelet", "stud earrings", "charm", "pendant", "jewellery set"],
-  "Children & Baby": ["baby clothes", "baby toy", "kids shoes", "children's book", "newborn gift"],
+  // 👕 CLOTHING & ACCESSORIES
+  "Clothing & Accessories - Men's Clothing": ["men's t-shirt", "men's hoodie", "menswear", "men's jacket"],
+  "Clothing & Accessories - Women's Clothing": ["women's dress", "women's clothing", "ladies top", "lingerie", "womenswear"],
+  "Clothing & Accessories - Unisex": ["unisex hoodie", "unisex t-shirt"],
+  "Clothing & Accessories - Footwear": ["trainers", "shoes", "boots", "slippers", "sandals"],
 
+  // 💍 JEWELLERY
+  "Women's Jewellery": ["necklace", "bracelet", "stud earrings", "charm", "pendant", "jewellery set"],
+
+  // 🧒 CHILDREN & BABY
+  "Babies - Babywear": ["baby clothes", "babywear", "onesie", "baby grow"],
+  "Babies - Baby Care": ["nappy", "baby shampoo", "baby lotion", "newborn care"],
+  "Babies - Toys for Babies": ["teether", "baby rattle", "soft toy", "baby toy"],
+
+  "Children (Boys) - Clothing": ["boys t-shirt", "boys hoodie", "boys clothes"],
+  "Children (Boys) - Toys & Games": ["boys toy", "boys game", "lego", "action figure"],
+
+  "Children (Girls) - Clothing": ["girls dress", "girls clothing", "girls outfit"],
+  "Children (Girls) - Toys & Games": ["girls toy", "girls game", "doll", "unicorn toy"],
+
+  // 🍽 COOKING & KITCHEN
   "Cooking & Kitchen": [
     "kitchen appliance", "air fryer", "blender", "slow cooker", "toaster", "coffee machine",
-    "cooking pan", "baking tray", "utensil set", "knife block", "oven gloves", "cooking pot", "cookware"
+    "cooking pan", "baking tray", "utensil set", "knife block", "oven gloves", "cookware"
   ],
 
-  "Vintage Wines": ["vintage wine", "aged wine", "red wine gift", "shiraz wine", "port wine", "wine set"]
+  // 🍷 VINTAGE WINES
+  "Vintage Wines": ["vintage wine", "aged wine", "red wine gift", "shiraz wine", "port wine", "wine set"],
+
+  // 🎮 GAMES
+  "Games - Video Games": ["nintendo", "playstation", "xbox", "psp", "gaming"],
+  "Games - Board & Card": ["board game", "card game", "puzzle", "jigsaw", "family game"],
+
+  // 🐾 PETS
+  "Pets - Dogs": ["dog toy", "dog collar", "dog treat", "dog bed"],
+  "Pets - Cats": ["cat toy", "cat scratcher", "cat bed", "cat food"],
+  "Pets - Aquatics": ["fish tank", "aquarium", "aquatic", "fish food"],
+
+  // 💻 TECH
+  "Tech - Electronics": ["headphones", "bluetooth", "tablet", "smartwatch", "laptop", "charger", "usb cable"],
+  "Tech - Accessories": ["laptop riser", "mouse mat", "phone stand", "camera tripod"]
 };
 
     document.getElementById("csvFile").addEventListener("change", function (event) {
