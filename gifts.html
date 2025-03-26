@@ -42,15 +42,22 @@ select:hover {
   border-color: #007bff;
 }
 
+       /* Main category options (bold) */
+select option.main-category {
+  font-weight: bold;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Subcategory options (indented) */
+select option.sub-category {
+  padding-left: 20px;
+}
+
 select:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
-}
-
-/* Dropdown Options (optional) */
-option {
-  padding: 10px;
 }
 
     input[type="file"],
@@ -194,11 +201,6 @@ option {
       opacity: 1;
       transition: opacity 0.3s ease;
     }
-
-    select option strong {
-  font-weight: bold;
-  color: #333;
-}
 
   </style>
 </head>
