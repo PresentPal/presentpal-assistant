@@ -367,54 +367,54 @@ select:focus {
   let effectiveKeywords = [];
   const negativeKeywords = {
     "Special Occasions - Halloween": ["cruise", "holiday", "soiree", "trip"],
-    "Cooking & Kitchen": ["foundation", "makeup", "beauty", "lipstick"],
+    "Cooking & Kitchen": ["foundation", "makeup", "beauty", "lipstick"]
   };
 
+  // ✅ Set effective keywords
   if (categoryKeywords[selectedCategory]) {
     effectiveKeywords = categoryKeywords[selectedCategory];
   } else if (selectedCategory) {
-    const groupMatch = Object.entries(categoryKeywords)
+    effectiveKeywords = Object.entries(categoryKeywords)
       .filter(([key]) => key.startsWith(selectedCategory + " -"))
       .flatMap(([, keywords]) => keywords);
-    effectiveKeywords = groupMatch;
   }
 
-  // ✅ Step 5: Scoring-based filtering
+  // 🧠 Filtering
   filteredProducts = allProducts.filter(p => {
     const cleanedName = (p.product_name || '').toLowerCase();
     const cleanedCategory = (p.merchant_category || '').toLowerCase();
     const custom1 = (p.custom_1 || '').toLowerCase();
     const custom2 = (p.custom_2 || '').toLowerCase();
-
     const searchableText = `${cleanedName} ${cleanedCategory} ${custom1} ${custom2}`;
     const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
-    // 🔢 Score keyword matches
+    // 🔍 Step 5: Keyword scoring
     let keywordScore = 0;
-    effectiveKeywords.forEach(term => {
+    for (const term of effectiveKeywords) {
       const regex = new RegExp(`\\b${term}\\b`, 'i');
-      if (regex.test(cleanedCategory)) keywordScore += 2;      // stronger match in category
-      else if (regex.test(cleanedName)) keywordScore += 1;     // lighter match in title
-      else if (regex.test(custom1) || regex.test(custom2)) keywordScore += 1;
-    });
+      if (regex.test(cleanedCategory)) keywordScore += 2;
+      else if (regex.test(cleanedName) || regex.test(custom1) || regex.test(custom2)) keywordScore += 1;
+    }
 
     let isCategoryMatch = keywordScore > 0;
 
-    // ⛔ Exclude false positives
+    // 🚫 Check for negative matches
     if (isCategoryMatch && negativeKeywords[selectedCategory]) {
-      const negativeTerms = negativeKeywords[selectedCategory];
-      isCategoryMatch = !negativeTerms.some(term =>
-        searchableText.includes(term)
-      );
+      for (const neg of negativeKeywords[selectedCategory]) {
+        if (searchableText.includes(neg)) {
+          isCategoryMatch = false;
+          break;
+        }
+      }
     }
 
+    // 🔍 Keyword search
     const isKeywordMatch = !keyword || searchableText.includes(keyword);
 
     return isMerchantMatch && isCategoryMatch && isKeywordMatch;
   });
 
-  console.log(`Filtered ${filteredProducts.length} products for category: ${selectedCategory}`);
-
+  console.log(`✅ Filtered: ${filteredProducts.length} products`);
   currentPage = 1;
   displayProducts();
   renderPagination();
