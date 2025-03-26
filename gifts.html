@@ -375,32 +375,40 @@ select:focus {
   }
 
   filteredProducts = allProducts.filter(p => {
-    const searchableText = cleanText(`${p.product_name || ''} ${p.merchant_category || ''}`);
+    const cleanedName = cleanText(p.product_name || '');
+    const cleanedCategory = cleanText(p.merchant_category || '');
     const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
 
-    // 🧠 Match ANY keyword for category
-    let isCategoryMatch = effectiveKeywords.some(term =>
-  new RegExp(`\\b${term}\\b`, 'i').test(searchableText)
-);
+    // 🧠 Match keywords in merchant_category first
+  let isCategoryMatch = effectiveKeywords.some(term =>
+    new RegExp(`\\b${term}\\b`, 'i').test(cleanedCategory)
+  );
 
-    // ⛔ Exclude false positives
-    if (isCategoryMatch && negativeKeywords[selectedCategory]) {
-      isCategoryMatch = !negativeKeywords[selectedCategory].some(term =>
-        searchableText.includes(term)
-      );
-    }
+  // 🔁 Fallback to product_name if merchant_category didn't match
+  if (!isCategoryMatch) {
+    isCategoryMatch = effectiveKeywords.some(term =>
+      new RegExp(`\\b${term}\\b`, 'i').test(cleanedName)
+    );
+  }
 
-    const isKeywordMatch = !keyword || searchableText.includes(keyword);
+  // ⛔ Exclude false positives (negative keywords)
+  if (isCategoryMatch && negativeKeywords[selectedCategory]) {
+    const negativeTerms = negativeKeywords[selectedCategory];
+    isCategoryMatch = !negativeTerms.some(term =>
+      cleanedName.includes(term) || cleanedCategory.includes(term)
+    );
+  }
 
-    return isMerchantMatch && isCategoryMatch && isKeywordMatch;
-  });
+  const isKeywordMatch = !keyword || cleanedName.includes(keyword) || cleanedCategory.includes(keyword);
 
-  console.log(`Filtered ${filteredProducts.length} products for category: ${selectedCategory}`);
+  return isMerchantMatch && isCategoryMatch && isKeywordMatch;
+});
 
-  currentPage = 1;
-  displayProducts();
-  renderPagination();
-}
+console.log(`Filtered ${filteredProducts.length} products for category: ${selectedCategory}`);
+
+currentPage = 1;
+displayProducts();
+renderPagination();
 
     function displayProducts() {
       const container = document.getElementById("productContainer");
