@@ -247,7 +247,6 @@ select:focus {
       "Special Occasions - Halloween": ["halloween"],
       "Special Occasions - Easter": ["easter"],
       "Special Occasions - Christmas": ["christmas", "santa", "snowman", "xmas"],
-      "Gifting - Flowers": ["flowers"],
       "Gifting - Candles": ["candle", "candles"],
       "Gifting - Gift Bags": ["gift bag"],
       "Gifting - Cards": ["card"],
@@ -398,7 +397,7 @@ if (selectedCategory) {
 
           div.innerHTML = `
             <a href="${link}" target="_blank" class="image-link">
-              <img src="${image}" alt="${name}" onerror="this.closest('.product').remove();" />
+              <img src="${image}" alt="${name}" onerror="this.style.display='none';" />
             </a>
             <a href="${link}" target="_blank" class="title-link"><h3>${name}</h3></a>
             <a href="${link}" target="_blank">View Product</a>
