@@ -151,27 +151,43 @@
     }
 
     function populateFilters() {
-      const merchantFilter = document.getElementById("merchantFilter");
-      const categoryFilter = document.getElementById("categoryFilter");
+  const merchantFilter = document.getElementById("merchantFilter");
+  const categoryFilter = document.getElementById("categoryFilter");
 
-      const merchants = [...new Set(allProducts.map(p => p.merchant))].sort();
-      const categories = [...new Set(allProducts.map(p => p.category))].sort();
+  const merchantSet = new Set();
+  const categoryMap = {};
 
-      merchants.forEach(name => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        merchantFilter.appendChild(opt);
-      });
-
-      categories.forEach(name => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        categoryFilter.appendChild(opt);
-      });
+  allProducts.forEach(product => {
+    if (product.merchant) {
+      merchantSet.add(product.merchant);
     }
 
+    const cat = product.category?.trim();
+    if (cat) {
+      categoryMap[cat] = (categoryMap[cat] || 0) + 1;
+    }
+  });
+
+  // ✅ Only show merchants that actually appear
+  Array.from(merchantSet).sort().forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    merchantFilter.appendChild(opt);
+  });
+
+  // ✅ Only show categories that appear ≥ 3 times
+  Object.entries(categoryMap)
+    .filter(([_, count]) => count >= 3)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .forEach(([cat]) => {
+      const opt = document.createElement("option");
+      opt.value = cat;
+      opt.textContent = cat;
+      categoryFilter.appendChild(opt);
+    });
+}
+    
     function applyFilters() {
       const search = document.getElementById("searchInput").value.toLowerCase();
       const merchant = document.getElementById("merchantFilter").value;
