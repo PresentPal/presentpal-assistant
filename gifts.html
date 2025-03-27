@@ -412,17 +412,24 @@ select:focus {
       });
     }
 
-fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json")
-  .then(response => response.json())
-  .then(data => {
-    allProducts = data.filter(p => p.merchant_image_url && p.aw_deep_link);
-    populateFilters();
-    applyFilters();
-  })
-  .catch(error => {
-    console.error("❌ Failed to load products.json:", error);
-    alert("Unable to load gift data from the server.");
-  });
+function fetchProducts(page = 1) {
+  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
+  
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      allProducts = data.filter(p => p.merchant_image_url && p.aw_deep_link);
+      populateFilters();
+      applyFilters();
+    })
+    .catch(error => {
+      console.error("❌ Failed to load products.json:", error);
+      alert("Unable to load gift data from the server.");
+    });
+}
+
+// Call it initially
+fetchProducts(currentPage);
     
    function populateFilters() {
   const merchantFilter = document.getElementById("merchantFilter");
