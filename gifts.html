@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Gift List | PresentPal</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
 
-   <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
-  
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,88 +15,26 @@
       color: #333;
       text-align: center;
     }
-
     h1 {
       margin-bottom: 20px;
     }
-
-    /* General Styling for Dropdowns */
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px 16px;
-  padding-right: 36px;
-}
-
-/* Hover & Focus */
-select:hover {
-  border-color: #007bff;
-}
-
-       /* Main category options (bold) */
-select option.main-category {
-  font-weight: bold;
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-/* Subcategory options (indented) */
-select option.sub-category {
-  padding-left: 20px;
-}
-
-select:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
-}
-
-    input[type="file"],
-    #searchBar,
-    select {
-      margin: 10px;
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .filter-bar input,
+    .filter-bar select {
       padding: 10px;
       font-size: 14px;
       border-radius: 6px;
       border: 1px solid #ccc;
+      width: 220px;
+      max-width: 90%;
     }
-
-    #filters {
-      margin-bottom: 20px;
-    }
-    
-    .filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.filter-bar input,
-.filter-bar select {
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 220px;
-  max-width: 90%;
-}
-
-
     .product {
       background: white;
       border-radius: 8px;
@@ -113,14 +49,12 @@ select:focus {
       text-align: center;
       box-sizing: border-box;
     }
-
     .product img {
       width: 100%;
       height: 180px;
       object-fit: contain;
       border: none;
     }
-
     .product h3 {
       font-size: 14px;
       margin: 10px 0 0;
@@ -128,7 +62,6 @@ select:focus {
       max-height: 2.4em;
       overflow: hidden;
     }
-
     .product a {
       display: inline-block;
       margin-top: 10px;
@@ -140,26 +73,9 @@ select:focus {
       text-decoration: none;
       transition: background-color 0.3s ease;
     }
-
     .product a:hover {
       background-color: #0056b3;
     }
-
-    .product a.image-link,
-    .product a.title-link {
-      background: none;
-      padding: 0;
-      margin: 0;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .product a.image-link:hover,
-    .product a.title-link:hover {
-      background: none;
-      color: #007bff;
-    }
-
     .pagination {
       margin-top: 30px;
       display: flex;
@@ -167,7 +83,6 @@ select:focus {
       flex-wrap: wrap;
       gap: 8px;
     }
-
     .pagination button {
       background: #007bff;
       color: white;
@@ -177,36 +92,25 @@ select:focus {
       cursor: pointer;
       transition: background-color 0.2s ease;
     }
-
     .pagination button:hover {
       background-color: #0056b3;
     }
-
     .pagination button.active {
       background: #0056b3;
       font-weight: bold;
     }
-
     .pagination button:disabled {
       background: #ccc;
       cursor: default;
     }
-
-    .pagination .ellipsis {
-      padding: 8px 10px;
-      color: #555;
-    }
-
     #productContainer.fade-out {
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-
     #productContainer.fade-in {
       opacity: 1;
       transition: opacity 0.3s ease;
     }
-
   </style>
 </head>
 <body>
@@ -232,332 +136,61 @@ select:focus {
     let currentPage = 1;
     const itemsPerPage = 24;
 
-    const approvedMerchants = [
-      "Theatre Tickets Direct", "Wowow Toys", "Plusshop UK", "Tisserand Aromatherapy", "Game Over",
-      "Kaliese", "Uud fragrances", "Tooled Up", "Forever Lily", "Little Women Lingerie",
-      "Vistaexpert UK", "My Kind of Cruise", "Sport and Leisure UK", "Webbs Motorcycles",
-      "Mafett UK", "Edx Education UK Limited", "Spoiled Brat", "Pott'd UK", "Kokoso Baby",
-      "We are Nutrified", "Polaris Bikewear", "T.LUXY", "Cronjager", "Furniture Life",
-      "Fishcave Aquatics", "Love Tech Hate Waste", "Vintage Wine Gifts", "OFFSCENT",
-      "Simply LED", "MyBeauty.Boutique"
-    ];
-
-    const categoryKeywords = {
-  // 🎉 SPECIAL OCCASIONS
-  "Special Occasions - Mothers Day": ["mother's day", "mum gift", "gift for mum"],
-  "Special Occasions - Mummy to be": ["mummy to be", "expecting mum", "baby shower"],
-  "Special Occasions - Valentine’s gifts": ["valentine's gift", "valentines", "romantic gift"],
-  "Special Occasions - Weddings": ["wedding gift", "bride to be", "bridesmaids", "bridal", "engagement gift"],
-  "Special Occasions - Birthday": ["birthday gift", "bday gift", "birthday present"],
-  "Special Occasions - Halloween": ["halloween", "spooky", "trick or treat"],
-  "Special Occasions - Easter": ["easter", "easter egg", "easter bunny"],
-  "Special Occasions - Christmas": ["christmas gift", "xmas", "santa", "stocking filler", "holiday gift"],
-
-  // 🎁 GIFTING
-  "Gifting - Candles": ["scented candle", "candles", "aroma candle", "candle set"],
-  "Gifting - Gift Bags": ["gift bag", "present bag"],
-  "Gifting - Cards": ["greeting card", "birthday card", "valentine card"],
-
-  // 💄 HEALTH & BEAUTY
-  "Health & Beauty - Skincare": ["moisturiser", "face wash", "cleanser", "serum", "face cream", "skincare", "eye cream", "hydrating cream"],
-  "Health & Beauty - Self Tanning": ["self tan", "tanning mousse", "bronzing lotion", "tanning spray"],
-  "Health & Beauty - Haircare": ["shampoo", "conditioner", "hair mask", "scalp treatment", "hair oil"],
-  "Health & Beauty - Perfume": ["women's perfume", "eau de parfum", "fragrance for her", "floral perfume"],
-  "Health & Beauty - Cologne": ["men's cologne", "aftershave", "eau de toilette", "fragrance for him"],
-  "Health & Beauty - Makeup": ["foundation", "lipstick", "mascara", "eyeshadow", "blush", "concealer", "makeup palette", "eye liner"],
-
-  // 👕 CLOTHING & ACCESSORIES
-  "Clothing & Accessories - Men's Clothing": ["men's t-shirt", "men's hoodie", "menswear", "men's jacket"],
-  "Clothing & Accessories - Women's Clothing": ["women's dress", "women's clothing", "ladies top", "lingerie", "womenswear"],
-  "Clothing & Accessories - Unisex": ["unisex hoodie", "unisex t-shirt"],
-  "Clothing & Accessories - Footwear": ["trainers", "shoes", "boots", "slippers", "sandals"],
-
-  // 💍 JEWELLERY
-  "Women's Jewellery": ["necklace", "bracelet", "stud earrings", "charm", "pendant", "jewellery set"],
-
-  // 🧒 CHILDREN & BABY
-  "Babies - Babywear": ["baby clothes", "babywear", "onesie", "baby grow"],
-  "Babies - Baby Care": ["nappy", "baby shampoo", "baby lotion", "newborn care"],
-  "Babies - Toys for Babies": ["teether", "baby rattle", "soft toy", "baby toy"],
-
-  "Children (Boys) - Clothing": ["boys t-shirt", "boys hoodie", "boys clothes"],
-  "Children (Boys) - Toys & Games": ["boys toy", "boys game", "lego", "action figure"],
-
-  "Children (Girls) - Clothing": ["girls dress", "girls clothing", "girls outfit"],
-  "Children (Girls) - Toys & Games": ["girls toy", "girls game", "doll", "unicorn toy"],
-
-  // 🍽 COOKING & KITCHEN
-  "Cooking & Kitchen": [
-    "kitchen appliance", "air fryer", "blender", "slow cooker", "toaster", "coffee machine",
-    "cooking pan", "baking tray", "utensil set", "knife block", "oven gloves", "cookware"
-  ],
-
-  // 🍷 VINTAGE WINES
-  "Vintage Wines": ["vintage wine", "aged wine", "red wine gift", "shiraz wine", "port wine", "wine set"],
-
-  // 🎮 GAMES
-  "Games - Video Games": ["nintendo", "playstation", "xbox", "psp", "gaming"],
-  "Games - Board & Card": ["board game", "card game", "puzzle", "jigsaw", "family game"],
-
-  // 🐾 PETS
-  "Pets - Dogs": ["dog toy", "dog collar", "dog treat", "dog bed"],
-  "Pets - Cats": ["cat toy", "cat scratcher", "cat bed", "cat food"],
-  "Pets - Aquatics": ["fish tank", "aquarium", "aquatic", "fish food"],
-
-  // 💻 TECH
-  "Tech - Electronics": ["headphones", "bluetooth", "tablet", "smartwatch", "laptop", "charger", "usb cable"],
-  "Tech - Accessories": ["laptop riser", "mouse mat", "phone stand", "camera tripod"],
-
-        // 🛠 DIY & GARDEN
-  "DIY & Garden - DIY Tools": [
-    "doorway", "window", "paint", "sanding", "power tool", "holesaw", "saw blade", "sander", "wood",
-    "ceramic", "decorating", "tiling", "tile", "air compressor", "tape", "steel sheet", "torch",
-    "drill", "screwdriver", "drilling", "drill bit", "cup wheel", "grinder", "woodworking",
-    "riveting", "riveter", "plumbing", "pipe", "blow torch", "scriber", "nail", "bricklaying",
-    "plastering", "drain", "joining", "tool", "sawing"
-  ],
-  "DIY & Garden - Garden Tools": [
-    "decking", "lawnmower", "chainsaw", "grass trimmer", "garden hose", "garden shears",
-    "garden rake", "outdoor tool", "hedge trimmer"
-  ],
-  "DIY & Garden - Safety & Detectors": [
-    "full face mask", "hard hat", "detector", "safety goggle", "work gloves", "dust mask", "gas detector"
-  ],
-
-  // 🛋 INTERIOR DECORATING
-  "Interior Decorating": [
-    "home decor", "drawer", "table", "chair", "desk", "lamp", "vase", "mirror", "wall art",
-    "shelving", "cushion", "sofa", "storage bench", "plant pot"
-  ],
-
-  // 🚗 AUTOMOTIVE
-  "Automotive": [
-    "car jack", "socket set", "spanner", "garage tool", "workshop tool", "wheel nut",
-    "brake pad", "vehicle accessory", "jerry can", "automotive tool", "welding helmet",
-    "welding kit", "bodywork tool", "windscreen", "jet wash", "car wash", "vehicle lighting",
-    "battery charger", "car cover"
-  ],
-
-        // 🏕 SPORTS & OUTDOORS
-  "Sports & Outdoors - Cycling": [
-    "bike", "bicycle", "cycling", "e-bike", "bike helmet", "bike light"
-  ],
-  "Sports & Outdoors - Hiking": [
-    "hiking", "hike", "walking poles", "trekking", "outdoor walk", "trail shoes", "camp stove"
-  ],
-  "Sports & Outdoors - Skiing / Wintersports": [
-    "ski", "skiing", "snow boots", "snow gear", "ski goggles", "snow jacket"
-  ],
-  "Sports & Outdoors - Camping": [
-    "camping", "tent", "camp stove", "sleeping bag", "camp chair", "camp mat"
-  ],
-  "Sports & Outdoors - Trampolines": [
-    "trampoline", "rebounder", "jumping mat"
-  ],
-  "Sports & Outdoors - Golf": [
-    "golf", "golf club", "golf balls", "golf buggy", "putting mat"
-  ],
-  "Sports & Outdoors - Fitness": [
-    "fitness", "exercise", "gym", "weights", "yoga mat", "resistance band", "workout"
-  ],
-  "Sports & Outdoors - MMA / Boxing": [
-    "boxing", "mma", "punching bag", "boxing gloves", "sparring", "kickboxing"
-  ],
-  "Sports & Outdoors - Basketball": [
-    "basketball", "basketball hoop", "basketball ball"
-  ],
-  "Sports & Outdoors - Swimming": [
-    "swimming", "swimsuit", "goggles", "swim cap", "swimming pool"
-  ],
-  "Sports & Outdoors - Barbecues": [
-    "barbecue", "bbq", "grill", "bbq tool", "charcoal", "bbq set"
-  ],
-
-  // 🎨 ARTS & CRAFTS
-  "Arts & Crafts": [
-    "a4", "glue", "pva", "paper", "craft", "scrapbook", "brushes", "bubble wrap",
-    "pens", "pencils", "colouring", "acrylic", "paint", "envelopes", "stationery",
-    "watercolour", "inks", "sticker", "stamp", "stencil", "glitter", "paper mache",
-    "painting", "emboss", "crayon", "drawing", "sketch pad", "marker"
-  ],
-
-  // 🌍 TRAVEL
-  "Travel - Luggage & Bags": [
-    "duffel bag", "luggage", "carry-on", "suitcase", "backpack", "vacation bag", "travel case"
-  ],
-  "Travel - Cosmetic & Toiletry Bags": [
-    "cosmetic bag", "toiletry bag", "makeup pouch", "travel organizer"
-  ],
-  "Travel - Cruises & Getaways": [
-    "cruise", "getaway", "costa", "caribbean", "miami", "auckland", "ship", "ocean",
-    "holiday cruise", "tropical", "cruise deal", "all inclusive cruise", "voyage"
-  ]
-
-};
-
-    document.getElementById("searchInput").addEventListener("input", applyFilters);
-    document.getElementById("merchantFilter").addEventListener("change", applyFilters);
-    document.getElementById("categoryFilter").addEventListener("change", applyFilters);
-
-    function parseCSV(data) {
-      const lines = data.split("\n").filter(Boolean);
-      const headers = lines[0].split(",");
-      return lines.slice(1).map(line => {
-        const values = line.split(",");
-        const obj = {};
-        headers.forEach((header, i) => {
-          obj[header.trim()] = values[i]?.trim();
-        });
-        return obj;
-      });
-    }
-
-function fetchProducts(page = 1) {
-  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
-  
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      allProducts = data.filter(p => p.image && p.link);
-      populateFilters();
-      applyFilters();
-    })
-    .catch(error => {
-      console.error("❌ Failed to load products.json:", error);
-      alert("Unable to load gift data from the server.");
-    });
-}
-
-// Call it initially
-fetchProducts(currentPage);
-    
-   function populateFilters() {
-  const merchantFilter = document.getElementById("merchantFilter");
-  const categoryFilter = document.getElementById("categoryFilter");
-
-  // Merchants
-  approvedMerchants.forEach(name => {
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = name;
-    merchantFilter.appendChild(opt);
-  });
-
-  // Categories with hierarchy
-  const categoryGroups = {};
-  Object.keys(categoryKeywords).forEach(cat => {
-    const [main, sub] = cat.split(" - ");
-    if (!categoryGroups[main]) categoryGroups[main] = [];
-    categoryGroups[main].push({ label: sub || main, value: cat });
-  });
-
-  Object.entries(categoryGroups).forEach(([main, subs]) => {
-    // Main category "All" option
-    const mainOpt = document.createElement("option");
-    mainOpt.value = main; // Match main title for filtering
-    mainOpt.textContent = `${main} (All)`;
-    mainOpt.className = "main-category";
-    categoryFilter.appendChild(mainOpt);
-
-    // Subcategories
-    subs.forEach(({ label, value }) => {
-      const subOpt = document.createElement("option");
-      subOpt.value = value;
-      subOpt.textContent = label;
-      subOpt.className = "sub-category";
-      categoryFilter.appendChild(subOpt);
-    });
-  });
-}
-
-    function cleanText(str) {
-  const noiseWords = [
-    "with", "for", "and", "gift", "set", "of", "in", "on", "the", "a", "an", "to", "includes", "by"
-  ];
-  return str
-    .toLowerCase()
-    .replace(/[^\w\s]/g, '') // remove punctuation
-    .split(/\s+/)
-    .filter(word => !noiseWords.includes(word))
-    .join(' ');
-}
-
-    function applyFilters() {
-  const keyword = document.getElementById("searchInput").value.toLowerCase();
-  const selectedMerchant = document.getElementById("merchantFilter").value;
-  const selectedCategory = document.getElementById("categoryFilter").value;
-
-  let effectiveKeywords = [];
-  const negativeKeywords = {
-  "Special Occasions - Halloween": ["cruise", "holiday", "soiree", "trip"],
-  "Cooking & Kitchen": ["foundation", "makeup", "beauty", "lipstick"],
-  "Games - Video Games": ["necklace", "earrings", "bracelet"], // prevent jewellery from sneaking in
-  "Women's Jewellery": ["xbox", "game", "playstation", "psp", "controller", "cruise", "getaway", "costa", "caribbean", "miami", "auckland", "ship", "ocean",
-    "holiday cruise", "tropical", "cruise deal", "all inclusive cruise", "voyage"]
-};
-
-  // ✅ Set effective keywords
-  if (categoryKeywords[selectedCategory]) {
-    effectiveKeywords = categoryKeywords[selectedCategory];
-  } else if (selectedCategory) {
-    effectiveKeywords = Object.entries(categoryKeywords)
-      .filter(([key]) => key.startsWith(selectedCategory + " -"))
-      .flatMap(([, keywords]) => keywords);
-  }
-
-  // 🧠 Filtering
-  filteredProducts = allProducts.filter(p => {
-    const cleanedName = (p.name || '').toLowerCase();
-    const cleanedCategory = (p.category || '').toLowerCase();
-    const custom1 = (p.custom_1 || '').toLowerCase();
-    const custom2 = (p.custom_2 || '').toLowerCase();
-    const searchableText = `${cleanedName} ${cleanedCategory} ${custom1} ${custom2}`;
-    const isMerchantMatch = !selectedMerchant || p.merchant === selectedMerchant;
-
-
-    // 🔍 Step 5: Keyword scoring
-    let keywordScore = 0;
-    for (const term of effectiveKeywords) {
-      const regex = new RegExp(`\\b${term}\\b`, 'i');
-      const cleanedTerm = term.toLowerCase().replace(/[^\w\s]/g, '');
-const exactRegex = new RegExp(`\\b${cleanedTerm}\\b`, 'i');
-
-if (exactRegex.test(cleanedCategory)) keywordScore += 2;
-else if (
-  exactRegex.test(cleanedName) ||
-  exactRegex.test(custom1) ||
-  exactRegex.test(custom2)
-) {
-  keywordScore += 1;
-}
-
-    }
-
-    let isCategoryMatch = keywordScore > 0;
-
-    // 🚫 Check for negative matches
-    if (isCategoryMatch && negativeKeywords[selectedCategory]) {
-      for (const neg of negativeKeywords[selectedCategory]) {
-        if (searchableText.includes(neg)) {
-          isCategoryMatch = false;
-          break;
-        }
+    async function fetchProducts(page = 1) {
+      const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        allProducts = data.filter(p => p.image && p.link);
+        populateFilters();
+        applyFilters();
+      } catch (err) {
+        console.error("❌ Failed to fetch products:", err);
+        alert("Failed to load product data.");
       }
     }
 
-    // 🔍 Keyword search
-    const isKeywordMatch = !keyword || searchableText.includes(keyword);
+    function populateFilters() {
+      const merchantFilter = document.getElementById("merchantFilter");
+      const categoryFilter = document.getElementById("categoryFilter");
 
-    return isMerchantMatch && isCategoryMatch && isKeywordMatch;
-  });
+      const merchants = [...new Set(allProducts.map(p => p.merchant))].sort();
+      const categories = [...new Set(allProducts.map(p => p.category))].sort();
 
-  console.log(`✅ Filtered: ${filteredProducts.length} products`);
-  currentPage = 1;
-  displayProducts();
-  renderPagination();
-}
-    
-    function displayProducts() {
+      merchants.forEach(name => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        merchantFilter.appendChild(opt);
+      });
+
+      categories.forEach(name => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        categoryFilter.appendChild(opt);
+      });
+    }
+
+    function applyFilters() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const merchant = document.getElementById("merchantFilter").value;
+      const category = document.getElementById("categoryFilter").value;
+
+      filteredProducts = allProducts.filter(p => {
+        const name = (p.name || "").toLowerCase();
+        const matchSearch = !search || name.includes(search);
+        const matchMerchant = !merchant || p.merchant === merchant;
+        const matchCategory = !category || p.category === category;
+        return matchSearch && matchMerchant && matchCategory;
+      });
+
+      currentPage = 1;
+      renderProducts();
+      renderPagination();
+    }
+
+    function renderProducts() {
       const container = document.getElementById("productContainer");
       const spinner = document.getElementById("spinner");
 
@@ -571,24 +204,16 @@ else if (
         const end = start + itemsPerPage;
         const pageProducts = filteredProducts.slice(start, end);
 
-        pageProducts.forEach(product => {
-        const name = product.name?.replace(/"/g, '').trim();
-        const image = product.image?.trim();
-        const link = product.link?.trim();
-
-          if (!image || !link || !link.startsWith("http")) return;
-
+        pageProducts.forEach(p => {
           const div = document.createElement("div");
-          div.classList.add("product");
-
+          div.className = "product";
           div.innerHTML = `
-            <a href="${link}" target="_blank" class="image-link">
-              <img src="${image}" alt="${name}" onerror="this.closest('.product').remove();" />
+            <a href="${p.link}" target="_blank" class="image-link">
+              <img src="${p.image}" alt="${p.name}" onerror="this.closest('.product').remove();" />
             </a>
-            <a href="${link}" target="_blank" class="title-link"><h3>${name}</h3></a>
-            <a href="${link}" target="_blank">View Product</a>
+            <a href="${p.link}" target="_blank" class="title-link"><h3>${p.name}</h3></a>
+            <a href="${p.link}" target="_blank">View Product</a>
           `;
-
           container.appendChild(div);
         });
 
@@ -599,66 +224,61 @@ else if (
     }
 
     function renderPagination() {
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-  const pagination = document.getElementById("paginationControls");
-  pagination.innerHTML = "";
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+      const pagination = document.getElementById("paginationControls");
+      pagination.innerHTML = "";
 
-  const addPageButton = (pageNum) => {
-    const btn = document.createElement("button");
-    btn.textContent = pageNum;
-    if (pageNum === currentPage) btn.classList.add("active");
-    btn.onclick = () => {
-      currentPage = pageNum;
-      fetchProducts(currentPage); // Fetch data for selected page
-    };
-    pagination.appendChild(btn);
-  };
+      const addBtn = (num) => {
+        const btn = document.createElement("button");
+        btn.textContent = num;
+        if (num === currentPage) btn.classList.add("active");
+        btn.onclick = () => {
+          currentPage = num;
+          renderProducts();
+          renderPagination();
+        };
+        pagination.appendChild(btn);
+      };
 
-  const prevBtn = document.createElement("button");
-  prevBtn.textContent = "Previous";
-  prevBtn.disabled = currentPage === 1;
-  prevBtn.onclick = () => {
-    currentPage--;
-    fetchProducts(currentPage); // Fetch previous page
-  };
-  pagination.appendChild(prevBtn);
+      const prev = document.createElement("button");
+      prev.textContent = "Previous";
+      prev.disabled = currentPage === 1;
+      prev.onclick = () => {
+        currentPage--;
+        renderProducts();
+        renderPagination();
+      };
+      pagination.appendChild(prev);
 
-  addPageButton(1);
+      for (let i = 1; i <= totalPages; i++) {
+        if (i <= 2 || i > totalPages - 2 || Math.abs(currentPage - i) <= 2) {
+          addBtn(i);
+        } else if (
+          (i === 3 && currentPage > 5) ||
+          (i === totalPages - 2 && currentPage < totalPages - 4)
+        ) {
+          const dots = document.createElement("span");
+          dots.textContent = "...";
+          pagination.appendChild(dots);
+        }
+      }
 
-  if (currentPage > 6) {
-    const ellipsis = document.createElement("span");
-    ellipsis.textContent = "...";
-    ellipsis.className = "ellipsis";
-    pagination.appendChild(ellipsis);
-  }
-
-  const start = Math.max(2, currentPage - 2);
-  const end = Math.min(totalPages - 1, currentPage + 2);
-
-  for (let i = start; i <= end; i++) {
-    if (i !== 1 && i !== totalPages) {
-      addPageButton(i);
+      const next = document.createElement("button");
+      next.textContent = "Next";
+      next.disabled = currentPage === totalPages;
+      next.onclick = () => {
+        currentPage++;
+        renderProducts();
+        renderPagination();
+      };
+      pagination.appendChild(next);
     }
-  }
 
-  if (end < totalPages - 1) {
-    const ellipsis = document.createElement("span");
-    ellipsis.textContent = "...";
-    ellipsis.className = "ellipsis";
-    pagination.appendChild(ellipsis);
-  }
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("merchantFilter").addEventListener("change", applyFilters);
+    document.getElementById("categoryFilter").addEventListener("change", applyFilters);
 
-  if (totalPages > 1) addPageButton(totalPages);
-
-  const nextBtn = document.createElement("button");
-  nextBtn.textContent = "Next";
-  nextBtn.disabled = currentPage === totalPages;
-  nextBtn.onclick = () => {
-    currentPage++;
-    fetchProducts(currentPage); // Fetch next page
-  };
-  pagination.appendChild(nextBtn);
-}
+    fetchProducts();
   </script>
 </body>
 </html>
