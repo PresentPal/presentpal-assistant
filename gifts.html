@@ -6,10 +6,9 @@
   <title>Your Gift List | PresentPal</title>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
-
-   <style>
-    body {
-      font-family: Arial, sans-serif;
+  
+<style>
+   font-family: Arial, sans-serif;
       padding: 20px;
       background: #f9f9f9;
       color: #333;
@@ -118,181 +117,167 @@
 
   <div class="filter-bar">
     <input type="text" id="searchInput" placeholder="Search products..." />
-    <select id="mainCategoryFilter">
-      <option value="">Filter by Main Category</option>
+    <select id="merchantFilter">
+      <option value="">Filter by Merchant</option>
     </select>
-    <select id="subCategoryFilter">
-      <option value="">Filter by Subcategory</option>
+    <select id="categoryFilter">
+      <option value="">Filter by Category</option>
     </select>
   </div>
 
+  <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
 
-<script>
-let allProducts = [];
-let filteredProducts = [];
-let currentPage = 1;
-const itemsPerPage = 24;
+  <script>
+    let allProducts = [];
+    let filteredProducts = [];
+    let currentPage = 1;
+    const itemsPerPage = 24;
 
-const categoryMapping = {
-  "DIY & Renovations": ["Air Tools & Compressors", "Adhesives, Sealants & Fillers", "Building Materials & Chemicals"]
-};
-
-function getCategoryLabels(merchantCategory) {
-  for (const [main, subs] of Object.entries(categoryMapping)) {
-    for (const sub of subs) {
-      if (merchantCategory.includes(sub)) {
-        return { mainCategory: main, subCategory: sub };
+    async function fetchProducts(page = 1) {
+      const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        allProducts = data.filter(p => p.image && p.link);
+        populateFilters();
+        applyFilters();
+      } catch (err) {
+        console.error("❌ Failed to fetch products:", err);
+        alert("Failed to load product data.");
       }
     }
-  }
-  return { mainCategory: "Other", subCategory: "Uncategorized" };
-}
 
-function fetchProducts(page = 1) {
-  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      allProducts = data.map(p => {
-        const { mainCategory, subCategory } = getCategoryLabels(p.category || "");
-        return { ...p, mainCategory, subCategory };
+    function populateFilters() {
+      const merchantFilter = document.getElementById("merchantFilter");
+      const categoryFilter = document.getElementById("categoryFilter");
+
+      const merchants = [...new Set(allProducts.map(p => p.merchant))].sort();
+      const categories = [...new Set(allProducts.map(p => p.category))].sort();
+
+      merchants.forEach(name => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        merchantFilter.appendChild(opt);
       });
-      populateCategoryFilters();
-      applyFilters();
-    })
-    .catch(err => console.error("Error fetching products:", err));
-}
 
-function populateCategoryFilters() {
-  const mainSelect = document.getElementById("mainCategoryFilter");
-  const subSelect = document.getElementById("subCategoryFilter");
+      categories.forEach(name => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        categoryFilter.appendChild(opt);
+      });
+    }
 
-  const mains = new Set(allProducts.map(p => p.mainCategory));
-  mainSelect.innerHTML = '<option value="">Filter by Main Category</option>';
-  mains.forEach(m => {
-    const opt = document.createElement("option");
-    opt.value = m; opt.textContent = m;
-    mainSelect.appendChild(opt);
-  });
+    function applyFilters() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const merchant = document.getElementById("merchantFilter").value;
+      const category = document.getElementById("categoryFilter").value;
 
-  const subs = new Set(allProducts.map(p => p.subCategory));
-  subSelect.innerHTML = '<option value="">Filter by Subcategory</option>';
-  subs.forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s; opt.textContent = s;
-    subSelect.appendChild(opt);
-  });
-}
+      filteredProducts = allProducts.filter(p => {
+        const name = (p.name || "").toLowerCase();
+        const matchSearch = !search || name.includes(search);
+        const matchMerchant = !merchant || p.merchant === merchant;
+        const matchCategory = !category || p.category === category;
+        return matchSearch && matchMerchant && matchCategory;
+      });
 
-function applyFilters() {
-  const keyword = document.getElementById("searchInput").value.toLowerCase();
-  const main = document.getElementById("mainCategoryFilter").value;
-  const sub = document.getElementById("subCategoryFilter").value;
+      currentPage = 1;
+      renderProducts();
+      renderPagination();
+    }
 
-  filteredProducts = allProducts.filter(p => {
-    const text = `${p.name} ${p.category}`.toLowerCase();
-    const matchKeyword = !keyword || text.includes(keyword);
-    const matchMain = !main || p.mainCategory === main;
-    const matchSub = !sub || p.subCategory === sub;
-    return matchKeyword && matchMain && matchSub;
-  });
+    function renderProducts() {
+      const container = document.getElementById("productContainer");
+      const spinner = document.getElementById("spinner");
 
-  currentPage = 1;
-  displayProducts();
-  renderPagination();
-}
+      spinner.style.display = "block";
+      container.classList.remove("fade-in");
+      container.classList.add("fade-out");
 
-document.getElementById("searchInput").addEventListener("input", applyFilters);
-document.getElementById("mainCategoryFilter").addEventListener("change", applyFilters);
-document.getElementById("subCategoryFilter").addEventListener("change", applyFilters);
+      setTimeout(() => {
+        container.innerHTML = "";
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageProducts = filteredProducts.slice(start, end);
 
-function displayProducts() {
-  const container = document.getElementById("productContainer");
-  container.innerHTML = "";
+        pageProducts.forEach(p => {
+          const div = document.createElement("div");
+          div.className = "product";
+          div.innerHTML = `
+            <a href="${p.link}" target="_blank" class="image-link">
+              <img src="${p.image}" alt="${p.name}" onerror="this.closest('.product').remove();" />
+            </a>
+            <a href="${p.link}" target="_blank" class="title-link"><h3>${p.name}</h3></a>
+            <a href="${p.link}" target="_blank">View Product</a>
+          `;
+          container.appendChild(div);
+        });
 
-  const start = (currentPage - 1) * itemsPerPage;
+        spinner.style.display = "none";
+        container.classList.remove("fade-out");
+        container.classList.add("fade-in");
+      }, 200);
+    }
 
-  // Filter only valid products for display
-  const validProducts = filteredProducts.filter(p => 
-    p.image && p.link && p.image.startsWith("http") && p.link.startsWith("http")
-  );
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+      const pagination = document.getElementById("paginationControls");
+      pagination.innerHTML = "";
 
-  const pageProducts = validProducts.slice(start, start + itemsPerPage);
-
-  pageProducts.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "product";
-
-    const img = document.createElement("img");
-    img.src = p.image;
-    img.alt = p.name;
-    img.onerror = function () {
-      div.remove(); // Remove the card if image fails to load
-    };
-
-    const title = document.createElement("h3");
-    title.textContent = p.name;
-
-    const link = document.createElement("a");
-    link.href = p.link;
-    link.target = "_blank";
-    link.textContent = "View Product";
-
-    div.appendChild(img);
-    div.appendChild(title);
-    div.appendChild(link);
-    container.appendChild(div);
-  });
-
-  // If this page has < 24 products, but there are more in the dataset, try to fill the page
-  if (pageProducts.length < itemsPerPage && start + itemsPerPage < validProducts.length) {
-    const remaining = itemsPerPage - pageProducts.length;
-    const additionalProducts = validProducts.slice(start + itemsPerPage, start + itemsPerPage + remaining);
-
-    additionalProducts.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "product";
-
-      const img = document.createElement("img");
-      img.src = p.image;
-      img.alt = p.name;
-      img.onerror = function () {
-        div.remove();
+      const addBtn = (num) => {
+        const btn = document.createElement("button");
+        btn.textContent = num;
+        if (num === currentPage) btn.classList.add("active");
+        btn.onclick = () => {
+          currentPage = num;
+          renderProducts();
+          renderPagination();
+        };
+        pagination.appendChild(btn);
       };
 
-      const title = document.createElement("h3");
-      title.textContent = p.name;
+      const prev = document.createElement("button");
+      prev.textContent = "Previous";
+      prev.disabled = currentPage === 1;
+      prev.onclick = () => {
+        currentPage--;
+        renderProducts();
+        renderPagination();
+      };
+      pagination.appendChild(prev);
 
-      const link = document.createElement("a");
-      link.href = p.link;
-      link.target = "_blank";
-      link.textContent = "View Product";
+      for (let i = 1; i <= totalPages; i++) {
+        if (i <= 2 || i > totalPages - 2 || Math.abs(currentPage - i) <= 2) {
+          addBtn(i);
+        } else if (
+          (i === 3 && currentPage > 5) ||
+          (i === totalPages - 2 && currentPage < totalPages - 4)
+        ) {
+          const dots = document.createElement("span");
+          dots.textContent = "...";
+          pagination.appendChild(dots);
+        }
+      }
 
-      div.appendChild(img);
-      div.appendChild(title);
-      div.appendChild(link);
-      container.appendChild(div);
-    });
-  }
-}
-  
-function renderPagination() {
-  const pagination = document.getElementById("paginationControls");
-  pagination.innerHTML = "";
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+      const next = document.createElement("button");
+      next.textContent = "Next";
+      next.disabled = currentPage === totalPages;
+      next.onclick = () => {
+        currentPage++;
+        renderProducts();
+        renderPagination();
+      };
+      pagination.appendChild(next);
+    }
 
-  for (let i = 1; i <= totalPages; i++) {
-    const btn = document.createElement("button");
-    btn.textContent = i;
-    if (i === currentPage) btn.className = "active";
-    btn.onclick = () => { currentPage = i; displayProducts(); renderPagination(); };
-    pagination.appendChild(btn);
-  }
-}
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("merchantFilter").addEventListener("change", applyFilters);
+    document.getElementById("categoryFilter").addEventListener("change", applyFilters);
 
-fetchProducts();
-</script>
+    fetchProducts();
+  </script>
 </body>
 </html>
