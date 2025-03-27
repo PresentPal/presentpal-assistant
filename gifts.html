@@ -418,7 +418,7 @@ function fetchProducts(page = 1) {
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      allProducts = data.filter(p => p.merchant_image_url && p.aw_deep_link);
+      allProducts = data.filter(p => p.image && p.link);
       populateFilters();
       applyFilters();
     })
@@ -507,12 +507,13 @@ fetchProducts(currentPage);
 
   // 🧠 Filtering
   filteredProducts = allProducts.filter(p => {
-    const cleanedName = (p.product_name || '').toLowerCase();
-    const cleanedCategory = (p.merchant_category || '').toLowerCase();
+    const cleanedName = (p.name || '').toLowerCase();
+    const cleanedCategory = (p.category || '').toLowerCase();
     const custom1 = (p.custom_1 || '').toLowerCase();
     const custom2 = (p.custom_2 || '').toLowerCase();
     const searchableText = `${cleanedName} ${cleanedCategory} ${custom1} ${custom2}`;
-    const isMerchantMatch = !selectedMerchant || p.merchant_name === selectedMerchant;
+    const isMerchantMatch = !selectedMerchant || p.merchant === selectedMerchant;
+
 
     // 🔍 Step 5: Keyword scoring
     let keywordScore = 0;
@@ -571,9 +572,9 @@ else if (
         const pageProducts = filteredProducts.slice(start, end);
 
         pageProducts.forEach(product => {
-          const name = product.product_name?.replace(/"/g, '').trim();
-          const image = product.merchant_image_url?.trim();
-          const link = product.aw_deep_link?.trim();
+        const name = product.name?.replace(/"/g, '').trim();
+        const image = product.image?.trim();
+        const link = product.link?.trim();
 
           if (!image || !link || !link.startsWith("http")) return;
 
