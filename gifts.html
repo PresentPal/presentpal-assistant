@@ -211,8 +211,15 @@ document.getElementById("subCategoryFilter").addEventListener("change", applyFil
 function displayProducts() {
   const container = document.getElementById("productContainer");
   container.innerHTML = "";
+
   const start = (currentPage - 1) * itemsPerPage;
-  const pageProducts = filteredProducts.slice(start, start + itemsPerPage);
+
+  // Filter only valid products for display
+  const validProducts = filteredProducts.filter(p => 
+    p.image && p.link && p.image.startsWith("http") && p.link.startsWith("http")
+  );
+
+  const pageProducts = validProducts.slice(start, start + itemsPerPage);
 
   pageProducts.forEach(p => {
     const div = document.createElement("div");
@@ -222,7 +229,7 @@ function displayProducts() {
     img.src = p.image;
     img.alt = p.name;
     img.onerror = function () {
-      div.remove(); // Remove the whole card if image fails to load
+      div.remove(); // Remove the card if image fails to load
     };
 
     const title = document.createElement("h3");
@@ -238,8 +245,39 @@ function displayProducts() {
     div.appendChild(link);
     container.appendChild(div);
   });
-}
 
+  // If this page has < 24 products, but there are more in the dataset, try to fill the page
+  if (pageProducts.length < itemsPerPage && start + itemsPerPage < validProducts.length) {
+    const remaining = itemsPerPage - pageProducts.length;
+    const additionalProducts = validProducts.slice(start + itemsPerPage, start + itemsPerPage + remaining);
+
+    additionalProducts.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "product";
+
+      const img = document.createElement("img");
+      img.src = p.image;
+      img.alt = p.name;
+      img.onerror = function () {
+        div.remove();
+      };
+
+      const title = document.createElement("h3");
+      title.textContent = p.name;
+
+      const link = document.createElement("a");
+      link.href = p.link;
+      link.target = "_blank";
+      link.textContent = "View Product";
+
+      div.appendChild(img);
+      div.appendChild(title);
+      div.appendChild(link);
+      container.appendChild(div);
+    });
+  }
+}
+  
 function renderPagination() {
   const pagination = document.getElementById("paginationControls");
   pagination.innerHTML = "";
