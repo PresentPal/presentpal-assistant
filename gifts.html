@@ -598,69 +598,66 @@ else if (
     }
 
     function renderPagination() {
-      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-      const pagination = document.getElementById("paginationControls");
-      pagination.innerHTML = "";
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const pagination = document.getElementById("paginationControls");
+  pagination.innerHTML = "";
 
-      const addPageButton = (pageNum) => {
-        const btn = document.createElement("button");
-        btn.textContent = pageNum;
-        if (pageNum === currentPage) btn.classList.add("active");
-        btn.onclick = () => {
-          currentPage = pageNum;
-          displayProducts();
-          renderPagination();
-        };
-        pagination.appendChild(btn);
-      };
+  const addPageButton = (pageNum) => {
+    const btn = document.createElement("button");
+    btn.textContent = pageNum;
+    if (pageNum === currentPage) btn.classList.add("active");
+    btn.onclick = () => {
+      currentPage = pageNum;
+      fetchProducts(currentPage); // Fetch data for selected page
+    };
+    pagination.appendChild(btn);
+  };
 
-      const prevBtn = document.createElement("button");
-      prevBtn.textContent = "Previous";
-      prevBtn.disabled = currentPage === 1;
-      prevBtn.onclick = () => {
-        currentPage--;
-        displayProducts();
-        renderPagination();
-      };
-      pagination.appendChild(prevBtn);
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "Previous";
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.onclick = () => {
+    currentPage--;
+    fetchProducts(currentPage); // Fetch previous page
+  };
+  pagination.appendChild(prevBtn);
 
-      addPageButton(1);
+  addPageButton(1);
 
-      if (currentPage > 6) {
-        const ellipsis = document.createElement("span");
-        ellipsis.textContent = "...";
-        ellipsis.className = "ellipsis";
-        pagination.appendChild(ellipsis);
-      }
+  if (currentPage > 6) {
+    const ellipsis = document.createElement("span");
+    ellipsis.textContent = "...";
+    ellipsis.className = "ellipsis";
+    pagination.appendChild(ellipsis);
+  }
 
-      const start = Math.max(2, currentPage - 2);
-      const end = Math.min(totalPages - 1, currentPage + 2);
+  const start = Math.max(2, currentPage - 2);
+  const end = Math.min(totalPages - 1, currentPage + 2);
 
-      for (let i = start; i <= end; i++) {
-        if (i !== 1 && i !== totalPages) {
-          addPageButton(i);
-        }
-      }
-
-      if (end < totalPages - 1) {
-        const ellipsis = document.createElement("span");
-        ellipsis.textContent = "...";
-        ellipsis.className = "ellipsis";
-        pagination.appendChild(ellipsis);
-      }
-
-      if (totalPages > 1) addPageButton(totalPages);
-
-      const nextBtn = document.createElement("button");
-      nextBtn.textContent = "Next";
-      nextBtn.disabled = currentPage === totalPages;
-      nextBtn.onclick = () => {
-        currentPage++;
-        displayProducts();
-        renderPagination();
-      };
-      pagination.appendChild(nextBtn);
+  for (let i = start; i <= end; i++) {
+    if (i !== 1 && i !== totalPages) {
+      addPageButton(i);
     }
+  }
+
+  if (end < totalPages - 1) {
+    const ellipsis = document.createElement("span");
+    ellipsis.textContent = "...";
+    ellipsis.className = "ellipsis";
+    pagination.appendChild(ellipsis);
+  }
+
+  if (totalPages > 1) addPageButton(totalPages);
+
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next";
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.onclick = () => {
+    currentPage++;
+    fetchProducts(currentPage); // Fetch next page
+  };
+  pagination.appendChild(nextBtn);
+}
   </script>
 </body>
 </html>
