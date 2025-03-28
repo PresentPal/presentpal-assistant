@@ -208,7 +208,7 @@ window.categoryKeywords = {
     ],
     "Golf": ["Golf"],
     "Fitness": ["Heart Rate Monitor", "Medicine Balls", "Ab Belts", "Ab Benches", "Ab Crunchers", "Ab Exercisers", "Ab Straps", "Ab Wheels", "Default/Run/APPAREL", "Default/Run/EQUIPMENT", "Exercise Bikes", "Exercise Mats"],
-    "Ski & Wintersports: ["SKI/WINTERSPORTS"]
+    "Ski & Wintersports: ["WINTERSPORTS"]
   },
   "🎨 Arts & Crafts": {
     "Crafts & Sewing": ["Crafts & Sewing"],
