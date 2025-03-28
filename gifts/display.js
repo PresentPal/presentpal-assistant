@@ -3,7 +3,7 @@ function displayProducts() {
   const container = document.getElementById("productContainer");
   container.innerHTML = "";
 
-  const pageProducts = window.paginatedProducts[window.currentPage - 1] || [];
+  const pageProducts = window.paginatedProducts[currentPage - 1] || [];
 
   pageProducts.forEach(p => {
     const div = document.createElement("div");
