@@ -134,6 +134,7 @@
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
   
+  <script src="gifts/globals.js"></script>
  <script src="gifts/categoryKeywords.js"></script>
   <script src="gifts/fetchProducts.js"></script>
   <script src="gifts/populate.js"></script>
@@ -144,11 +145,6 @@
   <script src="gifts/downloads.js"></script>
   
 <script>
-  window.allProducts = [];
-  window.filteredProducts = [];
-  window.currentPage = 1;
-  window.itemsPerPage = 24;
-
   // Run only after DOM is fully ready and scripts are loaded
   window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("searchInput").addEventListener("input", window.applyFilters);
