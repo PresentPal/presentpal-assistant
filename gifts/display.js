@@ -14,14 +14,19 @@ function displayProducts() {
     img.src = p.image;
     img.alt = p.name;
     img.onerror = function () {
-      window.handleImageError(p, this); // Logs and removes
+      window.handleImageError(p, this);
     };
 
     const title = document.createElement("h3");
     title.textContent = p.name;
 
+    const price = document.createElement("p");
+    price.className = "price";
+    price.textContent = p.price || "";
+
     div.appendChild(img);
     div.appendChild(title);
+    div.appendChild(price);
     container.appendChild(div);
   });
 }
