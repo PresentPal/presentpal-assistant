@@ -136,6 +136,76 @@
     opacity: 1;
     transition: opacity 0.3s ease;
   }
+   /* Navigation Bar */
+.nav-bar {
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    z-index: 1000; /* Ensures navbar stays above other content */
+    min-height: 60px; /* Ensure there's enough space for navbar */
+}
+
+/* Ensure the body has padding-bottom to avoid content being hidden by navbar */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    padding-bottom: 80px; /* Prevent content from being overlapped by the navbar */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Ensure navbar doesn't get pushed out of screen */
+@media (max-width: 768px) {
+    .nav-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        min-height: 60px;
+    }
+}
+
+    /* Navigation Buttons */
+    .nav-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+/* Navigation Buttons - Hover Color */
+.nav-button:hover {
+    background-color: lightgray; /* Change to light grey */
+}
+
+    /* Navigation Images */
+    .nav-button img {
+        width: 28px;
+        height: auto;
+        margin-bottom: 4px;
+    }
+
 </style>
 
 </head>
