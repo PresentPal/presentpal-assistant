@@ -1,4 +1,4 @@
-window.paginateValidProducts function () {
+function paginateValidProducts() {
   const valid = filteredProducts.filter(p =>
     p.image && p.link && p.image.startsWith("http") && p.link.startsWith("http")
   );
@@ -15,3 +15,5 @@ window.paginateValidProducts function () {
     }
   }
 }
+
+window.paginateValidProducts = paginateValidProducts;
