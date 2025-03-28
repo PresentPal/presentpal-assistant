@@ -1,4 +1,4 @@
-window.fetchProducts = function (page = 1) {
+function fetchProducts(page = 1) {
   const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
   fetch(url)
     .then(res => res.json())
@@ -9,3 +9,5 @@ window.fetchProducts = function (page = 1) {
     })
     .catch(err => console.error("Error fetching products:", err));
 }
+
+window.fetchProducts = fetchProducts;
