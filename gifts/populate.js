@@ -1,4 +1,4 @@
-window.populateCategoryDropdown = function () {
+function populateCategoryDropdown() {
   const select = document.getElementById("categoryFilter");
   select.innerHTML = '<option value="">Filter by Category</option>';
   Object.entries(categoryKeywords).forEach(([main, subs]) => {
@@ -13,3 +13,5 @@ window.populateCategoryDropdown = function () {
     select.appendChild(optGroup);
   });
 }
+
+window.populateCategoryDropdown = populateCategoryDropdown;
