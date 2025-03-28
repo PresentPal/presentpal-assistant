@@ -123,6 +123,8 @@
     </select>
   </div>
 
+  <button id="downloadUnmapped" style="margin: 30px; padding: 10px;">📥 Download Unmapped Categories</button>
+
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
 
@@ -504,6 +506,37 @@ function renderPagination() {
 }
 
 fetchProducts();
+
+// Unmapped Download
+  document.getElementById("downloadUnmapped").addEventListener("click", () => {
+  const usedCategories = new Set(allProducts.map(p => p.category).filter(Boolean));
+
+  const mappedCategories = new Set();
+  Object.values(categoryKeywords).forEach(main => {
+    Object.values(main).forEach(subs => {
+      subs.forEach(cat => mappedCategories.add(cat));
+    });
+  });
+
+  const unmatched = Array.from(usedCategories).filter(cat =>
+    !Array.from(mappedCategories).some(mapped => cat.includes(mapped))
+  );
+
+  if (unmatched.length === 0) {
+    alert("✅ All categories appear to be mapped!");
+    return;
+  }
+
+  const blob = new Blob(
+    [unmatched.sort().join('\n')],
+    { type: "text/plain;charset=utf-8" }
+  );
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "unmapped_categories.txt";
+  link.click();
+});
 </script>
 </body>
 </html>
