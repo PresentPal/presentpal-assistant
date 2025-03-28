@@ -1,4 +1,4 @@
-window.applyFilters = function () {
+function applyFilters() {
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   const selectedCategory = document.getElementById("categoryFilter").value;
 
@@ -19,3 +19,4 @@ document.getElementById("searchInput").addEventListener("input", applyFilters);
 document.getElementById("categoryFilter").addEventListener("change", applyFilters);
 
   let paginatedProducts = [];
+window.applyFilters = applyFilters;
