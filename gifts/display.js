@@ -1,3 +1,4 @@
+
 function displayProducts() {
   const container = document.getElementById("productContainer");
   container.innerHTML = "";
@@ -14,19 +15,14 @@ function displayProducts() {
     img.src = p.image;
     img.alt = p.name;
     img.onerror = function () {
-      window.handleImageError(p, this);
+      window.handleImageError(p, this); // Logs and removes
     };
 
     const title = document.createElement("h3");
     title.textContent = p.name;
 
-    const price = document.createElement("p");
-    price.className = "price";
-    price.textContent = p.price || "";
-
     div.appendChild(img);
     div.appendChild(title);
-    div.appendChild(price);
     container.appendChild(div);
   });
 }
