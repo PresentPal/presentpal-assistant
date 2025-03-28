@@ -40,30 +40,29 @@
   }
 
   #productContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    max-width: 540px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 600px) {
-    #productContainer {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      max-width: 100%;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .product {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
     padding: 15px;
+    width: 250px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
     box-sizing: border-box;
+    transition: transform 0.2s ease;
+  }
+
+  .product:hover {
+    transform: scale(1.02);
   }
 
   .product img {
@@ -80,7 +79,14 @@
     max-height: 2.4em;
     overflow: hidden;
   }
-   
+
+  .product .price {
+    margin-top: 8px;
+    font-weight: bold;
+    color: #f69c73;
+    font-size: 14px;
+  }
+
   .pagination {
     margin-top: 30px;
     display: flex;
@@ -90,7 +96,7 @@
   }
 
   .pagination button {
-    background: #F69C73;
+    background: #f69c73;
     color: white;
     border: none;
     padding: 8px 14px;
@@ -99,15 +105,32 @@
     transition: background-color 0.2s ease;
   }
 
-  .pagination button:hover,
+  .pagination button:hover {
+    background-color: #d47c58;
+  }
+
   .pagination button.active {
-    background-color: #d67c52;
+    background: #d47c58;
     font-weight: bold;
   }
 
   .pagination button:disabled {
     background: #ccc;
     cursor: default;
+  }
+
+  @media screen and (max-width: 768px) {
+    .product {
+      width: 45%;
+    }
+
+    .product h3 {
+      font-size: 12px;
+    }
+
+    .product .price {
+      font-size: 13px;
+    }
   }
 
   #productContainer.fade-out {
