@@ -17,10 +17,14 @@ window.categoryKeywords = {
     "Gifts For Her": ["Gifts & Kits > Body > All Products > Nature’s Spa Bath and Body Collection", "Alcoholic Drinks"],
     "Gift Bags": ["Gifts & Kits > All Products > Gift Bags"],
     "Decorations": ["Gifts, Gadgets & Toys > Gifts > Decorations"],
-    "Collectables": ["Gifts, Gadgets & Toys > Gifts > Collectibles"]
+    "Collectables": ["Gifts, Gadgets & Toys > Gifts > Collectibles"],
+    "Gifts & Kits": ["Gifts & Kits >"]
   },
   "💄 Health & Beauty": {
-    "Womens’ Personal Care": [],
+    "All Womens": ["Bath & Body", "Tea Tree & Aloe > Body", "Makeup", "Make-up", "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling", "Beauty, Hair care", "Women > Personal care > Hair care & styling >", 
+                  "Nail Care", "Beauty, Perfumes and fragrances", "Beauty, Shaving and hair removal", "Skin Care",
+      "Skincare",
+      "Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >"],
     "Bath & Body": ["Bath & Body", "Tea Tree & Aloe > Body"],
     "Makeup": ["Makeup", "Make-up"],
     "Hair Care": [
@@ -126,9 +130,9 @@ window.categoryKeywords = {
   "💻 Tech": {
     "Mobile Phones": ["Mobile Phones > Android Phones", "Mobile Phones > Windows Phones", "Mobile Phones > iPhones"],
     "Phone & Tablet Accessories": ["Electronics & accessories > Accessories for phones and tablets"],
-    "Home Audio & Speakers": ["Home Audio & Speakers"],
+    "Audio & Speakers": ["Home Audio & Speakers", "stage & studio equipment>"],
     "Media Players": ["Media Players"],
-    "Televisions & Accessories": ["Televisions & Accessories", "3D TV"],
+    "Televisions & Accessories": ["Televisions & Accessories", "3D TV", "Default Category>Monitor & TV"],
     "Video Components": ["Video Components"],
     "Cameras & Camcorders": ["Cameras & Camcorders"],
     "Security & Automation": ["Security & Automation"],
@@ -138,9 +142,10 @@ window.categoryKeywords = {
       "Household > Cables",
       "Household > Deals",
       "Household > Home Security",
-      "Microphones & Headphones"
+      "Microphones & Headphones", "Default Category>Peripherals>Keyboards", "Default Category>Peripherals>Mouses"
     ],
-    "Laptops": ["Laptops"]
+    "Laptops": ["Laptops", "Default Category>PC Components"],
+    "Other": ["Default Category>Networking", "Default Category>Peripherals>Industrial", "Default Category>Peripherals>Input Devices", "Electronics & accessories >", "Electronics >", "Fans & Heaters >"]
   },
   "🏠 Household": {
     "Cleaning Supplies": ["Cleaning Supplies", "Household > Cleaning"],
@@ -157,14 +162,15 @@ window.categoryKeywords = {
     "Hardware": ["DIY And Hardware", "Household & Hardware"],
     "Paints, Tools & Wall Treatments": ["Paints, tools and wall treatments", "Paints & Varnishes >"],
     "Decorating & Tiling Tools": ["Decorating & Tiling Tools"],
-    "Construction Supplies": ["Construction Supplies"],
-    "Electrical Supplies": ["Electrical Supplies"],
-    "Hand Tools": ["Hand Tools", "Power Tools >"],
+    "Construction Supplies": ["Construction Supplies", "DIY and tools, Building supplies"],
+    "Electrical Supplies": ["Electrical Supplies", "DIY and tools, Electrical wiring", "Default Category>Power Conditioning>", "Electrical >"],
+    "Hand Tools": ["Hand Tools", "Power Tools >", "DIY and tools, Manual and electric tools"],
     "Ladders & Sack Trucks": ["Ladders & Sack Trucks"],
     "Lighting & Torches": ["Lighting & Torches"],
     "Machinery": ["Machinery >"],
     "Measuring Tools": ["Measuring Tools >"],
-    "Plumbing Tools": ["Plumbing Tools >"]
+    "Plumbing Tools": ["Plumbing Tools >", "DIY and tools, Plumbing accessories and tools"],
+    "Other": ["Fixings & Fasteners >"]
   },
   "🪺 Interior Decorating": {
     "Furniture": ["Furniture > Tables"],
@@ -174,8 +180,9 @@ window.categoryKeywords = {
     "Bathroom": ["Bathroom Accessories"]
   },
   "🌳 Garden": {
-    "Garden Tools": ["Garden Tools", "Deals > Tools and garden appliances"],
-    "Barbecuing": ["Outdoor > Barbecues"]
+    "Garden Tools": ["Garden Tools", "Deals > Tools and garden appliances", "DIY and tools, Lawnmowers and outdoor electric tools"],
+    "Barbecuing": ["Outdoor > Barbecues"],
+    "Garden Games": ["Garden Games >"]
   },
   "🚗 Automotive": {
     "Battery Care & Chargers": ["Battery Care & Chargers"],
@@ -194,12 +201,13 @@ window.categoryKeywords = {
   "🏍 Motorcycles": {
     "Womens Motorcycle Clothing": ["Motorcycle Clothing > Ladies"],
     "Mens Motorcycle Clothing": ["Motorcycle Clothing > Mens"],
-    "Helmets": ["Motorcycle Helmets"]
+    "Helmets": ["Motorcycle Helmets"],
+    "Accessories & Repair": ["Cycle & Motorcycle > Motorcycle >"]
   },
   "🏅 Sports & Outdoors": {
-    "Cycling": ["Bike/APPAREL"],
+    "Cycling": ["Bike/APPAREL", "Cycle & Motorcycle > Cycle", "Bike/ACCESSORIES", "Bike/COMPONENTS", "Bike/MAINTANENCE", "Bike/TOURING", "Default/Bike"],
     "Basketball": ["Basketball Gear"],
-    "Football": ["Folding Football Goals"],
+    "Football": ["Folding Football Goals", "Football"],
     "Swimming & Watersports": [
       "Outdoor > Swimming Pools",
       "Outdoor > Inflatable Kayaks",
@@ -207,22 +215,30 @@ window.categoryKeywords = {
       "Outdoor > Inflatable Stand Up Paddle Boards"
     ],
     "Golf": ["Golf"],
-    "Fitness": ["Heart Rate Monitor", "Medicine Balls", "Ab Belts", "Ab Benches", "Ab Crunchers", "Ab Exercisers", "Ab Straps", "Ab Wheels", "Default/Run/APPAREL", "Default/Run/EQUIPMENT", "Exercise Bikes", "Exercise Mats"],
+    "Fitness": ["Heart Rate Monitor", "Medicine Balls", "Ab Belts", "Ab Benches", "Ab Crunchers", "Ab Exercisers", "Ab Straps", "Ab Wheels", "Default/Run/APPAREL", "Default/Run/EQUIPMENT", "Exercise Bikes", "Exercise Mats", "Fitness >", "Fitness Equipment >"],
     "Ski & Wintersports": ["WINTERSPORTS"]
   },
   "🎨 Arts & Crafts": {
-    "Crafts & Sewing": ["Crafts & Sewing"],
+    "Crafts & Sewing": ["crafts & sewing"],
+    "Stationery": ["Default Category>Peripherals>Office Supply>stationery & office supplies>"]
     "Martha Stewart Crafts": ["Martha Stewart Crafts"],
     "Marianne Design": ["Marianne Design"],
     "Pens & Pencils": ["Marabu"],
     "Mediums & Finishes": ["Mediums & Finishes"]
   },
+  "🏢 Business": {
+    "Presentations": ["Default Category>Peripherals>Office Supply>Presentation Supplies"],
+    "Stationery & Office Supplies": ["Default Category>Peripherals>Office Supply>stationery & office supplies>"],
+    "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>"],
+    "Office Furniture": ["Default Category>Peripherals>Office Supply>Office Furniture"],
+    "Shipping & Moving": ["Default Category>Peripherals>Office Supply>shipping & moving supplies"]
+},
   "🌍 Travel": {
     "London Day Out": ["London"],
-    "Luggage & Bags": [
+    "Luggage & Travel Gear": [
       "Luggage & Bags > Backpacks",
       "Luggage & Bags > Duffel Bags",
-      "Luggage & Bags > Cosmetic & Toiletry Bags"
+      "Luggage & Bags > Cosmetic & Toiletry Bags", "Default Category>Bags> Luggage & Travel Gear"
     ],
     "Kids Travel Bottles": ["Men > Women > Children > Baby & children products > Training & fitness"],
     "Travel Accessories": ["Travel accessories"]
