@@ -240,56 +240,6 @@ body {
     </button>
 </div>
 
-<!-- Account Modal -->
-<div id="accountModal" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
-
-    <!-- Login Form -->
-    <div id="loginForm" style="display: block;">
-      <h2>Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <div class="password-field">
-          <input type="password" id="loginPassword" placeholder="Password">
-          <span id="toggleLoginPassword" class="toggle-icon" onclick="togglePasswordVisibility('loginPassword', 'toggleLoginPassword')">👁️‍🗨️</span>
-      </div>
-      <button id="loginButton" type="button" onclick="login()">Login</button>
-  <div id="loginFormToggle">
-    <button id="signupToggleBtn" onclick="showSignUpForm()">Sign Up</button>
-  </div>
-</div>
-
-<!-- Signup Form (INSIDE MODAL CONTENT) -->
-<div id="signupForm" style="display: none;">
-  <h2>Sign Up</h2>
-
-   <input type="text" id="signupName" placeholder="Name">
-  <input type="email" id="signupEmail" placeholder="Email">
-
-  <div class="password-field">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <!-- Toggle password visibility for signup -->
-    <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁️‍🗨</span>
-  </div>
-
-  <div class="password-field">
-    <input type="password" id="confirmPassword" placeholder="Confirm Password">
-    <!-- Toggle password visibility for confirm password -->
-    <span id="toggleConfirmPassword" class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁‍🗨</span>
-  </div>
-
-  <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
-
-  <div id="signupFormToggle">
-    <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
-  </div>
-</div>
-
-    <!-- Logout Button -->
-    <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
-  </div>
-</div>
-
   <script type="module" src="https://js.stripe.com/v3/"></script>
   <script type="module" src="index.js"></script>
   <script src="gifts/globals.js"></script>
