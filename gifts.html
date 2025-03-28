@@ -154,22 +154,27 @@ const categoryKeywords = {
   "🎁 Gifting": {
     "Gifts For Him": [
       "Men > Gaveæsker",
-      "Men > Personal Care > Fragrances > Eau de parfum > Gift sets >"
-    ]
+      "Men > Personal Care > Fragrances > Eau de parfum > Gift sets >", "Alcoholic Drinks"
+    ],
+    "Gifts For Her": ["Gifts & Kits > Body > All Products > Nature’s Spa Bath and Body Collection", "Alcoholic Drinks"],
+    "Gift Bags": ["Gifts & Kits > All Products > Gift Bags"],
+    "Decorations": ["Gifts, Gadgets & Toys > Gifts > Decorations"],
+    "Collectables": ["Gifts, Gadgets & Toys > Gifts > Collectibles"]
   },
   "💄 Health & Beauty": {
     "Womens’ Personal Care": [],
-    "Bath & Body": ["Bath & Body"],
+    "Bath & Body": ["Bath & Body", "Tea Tree & Aloe > Body"],
     "Makeup": ["Makeup", "Make-up"],
     "Hair Care": [
-      "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling"
+      "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling", "Beauty, Hair care", "Women > Personal care > Hair care & styling >"
     ],
     "Nail Care": ["Nail Care"],
-    "Perfume": [],
+    "Perfume": ["Beauty, Perfumes and fragrances"],
+    "Shaving & Hair Removal": ["Beauty, Shaving and hair removal"],
     "Skin Care": [
       "Skin Care",
       "Skincare",
-      "Men > Women > Personal care > Personal Care > Face & skin care"
+      "Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >"
     ],
     "Mens’ Personal Care": [],
     "Shaving & Grooming": [
@@ -200,7 +205,7 @@ const categoryKeywords = {
       "Men > Accessories > Wristwatches",
       "Men > Analog watches"
     ],
-    "Shoes": [],
+    "Shoes": ["Shoes > Men >"],
     "Sunglasses": ["Men > Accessories > Sunglasses >"],
     "Accessories": ["Men’s Accessories"],
     "Deals": [
@@ -218,16 +223,21 @@ const categoryKeywords = {
       "Men > Women > Accessories > Wristwatches",
       "Men > Women > Electronics & accessories"
     ],
+      "Unisex Shoes": ["Shoes > Men > Women >"]
     "Womens": [],
+    "Shoes": ["Shoes > Women >"],
     "Boys": [],
+    "Shoes": ["Shoes > Boys >"],
     "Girls": [],
+    "Shoes": ["Shoes > Girls >"],
     "Children Wristwatches": ["Men > Women > Children > Accessories > Baby & children products"]
   },
   "💍 Jewellery": {},
   
   "🧒 Children & Baby": {
-    "Games, Puzzles & Learning": ["Games, Puzzles & Learning"],
-    "Entertainment": ["Kids Audio Players"]
+    "Games, Puzzles & Learning": ["Games, Puzzles & Learning", "Children > Baby & children products > Activities & play time >"],
+    "Entertainment": ["Kids Audio Players"],
+    "Bathroom & Care": ["Children > Baby & children products > Bathroom & care", "Children > Baby & children products > Dental care", "Children > Baby & children products > Hygiene", "Baby Bathtime"]
   },
   "🍽 Cooking & Kitchen": {
     "Tableware": ["Tableware", "Kitchen > Tableware & cutlery trays"],
@@ -253,13 +263,14 @@ const categoryKeywords = {
     "Multi-Game Tables": ["Air Hockey Tables", "Multi-Game Tables", "Pool Tables", "Table Football", "Table Tennis"]
   },
   "🐾 Pets": {
-    "Pet Accessories": ["Household > Deals > Pet accessories"]
+    "Pet Accessories": ["Household > Deals > Pet accessories", "Home > Household > Pet accessories >"]
   },
   "💻 Tech": {
     "Mobile Phones": ["Mobile Phones > Android Phones", "Mobile Phones > Windows Phones", "Mobile Phones > iPhones"],
+    "Phone & Tablet Accessories": ["Electronics & accessories > Accessories for phones and tablets"]
     "Home Audio & Speakers": ["Home Audio & Speakers"],
     "Media Players": ["Media Players"],
-    "Televisions & Accessories": ["Televisions & Accessories"],
+    "Televisions & Accessories": ["Televisions & Accessories", "3D TV"],
     "Video Components": ["Video Components"],
     "Cameras & Camcorders": ["Cameras & Camcorders"],
     "Security & Automation": ["Security & Automation"],
@@ -276,28 +287,30 @@ const categoryKeywords = {
   "🏠 Household": {
     "Cleaning Supplies": ["Cleaning Supplies", "Household > Cleaning"],
     "Laundry": ["Laundry", "Household > Clean, iron & dry"],
+    "Essential Oils": ["Essential Oils > All Products > Blending", "Gifts & Kits > Essential Oils > All Products"]
     "Home Security": ["Household > Home Security", "Home Security > Alarms"],
     "Car & Bike": ["Household > Car & bike"],
     "Toilet & Bathroom": ["Household > toilet and bathroom"],
     "Vacuum Cleaners": ["Household > Vacuum cleaners"]
   },
   "🚠 DIY & Renovations": {
-    "Adhesives, Sealants & Fillers": [],
-    "Air Tools & Compressors": [],
+    "Adhesives, Sealants & Fillers": ["Adhesives, Sealants & Fillers"],
+    "Air Tools & Compressors": ["Air Tools & Compressors"],
     "Hardware": ["DIY And Hardware", "Household & Hardware"],
-    "Paints, Tools & Wall Treatments": ["Paints, tools and wall treatments"],
+    "Paints, Tools & Wall Treatments": ["Paints, tools and wall treatments", "Paints & Varnishes >"],
     "Decorating & Tiling Tools": ["Decorating & Tiling Tools"],
     "Construction Supplies": ["Construction Supplies"],
     "Electrical Supplies": ["Electrical Supplies"],
-    "Hand Tools": ["Hand Tools"],
+    "Hand Tools": ["Hand Tools", "Power Tools >"],
     "Ladders & Sack Trucks": ["Ladders & Sack Trucks"],
     "Lighting & Torches": ["Lighting & Torches"],
     "Machinery": ["Machinery >"],
-    "Measuring Tools": ["Measuring Tools >"]
+    "Measuring Tools": ["Measuring Tools >"],
+    "Plumbing Tools": ["Plumbing Tools >"]
   },
   "🪺 Interior Decorating": {
     "Furniture": ["Furniture > Tables"],
-    "Home Accessories": ["Home Accessories"],
+    "Home Accessories": ["Home Accessories", "Home & Garden > Decor"],
     "Heating": ["Heating Radiators"],
     "Lighting": ["Home & Garden > Lighting"],
     "Bathroom": ["Bathroom Accessories"]
@@ -336,7 +349,8 @@ const categoryKeywords = {
       "Outdoor > Inflatable Stand Up Paddle Boards"
     ],
     "Golf": ["Golf"],
-    "Fitness": ["Heart Rate Monitor", "Medicine Balls"]
+    "Fitness": ["Heart Rate Monitor", "Medicine Balls", "Ab Belts", "Ab Benches", "Ab Crunchers", "Ab Exercisers", "Ab Straps", "Ab Wheels", "Default/Run/APPAREL", "Default/Run/EQUIPMENT", "Exercise Bikes", "Exercise Mats"],
+    "Ski & Wintersports: ["SKI/WINTERSPORTS"]
   },
   "🎨 Arts & Crafts": {
     "Crafts & Sewing": ["Crafts & Sewing"],
@@ -345,7 +359,7 @@ const categoryKeywords = {
     "Pens & Pencils": ["Marabu"],
     "Mediums & Finishes": ["Mediums & Finishes"]
   },
-  "🌍 Adventures": {
+  "🌍 Travel": {
     "London Day Out": ["London"],
     "Luggage & Bags": [
       "Luggage & Bags > Backpacks",
