@@ -6,9 +6,10 @@
   <title>Your Gift List | PresentPal</title>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
-  
-<style>
-   font-family: Arial, sans-serif;
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
       padding: 20px;
       background: #f9f9f9;
       color: #333;
@@ -117,167 +118,331 @@
 
   <div class="filter-bar">
     <input type="text" id="searchInput" placeholder="Search products..." />
-    <select id="merchantFilter">
-      <option value="">Filter by Merchant</option>
-    </select>
     <select id="categoryFilter">
       <option value="">Filter by Category</option>
     </select>
   </div>
 
-  <div id="spinner" style="display: none; font-weight: bold; margin: 20px;">Loading products...</div>
   <div id="productContainer"></div>
   <div class="pagination" id="paginationControls"></div>
 
-  <script>
-    let allProducts = [];
-    let filteredProducts = [];
-    let currentPage = 1;
-    const itemsPerPage = 24;
+<script>
+let allProducts = [];
+let filteredProducts = [];
+let currentPage = 1;
+const itemsPerPage = 24;
 
-    async function fetchProducts(page = 1) {
-      const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        allProducts = data.filter(p => p.image && p.link);
-        populateFilters();
-        applyFilters();
-      } catch (err) {
-        console.error("❌ Failed to fetch products:", err);
-        alert("Failed to load product data.");
-      }
-    }
+const categoryKeywords = {
+  const categoryKeywords = {
+  "🎉 Special Occasions": {
+    "Mothers Day": ["Mothers Day"],
+    "Mummy to be": ["Mummy to be"],
+    "Valentine’s": ["Valentine’s Day"],
+    "Weddings": ["Wedding"],
+    "Birthday": ["Birthday"],
+    "Halloween": ["Halloween"],
+    "Easter": ["Easter"],
+    "Christmas": ["Christmas"]
+  },
+  "🎁 Gifting": {
+    "Gifts For Him": [
+      "Men > Gaveæsker",
+      "Men > Personal Care > Fragrances > Eau de parfum > Gift sets >"
+    ]
+  },
+  "💄 Health & Beauty": {
+    "Womens’ Personal Care": [],
+    "Bath & Body": ["Bath & Body"],
+    "Makeup": ["Makeup", "Make-up"],
+    "Hair Care": [
+      "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling"
+    ],
+    "Nail Care": ["Nail Care"],
+    "Perfume": [],
+    "Skin Care": [
+      "Skin Care",
+      "Skincare",
+      "Men > Women > Personal care > Personal Care > Face & skin care"
+    ],
+    "Mens’ Personal Care": [],
+    "Shaving & Grooming": [
+      "Shaving & Grooming",
+      "Men > Personal Care > Shaving & hair-cutting >"
+    ],
+    "Body Wash & Shower Gel": ["Men > Personal Care > Hygiene"],
+    "Hair Care (Men)": [
+      "Men > Personal Care > Hair care",
+      "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling"
+    ],
+    "Mens Fragrances": ["Men > Personal Care > Fragrances"],
+    "Skin Care (Men)": [
+      "Men > Personal Care > Skin care",
+      "Men > Women > Personal care > Personal Care > Face & skin care"
+    ],
+    "Intimate": ["Men > Personal Care > Intimate"],
+    "Oral Care": ["Oral Care", "Men > Personal Care > Mouth hygiene"],
+    "Hygiene": ["Men > Women > Personal care", "Personal Care > Hygiene"],
+    "Manicure & Pedicure": ["Manicure & pedicure >"],
+    "Massage": ["Massage >"]
+  },
+  "👕 Clothing & Accessories": {
+    "Mens": [],
+    "Wristwatches": [
+      "Men > Accessories > Analog Watches > Wristwatches",
+      "Men > Accessories > Sports Watches",
+      "Men > Accessories > Wristwatches",
+      "Men > Analog watches"
+    ],
+    "Shoes": [],
+    "Sunglasses": ["Men > Accessories > Sunglasses >"],
+    "Accessories": ["Men’s Accessories"],
+    "Deals": [
+      "Men > Accessories > Deals",
+      "Men > Personal Care > Deals"
+    ],
+    "Unisex": [],
+    "Unisex Sunglasses": ["Men > Women > Accessories > Accessories > Sunglasses > Sunglasses >"],
+    "Unisex Wristwatches": [
+      "Men > Women > Accessories > Accessories > Wristwatches > Wristwatches > Accessories > Accessories >",
+      "Men > Women > Accessories > Accessories > Wristwatches > Wristwatches > Digital watches",
+      "Men > Women > Accessories > Analog Watches",
+      "Men > Women > Accessories > Sport watches",
+      "Men > Women > Accessories > Training & fitness",
+      "Men > Women > Accessories > Wristwatches",
+      "Men > Women > Electronics & accessories"
+    ],
+    "Womens": [],
+    "Boys": [],
+    "Girls": [],
+    "Children Wristwatches": ["Men > Women > Children > Accessories > Baby & children products"]
+  },
+  "💍 Jewellery": {},
+    {
+  "🧒 Children & Baby": {
+    "Games, Puzzles & Learning": ["Games, Puzzles & Learning"],
+    "Entertainment": ["Kids Audio Players"]
+  },
+  "🍽 Cooking & Kitchen": {
+    "Tableware": ["Tableware", "Kitchen > Tableware & cutlery trays"],
+    "Coffee & Tea": ["Home > Coffee & tea"],
+    "Grill & Accessories": ["Kitchen > Grill & accessories"],
+    "Knives & Accessories": ["Kitchen > Knives & accessories"],
+    "Pans & Skillets": ["Kitchen > Pans & skillets"],
+    "Appliances": ["Kitchen > Kitchen appliances", "Kitchen > Kitchen scales"],
+    "Wine & Cocktails": ["Kitchen > Wine & cocktail"],
+    "Deals": ["Kitchen > Deals"]
+  },
+  "🍷 Vintage Wines": {},
+  "🎮 Games": {
+    "Consoles": ["Consoles"],
+    "PlayStation": ["Playstation"],
+    "Xbox": ["Xbox"],
+    "PC Gaming": ["PC Gaming"],
+    "Nintendo": ["Nintendo"],
+    "Portable Gaming": ["Portable Gaming"],
+    "Retro Gaming": ["Retro Gaming"],
+    "Gaming Accessories": ["Console Accessories"],
+    "Board & Desktop Games": ["board & desktop games"],
+    "Multi-Game Tables": ["Air Hockey Tables", "Multi-Game Tables", "Pool Tables", "Table Football", "Table Tennis"]
+  },
+  "🐾 Pets": {
+    "Pet Accessories": ["Household > Deals > Pet accessories"]
+  },
+  "💻 Tech": {
+    "Mobile Phones": ["Mobile Phones > Android Phones", "Mobile Phones > Windows Phones", "Mobile Phones > iPhones"],
+    "Home Audio & Speakers": ["Home Audio & Speakers"],
+    "Media Players": ["Media Players"],
+    "Televisions & Accessories": ["Televisions & Accessories"],
+    "Video Components": ["Video Components"],
+    "Cameras & Camcorders": ["Cameras & Camcorders"],
+    "Security & Automation": ["Security & Automation"],
+    "Electronic Accessories": [
+      "Computer Spare Parts",
+      "Electronics & accessories > accessories for phones and tablets",
+      "Household > Cables",
+      "Household > Deals",
+      "Household > Home Security",
+      "Microphones & Headphones"
+    ],
+    "Laptops": ["Laptops"]
+  },
+  "🏠 Household": {
+    "Cleaning Supplies": ["Cleaning Supplies", "Household > Cleaning"],
+    "Laundry": ["Laundry", "Household > Clean, iron & dry"],
+    "Home Security": ["Household > Home Security", "Home Security > Alarms"],
+    "Car & Bike": ["Household > Car & bike"],
+    "Toilet & Bathroom": ["Household > toilet and bathroom"],
+    "Vacuum Cleaners": ["Household > Vacuum cleaners"]
+  },
+  "🚠 DIY & Renovations": {
+    "Adhesives, Sealants & Fillers": [],
+    "Air Tools & Compressors": [],
+    "Hardware": ["DIY And Hardware", "Household & Hardware"],
+    "Paints, Tools & Wall Treatments": ["Paints, tools and wall treatments"],
+    "Decorating & Tiling Tools": ["Decorating & Tiling Tools"],
+    "Construction Supplies": ["Construction Supplies"],
+    "Electrical Supplies": ["Electrical Supplies"],
+    "Hand Tools": ["Hand Tools"],
+    "Ladders & Sack Trucks": ["Ladders & Sack Trucks"],
+    "Lighting & Torches": ["Lighting & Torches"],
+    "Machinery": ["Machinery >"],
+    "Measuring Tools": ["Measuring Tools >"]
+  },
+  "🪺 Interior Decorating": {
+    "Furniture": ["Furniture > Tables"],
+    "Home Accessories": ["Home Accessories"],
+    "Heating": ["Heating Radiators"],
+    "Lighting": ["Home & Garden > Lighting"],
+    "Bathroom": ["Bathroom Accessories"]
+  },
+  "🌳 Garden": {
+    "Garden Tools": ["Garden Tools", "Deals > Tools and garden appliances"],
+    "Barbecuing": ["Outdoor > Barbecues"]
+  },
+  "🚗 Automotive": {
+    "Battery Care & Chargers": ["Battery Care & Chargers"],
+    "Bodywork & Windscreen": ["Bodywork & Windscreen"],
+    "Car Care & Car Cleaning": ["Car Care & Car Cleaning"],
+    "Clips, O Rings, Pins & Springs": ["Clips, O Rings, Pins & Springs"],
+    "Diagnostic & Electrics": ["Diagnostic & Electrics"],
+    "Fluid Transfer": ["Fluid Transfer"],
+    "Garage & Workshop": ["Garage & Workshop"],
+    "Jacks, Lifting Gear & Stands": ["Jacks, Lifting Gear & Stands"],
+    "Lubrication & Drainage": ["Lubrication & Drainage"],
+    "Luggage, Recovery & Towing": ["Luggage, Recovery & Towing"],
+    "Tarpaulins & Covers": ["Tarpaulins & Covers"],
+    "Vehicle Repairs & Servicing": ["Vehicle Repairs & Servicing"]
+  },
+  "🏍 Motorcycles": {
+    "Womens Motorcycle Clothing": ["Motorcycle Clothing > Ladies"],
+    "Mens Motorcycle Clothing": ["Motorcycle Clothing > Mens"],
+    "Helmets": ["Motorcycle Helmets"]
+  },
+  "🏅 Sports & Outdoors": {
+    "Cycling": ["Bike/APPAREL"],
+    "Basketball": ["Basketball Gear"],
+    "Football": ["Folding Football Goals"],
+    "Swimming & Watersports": [
+      "Outdoor > Swimming Pools",
+      "Outdoor > Inflatable Kayaks",
+      "Outdoor > Inflatable Loungers",
+      "Outdoor > Inflatable Stand Up Paddle Boards"
+    ],
+    "Golf": ["Golf"],
+    "Fitness": ["Heart Rate Monitor", "Medicine Balls"]
+  },
+  "🎨 Arts & Crafts": {
+    "Crafts & Sewing": ["Crafts & Sewing"],
+    "Martha Stewart Crafts": ["Martha Stewart Crafts"],
+    "Marianne Design": ["Marianne Design"],
+    "Pens & Pencils": ["Marabu"],
+    "Mediums & Finishes": ["Mediums & Finishes"]
+  },
+  "🌍 Adventures": {
+    "London Day Out": ["London"],
+    "Luggage & Bags": [
+      "Luggage & Bags > Backpacks",
+      "Luggage & Bags > Duffel Bags",
+      "Luggage & Bags > Cosmetic & Toiletry Bags"
+    ],
+    "Kids Travel Bottles": ["Men > Women > Children > Baby & children products > Training & fitness"],
+    "Travel Accessories": ["Travel accessories"]
+  }
+};
 
-    function populateFilters() {
-      const merchantFilter = document.getElementById("merchantFilter");
-      const categoryFilter = document.getElementById("categoryFilter");
+function fetchProducts(page = 1) {
+  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${itemsPerPage}`;
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      allProducts = data;
+      populateCategoryDropdown();
+      applyFilters();
+    })
+    .catch(err => console.error("Error fetching products:", err));
+}
 
-      const merchants = [...new Set(allProducts.map(p => p.merchant))].sort();
-      const categories = [...new Set(allProducts.map(p => p.category))].sort();
+function populateCategoryDropdown() {
+  const select = document.getElementById("categoryFilter");
+  select.innerHTML = '<option value="">Filter by Category</option>';
+  Object.entries(categoryKeywords).forEach(([main, subs]) => {
+    const optGroup = document.createElement("optgroup");
+    optGroup.label = main;
+    Object.entries(subs).forEach(([sub, keywords]) => {
+      const opt = document.createElement("option");
+      opt.value = keywords[0];
+      opt.textContent = sub;
+      optGroup.appendChild(opt);
+    });
+    select.appendChild(optGroup);
+  });
+}
 
-      merchants.forEach(name => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        merchantFilter.appendChild(opt);
-      });
+function applyFilters() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  const selectedCategory = document.getElementById("categoryFilter").value;
 
-      categories.forEach(name => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        categoryFilter.appendChild(opt);
-      });
-    }
+  filteredProducts = allProducts.filter(p => {
+    const text = `${p.name} ${p.category}`;
+    const matchKeyword = !keyword || text.toLowerCase().includes(keyword);
+    const matchCategory = !selectedCategory || text.includes(selectedCategory);
+    return matchKeyword && matchCategory;
+  });
 
-    function applyFilters() {
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const merchant = document.getElementById("merchantFilter").value;
-      const category = document.getElementById("categoryFilter").value;
+  currentPage = 1;
+  displayProducts();
+  renderPagination();
+}
 
-      filteredProducts = allProducts.filter(p => {
-        const name = (p.name || "").toLowerCase();
-        const matchSearch = !search || name.includes(search);
-        const matchMerchant = !merchant || p.merchant === merchant;
-        const matchCategory = !category || p.category === category;
-        return matchSearch && matchMerchant && matchCategory;
-      });
+document.getElementById("searchInput").addEventListener("input", applyFilters);
+document.getElementById("categoryFilter").addEventListener("change", applyFilters);
 
-      currentPage = 1;
-      renderProducts();
-      renderPagination();
-    }
+function displayProducts() {
+  const container = document.getElementById("productContainer");
+  container.innerHTML = "";
+  const start = (currentPage - 1) * itemsPerPage;
+  const valid = filteredProducts.filter(p => p.image && p.link && p.image.startsWith("http") && p.link.startsWith("http"));
+  const pageProducts = valid.slice(start, start + itemsPerPage);
 
-    function renderProducts() {
-      const container = document.getElementById("productContainer");
-      const spinner = document.getElementById("spinner");
+  pageProducts.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "product";
 
-      spinner.style.display = "block";
-      container.classList.remove("fade-in");
-      container.classList.add("fade-out");
+    const img = document.createElement("img");
+    img.src = p.image;
+    img.alt = p.name;
+    img.onerror = () => div.remove();
 
-      setTimeout(() => {
-        container.innerHTML = "";
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const pageProducts = filteredProducts.slice(start, end);
+    const title = document.createElement("h3");
+    title.textContent = p.name;
 
-        pageProducts.forEach(p => {
-          const div = document.createElement("div");
-          div.className = "product";
-          div.innerHTML = `
-            <a href="${p.link}" target="_blank" class="image-link">
-              <img src="${p.image}" alt="${p.name}" onerror="this.closest('.product').remove();" />
-            </a>
-            <a href="${p.link}" target="_blank" class="title-link"><h3>${p.name}</h3></a>
-            <a href="${p.link}" target="_blank">View Product</a>
-          `;
-          container.appendChild(div);
-        });
+    const link = document.createElement("a");
+    link.href = p.link;
+    link.target = "_blank";
+    link.textContent = "View Product";
 
-        spinner.style.display = "none";
-        container.classList.remove("fade-out");
-        container.classList.add("fade-in");
-      }, 200);
-    }
+    div.appendChild(img);
+    div.appendChild(title);
+    div.appendChild(link);
+    container.appendChild(div);
+  });
+}
 
-    function renderPagination() {
-      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-      const pagination = document.getElementById("paginationControls");
-      pagination.innerHTML = "";
+function renderPagination() {
+  const pagination = document.getElementById("paginationControls");
+  pagination.innerHTML = "";
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-      const addBtn = (num) => {
-        const btn = document.createElement("button");
-        btn.textContent = num;
-        if (num === currentPage) btn.classList.add("active");
-        btn.onclick = () => {
-          currentPage = num;
-          renderProducts();
-          renderPagination();
-        };
-        pagination.appendChild(btn);
-      };
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    if (i === currentPage) btn.className = "active";
+    btn.onclick = () => { currentPage = i; displayProducts(); renderPagination(); };
+    pagination.appendChild(btn);
+  }
+}
 
-      const prev = document.createElement("button");
-      prev.textContent = "Previous";
-      prev.disabled = currentPage === 1;
-      prev.onclick = () => {
-        currentPage--;
-        renderProducts();
-        renderPagination();
-      };
-      pagination.appendChild(prev);
-
-      for (let i = 1; i <= totalPages; i++) {
-        if (i <= 2 || i > totalPages - 2 || Math.abs(currentPage - i) <= 2) {
-          addBtn(i);
-        } else if (
-          (i === 3 && currentPage > 5) ||
-          (i === totalPages - 2 && currentPage < totalPages - 4)
-        ) {
-          const dots = document.createElement("span");
-          dots.textContent = "...";
-          pagination.appendChild(dots);
-        }
-      }
-
-      const next = document.createElement("button");
-      next.textContent = "Next";
-      next.disabled = currentPage === totalPages;
-      next.onclick = () => {
-        currentPage++;
-        renderProducts();
-        renderPagination();
-      };
-      pagination.appendChild(next);
-    }
-
-    document.getElementById("searchInput").addEventListener("input", applyFilters);
-    document.getElementById("merchantFilter").addEventListener("change", applyFilters);
-    document.getElementById("categoryFilter").addEventListener("change", applyFilters);
-
-    fetchProducts();
-  </script>
+fetchProducts();
+</script>
 </body>
 </html>
