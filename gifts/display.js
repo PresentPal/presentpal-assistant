@@ -1,4 +1,4 @@
-window.displayProducts = function () {
+function displayProducts() {
   const container = document.getElementById("productContainer");
   container.innerHTML = "";
 
@@ -29,3 +29,5 @@ window.displayProducts = function () {
     container.appendChild(div);
   });
 }
+
+window.displayProducts = displayProducts;
