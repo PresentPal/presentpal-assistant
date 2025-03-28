@@ -1,4 +1,4 @@
-function categoryKeywords = {
+window.categoryKeywords = {
   "🎉 Special Occasions": {
     "Mothers Day": ["Mothers Day"],
     "Mummy to be": ["Mummy to be"],
@@ -229,4 +229,3 @@ function categoryKeywords = {
   }
 };
 
-window.categoryKeywords = categoryKeywords;
