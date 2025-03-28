@@ -1,4 +1,4 @@
-window.renderPagination = function () {
+function renderPagination() {
   const pagination = document.getElementById("paginationControls");
   pagination.innerHTML = "";
 
@@ -53,3 +53,5 @@ window.renderPagination = function () {
 }
 
 fetchProducts();
+
+window.renderPagination = renderPagination;
