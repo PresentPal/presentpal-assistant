@@ -220,7 +220,7 @@ window.categoryKeywords = {
   },
   "🎨 Arts & Crafts": {
     "Crafts & Sewing": ["crafts & sewing"],
-    "Stationery": ["Default Category>Peripherals>Office Supply>stationery & office supplies>"]
+    "Stationery": ["Default Category>Peripherals>Office Supply>stationery & office supplies>"],
     "Martha Stewart Crafts": ["Martha Stewart Crafts"],
     "Marianne Design": ["Marianne Design"],
     "Pens & Pencils": ["Marabu"],
