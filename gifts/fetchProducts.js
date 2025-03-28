@@ -1,5 +1,5 @@
 function fetchProducts(page = 1) {
-  const url = `https://.../products.json?page=${page}&limit=${window.itemsPerPage}`;
+  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${window.itemsPerPage}`;
   fetch(url)
     .then(res => res.json())
     .then(data => {
