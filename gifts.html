@@ -122,6 +122,12 @@
       <option value="">Filter by Category</option>
     </select>
   </div>
+  
+<div style="margin-bottom: 20px;">
+  <button id="downloadBrokenBtn" style="padding: 10px 16px; background-color: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    📦 Download Broken Products
+  </button>
+</div>
 
   <button id="downloadUnmapped" style="margin: 30px; padding: 10px;">📥 Download Unmapped Categories</button>
 
@@ -433,8 +439,8 @@ function displayProducts() {
     img.src = p.image;
     img.alt = p.name;
     img.onerror = function () {
-      div.remove(); // Remove product if image fails
-    };
+  handleImageError(p, this); // Logs and removes
+};
 
     const title = document.createElement("h3");
     title.textContent = p.name;
@@ -536,6 +542,33 @@ fetchProducts();
   link.href = URL.createObjectURL(blob);
   link.download = "unmapped_categories.txt";
   link.click();
+});
+
+  let brokenProducts = [];
+
+function handleImageError(product, element) {
+  // Prevent duplicates
+  if (!brokenProducts.find(p => p.name === product.name)) {
+    brokenProducts.push(product);
+  }
+  element.closest(".product").remove();
+}
+
+function downloadBrokenProducts() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(brokenProducts, null, 2));
+  const a = document.createElement('a');
+  a.setAttribute("href", dataStr);
+  a.setAttribute("download", "broken-products.json");
+  a.click();
+}
+
+// Add download button
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.createElement("button");
+  btn.textContent = "📦 Download Broken Products";
+  btn.style.cssText = "margin: 20px auto; display: block; padding: 10px 15px; background-color: crimson; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;";
+  btn.onclick = downloadBrokenProducts;
+  document.body.insertBefore(btn, document.getElementById("productContainer"));
 });
 </script>
 </body>
