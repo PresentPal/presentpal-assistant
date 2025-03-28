@@ -11,6 +11,3 @@ function fetchProducts(page = 1) {
 }
 
 window.fetchProducts = fetchProducts;
-
-console.log("✅ Products fetched:", data);
-console.log("Example product category:", data[0]?.category);
