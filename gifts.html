@@ -42,8 +42,9 @@
   }
 
   #productContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 16px;
     max-width: 540px;
     margin: 0 auto;
@@ -61,11 +62,14 @@
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     padding: 15px;
+    width: 250px;
+    height: 360px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
     box-sizing: border-box;
+    cursor: pointer;
   }
 
   .product img {
@@ -125,7 +129,7 @@
   }
 
   .pagination button {
-    background: #F69C73;
+    background: #181818;
     color: white;
     border: none;
     padding: 8px 14px;
@@ -136,7 +140,7 @@
 
   .pagination button:hover,
   .pagination button.active {
-    background-color: #d67c52;
+    background-color: black;
     font-weight: bold;
   }
 
