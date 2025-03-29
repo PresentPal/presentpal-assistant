@@ -7,6 +7,8 @@ function displayProducts() {
   pageProducts.forEach(p => {
     const div = document.createElement("div");
     div.className = "product";
+    div.style.cursor = "pointer";
+    div.onclick = () => window.open(p.link, "_blank");
 
     const img = document.createElement("img");
     img.src = p.image;
@@ -18,14 +20,13 @@ function displayProducts() {
     const title = document.createElement("h3");
     title.textContent = p.name;
 
-    const link = document.createElement("a");
-    link.href = p.link;
-    link.target = "_blank";
-    link.textContent = "View Product";
+    const price = document.createElement("p");
+    price.className = "price";
+    price.textContent = p.price || "";
 
     div.appendChild(img);
     div.appendChild(title);
-    div.appendChild(link);
+    div.appendChild(price);
     container.appendChild(div);
   });
 }
