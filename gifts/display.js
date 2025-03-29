@@ -22,7 +22,10 @@ function displayProducts() {
 
     const price = document.createElement("p");
     price.className = "price";
-    price.textContent = p.price || "";
+
+    if (p.price) {
+      price.textContent = p.price.replace(/^GBP/, "£");
+    }
 
     div.appendChild(img);
     div.appendChild(title);
