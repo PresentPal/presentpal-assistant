@@ -5,20 +5,18 @@ function paginateValidProducts() {
 
   const pageSize = window.itemsPerPage;
   const pages = [];
+  let page = [];
 
-  let currentPage = [];
-
-  valid.forEach(product => {
-    currentPage.push(product);
-    if (currentPage.length === pageSize) {
-      pages.push(currentPage);
-      currentPage = [];
+  for (const product of valid) {
+    page.push(product);
+    if (page.length === pageSize) {
+      pages.push(page);
+      page = [];
     }
-  });
+  }
 
-  // Push the final page if it has leftover products
-  if (currentPage.length) {
-    pages.push(currentPage);
+  if (page.length) {
+    pages.push(page); // final smaller page
   }
 
   window.paginatedProducts = pages;
