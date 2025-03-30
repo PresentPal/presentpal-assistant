@@ -10,7 +10,7 @@ function populateCategoryDropdown() {
     
     Object.entries(subs).forEach(([sub, keywords]) => {
       const opt = document.createElement("option");
-      opt.value = keywords[0];
+      opt.value = sub;
       opt.textContent = sub;
       optGroup.appendChild(opt);
     });
