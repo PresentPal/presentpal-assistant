@@ -16,13 +16,13 @@ function applyFilters() {
 
   let matchedKeywords = [];
 
-  Object.values(window.categoryKeywords).forEach(group => {
-    Object.entries(group).forEach(([label, keywords]) => {
-      if (label === selectedCategory) {
-        matchedKeywords = keywords;
-      }
-    });
+  Object.entries(window.categoryKeywords).forEach(([main, subs]) => {
+  Object.entries(subs).forEach(([sub, keywords]) => {
+    if (sub === selectedCategory) {
+      matchedKeywords = keywords;
+    }
   });
+});
 
   filteredProducts = allProducts.filter(p => {
     const text = `${p.name} ${p.category}`;
