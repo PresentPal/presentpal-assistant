@@ -68,7 +68,7 @@ window.categoryKeywords = {
   "💍 Jewellery": {},
   "► All Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women", "Jewellery, Men"],
   " Womens' Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women"],
-    "Mens' Jewellery:" ["Jewellery, Men"]
+    "Mens' Jewellery": ["Jewellery, Men"]
   
   "🧒 Children & Baby": {
     "► All Children & Baby": ["Children > Baby & children products > Activities & play time >", "Games, Puzzles & Learning", "Educational Games And Games Of Skill", 
