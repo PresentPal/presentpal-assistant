@@ -1,7 +1,7 @@
 
 window.categoryKeywords = {
   "🎉 Special Occasions": {
-    "► All Special Occasions": []
+    "► All Special Occasions": [],
     "Mothers Day": ["Mothers Day"],
     "Mummy to be": ["Mummy to be"],
     "Valentine’s": ["Valentine’s Day"],
@@ -12,7 +12,7 @@ window.categoryKeywords = {
     "Christmas": ["Christmas"]
   },
   "🎁 Gifting": {
-    "► All Gifting": []
+    "► All Gifting": [],
     "Gifts For Him": [
       "Men > Gaveæsker",
       "Men > Personal Care > Fragrances > Eau de parfum > Gift sets >", "Alcoholic Drinks"
@@ -74,13 +74,13 @@ window.categoryKeywords = {
   "💍 Jewellery": {},
   
   "🧒 Children & Baby": {
-    "► All Children & Baby": []
+    "► All Children & Baby": [],
     "Games, Puzzles & Learning": ["Children > Baby & children products > Activities & play time >", "Games, Puzzles & Learning"],
     "Entertainment": ["Kids Audio Players"],
     "Bathroom & Care": ["Children > Baby & children products > Bathroom & care", "Children > Baby & children products > Dental care", "Children > Baby & children products > Hygiene", "Baby Bathtime"]
   },
   "🍽 Cooking & Kitchen": {
-    "► All Cooking & Kitchen": []
+    "► All Cooking & Kitchen": [],
     "Tableware": ["Tableware", "Kitchen > Tableware & cutlery trays"],
     "Coffee & Tea": ["Home > Coffee & tea"],
     "Grill & Accessories": ["Kitchen > Grill & accessories", "Men > Accessories > Deals", "Men > Personal Care > Deals"],
@@ -92,7 +92,7 @@ window.categoryKeywords = {
   },
   "🍷 Vintage Wines": {},
   "🎮 Games": {
-    "► All Games": []
+    "► All Games": [],
     "Consoles": ["Consoles"],
     "PlayStation": ["Playstation"],
     "Xbox": ["Xbox"],
@@ -108,7 +108,7 @@ window.categoryKeywords = {
     "► All Pets": ["Household > Deals > Pet accessories", "Home > Household > Pet accessories >"]
   },
   "💻 Tech": {
-    "► All Tech": []
+    "► All Tech": [],
     "Mobile Phones": ["Mobile Phones > Android Phones", "Mobile Phones > Windows Phones", "Mobile Phones > iPhones"],
     "Phone & Tablet Accessories": ["Electronics & accessories > Accessories for phones and tablets"],
     "Audio & Speakers": ["Home Audio & Speakers", "stage & studio equipment>"],
@@ -129,7 +129,7 @@ window.categoryKeywords = {
     "Other": ["Fans & Heaters >", "Electronics & accessories >", "Electronics >", "Default Category>Networking", "Default Category>Peripherals>Input Devices"]
   },
   "🏠 Household": {
-    "► All Household": []
+    "► All Household": [],
     "Cleaning Supplies": ["Cleaning Supplies", "Household > Cleaning"],
     "Laundry": ["Laundry", "Household > Clean, iron & dry"],
     "Essential Oils": ["Essential Oils > All Products > Blending", "Gifts & Kits > Essential Oils > All Products"],
@@ -139,7 +139,7 @@ window.categoryKeywords = {
     "Vacuum Cleaners": ["Household > Vacuum cleaners"]
   },
   "🚠 DIY & Renovations": {
-    "► All DIY & Rennovations": []
+    "► All DIY & Rennovations": [],
     "Adhesives, Sealants & Fillers": ["Adhesives, Sealants & Fillers"],
     "Air Tools & Compressors": ["Air Tools & Compressors"],
     "Hardware": ["DIY And Hardware", "Household & Hardware"],
@@ -156,7 +156,7 @@ window.categoryKeywords = {
     "Other": ["Fixings & Fasteners >",]
   },
   "🪺 Interior Decorating": {
-    "► All Interior Decorating": []
+    "► All Interior Decorating": [],
     "Furniture": ["Furniture > Tables"],
     "Home Accessories": ["Home Accessories", "Home & Garden > Decor"],
     "Heating": ["Heating Radiators"],
@@ -164,13 +164,13 @@ window.categoryKeywords = {
     "Bathroom": ["Bathroom Accessories"]
   },
   "🌳 Garden": {
-    "► All Garden": []
+    "► All Garden": [],
     "Garden Tools": ["Garden Tools", "Deals > Tools and garden appliances", "DIY and tools, Lawnmowers and outdoor electric tools"],
     "Barbecuing": ["Outdoor > Barbecues"],
     "Garden Games": ["Garden Games >"]
   },
   "🚗 Automotive": {
-    "► All Automotive": []
+    "► All Automotive": [],
     "Battery Care & Chargers": ["Battery Care & Chargers"],
     "Bodywork & Windscreen": ["Bodywork & Windscreen"],
     "Car Care & Car Cleaning": ["Car Care & Car Cleaning"],
@@ -185,14 +185,14 @@ window.categoryKeywords = {
     "Vehicle Repairs & Servicing": ["Vehicle Repairs & Servicing"]
   },
   "🏍 Motorcycles": {
-    "► All Motorcycles": []
+    "► All Motorcycles": [],
     "Womens Motorcycle Clothing": ["Motorcycle Clothing > Ladies"],
     "Mens Motorcycle Clothing": ["Motorcycle Clothing > Mens"],
     "Helmets": ["Motorcycle Helmets"],
     "Accessories & Repair": ["Cycle & Motorcycle > Motorcycle >"]
   },
   "🏅 Sports & Outdoors": {
-    "► All Sports & Outdoors": []
+    "► All Sports & Outdoors": [],
     "Cycling": ["Cycle & Motorcycle > Cycle", "Bike/ACCESSORIES", "Bike/COMPONENTS", "Bike/MAINTANENCE", "Bike/TOURING", "Default/Bike"],
     "Basketball": ["Basketball Gear"],
     "Football": ["Folding Football Goals", "Football"],
@@ -206,7 +206,7 @@ window.categoryKeywords = {
     "Fitness": ["Heart Rate Monitor", "Medicine Balls", "Ab Belts", "Ab Benches", "Ab Crunchers", "Ab Exercisers", "Ab Straps", "Ab Wheels", "Exercise Bikes", "Exercise Mats", "Fitness >", "Fitness Equipment >"]
   },
   "🎨 Arts & Crafts": {
-    "► All Arts & Crafts": []
+    "► All Arts & Crafts": [],
     "Crafts & Sewing": ["crafts & sewing"],
     "Stationery": ["Default Category>Peripherals>Office Supply>stationery & office supplies>"],
     "Martha Stewart Crafts": ["Martha Stewart Crafts"],
@@ -215,7 +215,7 @@ window.categoryKeywords = {
     "Mediums & Finishes": ["Mediums & Finishes"]
   },
   "🏢 Business": {
-    "► All Business": []
+    "► All Business": [],
     "Presentations": ["Default Category>Peripherals>Office Supply>Presentation Supplies"],
     "Stationery & Office Supplies": ["Default Category>Peripherals>Office Supply>stationery & office supplies>"],
     "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>"],
@@ -223,7 +223,7 @@ window.categoryKeywords = {
     "Shipping & Moving": ["Default Category>Peripherals>Office Supply>shipping & moving supplies"]
 },
   "🌍 Travel": {
-    "► All Travel": []
+    "► All Travel": [],
     "London Day Out": ["London"],
     "Luggage & Travel Gear": [
       "Luggage & Bags > Backpacks",
