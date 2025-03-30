@@ -1,26 +1,32 @@
 function fetchProducts(page = 1) {
+  // Show the loader while fetching
+  document.getElementById("loader").style.display = "block";
+
   const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${window.itemsPerPage}`;
 
   fetch(url)
     .then(res => res.json())
     .then(data => {
       window.allProducts = data;
-      window.populateCategoryDropdown(); // populate first
+      window.populateCategoryDropdown();
 
-      // Wait a moment for DOM to update, then set default
+      // Delay setting default category until dropdown is populated
       setTimeout(() => {
         const select = document.getElementById("categoryFilter");
         const defaultLabel = "All Womens";
-
         const option = Array.from(select.options).find(opt => opt.textContent === defaultLabel);
         if (option) {
           select.value = option.value;
         }
 
-        window.applyFilters(); // Trigger filters
-      }, 0); // delay until dropdown is populated
+        window.applyFilters();
+      }, 0);
     })
-    .catch(err => console.error("Error fetching products:", err));
+    .catch(err => console.error("Error fetching products:", err))
+    .finally(() => {
+      // Always hide the loader after fetch attempt finishes
+      document.getElementById("loader").style.display = "none";
+    });
 }
 
 window.fetchProducts = fetchProducts;
