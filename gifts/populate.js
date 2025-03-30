@@ -8,8 +8,8 @@ function populateCategoryDropdown() {
 
     Object.entries(subs).forEach(([sub, keywords]) => {
       const opt = document.createElement("option");
-      opt.value = sub; // Use subcategory label as the value
-      opt.textContent = sub;
+      opt.value = label; // Use subcategory label as the value
+      opt.textContent = label;
       optGroup.appendChild(opt);
     });
 
