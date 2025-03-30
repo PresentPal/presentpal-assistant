@@ -2,7 +2,7 @@ function renderPagination() {
   const pagination = document.getElementById("paginationControls");
   pagination.innerHTML = "";
 
-  const totalPages = paginatedProducts.length;
+  const totalPages = window.paginatedProducts.length;
   if (totalPages <= 1) return;
 
   const maxVisible = 5;
@@ -13,14 +13,14 @@ function renderPagination() {
     if (disabled) btn.disabled = true;
     if (active) btn.classList.add("active");
     btn.onclick = () => {
-      currentPage = page;
-      displayProducts();
+      window.currentPage = page;
+      window.displayProducts();
       renderPagination();
     };
     return btn;
   };
 
-  pagination.appendChild(createButton("Prev", currentPage - 1, currentPage === 1));
+  pagination.appendChild(createButton("Prev", window.currentPage - 1, window.currentPage === 1));
 
   const pageList = [];
 
@@ -29,8 +29,8 @@ function renderPagination() {
   } else {
     pageList.push(1);
 
-    const start = Math.max(2, currentPage - 1);
-    const end = Math.min(totalPages - 1, currentPage + 1);
+    const start = Math.max(2, window.currentPage - 1);
+    const end = Math.min(totalPages - 1, window.currentPage + 1);
 
     if (start > 2) pageList.push("...");
     for (let i = start; i <= end; i++) pageList.push(i);
@@ -45,13 +45,11 @@ function renderPagination() {
       span.className = "ellipsis";
       pagination.appendChild(span);
     } else {
-      pagination.appendChild(createButton(p, p, false, p === currentPage));
+      pagination.appendChild(createButton(p, p, false, p === window.currentPage));
     }
   });
 
-  pagination.appendChild(createButton("Next", currentPage + 1, currentPage === totalPages));
+  pagination.appendChild(createButton("Next", window.currentPage + 1, window.currentPage === totalPages));
 }
-
-fetchProducts();
 
 window.renderPagination = renderPagination;
