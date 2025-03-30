@@ -9,8 +9,8 @@ function applyFilters() {
     filteredProducts = [];
     paginatedProducts = [];
     displayProducts();
-    renderPagination();
-    document.getElementById("loader").style.display = "none"; // Hide loader
+    // renderPagination(); // ⛔ Hide pagination when no category selected
+    document.getElementById("loader").style.display = "none";
     return;
   }
 
@@ -54,10 +54,10 @@ function applyFilters() {
     });
   }
 
-  currentPage = 1;
+  // currentPage = 1; // ⛔ Not needed for infinite scroll
   paginateValidProducts();
   displayProducts();
-  renderPagination();
+  // renderPagination(); // ⛔ Hide pagination controls
 
   document.getElementById("loader").style.display = "none"; // Hide loader
 }
