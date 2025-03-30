@@ -1,40 +1,26 @@
-window.validPool = [];
-window.backendPage = 1;
-window.fetching = false;
+function fetchProducts(page = 1) {
+  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=${window.itemsPerPage}`;
 
-window.fetchProducts = async function fetchProducts() {
-  if (window.fetching) return;
-  window.fetching = true;
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      window.allProducts = data;
+      window.populateCategoryDropdown(); // populate first
 
-  try {
-    const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${window.backendPage}&limit=${window.itemsPerPage}`;
-    const res = await fetch(url);
-    const data = await res.json();
+      // Wait a moment for DOM to update, then set default
+      setTimeout(() => {
+        const select = document.getElementById("categoryFilter");
+        const defaultLabel = "All Womens";
 
-    // Save all products (not just valid ones)
-    window.allProducts = window.allProducts.concat(data);
+        const option = Array.from(select.options).find(opt => opt.textContent === defaultLabel);
+        if (option) {
+          select.value = option.value;
+        }
 
-    // Filter for valid ones
-    const valid = data.filter(p =>
-      p.image && p.link &&
-      p.image.startsWith("http") &&
-      p.link.startsWith("http")
-    );
+        window.applyFilters(); // Trigger filters
+      }, 0); // delay until dropdown is populated
+    })
+    .catch(err => console.error("Error fetching products:", err));
+}
 
-    window.validPool.push(...valid);
-    window.backendPage++;
-
-    // Keep fetching until we have at least 24 valid products or no more data
-    if (window.validPool.length >= window.itemsPerPage || data.length < window.itemsPerPage) {
-      populateCategoryDropdown();
-      applyFilters(); // This will trigger paginateValidProducts + display
-    } else {
-      fetchProducts(); // Keep fetching more
-    }
-
-  } catch (err) {
-    console.error("Error fetching products:", err);
-  } finally {
-    window.fetching = false;
-  }
-};
+window.fetchProducts = fetchProducts;
