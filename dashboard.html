@@ -196,7 +196,7 @@ header {
   }
 }
 
-/* FullCalendar Button Custom Styling */
+/* Default Button */
 .fc .fc-button {
   background-color: #181818;
   border: none;
@@ -208,18 +208,19 @@ header {
   cursor: pointer;
 }
 
-/* Hover State */
-.fc .fc-button:hover {
+/* Hover (not selected) */
+.fc .fc-button:not(.fc-button-active):hover {
   background-color: black;
 }
 
-/* Active (pressed) State */
-.fc .fc-button:active,
+/* Selected / Active Button */
 .fc .fc-button.fc-button-active {
-  background-color: #A7A7A7;
+  background-color: #0096FF;
+  color: white;
+  border: none;
 }
 
-/* Disabled State */
+/* Disabled Button */
 .fc .fc-button:disabled {
   background-color: #A7A7A7;
   color: black;
@@ -299,21 +300,6 @@ body {
         margin-bottom: 4px;
     }
    
-   /* Calendar toggle buttons and nav arrows (active/selected state) */
-.fc .fc-button-primary,
-.fc .fc-button-primary:focus,
-.fc .fc-button-primary:active,
-.fc .fc-button-primary.fc-button-active {
-  background-color: #0096FF !important;
-  color: white !important;
-  border: none !important;
-}
-
-/* On hover */
-.fc .fc-button-primary:hover {
-  background-color: #007be6 !important;
-  color: white !important;
-}
    </style>
 </head>
 <body>
