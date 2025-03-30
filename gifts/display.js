@@ -19,13 +19,14 @@ function displayProducts() {
 
     const title = document.createElement("h3");
     title.textContent = p.name;
+    title.style.margin = "10px 0 4px";
     
     const merchant = document.createElement("p");
     merchant.className = "merchant";
     merchant.textContent = p.merchant || "";
     merchant.style.color = "#888";
     merchant.style.fontSize = "13px";
-    merchant.style.margin = "4px 0 0";
+    merchant.style.margin = "0 0 4px";
 
     const price = document.createElement("p");
     price.className = "price";
@@ -35,7 +36,7 @@ function displayProducts() {
       price.textContent = p.price || "";
     }
     price.style.color = "#404040";
-    price.style.margin = "5px 0 0";
+    price.style.margin = "0";
     price.style.fontSize = "14px";
 
     div.appendChild(img);
