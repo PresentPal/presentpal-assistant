@@ -1,18 +1,35 @@
 function paginateValidProducts() {
-  const valid = filteredProducts.filter(p =>
-    p.image && p.link && p.image.startsWith("http") && p.link.startsWith("http")
-  );
+  const valid = window.validPool.filter(p => {
+    const keyword = document.getElementById("searchInput").value.toLowerCase();
+    const selectedCategory = document.getElementById("categoryFilter").value;
 
-  paginatedProducts = [];
-  for (let i = 0; i < valid.length; i += itemsPerPage) {
-    const page = valid.slice(i, i + itemsPerPage);
-    if (page.length === itemsPerPage || i + itemsPerPage >= valid.length) {
-      paginatedProducts.push(page);
-    } else {
-      const remaining = valid.length - i;
-      paginatedProducts.push(valid.slice(i)); // final smaller page
-      break;
+    const text = `${p.name} ${p.category}`;
+    const matchKeyword = !keyword || text.toLowerCase().includes(keyword);
+
+    let matchCategory = true;
+    if (selectedCategory) {
+      let matchedKeywords = [];
+
+      Object.values(window.categoryKeywords).forEach(group => {
+        Object.entries(group).forEach(([label, keywords]) => {
+          if (label === selectedCategory) {
+            matchedKeywords = keywords;
+          }
+        });
+      });
+
+      matchCategory = matchedKeywords.some(keyword =>
+        p.category && p.category.includes(keyword)
+      );
     }
+
+    return matchKeyword && matchCategory;
+  });
+
+  window.paginatedProducts = [];
+  for (let i = 0; i < valid.length; i += window.itemsPerPage) {
+    const page = valid.slice(i, i + window.itemsPerPage);
+    window.paginatedProducts.push(page);
   }
 }
 
