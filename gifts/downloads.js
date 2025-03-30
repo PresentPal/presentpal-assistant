@@ -67,6 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const insertTarget = document.getElementById("productContainer");
   if (insertTarget) {
-    document.body.insertBefore(brokenBtn, insertTarget);
+  // document.body.insertBefore(brokenBtn, insertTarget);
   }
 });
