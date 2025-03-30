@@ -1,18 +1,26 @@
 function paginateValidProducts() {
   const valid = filteredProducts.filter(p =>
-    p.image && p.link &&
-    p.image.startsWith("http") &&
-    p.link.startsWith("http")
+    p.image && p.link && p.image.startsWith("http") && p.link.startsWith("http")
   );
 
-  window.paginatedProducts = [];
-  let currentIndex = 0;
+  const pageSize = window.itemsPerPage;
+  const pages = [];
 
-  while (currentIndex < valid.length) {
-    const page = valid.slice(currentIndex, currentIndex + window.itemsPerPage);
-    window.paginatedProducts.push(page);
-    currentIndex += page.length;
+  let currentPage = [];
+
+  valid.forEach(product => {
+    currentPage.push(product);
+    if (currentPage.length === pageSize) {
+      pages.push(currentPage);
+      currentPage = [];
+    }
+  });
+
+  // Push the final page if it has leftover products
+  if (currentPage.length) {
+    pages.push(currentPage);
   }
-}
 
+  window.paginatedProducts = pages;
+}
 window.paginateValidProducts = paginateValidProducts;
