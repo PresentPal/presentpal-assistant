@@ -1,8 +1,8 @@
 function applyFilters() {
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   const selectedCategory = document.getElementById("categoryFilter").value;
+  const sortBy = document.getElementById("sortByPrice").value;
 
-  // ⛔ Prevent applying filters without a selected category
   if (!selectedCategory) {
     filteredProducts = [];
     paginatedProducts = [];
@@ -13,7 +13,6 @@ function applyFilters() {
 
   let matchedKeywords = [];
 
-  // Find keywords for the selected category label
   Object.values(window.categoryKeywords).forEach(group => {
     Object.entries(group).forEach(([label, keywords]) => {
       if (label === selectedCategory) {
@@ -37,11 +36,20 @@ function applyFilters() {
     return matchKeyword && matchCategory;
   });
 
-// Shuffle products to avoid keyword clumping
-for (let i = filteredProducts.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1));
-  [filteredProducts[i], filteredProducts[j]] = [filteredProducts[j], filteredProducts[i]];
-}
+  // Shuffle by default
+  for (let i = filteredProducts.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filteredProducts[i], filteredProducts[j]] = [filteredProducts[j], filteredProducts[i]];
+  }
+
+  // Sort by price if selected
+  if (sortBy === "asc" || sortBy === "desc") {
+    filteredProducts.sort((a, b) => {
+      const priceA = parseFloat((a.price || "0").replace(/[^\d.]/g, ""));
+      const priceB = parseFloat((b.price || "0").replace(/[^\d.]/g, ""));
+      return sortBy === "asc" ? priceA - priceB : priceB - priceA;
+    });
+  }
 
   currentPage = 1;
   paginateValidProducts();
@@ -51,5 +59,6 @@ for (let i = filteredProducts.length - 1; i > 0; i--) {
 
 document.getElementById("searchInput").addEventListener("input", applyFilters);
 document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+document.getElementById("sortByPrice").addEventListener("change", applyFilters);
 
 window.applyFilters = applyFilters;
