@@ -1,3 +1,4 @@
+
 window.categoryKeywords = {
   "🎉 Special Occasions": {
     "Mothers Day": ["Mothers Day"],
@@ -21,38 +22,21 @@ window.categoryKeywords = {
     "Gifts & Kits": ["Gifts & Kits >"]
   },
   "💄 Health & Beauty": {
-    "All Womens": ["Tea Tree & Aloe > Body", 
-                  "Nail Care", "Beauty, Perfumes and fragrances", "Beauty, Shaving and hair removal", "Skin Care",
-      "Skincare",
-      "Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >"],
-    "Bath & Body": ["Bath & Body", "Tea Tree & Aloe > Body"],
+    "ALL WOMENS'": ["Tea Tree & Aloe > Body", "Beauty, Shaving and hair removal", "Skin Care"],
+      "Skincare": ["Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >"],
+    "Womens' Bath & Body": ["Bath & Body", "Tea Tree & Aloe > Body"],
     "Makeup": ["Makeup", "Make-up"],
-    "Hair Care": [
-      "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling", "Beauty, Hair care", "Women > Personal care > Hair care & styling >"
-    ],
-    "Nail Care": ["Nail Care"],
-    "Perfume": ["Beauty, Perfumes and fragrances"],
-    "Shaving & Hair Removal": ["Beauty, Shaving and hair removal"],
-    "Skin Care": [
-      "Skin Care",
-      "Skincare",
-      "Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >"
-    ],
-    "Mens’ Personal Care": [],
-    "Shaving & Grooming": [
-      "Shaving & Grooming",
-      "Men > Personal Care > Shaving & hair-cutting >"
-    ],
-    "Body Wash & Shower Gel": ["Men > Personal Care > Hygiene"],
-    "Hair Care (Men)": [
-      "Men > Personal Care > Hair care",
-      "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling"
-    ],
+    "Womens' Hair Care": ["Men > Women > Personal care > Personal care > Personal Care > Hair care & styling", "Beauty, Hair care", "Women > Personal care > Hair care & styling >"],
+    "Womens' Nail Care": ["Nail Care"],
+    "Womens' Perfume": ["Beauty, Perfumes and fragrances"],
+    "Womens' Shaving & Hair Removal": ["Beauty, Shaving and hair removal"],
+    "Womens' Skin Care": ["Skin Care", "Skincare", "Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >"],
+    "ALL MENS'": [],
+    "Shaving & Grooming": ["Shaving & Grooming", "Men > Personal Care > Shaving & hair-cutting >"],
+    "Mens' Body Wash & Shower Gel": ["Men > Personal Care > Hygiene"],
+    "Mens' Hair Care": ["Men > Personal Care > Hair care", "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling"],
     "Mens Fragrances": ["Men > Personal Care > Fragrances"],
-    "Skin Care (Men)": [
-      "Men > Personal Care > Skin care",
-      "Men > Women > Personal care > Personal Care > Face & skin care"
-    ],
+    "Mens' Skin Care": ["Men > Personal Care > Skin care", "Men > Women > Personal care > Personal Care > Face & skin care"],
     "Intimate": ["Men > Personal Care > Intimate"],
     "Oral Care": ["Oral Care", "Men > Personal Care > Mouth hygiene"],
     "Hygiene": ["Men > Women > Personal care", "Personal Care > Hygiene"],
@@ -244,4 +228,3 @@ window.categoryKeywords = {
     "Travel Accessories": ["Travel accessories"]
   }
 };
-
