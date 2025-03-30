@@ -1,4 +1,6 @@
 function applyFilters() {
+  document.getElementById("loader").style.display = "block"; // Show loader
+
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   const selectedCategory = document.getElementById("categoryFilter").value;
   const sortBy = document.getElementById("sortByPrice").value;
@@ -8,6 +10,7 @@ function applyFilters() {
     paginatedProducts = [];
     displayProducts();
     renderPagination();
+    document.getElementById("loader").style.display = "none"; // Hide loader
     return;
   }
 
@@ -55,6 +58,8 @@ function applyFilters() {
   paginateValidProducts();
   displayProducts();
   renderPagination();
+
+  document.getElementById("loader").style.display = "none"; // Hide loader
 }
 
 document.getElementById("searchInput").addEventListener("input", applyFilters);
