@@ -65,11 +65,11 @@ window.categoryKeywords = {
     "Girls Shoes": ["Shoes > Girls >", "Shoes > Men >"],
     "Children Wristwatches": ["Men > Women > Children > Accessories > Baby & children products"]
   },
-  "💍 Jewellery": {},
+  "💍 Jewellery": {
   "► All Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women", "Jewellery, Men"],
   " Womens' Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women"],
     "Mens' Jewellery": ["Jewellery, Men"]
-  
+  },
   "🧒 Children & Baby": {
     "► All Children & Baby": ["Children > Baby & children products > Activities & play time >", "Games, Puzzles & Learning", "Educational Games And Games Of Skill", 
                              "Kids Audio Players", "Dolls And Stuffed Toys", "Kids Ride-On Electric Cars", 
