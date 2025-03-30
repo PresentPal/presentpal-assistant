@@ -284,17 +284,27 @@ document.getElementById("paginationControls").style.display = "none";
 <script>
   // Run only after DOM is fully ready and scripts are loaded
   window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("searchInput").addEventListener("input", window.applyFilters);
-  document.getElementById("categoryFilter").addEventListener("change", window.applyFilters);
+    document.getElementById("searchInput").addEventListener("input", window.applyFilters);
+    document.getElementById("categoryFilter").addEventListener("change", window.applyFilters);
 
-  // ✅ Set default category (must match one of your actual category labels)
-  const defaultCategory = "All Womens";
-  const dropdown = document.getElementById("categoryFilter");
-  const match = Array.from(dropdown.options).find(opt => opt.textContent === defaultCategory);
-  if (match) match.selected = true;
+    // ✅ Set default category (must match one of your actual category labels)
+    const defaultCategory = "All Womens";
+    const dropdown = document.getElementById("categoryFilter");
+    const match = Array.from(dropdown.options).find(opt => opt.textContent === defaultCategory);
+    if (match) match.selected = true;
 
-  window.fetchProducts();
-});
+    window.fetchProducts();
+
+    // Infinite Scroll Handler
+    window.addEventListener("scroll", () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+        if (window.currentPage < window.paginatedProducts.length) {
+          window.currentPage++;
+          window.displayProducts(true); // append next page
+        }
+      }
+    });
+  });
 </script>
 </body>
 </html>
