@@ -1,5 +1,6 @@
 function applyFilters() {
   document.getElementById("loader").style.display = "block"; // Show loader
+  document.getElementById("productContainer").innerHTML = "";
 
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   const selectedCategory = document.getElementById("categoryFilter").value;
