@@ -49,6 +49,12 @@ function applyFilters() {
     });
   }
 
+  // ✅ Don't render if no category selected or if nothing matched
+  if (!selectedCategory || filteredProducts.length === 0) {
+    document.getElementById("loader").style.display = "none";
+    return;
+  }
+
   paginateValidProducts();
   displayProducts();
 
