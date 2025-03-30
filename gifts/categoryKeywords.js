@@ -25,7 +25,7 @@ window.categoryKeywords = {
     "All Womens": [],
     "Womens' Skincare": ["Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >", "Skin Care", "Skincare", "Men > Women > Personal care > Personal Care > Face & skin care"],
     "Womens' Bath & Body": ["Tea Tree & Aloe > Body", "Bath & Body"],
-    "Makeup": ["Make-up"],
+    "Makeup": ["Makeup"],
     "Womens' Hair Care": ["Beauty, Hair care", "Women > Personal care > Hair care & styling >", "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling"],
     "Womens' Nail Care": ["Nail Care"],
     "Womens' Perfume": ["Beauty, Perfumes and fragrances"],
