@@ -81,7 +81,9 @@
   height: 360px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px; /* controls spacing between child elements */
   text-align: left;
   box-sizing: border-box;
   cursor: pointer;
@@ -127,6 +129,11 @@
   .product .price {
     font-size: 13px;
   }
+}
+
+.product p {
+  margin: 0;
+  padding: 0;
 }
 
   .pagination {
