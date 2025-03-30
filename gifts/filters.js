@@ -37,6 +37,12 @@ function applyFilters() {
     return matchKeyword && matchCategory;
   });
 
+// Shuffle products to avoid keyword clumping
+for (let i = filteredProducts.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [filteredProducts[i], filteredProducts[j]] = [filteredProducts[j], filteredProducts[i]];
+}
+
   currentPage = 1;
   paginateValidProducts();
   displayProducts();
