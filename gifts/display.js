@@ -19,14 +19,14 @@ function displayProducts() {
 
     const title = document.createElement("h3");
     title.textContent = p.name;
-    title.style.margin = "10px 0 4px";
+    title.style.margin = "2px 0 2px";
     
     const merchant = document.createElement("p");
     merchant.className = "merchant";
     merchant.textContent = p.merchant || "";
     merchant.style.color = "#888";
     merchant.style.fontSize = "13px";
-    merchant.style.margin = "0 0 4px";
+    merchant.style.margin = "0 0 2px";
 
     const price = document.createElement("p");
     price.className = "price";
