@@ -1,25 +1,27 @@
 
 window.categoryKeywords = {
   "🎉 Special Occasions": {
-    "► Mothers Day": ["Mothers Day"],
-    "► Mummy to be": ["Mummy to be"],
-    "► Valentine’s": ["Valentine’s Day"],
-    "► Weddings": ["Wedding"],
-    "► Birthday": ["Birthday"],
-    "► Halloween": ["Halloween"],
-    "► Easter": ["Easter"],
-    "► Christmas": ["Christmas"]
+    "► All Special Occasions": []
+    "Mothers Day": ["Mothers Day"],
+    "Mummy to be": ["Mummy to be"],
+    "Valentine’s": ["Valentine’s Day"],
+    "Weddings": ["Wedding"],
+    "Birthday": ["Birthday"],
+    "Halloween": ["Halloween"],
+    "Easter": ["Easter"],
+    "Christmas": ["Christmas"]
   },
   "🎁 Gifting": {
-    "► Gifts For Him": [
+    "► All Gifting": []
+    "Gifts For Him": [
       "Men > Gaveæsker",
       "Men > Personal Care > Fragrances > Eau de parfum > Gift sets >", "Alcoholic Drinks"
     ],
-    "► Gifts For Her": ["Gifts & Kits > Body > All Products > Nature’s Spa Bath and Body Collection", "Alcoholic Drinks"],
-    "► Gift Bags": ["Gifts & Kits > All Products > Gift Bags"],
-    "► Decorations": ["Gifts, Gadgets & Toys > Gifts > Decorations"],
-    "► Collectables": ["Gifts, Gadgets & Toys > Gifts > Collectibles"],
-    "► Gifts & Kits": ["Gifts & Kits >"]
+    "Gifts For Her": ["Gifts & Kits > Body > All Products > Nature’s Spa Bath and Body Collection", "Alcoholic Drinks"],
+    "Gift Bags": ["Gifts & Kits > All Products > Gift Bags"],
+    "Decorations": ["Gifts, Gadgets & Toys > Gifts > Decorations"],
+    "Collectables": ["Gifts, Gadgets & Toys > Gifts > Collectibles"],
+    "Gifts & Kits": ["Gifts & Kits >"]
   },
   "💄 Health & Beauty": {
     "► All Womens": [],
