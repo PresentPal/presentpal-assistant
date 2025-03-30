@@ -21,7 +21,7 @@ window.categoryKeywords = {
     "Gifts & Kits": ["Gifts & Kits >"]
   },
   "💄 Health & Beauty": {
-    "All Womens": ["Bath & Body", "Tea Tree & Aloe > Body", "Makeup", "Make-up", "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling", "Beauty, Hair care", "Women > Personal care > Hair care & styling >", 
+    "All Womens": ["Tea Tree & Aloe > Body", 
                   "Nail Care", "Beauty, Perfumes and fragrances", "Beauty, Shaving and hair removal", "Skin Care",
       "Skincare",
       "Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >"],
