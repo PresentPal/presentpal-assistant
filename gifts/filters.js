@@ -1,37 +1,31 @@
 function applyFilters() {
   document.getElementById("loader").style.display = "block"; // Show loader
-  document.getElementById("productContainer").innerHTML = "";
+  document.getElementById("productContainer").innerHTML = ""; // Clear old products
+  window.paginatedProducts = []; // Reset pagination
 
   const keyword = document.getElementById("searchInput").value.toLowerCase();
   const selectedCategory = document.getElementById("categoryFilter").value;
   const sortBy = document.getElementById("sortByPrice").value;
 
-  if (!selectedCategory) {
-    filteredProducts = [];
-    paginatedProducts = [];
-    displayProducts();
-    // renderPagination(); // ⛔ Hide pagination when no category selected
-    document.getElementById("loader").style.display = "none";
-    return;
-  }
-
   let matchedKeywords = [];
 
-  Object.entries(window.categoryKeywords).forEach(([main, subs]) => {
-  Object.entries(subs).forEach(([sub, keywords]) => {
-    if (sub === selectedCategory) {
-      matchedKeywords = keywords;
-    }
-  });
-});
+  // Find keywords if category is selected
+  if (selectedCategory) {
+    Object.entries(window.categoryKeywords).forEach(([main, subs]) => {
+      Object.entries(subs).forEach(([sub, keywords]) => {
+        if (sub === selectedCategory) {
+          matchedKeywords = keywords;
+        }
+      });
+    });
+  }
 
   filteredProducts = allProducts.filter(p => {
     const text = `${p.name} ${p.category}`;
     const matchKeyword = !keyword || text.toLowerCase().includes(keyword);
 
     let matchCategory = true;
-
-    if (matchedKeywords.length) {
+    if (selectedCategory && matchedKeywords.length) {
       matchCategory = matchedKeywords.some(kw =>
         p.category && p.category.includes(kw)
       );
@@ -55,14 +49,13 @@ function applyFilters() {
     });
   }
 
-  // currentPage = 1; // ⛔ Not needed for infinite scroll
   paginateValidProducts();
   displayProducts();
-  // renderPagination(); // ⛔ Hide pagination controls
 
   document.getElementById("loader").style.display = "none"; // Hide loader
 }
 
+// Event listeners
 document.getElementById("searchInput").addEventListener("input", applyFilters);
 document.getElementById("categoryFilter").addEventListener("change", applyFilters);
 document.getElementById("sortByPrice").addEventListener("change", applyFilters);
