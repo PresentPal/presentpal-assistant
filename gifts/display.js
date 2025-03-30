@@ -1,6 +1,6 @@
 function displayProducts() {
   const container = document.getElementById("productContainer");
-  container.innerHTML = "";
+  // container.innerHTML = "";
 
   const pageProducts = window.paginatedProducts[window.currentPage - 1] || [];
 
