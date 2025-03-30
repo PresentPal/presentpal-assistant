@@ -2,7 +2,7 @@ function fetchProducts(page = 1) {
   // Show the loader while fetching
   document.getElementById("loader").style.display = "block";
 
-  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=${page}&limit=100`;
+  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=1&limit=48`;
 
   fetch(url)
     .then(res => res.json())
