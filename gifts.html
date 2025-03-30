@@ -279,10 +279,17 @@ body {
 <script>
   // Run only after DOM is fully ready and scripts are loaded
   window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("searchInput").addEventListener("input", window.applyFilters);
-    document.getElementById("categoryFilter").addEventListener("change", window.applyFilters);
-    window.fetchProducts();
-  });
+  document.getElementById("searchInput").addEventListener("input", window.applyFilters);
+  document.getElementById("categoryFilter").addEventListener("change", window.applyFilters);
+
+  // ✅ Set default category (must match one of your actual category labels)
+  const defaultCategory = "All Womens";
+  const dropdown = document.getElementById("categoryFilter");
+  const match = Array.from(dropdown.options).find(opt => opt.textContent === defaultCategory);
+  if (match) match.selected = true;
+
+  window.fetchProducts();
+});
 </script>
 </body>
 </html>
