@@ -19,6 +19,13 @@ function displayProducts() {
 
     const title = document.createElement("h3");
     title.textContent = p.name;
+    
+    const merchant = document.createElement("p");
+    merchant.className = "merchant";
+    merchant.textContent = p.merchant || "";
+    merchant.style.color = "#888";
+    merchant.style.fontSize = "13px";
+    merchant.style.margin = "4px 0 0";
 
     const price = document.createElement("p");
     price.className = "price";
@@ -33,6 +40,7 @@ function displayProducts() {
 
     div.appendChild(img);
     div.appendChild(title);
+    div.appendChild(merchant);
     div.appendChild(price);
     container.appendChild(div);
   });
