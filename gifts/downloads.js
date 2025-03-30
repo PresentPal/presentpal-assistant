@@ -59,11 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Download Broken Products Button
-  const brokenBtn = document.createElement("button");
-  brokenBtn.textContent = "📦 Download Broken Products";
-  brokenBtn.style.cssText =
-    "margin: 20px auto; display: block; padding: 10px 15px; background-color: crimson; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;";
-  brokenBtn.onclick = window.downloadBrokenProducts;
+  // const brokenBtn = document.createElement("button");
+  // brokenBtn.textContent = "📦 Download Broken Products";
+  // brokenBtn.style.cssText =
+   // "margin: 20px auto; display: block; padding: 10px 15px; background-color: crimson; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;";
+  // brokenBtn.onclick = window.downloadBrokenProducts;
 
   const insertTarget = document.getElementById("productContainer");
   if (insertTarget) {
