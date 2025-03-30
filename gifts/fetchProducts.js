@@ -1,5 +1,4 @@
 function fetchProducts(page = 1) {
-  // Show the loader while fetching
   document.getElementById("loader").style.display = "block";
 
   const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json?page=1&limit=48`;
@@ -8,9 +7,15 @@ function fetchProducts(page = 1) {
     .then(res => res.json())
     .then(data => {
       window.allProducts = data;
+      window.filteredProducts = data; // show as-is for quick display
+      window.paginatedProducts = []; // reset
       window.populateCategoryDropdown();
 
-      // Delay setting default category until dropdown is populated
+      // Display unfiltered products right away
+      paginateValidProducts();
+      displayProducts();
+
+      // Pre-select a default category in dropdown, but don't apply it yet
       setTimeout(() => {
         const select = document.getElementById("categoryFilter");
         const defaultLabel = "All Womens";
@@ -18,13 +23,10 @@ function fetchProducts(page = 1) {
         if (option) {
           select.value = option.value;
         }
-
-        window.applyFilters();
       }, 0);
     })
     .catch(err => console.error("Error fetching products:", err))
     .finally(() => {
-      // Always hide the loader after fetch attempt finishes
       document.getElementById("loader").style.display = "none";
     });
 }
