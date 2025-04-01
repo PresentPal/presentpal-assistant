@@ -242,6 +242,18 @@ header {
   cursor: not-allowed;
 }
 
+/* Hide text and background in dayGridMonth (calendar) view */
+.fc-daygrid-event {
+  background-color: transparent !important;
+  border: none !important;
+  color: transparent !important;
+}
+
+/* Show only icon in dayGridMonth */
+.fc-daygrid-event .fc-event-title {
+  display: none;
+}
+
         /* Navigation Bar */
 .nav-bar {
     background-color: white;
