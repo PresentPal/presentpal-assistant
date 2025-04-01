@@ -126,7 +126,7 @@ async function loadCalendar(user) {
       if (arg.view.type === "dayGridMonth") {
         return {
           html: `
-            <div style="text-align: center;">
+            <div style="text-align: left;">
               <span style="color: gold; font-size: 20px;">&#11088;</span>
             </div>
           `
