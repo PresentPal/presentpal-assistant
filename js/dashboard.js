@@ -116,26 +116,31 @@ async function loadCalendar(user) {
     expandRows: false,
     events: events,
 
-    // ✅ Switch to list view when an occasion is clicked
+    // ✅ When a user clicks a star, switch to list view
     eventClick: function(info) {
       calendar.changeView('listMonth');
     },
 
-    // ✅ Gold star icon instead of blue square text
+    // ✅ Show gold star in calendar, text in list view
     eventContent: function(arg) {
-      return {
-        html: `
-          <div style="text-align: center;">
-            <span style="color: gold; font-size: 20px;">&#11088;</span>
-          </div>
-        `
-      };
+      if (arg.view.type === "dayGridMonth") {
+        return {
+          html: `
+            <div style="text-align: center;">
+              <span style="color: gold; font-size: 20px;">&#11088;</span>
+            </div>
+          `
+        };
+      }
+
+      // Default rendering for list view
+      return true;
     }
   });
 
   calendar.render();
 
-  // ✅ Inject "Manage Occasions" button if it doesn't already exist
+  // ✅ Add "Manage Occasions" button under calendar if it doesn't exist yet
   if (!document.getElementById("manageOccasionsBtn")) {
     const footer = document.createElement("div");
     footer.className = "calendar-footer";
