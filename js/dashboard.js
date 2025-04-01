@@ -116,31 +116,43 @@ async function loadCalendar(user) {
     expandRows: false,
     events: events,
 
-    // ✅ When a user clicks a star, switch to list view
+    // ✅ When user clicks icon, switch to list view
     eventClick: function(info) {
       calendar.changeView('listMonth');
     },
 
-    // ✅ Show gold star in calendar, text in list view
+    // ✅ Custom icons based on occasion type
     eventContent: function(arg) {
       if (arg.view.type === "dayGridMonth") {
+        const title = arg.event.title.toLowerCase();
+
+        let icon = "&#11088;"; // default: gold star
+
+        if (title.includes("birthday")) icon = "&#127874;"; // Cake
+        else if (title.includes("christmas")) icon = "&#127876;"; // Christmas Tree
+        else if (title.includes("valentine")) icon = "&#10084;&#65039;"; // Heart
+        else if (title.includes("anniversary")) icon = "&#128149;"; // Two hearts
+        else if (title.includes("graduation")) icon = "&#127891;"; // Graduation cap
+        else if (title.includes("easter")) icon = "&#128036;"; // Bunny
+        else if (title.includes("mother")) icon = "&#128144;"; // Rose
+        else if (title.includes("father")) icon = "&#127942;"; // Medal
+
         return {
           html: `
-            <div style="text-align: left;">
-              <span style="color: gold; font-size: 20px;">&#11088;</span>
+            <div style="text-align: center;" title="${arg.event.title}">
+              <span style="font-size: 20px;">${icon}</span>
             </div>
           `
         };
       }
 
-      // Default rendering for list view
-      return true;
+      return true; // List view shows full text
     }
   });
 
   calendar.render();
 
-  // ✅ Add "Manage Occasions" button under calendar if it doesn't exist yet
+  // ✅ Add "Manage Occasions" button under calendar if it doesn't already exist
   if (!document.getElementById("manageOccasionsBtn")) {
     const footer = document.createElement("div");
     footer.className = "calendar-footer";
@@ -157,14 +169,15 @@ async function loadCalendar(user) {
     calendarEl.parentNode.insertBefore(footer, calendarEl.nextSibling);
   }
 }
+
 // ✅ Responsive view switching on resize
 window.addEventListener('resize', () => {
-    if (calendar) {
-        const isMobile = window.innerWidth < 768;
-        const newView = isMobile ? 'listMonth' : 'dayGridMonth';
+  if (calendar) {
+    const isMobile = window.innerWidth < 768;
+    const newView = isMobile ? 'listMonth' : 'dayGridMonth';
 
-        if (calendar.view.type !== newView) {
-            calendar.changeView(newView);
-        }
+    if (calendar.view.type !== newView) {
+      calendar.changeView(newView);
     }
+  }
 });
