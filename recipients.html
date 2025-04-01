@@ -354,6 +354,21 @@ input[type="date"]:valid::before {
   text-align: center;
 }
 
+.preset-occasions {
+  margin-bottom: 15px;
+}
+.preset-btn {
+  margin: 5px 8px 5px 0;
+  padding: 6px 12px;
+  background-color: #eee;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.preset-btn:hover {
+  background-color: #ddd;
+}
+
 /* Navigation Bar */
 .nav-bar {
     background-color: white;
@@ -486,7 +501,13 @@ input[type="date"]:valid::before {
         <label class="modal-label" for="recipientDate">When is the occasion?</label>
         <input type="date" id="recipientDate" placeholder="Date of Occasion">
       </div>
-
+      
+      <div class="preset-occasions">
+  <label class="modal-label">Quick Add:</label>
+  <button type="button" class="preset-btn" onclick="selectPresetOccasion('Christmas')">Christmas</button>
+  <button type="button" class="preset-btn" onclick="selectPresetOccasion('Valentine\'s Day')">Valentine's Day</button>
+  <button type="button" class="preset-btn" onclick="selectPresetOccasion('Mother\'s Day')">Mother's Day</button>
+</div>
 
       <div class="modal-buttons">
           <button type="button" class="add-occasion-btn" onclick="addOccasionToList()">Add Occasion</button>
