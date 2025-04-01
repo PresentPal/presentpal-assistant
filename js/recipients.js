@@ -161,6 +161,52 @@ window.goToStep2 = function () {
   document.getElementById("recipientStep2").style.display = "block";
 };
 
+// ✅ Auto-fill inputs based on preset occasion
+window.selectPresetOccasion = function (occasionName) {
+  const occasionInput = document.getElementById("recipientOccasion");
+  const dateInput = document.getElementById("recipientDate");
+
+  const today = new Date();
+  const year = today.getFullYear();
+
+  let presetDate = "";
+
+  switch (occasionName) {
+    case "Christmas":
+      presetDate = `${year}-12-25`;
+      break;
+    case "Valentine's Day":
+      presetDate = `${year}-02-14`;
+      break;
+    case "Mother's Day":
+      // UK Mother's Day (4th Sunday of Lent)
+      const easter = getEasterDate(year);
+      const mothersDay = new Date(easter);
+      mothersDay.setDate(easter.getDate() - 21); // 3 Sundays before
+      presetDate = mothersDay.toISOString().split("T")[0];
+      break;
+    default:
+      presetDate = today.toISOString().split("T")[0];
+  }
+
+  occasionInput.value = occasionName;
+  dateInput.value = presetDate;
+};
+
+// Helper: Calculates Easter Sunday (used for Mother's Day in UK)
+function getEasterDate(year) {
+  const f = Math.floor,
+    G = year % 19,
+    C = f(year / 100),
+    H = (C - f(C / 4) - f((8 * C + 13) / 25) + 19 * G + 15) % 30,
+    I = H - f(H / 28) * (1 - f(29 / (H + 1)) * f((21 - G) / 11)),
+    J = (year + f(year / 4) + I + 2 - C + f(C / 4)) % 7,
+    L = I - J,
+    month = 3 + f((L + 40) / 44),
+    day = L + 28 - 31 * f(month / 4);
+  return new Date(year, month - 1, day);
+}
+
 // ✅ Add Occasion to Occasion List
 window.addOccasionToList = function () {
   const title = document.getElementById("recipientOccasion").value.trim();
