@@ -154,8 +154,24 @@ header {
 }
 
 /* General FullCalendar Styling */
-.fc {
-  font-family: "Arial", sans-serif;
+.calendar-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background-color: #181818;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: black;
 }
 
 /* Mobile Adjustments */
@@ -334,6 +350,13 @@ body {
 
   <div id="calendar-container">
     <div id="calendar"></div>
+
+    <!-- ✅ Manage Occasions Button -->
+    <div class="calendar-footer" style="text-align: center; margin-top: 20px;">
+      <button id="manageOccasionsBtn" class="btn-primary" onclick="location.href='recipients.html'">
+        Manage Occasions
+      </button>
+    </div>
   </div>
 </section>
 
