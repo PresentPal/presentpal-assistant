@@ -11,6 +11,19 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto&display=swap" rel="stylesheet">
 
+<script>
+  try {
+    const userData = JSON.parse(localStorage.getItem("User Data"));
+    if (userData?.package === "PresentPal+") {
+      document.documentElement.classList.add("plus-theme");
+    } else if (userData?.package === "PresentPal Premium") {
+      document.documentElement.classList.add("premium-theme");
+    }
+  } catch (e) {
+    // No theme set
+  }
+</script>
+
     <!-- Styles -->
     <style>
         /* General Styles */
@@ -65,15 +78,6 @@ body, html {
   border: 2px solid #fedc27; /* default */
 }
 
-/* Dynamic profile ring based on package */
-.premium-theme .profile img {
-  border-color: #2196F3; /* blue for Premium */
-}
-
-.plus-theme .profile img {
-  border-color: #ff4b33; /* orange-red for Plus */
-}
-
 .profile-info {
   text-align: left;
 }
@@ -92,19 +96,16 @@ body, html {
 .subscription {
   padding: 15px;
   border-radius: 8px;
-  background: #ffe680; /* default yellow */
+  background: #f2f2f2;
   margin-bottom: 20px;
   font-size: 16px;
 }
 
-/* Dynamic background */
-.premium-theme .subscription {
-  background: #e3f2fd; /* light blue */
-}
+html.premium-theme .subscription { background: #e3f2fd; }
+html.plus-theme .subscription { background: #ffe0db; }
 
-.plus-theme .subscription {
-  background: #ffe0db; /* light orange tint */
-}
+html.premium-theme .profile img { border-color: #2196F3; }
+html.plus-theme .profile img { border-color: #ff4b33; }
 
         /* Dashboard Buttons */
        .dashboard-buttons {
