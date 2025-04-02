@@ -206,7 +206,7 @@ body {
   height: 90vh; /* Adjust this if needed */
 }
 
-   /* Modal Styling */
+ /* Modal Styling */
 .modal {
     display: none;
     position: fixed;
@@ -216,18 +216,21 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+
+    /* Use Flexbox to center modal content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: white;
-    margin: 15% auto;
-    padding: 20px;
+    padding: 20px 20px 30px 20px;
     border-radius: 10px;
-    width: 320px; /* Adjust the modal width */
+    width: 320px;
     text-align: center;
     position: relative;
-    /* Add a bit of bottom padding when on desktop */
-    padding-bottom: 30px;  /* Add space at the bottom */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* The Close Button */
