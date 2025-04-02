@@ -15,9 +15,9 @@
   try {
     const userData = JSON.parse(localStorage.getItem("User Data"));
     if (userData?.package === "PresentPal+") {
-      document.documentElement.classList.add("plus-theme");
+      document.body.classList.add("plus-theme");
     } else if (userData?.package === "PresentPal Premium") {
-      document.documentElement.classList.add("premium-theme");
+      document.body.classList.add("premium-theme");
     }
   } catch (e) {
     // No theme set
@@ -101,11 +101,11 @@ body, html {
   font-size: 16px;
 }
 
-html.premium-theme .subscription { background: #e3f2fd; }
-html.plus-theme .subscription { background: #ffe0db; }
+body.premium-theme .subscription { background: #e3f2fd; }
+body.plus-theme .subscription { background: #ffe0db; }
 
-html.premium-theme .profile img { border-color: #2196F3; }
-html.plus-theme .profile img { border-color: #ff4b33; }
+body.premium-theme .profile img { border-color: #2196F3; }
+body.plus-theme .profile img { border-color: #ff4b33; }
 
         /* Dashboard Buttons */
        .dashboard-buttons {
