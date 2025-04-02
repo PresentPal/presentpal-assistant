@@ -98,8 +98,7 @@ async function sendTokenToBackend(idToken) {
   }
 }
 
-// ✅ Verify Signup
-// ✅ Step 1: Send verification code
+// ✅ Signup - Step 1: Send verification code
 window.sendVerificationCode = async function () {
   const name = document.getElementById("signupName").value.trim();
   const email = document.getElementById("signupEmail").value.trim();
@@ -109,6 +108,7 @@ window.sendVerificationCode = async function () {
   if (!name || !email || !password || !confirmPassword) {
     return alert("Please fill out all fields.");
   }
+
   if (password !== confirmPassword) {
     return alert("Passwords do not match!");
   }
@@ -127,7 +127,8 @@ window.sendVerificationCode = async function () {
     const result = await res.json();
     if (!result.success) throw new Error("Verification failed");
 
-    document.getElementById("signupForm").style.display = "none";
+    // Switch to step 2
+    document.getElementById("signupStep1").style.display = "none";
     document.getElementById("signupStep2").style.display = "block";
   } catch (err) {
     console.error("Verification error:", err);
@@ -135,7 +136,7 @@ window.sendVerificationCode = async function () {
   }
 };
 
-// ✅ Step 2: Confirm code & complete signup
+// ✅ Step 2: Complete signup with verification code
 window.completeSignupWithCode = async function () {
   const inputCode = document.getElementById("verificationCodeInput").value.trim();
   const expectedCode = localStorage.getItem("verifyCode");
@@ -147,11 +148,12 @@ window.completeSignupWithCode = async function () {
 
   const { name, email, password } = signupData;
   if (!name || !email || !password) {
-    return alert("Signup info missing. Start again.");
+    return alert("Signup info missing. Please start again.");
   }
 
   try {
-    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
     await setDoc(doc(db, "users", user.uid), {
       userName: name,
@@ -165,10 +167,13 @@ window.completeSignupWithCode = async function () {
       customerId: stripeCustomer.id
     });
 
+    // Clean up and close modal
     localStorage.removeItem("verifyCode");
     localStorage.removeItem("pendingSignup");
     alert("Account created!");
-    closeAccountModal();
+
+    const modal = document.getElementById("accountModal");
+    if (modal) modal.style.display = "none"; // Force-close modal
   } catch (err) {
     console.error("Signup error:", err);
     alert("Signup failed: " + err.message);
