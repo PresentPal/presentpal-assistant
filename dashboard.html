@@ -93,13 +93,22 @@ header {
 }
 
 /* Header row styling */
-.recipient-preview th {
-  background-color: #7F00FF; /* Match Subscription Colour */
+.premium-theme .recipient-preview th {
+  background-color: #7F00FF;
   color: white;
   padding: 10px;
   text-align: left;
-  border-bottom: 2px #7F00FF; /* Darker blue divider */
-  border-right: 1px solid white; /* Vertical divider between columns */
+  border-bottom: 2px #7F00FF;
+  border-right: 1px solid white;
+}
+
+.plus-theme .recipient-preview th {
+  background-color: #ff4b33;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px #ff4b33;
+  border-right: 1px solid white;
 }
 
 .recipient-preview th:last-child {
@@ -159,19 +168,26 @@ header {
   margin-top: 20px;
 }
 
-.btn-primary {
+.premium-theme .btn-primary,
+.premium-theme .fc .fc-button {
   background-color: #7F00FF;
   color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
 }
 
-.btn-primary:hover {
+.premium-theme .btn-primary:hover,
+.premium-theme .fc .fc-button:not(.fc-button-active):hover {
   background-color: #6E00B3;
+}
+
+.plus-theme .btn-primary,
+.plus-theme .fc .fc-button {
+  background-color: #ff4b33;
+  color: white;
+}
+
+.plus-theme .btn-primary:hover,
+.plus-theme .fc .fc-button:not(.fc-button-active):hover {
+  background-color: #d53c27;
 }
 
 /* Mobile Adjustments */
@@ -217,19 +233,12 @@ header {
 
 /* Default Button */
 .fc .fc-button {
-  background-color: #7F00FF;
   border: none;
-  color: white;
   font-weight: bold;
   text-transform: capitalize;
   padding: 6px 12px;
   border-radius: 5px;
   cursor: pointer;
-}
-
-/* Hover (not selected) */
-.fc .fc-button:not(.fc-button-active):hover {
-  background-color: #6E00B3;
 }
 
 /* Selected / Active Button */
