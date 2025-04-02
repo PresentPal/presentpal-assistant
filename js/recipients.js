@@ -83,6 +83,8 @@ window.openManageRecipientModal = function (recipientId, data) {
 
 // ✅ Open "Edit" modal
 window.openEditRecipientModal = function (recipientId, data) {
+  document.getElementById("manageRecipientModal").style.display = "none";
+  
   const modal = document.getElementById("editRecipientModal");
   if (!modal) return;
   modal.style.display = "flex";
