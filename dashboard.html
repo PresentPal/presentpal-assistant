@@ -175,8 +175,14 @@ header {
   display: inline-block;
   min-width: 180px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  background-color: inherit; /* will be overridden by theme class */
+  color: inherit;
+  font-family: inherit;
 }
 
+/* Theme Overrides */
 .premium-theme .btn-primary,
 .premium-theme .fc .fc-button {
   background-color: #7F00FF;
