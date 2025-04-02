@@ -451,36 +451,38 @@ button:hover {
 </div>
 
 <!-- Signup Form (INSIDE MODAL CONTENT) -->
+<!-- ✅ Step 1 - Collect User Info -->
 <div id="signupForm" style="display: none;">
   <h2>Sign Up</h2>
 
-   <input type="text" id="signupName" placeholder="Name">
+  <input type="text" id="signupName" placeholder="Name">
   <input type="email" id="signupEmail" placeholder="Email">
 
   <div class="password-field">
     <input type="password" id="signupPassword" placeholder="Password">
-    <!-- Toggle password visibility for signup -->
-    <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁️‍🗨</span>
+    <span id="toggleSignupPassword" class="toggle-icon" onclick="togglePasswordVisibility('signupPassword', 'toggleSignupPassword')">👁️‍🗨️</span>
   </div>
 
   <div class="password-field">
     <input type="password" id="confirmPassword" placeholder="Confirm Password">
-    <!-- Toggle password visibility for confirm password -->
     <span id="toggleConfirmPassword" class="toggle-icon" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')">👁‍🗨</span>
   </div>
 
-  <button id="signupButton" type="button" onclick="signUp()">Sign Up</button>
+  <!-- ✅ Call verification step function -->
+  <button type="button" onclick="verifySignupStep()">Verify</button>
 
   <div id="signupFormToggle">
     <button id="loginToggleBtn" onclick="showLoginForm()">Login</button>
   </div>
 </div>
 
-    <!-- Sign Up Step 2 -->
+<!-- ✅ Step 2 - Code Entry -->
 <div id="signupStep2" style="display: none;">
   <h2>Enter Verification Code</h2>
   <input type="text" id="verificationCodeInput" placeholder="Enter code from your email">
-  <button onclick="verifyCodeAndSignUp()">Sign Up</button>
+  
+  <!-- ✅ This button will call the final sign-up function -->
+  <button type="button" onclick="signUp()">Sign Up</button>
 </div>
 
     <!-- Logout Button -->
