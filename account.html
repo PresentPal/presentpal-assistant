@@ -58,35 +58,53 @@ body, html {
         }
 
         .profile img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #fedc27;
-        }
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fedc27; /* default */
+}
 
-        .profile-info {
-            text-align: left;
-        }
+/* Dynamic profile ring based on package */
+.premium-theme .profile img {
+  border-color: #2196F3; /* blue for Premium */
+}
 
-        .profile-info h2 {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
+.plus-theme .profile img {
+  border-color: #ff4b33; /* orange-red for Plus */
+}
 
-        .profile-info p {
-            font-size: 14px;
-            color: #666;
-        }
+.profile-info {
+  text-align: left;
+}
 
-        /* Subscription Details */
-        .subscription {
-            padding: 15px;
-            border-radius: 8px;
-            background: #ffe680;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
+.profile-info h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.profile-info p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Subscription box default */
+.subscription {
+  padding: 15px;
+  border-radius: 8px;
+  background: #ffe680; /* default yellow */
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* Dynamic background */
+.premium-theme .subscription {
+  background: #e3f2fd; /* light blue */
+}
+
+.plus-theme .subscription {
+  background: #ffe0db; /* light orange tint */
+}
 
         /* Dashboard Buttons */
        .dashboard-buttons {
