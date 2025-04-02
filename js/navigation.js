@@ -84,8 +84,12 @@ if (signupForm) signupForm.style.display = "none";
         dashboardButton.style.display = "none";
 
         // Show login form for non-logged-in users
-        document.getElementById("loginForm").style.display = "block";
-        document.getElementById("signupForm").style.display = "none";
+       const loginFormEl = document.getElementById("loginForm");
+       const signupFormEl = document.getElementById("signupForm");
+
+       if (loginFormEl) loginFormEl.style.display = "block";
+       if (signupFormEl) signupFormEl.style.display = "none";
+
 
         // Change the 'account' button to open the login/signup modal when not logged in
         accountButton.removeEventListener("click", showLoginModal); // Remove existing listener
