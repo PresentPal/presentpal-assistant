@@ -242,16 +242,27 @@ async function createStripeCustomer(email) {
 }
 
 // ✅ Function to Show Login Form
-window.showLoginForm = function() {
-  document.getElementById("loginForm").style.display = "block";
-  document.getElementById("signupForm").style.display = "none";
+window.showLoginForm = function () {
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
+  const step2 = document.getElementById("signupStep2");
+
+  if (loginForm) loginForm.style.display = "block";
+  if (signupForm) signupForm.style.display = "none";
+  if (step2) step2.style.display = "none"; // optional: reset step 2
 };
 
 // ✅ Function to Show Signup Form
-window.showSignUpForm = function() {
-  document.getElementById("signupForm").style.display = "block";
-  document.getElementById("loginForm").style.display = "none";
+window.showSignUpForm = function () {
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
+  const step2 = document.getElementById("signupStep2");
+
+  if (loginForm) loginForm.style.display = "none";
+  if (signupForm) signupForm.style.display = "block";
+  if (step2) step2.style.display = "none"; // optional: reset step 2
 };
+
 
 // ✅ Close Modal When Clicking Outside
 document.addEventListener("click", (event) => {
