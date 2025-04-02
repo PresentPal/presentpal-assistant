@@ -6,7 +6,6 @@ import {
   deleteDoc,
   doc,
   updateDoc
-  getDoc
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 let occasionList = [];
@@ -378,27 +377,30 @@ window.closeModal = function () {
 
 // ✅ Updated DOMContentLoaded with theming
 document.addEventListener("DOMContentLoaded", () => {
-  auth.onAuthStateChanged(async (user) => {
+  auth.onAuthStateChanged((user) => {
     if (user) {
       try {
-        const userRef = doc(db, "users", user.uid);
-        const userSnap = await getDoc(userRef);
+        // Access user data from existing global/local object
+        const userData = window.userData || JSON.parse(localStorage.getItem("User Data"));
 
-        if (userSnap.exists()) {
-          const userData = userSnap.data();
+        if (userData && userData.package) {
           const userPackage = userData.package;
 
-          if (userPackage === "PresentPal Premium") {
-            document.body.classList.add("premium-theme");
-          } else if (userPackage === "PresentPal+") {
+          if (userPackage === "PresentPal+") {
             document.body.classList.add("plus-theme");
+          } else if (userPackage === "PresentPal Premium") {
+            document.body.classList.add("premium-theme");
+          } else {
+            console.warn("Unknown package type:", userPackage);
           }
-
-          loadRecipients();
+        } else {
+          console.warn("User Data object missing or incomplete.");
         }
-      } catch (error) {
-        console.error("Error loading user data:", error);
-        loadRecipients(); // fallback load
+
+        loadRecipients();
+      } catch (err) {
+        console.error("Error applying user theme:", err);
+        loadRecipients(); // fallback
       }
     }
   });
