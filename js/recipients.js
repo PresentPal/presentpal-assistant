@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ✅ Close modals on outside click
+// ✅ Close modals on outside click (respects unsaved changes in Edit modal)
 document.addEventListener("click", function (event) {
   const openModals = document.querySelectorAll(".modal");
 
@@ -390,13 +390,18 @@ document.addEventListener("click", function (event) {
     const isVisible = getComputedStyle(modal).display === "flex";
     const modalContent = modal.querySelector(".modal-content");
 
-    if (
+    const isClickOutside =
       isVisible &&
       modalContent &&
       !modalContent.contains(event.target) &&
-      modal.contains(event.target)
-    ) {
-      modal.style.display = "none";
+      modal.contains(event.target);
+
+    if (isClickOutside) {
+      if (modal.id === "editRecipientModal") {
+        closeEditModal(); // route through unsaved changes check
+      } else {
+        modal.style.display = "none";
+      }
     }
   });
 });
