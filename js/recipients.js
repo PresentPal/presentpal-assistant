@@ -87,6 +87,8 @@ window.openEditRecipientModal = function (recipientId, data) {
   if (!modal) return;
   modal.style.display = "flex";
 
+  let hasUnsavedChanges = false;
+
   document.getElementById("editName").value = data.name || "";
   document.getElementById("editRelationship").value = data.relationship || "";
   document.getElementById("editAge").value = data.age || "";
@@ -106,10 +108,29 @@ window.openEditRecipientModal = function (recipientId, data) {
   formWrapper.style.display = "none";
   removeBtn.style.display = "none";
 
+  // Add event listeners to track unsaved changes
+  const fieldsToWatch = [
+    "editName",
+    "editRelationship",
+    "editAge",
+    "editGender",
+    "editInterests",
+    "editOccasionDate"
+  ];
+
+  fieldsToWatch.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", () => {
+        hasUnsavedChanges = true;
+      });
+    }
+  });
+
   occasionList.forEach((o, index) => {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "preset-btn"; // reuse quick-add styles
+    btn.className = "preset-btn";
     btn.textContent = o.title;
 
     btn.onclick = () => {
@@ -117,8 +138,6 @@ window.openEditRecipientModal = function (recipientId, data) {
       titleInput.value = o.title;
       dateInput.value = o.date;
       removeBtn.style.display = "inline-block";
-
-      // Save the index we're editing
       formWrapper.setAttribute("data-editing-index", index);
     };
 
@@ -130,8 +149,9 @@ window.openEditRecipientModal = function (recipientId, data) {
     const indexToRemove = parseInt(formWrapper.getAttribute("data-editing-index"));
     if (!isNaN(indexToRemove)) {
       occasionList.splice(indexToRemove, 1);
+      hasUnsavedChanges = true;
       formWrapper.style.display = "none";
-      loadRecipients(); // update UI immediately
+      loadRecipients();
       openEditRecipientModal(recipientId, {
         ...data,
         occasions: occasionList
@@ -143,7 +163,6 @@ window.openEditRecipientModal = function (recipientId, data) {
   const saveBtn = document.getElementById("saveEditBtn");
   if (saveBtn) {
     saveBtn.onclick = async () => {
-      // If editing an occasion, update its date
       const editingIndex = parseInt(formWrapper.getAttribute("data-editing-index"));
       if (!isNaN(editingIndex)) {
         occasionList[editingIndex].date = dateInput.value;
@@ -159,6 +178,7 @@ window.openEditRecipientModal = function (recipientId, data) {
           occasions: occasionList
         });
 
+        hasUnsavedChanges = false;
         loadRecipients();
         closeModal();
       } catch (error) {
@@ -166,7 +186,34 @@ window.openEditRecipientModal = function (recipientId, data) {
       }
     };
   }
+
+  // Attach unsaved changes check to close modal logic
+  window.closeEditModal = function () {
+    if (hasUnsavedChanges) {
+      showUnsavedChangesDialog(() => {
+        document.getElementById("editRecipientModal").style.display = "none";
+        hasUnsavedChanges = false;
+      });
+    } else {
+      document.getElementById("editRecipientModal").style.display = "none";
+    }
+  };
 };
+
+function showUnsavedChangesDialog(onDiscardConfirmed) {
+  const modal = document.getElementById("unsavedChangesModal");
+  modal.style.display = "flex";
+
+  document.getElementById("saveChangesBtn").onclick = () => {
+    document.getElementById("saveEditBtn").click(); // trigger save
+    modal.style.display = "none";
+  };
+
+  document.getElementById("discardChangesBtn").onclick = () => {
+    modal.style.display = "none";
+    onDiscardConfirmed();
+  };
+}
 
 // ✅ Open Add Recipient Modal (Step 1)
 window.openAddRecipientModal = function () {
