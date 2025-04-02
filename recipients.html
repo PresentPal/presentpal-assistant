@@ -357,6 +357,7 @@ input[type="date"]:valid::before {
 .preset-occasions {
   margin-bottom: 15px;
 }
+/* Quick occasion buttons (reused from Add Recipient modal) */
 .preset-btn {
   margin: 5px 8px 5px 0;
   padding: 6px 12px;
@@ -364,9 +365,26 @@ input[type="date"]:valid::before {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
 }
+
 .preset-btn:hover {
   background-color: #ddd;
+}
+
+/* Optional spacing and structure tweaks for the edit modal */
+#editOccasionButtonsContainer {
+  margin-top: 10px;
+}
+
+#editOccasionForm {
+  margin-top: 15px;
+}
+
+#editOccasionForm input[readonly] {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
 }
 
 /* Navigation Bar */
@@ -538,15 +556,27 @@ input[type="date"]:valid::before {
       <input type="text" id="editName" placeholder="Recipient Name" required />
       <input type="text" id="editRelationship" placeholder="Relationship" required />
 
-      <!-- Occasion Row -->
-      <div class="input-group">
-        <label class="modal-label" for="editRecipientOccasion">What are you celebrating?</label>
-        <input type="text" id="editRecipientOccasion" placeholder="e.g. Birthday">
+      <!-- Saved Occasions as Quick Buttons -->
+      <div class="preset-occasions" id="editOccasionButtonsContainer" style="margin-bottom: 15px;">
+        <label class="modal-label">Saved Occasions:</label>
+        <div id="editOccasionButtons"></div>
       </div>
 
-      <div class="input-group">
-        <label class="modal-label" for="editRecipientDate">When is the occasion?</label>
-        <input type="date" id="editRecipientDate" placeholder="Date of Occasion">
+      <!-- Editable Occasion Fields -->
+      <div id="editOccasionForm" style="display: none;">
+        <div class="input-group">
+          <label class="modal-label">What are you celebrating?</label>
+          <input type="text" id="editOccasionTitle" readonly />
+        </div>
+
+        <div class="input-group">
+          <label class="modal-label">When is the occasion?</label>
+          <input type="date" id="editOccasionDate" />
+        </div>
+
+        <button type="button" class="btn-delete" id="removeOccasionBtn" style="display: none; margin-top: 10px;">
+          Remove Occasion
+        </button>
       </div>
 
       <input type="number" id="editAge" placeholder="Age" />
@@ -557,6 +587,7 @@ input[type="date"]:valid::before {
       </select>
       <input type="text" id="editInterests" placeholder="Interests" />
     </form>
+
     <div class="modal-buttons">
       <button id="saveEditBtn" class="btn-primary">Save</button>
       <button class="btn-secondary" onclick="closeEditModal()">Cancel</button>
