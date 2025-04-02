@@ -128,7 +128,7 @@ window.sendVerificationCode = async function () {
     if (!result.success) throw new Error("Verification failed");
 
     // Switch to step 2
-    document.getElementById("signupStep1").style.display = "none";
+    document.getElementById("signupForm").style.display = "none";
     document.getElementById("signupStep2").style.display = "block";
   } catch (err) {
     console.error("Verification error:", err);
