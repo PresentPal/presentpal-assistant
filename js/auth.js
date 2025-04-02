@@ -99,7 +99,8 @@ async function sendTokenToBackend(idToken) {
 }
 
 // ✅ Verify Signup
-window.verifySignupStep = async function () {
+// ✅ Step 1: Send verification code
+window.sendVerificationCode = async function () {
   const name = document.getElementById("signupName").value.trim();
   const email = document.getElementById("signupEmail").value.trim();
   const password = document.getElementById("signupPassword").value;
@@ -108,13 +109,12 @@ window.verifySignupStep = async function () {
   if (!name || !email || !password || !confirmPassword) {
     return alert("Please fill out all fields.");
   }
-
   if (password !== confirmPassword) {
     return alert("Passwords do not match!");
   }
 
-  const code = Math.floor(100000 + Math.random() * 900000); // 6-digit code
-  localStorage.setItem("verifyCode", code.toString());
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  localStorage.setItem("verifyCode", code);
   localStorage.setItem("pendingSignup", JSON.stringify({ name, email, password }));
 
   try {
@@ -125,31 +125,33 @@ window.verifySignupStep = async function () {
     });
 
     const result = await res.json();
-    if (!result.success) throw new Error("Failed to send code");
+    if (!result.success) throw new Error("Verification failed");
 
-    // Show Step 2
     document.getElementById("signupStep1").style.display = "none";
     document.getElementById("signupStep2").style.display = "block";
   } catch (err) {
-    console.error(err);
-    alert("Error sending verification email.");
+    console.error("Verification error:", err);
+    alert("Could not send verification email.");
   }
 };
 
-
-// ✅ Global Sign-Up Function (Creates Firebase user + Stripe customer)
-window.signUp = async function () {
+// ✅ Step 2: Confirm code & complete signup
+window.completeSignupWithCode = async function () {
   const inputCode = document.getElementById("verificationCodeInput").value.trim();
   const expectedCode = localStorage.getItem("verifyCode");
-  const { name, email, password } = JSON.parse(localStorage.getItem("pendingSignup") || "{}");
+  const signupData = JSON.parse(localStorage.getItem("pendingSignup") || "{}");
 
   if (!inputCode || inputCode !== expectedCode) {
-    return alert("Incorrect verification code.");
+    return alert("Incorrect or missing verification code.");
+  }
+
+  const { name, email, password } = signupData;
+  if (!name || !email || !password) {
+    return alert("Signup info missing. Start again.");
   }
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
     await setDoc(doc(db, "users", user.uid), {
       userName: name,
@@ -163,13 +165,13 @@ window.signUp = async function () {
       customerId: stripeCustomer.id
     });
 
-    alert("Account created successfully!");
     localStorage.removeItem("verifyCode");
     localStorage.removeItem("pendingSignup");
+    alert("Account created!");
     closeAccountModal();
-  } catch (error) {
-    console.error(error);
-    alert("Signup failed: " + error.message);
+  } catch (err) {
+    console.error("Signup error:", err);
+    alert("Signup failed: " + err.message);
   }
 };
 
