@@ -6,6 +6,7 @@ import {
   deleteDoc,
   doc,
   updateDoc
+  getDoc
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 let occasionList = [];
@@ -375,10 +376,31 @@ window.closeModal = function () {
   });
 };
 
-// ✅ Load recipients when page is ready
+// ✅ Updated DOMContentLoaded with theming
 document.addEventListener("DOMContentLoaded", () => {
-  auth.onAuthStateChanged((user) => {
-    if (user) loadRecipients();
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          const userPackage = userData.package;
+
+          if (userPackage === "PresentPal Premium") {
+            document.body.classList.add("premium-theme");
+          } else if (userPackage === "PresentPal+") {
+            document.body.classList.add("plus-theme");
+          }
+
+          loadRecipients();
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+        loadRecipients(); // fallback load
+      }
+    }
   });
 });
 
