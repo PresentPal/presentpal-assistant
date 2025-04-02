@@ -93,18 +93,62 @@ window.openEditRecipientModal = function (recipientId, data) {
   document.getElementById("editGender").value = data.gender || "";
   document.getElementById("editInterests").value = Array.isArray(data.interests) ? data.interests.join(", ") : data.interests || "";
 
+  // Setup Occasion Buttons
   occasionList = Array.isArray(data.occasions) ? [...data.occasions] : [];
-  const list = document.getElementById("editOccasionList");
-  list.innerHTML = "";
-  occasionList.forEach((o) => {
-    const item = document.createElement("li");
-    item.textContent = `${o.title} - ${o.date}`;
-    list.appendChild(item);
+  const buttonContainer = document.getElementById("editOccasionButtons");
+  buttonContainer.innerHTML = "";
+
+  const formWrapper = document.getElementById("editOccasionForm");
+  const titleInput = document.getElementById("editOccasionTitle");
+  const dateInput = document.getElementById("editOccasionDate");
+  const removeBtn = document.getElementById("removeOccasionBtn");
+
+  formWrapper.style.display = "none";
+  removeBtn.style.display = "none";
+
+  occasionList.forEach((o, index) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "preset-btn"; // reuse quick-add styles
+    btn.textContent = o.title;
+
+    btn.onclick = () => {
+      formWrapper.style.display = "block";
+      titleInput.value = o.title;
+      dateInput.value = o.date;
+      removeBtn.style.display = "inline-block";
+
+      // Save the index we're editing
+      formWrapper.setAttribute("data-editing-index", index);
+    };
+
+    buttonContainer.appendChild(btn);
   });
 
+  // Handle Remove Occasion
+  removeBtn.onclick = () => {
+    const indexToRemove = parseInt(formWrapper.getAttribute("data-editing-index"));
+    if (!isNaN(indexToRemove)) {
+      occasionList.splice(indexToRemove, 1);
+      formWrapper.style.display = "none";
+      loadRecipients(); // update UI immediately
+      openEditRecipientModal(recipientId, {
+        ...data,
+        occasions: occasionList
+      });
+    }
+  };
+
+  // Save changes
   const saveBtn = document.getElementById("saveEditBtn");
   if (saveBtn) {
     saveBtn.onclick = async () => {
+      // If editing an occasion, update its date
+      const editingIndex = parseInt(formWrapper.getAttribute("data-editing-index"));
+      if (!isNaN(editingIndex)) {
+        occasionList[editingIndex].date = dateInput.value;
+      }
+
       try {
         await updateDoc(doc(db, "users", auth.currentUser.uid, "recipients", recipientId), {
           name: document.getElementById("editName").value,
@@ -114,6 +158,7 @@ window.openEditRecipientModal = function (recipientId, data) {
           interests: document.getElementById("editInterests").value.split(",").map(i => i.trim()),
           occasions: occasionList
         });
+
         loadRecipients();
         closeModal();
       } catch (error) {
