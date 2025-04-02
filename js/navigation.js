@@ -32,7 +32,7 @@ function checkSubscriptionStatus(user) {
 function showLoginModal() {
     const modal = document.getElementById("accountModal");
     if (modal) {
-        modal.style.display = "block"; // Open the account modal
+        modal.style.display = "flex"; // Open the account modal
     }
 }
 
@@ -84,11 +84,13 @@ if (signupForm) signupForm.style.display = "none";
         dashboardButton.style.display = "none";
 
         // Show login form for non-logged-in users
-       const loginFormEl = document.getElementById("loginForm");
-       const signupFormEl = document.getElementById("signupForm");
+      const loginFormEl = document.getElementById("loginForm");
+      const signupFormEl = document.getElementById("signupForm");
+      const signupStep2El = document.getElementById("signupStep2");
 
-       if (loginFormEl) loginFormEl.style.display = "block";
-       if (signupFormEl) signupFormEl.style.display = "none";
+      if (loginFormEl) loginFormEl.style.display = "block";
+      if (signupFormEl) signupFormEl.style.display = "none";
+      if (signupStep2El) signupStep2El.style.display = "none";
 
 
         // Change the 'account' button to open the login/signup modal when not logged in
