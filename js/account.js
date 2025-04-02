@@ -194,6 +194,14 @@ export function updateDashboardUI(userData) {
             console.log("Setting userSubscription to:", userData.package);
             userSubscriptionElement.textContent = userData.package || "No subscription info"; // Default to "No subscription info"
         }
+        
+        // Apply theme to body based on package
+document.body.classList.remove("plus-theme", "premium-theme"); // Clear any previous
+if (userData.package === "PresentPal+") {
+  document.body.classList.add("plus-theme");
+} else if (userData.package === "PresentPal Premium") {
+  document.body.classList.add("premium-theme");
+}
     }
 }
 
