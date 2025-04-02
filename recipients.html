@@ -70,12 +70,20 @@ h2 {
   font-size: 12px;
 }
 
-/* Table Header */
+/* Table Header with dynamic theme */
+.premium-theme .recipient-list th {
+  background-color: #7F00FF;
+  color: white;
+}
+
+.plus-theme .recipient-list th {
+  background-color: #2196F3;
+  color: white;
+}
+
 .recipient-list th {
   position: sticky;
   top: 0;
-  background-color: black;
-  color: white;
   font-size: 16px;
   text-align: center;
   padding: 12px;
@@ -83,6 +91,7 @@ h2 {
   border-right: 1px solid white;
   z-index: 1;
 }
+
 .recipient-list th:last-child {
   border-right: none;
 }
@@ -121,20 +130,39 @@ h2 {
   flex-wrap: wrap;
   gap: 10px;
 }
+
 .manage-btn,
 #addRecipientBtn {
-  background-color: #1B1B1B;
-  color: white;
   font-weight: bold;
   padding: 12px 20px;
   text-transform: uppercase;
   border-radius: 5px;
   cursor: pointer;
   border: none;
+  color: white;
 }
-.manage-btn:hover,
-#addRecipientBtn:hover {
-  background-color: black;
+
+/* Theme-based button colors */
+.premium-theme .manage-btn,
+.premium-theme #addRecipientBtn,
+.premium-theme .btn-primary {
+  background-color: #7F00FF;
+}
+.premium-theme .manage-btn:hover,
+.premium-theme #addRecipientBtn:hover,
+.premium-theme .btn-primary:hover {
+  background-color: #6E00B3;
+}
+
+.plus-theme .manage-btn,
+.plus-theme #addRecipientBtn,
+.plus-theme .btn-primary {
+  background-color: #2196F3;
+}
+.plus-theme .manage-btn:hover,
+.plus-theme #addRecipientBtn:hover,
+.plus-theme .btn-primary:hover {
+  background-color: #1976D2;
 }
 
 /* Modal Styling */
@@ -214,9 +242,9 @@ h2 {
 }
 
 .label {
-text-align: left;
-color: #666;
-margin-top: 20px;
+  text-align: left;
+  color: #666;
+  margin-top: 20px;
 }
 
 /* Grouping labels + inputs */
@@ -270,16 +298,12 @@ input[type="date"]:valid::before {
 }
 
 .btn-primary {
-  background-color: #1B1B1B;
-  color: white;
   border: none;
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-}
-.btn-primary:hover {
-  background-color: black;
+  color: white;
 }
 
 .btn-secondary {
@@ -323,7 +347,7 @@ input[type="date"]:valid::before {
   background-color: #b02a37;
 }
 
-/* Add Occasion Button (aligned with modal buttons) */
+/* Add Occasion Button */
 .add-occasion-btn {
   background-color: #dc3545;
   color: white;
@@ -357,7 +381,8 @@ input[type="date"]:valid::before {
 .preset-occasions {
   margin-bottom: 15px;
 }
-/* Quick occasion buttons (reused from Add Recipient modal) */
+
+/* Quick occasion buttons */
 .preset-btn {
   margin: 5px 8px 5px 0;
   padding: 6px 12px;
@@ -368,19 +393,17 @@ input[type="date"]:valid::before {
   font-size: 14px;
   transition: background-color 0.2s ease;
 }
-
 .preset-btn:hover {
   background-color: #ddd;
 }
 
-/* Optional spacing and structure tweaks for the edit modal */
 #editOccasionButtonsContainer {
   margin-top: 10px;
 }
 
 #editOccasionForm {
   margin-top: 15px;
-  margin-bottom: 30px; /* Add space below the form */
+  margin-bottom: 30px;
 }
 
 #editOccasionForm input[readonly] {
