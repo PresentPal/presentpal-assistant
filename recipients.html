@@ -596,6 +596,17 @@ input[type="date"]:valid::before {
   </div>
 </div>
 
+<!-- ✅ Unsaved Changes Confirmation Modal -->
+<div id="unsavedChangesModal" class="modal" style="display: none;">
+  <div class="modal-content" style="max-width: 400px; text-align: center;">
+    <p>You have unsaved changes. Would you like to save?</p>
+    <div class="modal-buttons">
+      <button id="saveChangesBtn" class="btn-primary">Save Changes</button>
+      <button id="discardChangesBtn" class="btn-secondary">Continue without Saving</button>
+    </div>
+  </div>
+</div>
+
   <!-- ✅ Navigation Bar -->
   <div class="nav-bar">
     <button class="nav-button" id="homeButton">
