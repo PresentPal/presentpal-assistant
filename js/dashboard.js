@@ -1,6 +1,11 @@
 // ✅ Enable ES module functionality
 import { auth, db } from "./firebase.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("homeButton").addEventListener("click", function () {
