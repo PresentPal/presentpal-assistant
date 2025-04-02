@@ -20,12 +20,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // ✅ Load preview + calendar when user is authenticated
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            loadRecipientPreview(user);
-            loadCalendar(user);
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    try {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+
+        // ✅ Set theme based on user's package in Firestore
+        const userPackage = userData.package;
+
+        if (userPackage === "PresentPal Premium") {
+          document.body.classList.add("premium-theme");
+        } else if (userPackage === "PresentPal+") {
+          document.body.classList.add("plus-theme");
         }
-    });
+
+        // ✅ Load dashboard sections
+        loadRecipientPreview(user);
+        loadCalendar(user);
+      }
+    } catch (error) {
+      console.error("Error loading user data:", error);
+    }
+  }
 });
 
 // ✅ Load Recipient Preview for Dashboard
