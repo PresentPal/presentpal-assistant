@@ -8,6 +8,23 @@ import {
 import { doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 import { getUserData, checkSubscriptionStatus } from "./navigation.js";  // Import the getter function
 
+// Apply theme class ASAP to avoid default yellow flash
+try {
+  const storedUserData = window.userData || JSON.parse(localStorage.getItem("User Data"));
+  if (storedUserData && storedUserData.package) {
+    const userPackage = storedUserData.package;
+    document.body.classList.remove("plus-theme", "premium-theme");
+
+    if (userPackage === "PresentPal+") {
+      document.body.classList.add("plus-theme");
+    } else if (userPackage === "PresentPal Premium") {
+      document.body.classList.add("premium-theme");
+    }
+  }
+} catch (e) {
+  console.warn("No valid user data found for early theming.");
+}
+
 // ✅ Close Account Modal function
 export function closeAccountModal() {
   const modal = document.getElementById("accountModal");
