@@ -98,41 +98,77 @@ async function sendTokenToBackend(idToken) {
   }
 }
 
-// ✅ Global Sign-Up Function (Creates Firebase user + Stripe customer)
-window.signUp = async function() {
-  const email = document.getElementById("signupEmail").value;
+// ✅ Verify Signup
+window.verifySignupStep = async function () {
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
   const password = document.getElementById("signupPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  const userName = document.getElementById("signupName").value;
+
+  if (!name || !email || !password || !confirmPassword) {
+    return alert("Please fill out all fields.");
+  }
 
   if (password !== confirmPassword) {
-    alert("Passwords do not match!");
-    return;
+    return alert("Passwords do not match!");
+  }
+
+  const code = Math.floor(100000 + Math.random() * 900000); // 6-digit code
+  localStorage.setItem("verifyCode", code.toString());
+  localStorage.setItem("pendingSignup", JSON.stringify({ name, email, password }));
+
+  try {
+    const res = await fetch("https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/send-verification", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, code })
+    });
+
+    const result = await res.json();
+    if (!result.success) throw new Error("Failed to send code");
+
+    // Show Step 2
+    document.getElementById("signupStep1").style.display = "none";
+    document.getElementById("signupStep2").style.display = "block";
+  } catch (err) {
+    console.error(err);
+    alert("Error sending verification email.");
+  }
+};
+
+
+// ✅ Global Sign-Up Function (Creates Firebase user + Stripe customer)
+window.signUp = async function () {
+  const inputCode = document.getElementById("verificationCodeInput").value.trim();
+  const expectedCode = localStorage.getItem("verifyCode");
+  const { name, email, password } = JSON.parse(localStorage.getItem("pendingSignup") || "{}");
+
+  if (!inputCode || inputCode !== expectedCode) {
+    return alert("Incorrect verification code.");
   }
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // 1️⃣ Store basic user data in Firestore
-    await setDoc(doc(db, "users", user.uid), { 
-      userName,
-      email: user.email, 
-      subscription: "freeUser", 
-      customerId: null // Initially null, will be updated after Stripe creation
+    await setDoc(doc(db, "users", user.uid), {
+      userName: name,
+      email,
+      subscription: "freeUser",
+      customerId: null
     });
 
-    // 2️⃣ Create a Stripe customer
-    const stripeCustomer = await createStripeCustomer(user.email);
-    
-    // 3️⃣ Update Firestore with the Stripe customer ID
+    const stripeCustomer = await createStripeCustomer(email);
     await updateDoc(doc(db, "users", user.uid), {
-      customerId: stripeCustomer.id 
+      customerId: stripeCustomer.id
     });
 
     alert("Account created successfully!");
+    localStorage.removeItem("verifyCode");
+    localStorage.removeItem("pendingSignup");
     closeAccountModal();
   } catch (error) {
+    console.error(error);
     alert("Signup failed: " + error.message);
   }
 };
