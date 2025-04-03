@@ -162,10 +162,10 @@ window.completeSignupWithCode = async function () {
       customerId: null
     });
 
-    const stripeCustomer = await createStripeCustomer(email);
-    await updateDoc(doc(db, "users", user.uid), {
-      customerId: stripeCustomer.id
-    });
+    // const stripeCustomer = await createStripeCustomer(email);
+   // await updateDoc(doc(db, "users", user.uid), {
+   //   customerId: stripeCustomer.id
+  //  });
 
     // Clean up and close modal
     localStorage.removeItem("verifyCode");
