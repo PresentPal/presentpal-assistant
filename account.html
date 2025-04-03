@@ -148,6 +148,10 @@ body.plus-theme .profile img { border-color: #FD7E62; }
   white-space: pre-wrap;
 }
 
+        .bio-icon {
+  width: 20px;  /* Adjust the size as needed */
+  height: auto;
+}
         
    /* Navigation Bar */
 .nav-bar {
@@ -468,7 +472,11 @@ button:hover {
     <div class="profile-info">
     <h3 id="userName">User Name</h3>
     <p id="userEmail">user@example.com</p>
-    <p id="userBio" class="user-bio">This is your bio.</p>
+    <div class="user-bio">
+  <img src="bio-icon.png" alt="Bio Icon" class="bio-icon">
+  <span id="userBio">This is your bio.</span>
+  </div>
+
 
     </div>
     </div>
