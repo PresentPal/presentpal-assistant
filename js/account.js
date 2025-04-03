@@ -122,7 +122,9 @@ window.signUp = async function () {
     });
 
     alert("Account created successfully!");
-    closeAccountModal();
+setTimeout(() => {
+  closeAccountModal();
+}, 300);
   } catch (error) {
     console.error("Signup error:", error);
     alert("Signup failed: " + error.message);
