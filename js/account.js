@@ -376,6 +376,7 @@ window.saveProfile = async function () {
       }
     }
 
+    console.log("Final update keys:", Object.keys(updates));
     console.log("Profile update payload:", updates);
 
     await updateDoc(userRef, updates);
