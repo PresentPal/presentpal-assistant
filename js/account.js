@@ -7,6 +7,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 import { getUserData, checkSubscriptionStatus } from "./navigation.js";  // Import the getter function
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
+
 
 // Apply theme class ASAP to avoid default yellow flash
 try {
@@ -354,7 +356,6 @@ window.saveProfile = async function () {
     const updates = { userName: name, bio };
 
     if (file) {
-      // ✅ Use Firebase v11-compatible Storage import
       const profilePicRef = ref(storage, `profilePics/${user.uid}`);
       await uploadBytes(profilePicRef, file);
       const downloadURL = await getDownloadURL(profilePicRef);
