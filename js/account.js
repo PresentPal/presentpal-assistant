@@ -345,8 +345,8 @@ window.saveProfile = async function () {
   const name = document.getElementById("editUserName").value.trim();
   const bio = document.getElementById("editBio").value.trim().slice(0, 140);
   const file = document.getElementById("editProfilePic").files[0];
-
   const user = auth.currentUser;
+
   if (!user) return;
 
   try {
@@ -354,10 +354,10 @@ window.saveProfile = async function () {
     const updates = { userName: name, bio };
 
     if (file) {
-      const storageRef = firebase.storage().ref(); // Make sure Firebase Storage is set up
-      const profilePicRef = storageRef.child(`profilePics/${user.uid}`);
-      await profilePicRef.put(file);
-      const downloadURL = await profilePicRef.getDownloadURL();
+      // ✅ Use Firebase v11-compatible Storage import
+      const profilePicRef = ref(storage, `profilePics/${user.uid}`);
+      await uploadBytes(profilePicRef, file);
+      const downloadURL = await getDownloadURL(profilePicRef);
       updates.profilePicURL = downloadURL;
     }
 
@@ -369,4 +369,3 @@ window.saveProfile = async function () {
     alert("Failed to update profile.");
   }
 };
-
