@@ -392,7 +392,7 @@ button:hover {
         <!-- Dashboard Buttons -->
         <div class="dashboard-buttons">
             <button id="manageSubscriptionButton">Manage Subscription</button>
-            <button onclick="editProfile()">Edit Profile</button>
+            <button onclick="openEditProfileModal()">Edit Profile</button>
             <button onclick="logout()">Logout</button>
         </div>
     </div>
@@ -411,6 +411,22 @@ button:hover {
     <button class="nav-button upgrade-button" id="upgradeButton">
         <img src="upgrade-icon.png" alt="Upgrade">
     </button>
+</div>
+
+    <!-- Edit Profile Modal -->
+<div id="editProfileModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditProfileModal()">&times;</span>
+    <h2>Edit Profile</h2>
+
+    <input type="text" id="editUserName" placeholder="Your name" maxlength="50" />
+    
+    <textarea id="editBio" placeholder="Write a short bio (max 140 characters)" maxlength="140" rows="3" style="resize:none;"></textarea>
+    
+    <input type="file" id="editProfilePic" accept="image/*" />
+
+    <button onclick="saveProfile()">Save Changes</button>
+  </div>
 </div>
 
     <!-- Account Modal -->
