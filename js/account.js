@@ -369,6 +369,8 @@ window.saveProfile = async function () {
       updates.profilePicURL = downloadURL;
     }
 
+console.log("Profile update payload:", updates);
+    
     await updateDoc(userRef, updates);
     showToast("Profile updated!");
     closeEditProfileModal();
