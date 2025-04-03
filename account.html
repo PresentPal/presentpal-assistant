@@ -135,22 +135,28 @@ body.plus-theme .profile img { border-color: #FD7E62; }
             background-color: #333;
         }
 
-        .user-bio {
-  margin-top: 8px;
-  padding: 10px 14px;
+       .user-bio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 16px;
   background-color: #f9f9f9;
-  border-left: 4px solid #ccc;
-  border-radius: 6px;
+  border-left: 4px solid #ccc; /* optional decorative border */
+  border-radius: 8px;
   font-size: 14px;
   color: #333;
   line-height: 1.5;
-  max-width: 400px;
+  max-width: 500px; /* increased width */
   white-space: pre-wrap;
 }
 
-        .bio-icon {
-  width: 20px;  /* Adjust the size as needed */
+.bio-icon {
+  width: 16px;   /* smaller icon */
   height: auto;
+  border: none;
+  border-radius: 0; /* no rounding */
+  margin: 0;
 }
         
    /* Navigation Bar */
