@@ -89,8 +89,8 @@ async function sendTokenToBackend(idToken) {
   }
 }
 
-// ✅ Global Sign-Up Function (Creates Firebase user + Stripe customer)
-window.signUp = async function() {
+// ✅ Global Sign-Up Function (Creates Firebase user WITHOUT Stripe customer for free plan)
+window.signUp = async function () {
   const emailInput = document.getElementById("signupEmail");
   const password = document.getElementById("signupPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
@@ -106,25 +106,17 @@ window.signUp = async function() {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // 1️⃣ Store basic user data in Firestore
-    await setDoc(doc(db, "users", user.uid), { 
-      email: user.email, 
-      subscription: "freeUser", 
+    // ✅ Store user data WITHOUT Stripe customer for now
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      subscription: "freeUser",
       customerId: null
-    });
-
-    // 2️⃣ Create a Stripe customer (trimmed email!)
-    const stripeCustomer = await createStripeCustomer(email);
-
-    // 3️⃣ Update Firestore with the Stripe customer ID
-    await updateDoc(doc(db, "users", user.uid), {
-      customerId: stripeCustomer.id 
     });
 
     alert("Account created successfully!");
     closeAccountModal();
   } catch (error) {
-    console.error("Signup error:", error); // Helpful for debugging
+    console.error("Signup error:", error);
     alert("Signup failed: " + error.message);
   }
 };
