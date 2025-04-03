@@ -383,6 +383,13 @@ window.saveProfile = async function () {
     console.log("Profile update payload:", updates);
 
     await updateDoc(userRef, updates);
+
+    // ✅ Re-fetch the latest data and update UI instantly
+    const updatedUserDoc = await getDoc(userRef);
+    if (updatedUserDoc.exists()) {
+      updateDashboardUI(updatedUserDoc.data());
+    }
+
     showToast("Profile updated!");
     closeEditProfileModal();
   } catch (err) {
