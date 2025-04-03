@@ -363,14 +363,21 @@ window.saveProfile = async function () {
     const updates = { userName: name, bio };
 
     if (file) {
-      const profilePicRef = ref(storage, `profilePics/${user.uid}`);
-      await uploadBytes(profilePicRef, file);
-      const downloadURL = await getDownloadURL(profilePicRef);
-      updates.profilePicURL = downloadURL;
+      try {
+        const profilePicRef = ref(storage, `profilePics/${user.uid}`);
+        await uploadBytes(profilePicRef, file);
+        const downloadURL = await getDownloadURL(profilePicRef);
+        updates.profilePicURL = downloadURL;
+        console.log("Image uploaded. URL:", downloadURL);
+      } catch (uploadError) {
+        console.error("Image upload error:", uploadError);
+        alert("Failed to upload profile picture.");
+        return;
+      }
     }
 
-console.log("Profile update payload:", updates);
-    
+    console.log("Profile update payload:", updates);
+
     await updateDoc(userRef, updates);
     showToast("Profile updated!");
     closeEditProfileModal();
