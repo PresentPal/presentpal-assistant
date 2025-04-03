@@ -217,11 +217,14 @@ export function updateDashboardUI(userData) {
             userSubscriptionElement.textContent = userData.package || "No subscription info"; // Default to "No subscription info"
         }
         if (userData.profilePicURL) {
-            const profileImg = document.getElementById("userProfilePic");
-        if (profileImg) {
-            profileImg.src = userData.profilePicURL;
-        }
-        }
+  const profileImg = document.getElementById("userProfilePic");
+  if (profileImg) {
+    // Remove any accidental surrounding quotes
+    const cleanURL = userData.profilePicURL.replace(/^"(.*)"$/, "$1");
+    console.log("Setting profile image to:", cleanURL);
+    profileImg.src = cleanURL;
+  }
+}
 
         
         // Apply theme to body based on package
