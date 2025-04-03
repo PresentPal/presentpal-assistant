@@ -91,11 +91,18 @@ async function sendTokenToBackend(idToken) {
 
 // ✅ Global Sign-Up Function (Creates Firebase user WITHOUT Stripe customer for free plan)
 window.signUp = async function () {
+  const nameInput = document.getElementById("signupName");
   const emailInput = document.getElementById("signupEmail");
   const password = document.getElementById("signupPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
 
+  const name = nameInput ? nameInput.value.trim() : "";
   const email = emailInput ? emailInput.value.trim() : "";
+
+  if (!name || !email || !password || !confirmPassword) {
+    alert("Please fill out all fields.");
+    return;
+  }
 
   if (password !== confirmPassword) {
     alert("Passwords do not match!");
@@ -106,8 +113,9 @@ window.signUp = async function () {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // ✅ Store user data WITHOUT Stripe customer for now
+    // ✅ Store user info in Firestore WITHOUT creating Stripe customer yet
     await setDoc(doc(db, "users", user.uid), {
+      userName: name,
       email: user.email,
       subscription: "freeUser",
       customerId: null
