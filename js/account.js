@@ -1,4 +1,4 @@
-import { auth, db } from "./firebase.js";
+import { auth, db, storage } from "./firebase.js";
 import { 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
@@ -318,4 +318,55 @@ function showToast(message) {
     }, 300); // Wait for fade-out transition
   }, 2500); // Show toast for 2.5 seconds
 }
+
+// Open Edit Profile Modal
+window.openEditProfileModal = async function () {
+  const modal = document.getElementById("editProfileModal");
+  modal.style.display = "flex";
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const userDoc = await getDoc(doc(db, "users", user.uid));
+  if (userDoc.exists()) {
+    const data = userDoc.data();
+    document.getElementById("editUserName").value = data.userName || "";
+    document.getElementById("editBio").value = data.bio || "";
+  }
+};
+
+// Close Modal
+window.closeEditProfileModal = function () {
+  document.getElementById("editProfileModal").style.display = "none";
+};
+
+// Save Profile Changes
+window.saveProfile = async function () {
+  const name = document.getElementById("editUserName").value.trim();
+  const bio = document.getElementById("editBio").value.trim().slice(0, 140);
+  const file = document.getElementById("editProfilePic").files[0];
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    const userRef = doc(db, "users", user.uid);
+    const updates = { userName: name, bio };
+
+    if (file) {
+      const storageRef = firebase.storage().ref(); // Make sure Firebase Storage is set up
+      const profilePicRef = storageRef.child(`profilePics/${user.uid}`);
+      await profilePicRef.put(file);
+      const downloadURL = await profilePicRef.getDownloadURL();
+      updates.profilePicURL = downloadURL;
+    }
+
+    await updateDoc(userRef, updates);
+    showToast("Profile updated!");
+    closeEditProfileModal();
+  } catch (err) {
+    console.error("Profile update error:", err);
+    alert("Failed to update profile.");
+  }
+};
 
