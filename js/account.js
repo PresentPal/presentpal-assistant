@@ -216,6 +216,13 @@ export function updateDashboardUI(userData) {
             console.log("Setting userSubscription to:", userData.package);
             userSubscriptionElement.textContent = userData.package || "No subscription info"; // Default to "No subscription info"
         }
+        if (userData.profilePicURL) {
+            const profileImg = document.getElementById("userProfilePic");
+        if (profileImg) {
+            profileImg.src = userData.profilePicURL;
+        }
+        }
+
         
         // Apply theme to body based on package
 document.body.classList.remove("plus-theme", "premium-theme"); // Clear any previous
