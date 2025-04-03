@@ -212,6 +212,10 @@ export function updateDashboardUI(userData) {
             console.log("Setting userEmail to:", userData.email);
             userEmailElement.textContent = userData.email || "No Email"; // Default to "No Email"
         }
+            const userBioElement = document.getElementById("userBio");
+        if (userBioElement) {
+            userBioElement.textContent = userData.bio || "No bio set yet";
+        }
         if (userSubscriptionElement) {
             console.log("Setting userSubscription to:", userData.package);
             userSubscriptionElement.textContent = userData.package || "No subscription info"; // Default to "No subscription info"
