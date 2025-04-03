@@ -121,10 +121,8 @@ window.signUp = async function () {
       customerId: null
     });
 
-    alert("Account created successfully!");
-setTimeout(() => {
-  closeAccountModal();
-}, 300);
+    showToast("Account created successfully!");
+closeAccountModal();
   } catch (error) {
     console.error("Signup error:", error);
     alert("Signup failed: " + error.message);
@@ -303,3 +301,21 @@ export function togglePasswordVisibility(fieldId, iconId) {
 
 // ✅ Make sure it's globally available
 window.togglePasswordVisibility = togglePasswordVisibility;
+
+// ✅ Toast Notification
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.style.display = "block";
+  toast.style.opacity = "1";
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 300); // Wait for fade-out transition
+  }, 2500); // Show toast for 2.5 seconds
+}
+
