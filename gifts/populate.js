@@ -1,10 +1,11 @@
+
 function populateCategoryDropdown() {
   const select = document.getElementById("categoryFilter");
   select.innerHTML = '<option value="">Filter by Category</option>';
 
   const subcategoryUsage = {};
 
-  // Count how many products exist in each subcategory
+  // Count how many products use each matchedSubCategory
   window.allProducts.forEach(p => {
     const sub = (p.matchedSubCategory || '').trim();
     if (sub) {
@@ -19,23 +20,22 @@ function populateCategoryDropdown() {
     Object.entries(subs).forEach(([sub]) => {
       const cleanSub = sub.trim();
       if (subcategoryUsage[cleanSub]) {
-        const option = document.createElement("option");
-        option.value = cleanSub;
-        option.textContent = cleanSub;
-        optGroup.appendChild(option);
+        const opt = document.createElement("option");
+        opt.value = cleanSub;
+        opt.textContent = cleanSub;
+        optGroup.appendChild(opt);
       }
     });
 
-    // Add group only if it contains visible subcategories
+    // Only add group if it has options
     if (optGroup.children.length > 0) {
       select.appendChild(optGroup);
     }
   });
 
-  // ✅ Set default category if available
+  // ✅ Set default after population
   const defaultCategory = "All Womens";
   const match = Array.from(select.options).find(opt => opt.textContent === defaultCategory);
   if (match) match.selected = true;
 }
-
 window.populateCategoryDropdown = populateCategoryDropdown;
