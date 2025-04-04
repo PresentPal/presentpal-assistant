@@ -12,7 +12,7 @@ window.categoryKeywords = {
     "Christmas": ["Christmas"]
   },
   "🎁 Gifting": {
-    "► All Gifting": [],
+    "► All Gifting": ["Gift", "Presents", "Christmas", "Birthday", "Valentine", "Mothers Day"],
     "All Gifts For Him": ["Men", "men", "Gentleman", "gentleman", "Gentlemen", "gentlemen"],
     "Gifts For Her": ["Women", "women", "Ladies", "ladies"],
     "Gift Bags": ["Gifts & Kits > All Products > Gift Bags"],
@@ -21,10 +21,7 @@ window.categoryKeywords = {
     "Gifts & Kits": ["Gifts & Kits >"]
   },
   "💄 Health & Beauty": {
-    "► All Womens": ["Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >", "Skin Care", "Skincare", 
-                     "Men > Women > Personal care > Personal Care > Face & skin care", "Tea Tree & Aloe > Body", "Bath & Body", 
-                    "Makeup", "Beauty, Hair care", "Women > Personal care > Hair care & styling >", "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling", 
-                    "Nail Care", "Beauty, Perfumes and fragrances", "Cosmetic And Perfume Sets", "Beauty, Shaving and hair removal", "Health & Beauty > Personal Care"],
+    "► All Health & Beauty": ["Health & Beauty", "Beauty", "Personal Care"],
     "Womens' Skincare": ["Men > Women > Personal care > Personal Care > Face & skin care", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >", "Beauty, Skin care", "Women > Personal care > Face & skin care > Face care > Face moisturisers & serum >", "Women > Personal care > Face & skin care > Face masks >", "Skin Care", "Skincare", "Men > Women > Personal care > Personal Care > Face & skin care"],
     "Womens' Bath & Body": ["Tea Tree & Aloe > Body", "Bath & Body"],
     "Makeup": ["Makeup"],
@@ -46,7 +43,7 @@ window.categoryKeywords = {
     "► Massage": ["Massage >"]
   },
   "👕 Clothing & Accessories": {
-    "► All Womens": [],
+    "► All Clothing": ["Clothing", "Fashion", "Apparel", "Shoes", "T-shirts", "Trousers", "Menswear", "Womenswear"],
     "Womens' Shoes": ["Shoes > Women >"],
     "► All Mens": ["Men > Accessories > Analog Watches > Wristwatches", "Men > Accessories > Sports Watches", "Men > Accessories > Wristwatches", "Men > Analog watches", 
                   "Men > Accessories > Sunglasses >", "Men’s Accessories"],
@@ -94,8 +91,7 @@ window.categoryKeywords = {
   },
   "🍷 Vintage Wines": {},
   "🎮 Games": {
-    "► All Games": ["Consoles", "Playstation", "Xbox", "PC Gaming", "Nintendo", "Portable Gaming", "Retro Gaming",
-                   "Console Accessories", "board & desktop games", "Air Hockey Tables", "Multi-Game Tables", "Pool Tables", "Table Football", "Table Tennis"],
+    "► All Games": ["Games", "Consoles", "Playstation", "Xbox", "Nintendo"],
     "Consoles": ["Consoles"],
     "PlayStation": ["Playstation"],
     "Xbox": ["Xbox"],
@@ -111,8 +107,8 @@ window.categoryKeywords = {
     "► All Pets": ["Household > Deals > Pet accessories", "Home > Household > Pet accessories >"]
   },
   "💻 Tech": {
-    "► All Tech": [],
-    "Mobile Phones": ["Mobile Phones > Android Phones", "Mobile Phones > Windows Phones", "Mobile Phones > iPhones"],
+    "► All Tech": ["Tech", "Gadgets", "Electronics", "Computer", "PC", "Default Category"],
+    "Mobile Phones": ["Mobile Phones"],
     "Phone & Tablet Accessories": ["Electronics & accessories > Accessories for phones and tablets"],
     "Audio & Speakers": ["Home Audio & Speakers", "stage & studio equipment>"],
     "Media Players": ["Media Players"],
@@ -128,7 +124,7 @@ window.categoryKeywords = {
       "Household > Home Security",
       "Microphones & Headphones", "Default Category>Peripherals>Keyboards", "Default Category>Peripherals>Mouses"
     ],
-    "Laptops": ["Laptops", "Default Category>PC Components", "Default Category>Laptops>Laptop Spare Parts"],
+    "Laptops": ["Laptops", "Laptop Spare Parts"],
     "Components": ["Default Category>PC Components>Other", "Default Category>PC Components>Components>Memory Modules"],
     "Networking": ["Default Category>Networking>Routers & Accessories>Cables", "Default Category>Networking>Transceiver Modules"],
     "Cables": ["Default Category>PC Components>Cables & Adaptors>Fiber Optic", "Default Category>PC Components>Cables & Adaptors>USB Cables"],
@@ -146,11 +142,7 @@ window.categoryKeywords = {
     "Vacuum Cleaners": ["Household > Vacuum cleaners"]
   },
   "🚠 DIY & Renovations": {
-    "► All DIY & Rennovations": ["Adhesives", "Air Tools", "DIY", "Hardware", "Paints, tools", "Paints & Varnishes >",
-                                "Decorating & Tiling", "Construction Supplies", "Building supplies", "Electrical supplies",
-                                "Electrical wiring", "Electrical >", "Hand Tools", "Power Tools >", "DIY and tools", "Manual and electric", 
-                                "Ladders & Sack Trucks", "Lighting & Torches", "Machinery >", "Measuring Tools >", "Plumbing", 
-                                "Plumbing accessories", "Fixings & Fasteners >"],
+    "► All DIY & Rennovations": ["DIY", "Tools", "Power Tools", "Drill", "Construction"],
     "Adhesives, Sealants & Fillers": ["Adhesives, Sealants & Fillers"],
     "Air Tools & Compressors": ["Air Tools & Compressors"],
     "Hardware": ["DIY And Hardware", "Household & Hardware"],
@@ -168,8 +160,7 @@ window.categoryKeywords = {
     "Other": ["Fixings & Fasteners >",]
   },
   "🪺 Interior Decorating": {
-    "► All Interior Decorating": ["Furniture > Tables", "Home Accessories", "Home & Garden > Decor", "Heating Radiators", 
-                                 "Home & Garden > Lighting", "Bathroom Accessories"],
+    "► All Interior Decorating": ["Furniture", "Home Accessories", "Lighting"],
     "Furniture": ["Furniture > Tables", "Tables And Chairs"],
     "Home Accessories": ["Home Accessories", "Home & Garden > Decor"],
     "Heating": ["Heating Radiators"],
@@ -222,7 +213,7 @@ window.categoryKeywords = {
     "Fitness": ["Heart Rate Monitor", "Medicine Balls", "Ab Belts", "Ab Benches", "Ab Crunchers", "Ab Exercisers", "Ab Straps", "Ab Wheels", "Exercise Bikes", "Exercise Mats", "Fitness >", "Fitness Equipment >"]
   },
   "🎨 Arts & Crafts": {
-    "► All Arts & Crafts": ["I Love to Create"],
+    "► All Arts & Crafts": ["Craft", "Paint", "Drawing", "Creative"],
     "Pens & Paint": ["Pens, Paint and Colour"],
     "Crafts & Sewing": ["crafts & sewing"],
     "Die Cutting": ["Die Cutting"],
@@ -231,9 +222,9 @@ window.categoryKeywords = {
     "Marianne Design": ["Marianne Design"],
     "Pens & Pencils": ["Marabu"],
     "Mediums & Finishes": ["Mediums & Finishes"]
-       },
+  },
   "🏢 Business": {
-    "► All Business": [],
+    "► All Business": ["Office", "Stationery", "Printers"],
     "Presentations": ["Default Category>Peripherals>Office Supply>Presentation Supplies"],
     "Stationery & Office Supplies": ["Default Category>Peripherals>Office Supply>stationery & office supplies>"],
     "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>", "Default Category>Consumables>Toner Cartridges>Laser Toner & Cartridges", "Default Category>Consumables>Inks>Ink Cartridges"],
@@ -241,6 +232,7 @@ window.categoryKeywords = {
     "Shipping & Moving": ["Default Category>Peripherals>Office Supply>shipping & moving supplies"]
 },
 "🧩 Uncategorized": {
+  "► All Uncategorized": ["Best Selling Products", "Clearance", "General"],
   "Best Selling Products": ["Best Selling Products"],
   "Clearance": ["Clearance"]
 },
