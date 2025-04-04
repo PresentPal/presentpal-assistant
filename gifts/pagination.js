@@ -1,55 +1,43 @@
-function renderPagination() {
-  const pagination = document.getElementById("paginationControls");
-  pagination.innerHTML = "";
+function paginateValidProducts() {
+  // Filter for only products with valid images and links
+  const valid = window.filteredProducts.filter(p => {
+    const hasValidImage = p.image && p.image.startsWith("http");
+    const hasValidLink = p.link && p.link.startsWith("http");
 
-  const totalPages = window.paginatedProducts.length;
-  if (totalPages <= 1) return;
+    const isValid = hasValidImage && hasValidLink;
 
-  const maxVisible = 5;
-
-  const createButton = (label, page, disabled = false, active = false) => {
-    const btn = document.createElement("button");
-    btn.textContent = label;
-    if (disabled) btn.disabled = true;
-    if (active) btn.classList.add("active");
-    btn.onclick = () => {
-      window.currentPage = page;
-      window.displayProducts();
-      renderPagination();
-    };
-    return btn;
-  };
-
-  pagination.appendChild(createButton("Prev", window.currentPage - 1, window.currentPage === 1));
-
-  const pageList = [];
-
-  if (totalPages <= maxVisible + 2) {
-    for (let i = 1; i <= totalPages; i++) pageList.push(i);
-  } else {
-    pageList.push(1);
-
-    const start = Math.max(2, window.currentPage - 1);
-    const end = Math.min(totalPages - 1, window.currentPage + 1);
-
-    if (start > 2) pageList.push("...");
-    for (let i = start; i <= end; i++) pageList.push(i);
-    if (end < totalPages - 1) pageList.push("...");
-    pageList.push(totalPages);
-  }
-
-  pageList.forEach(p => {
-    if (p === "...") {
-      const span = document.createElement("span");
-      span.textContent = "...";
-      span.className = "ellipsis";
-      pagination.appendChild(span);
-    } else {
-      pagination.appendChild(createButton(p, p, false, p === window.currentPage));
+    if (!isValid) {
+      console.warn("❌ Skipping invalid product:", {
+        name: p.name,
+        image: p.image,
+        link: p.link
+      });
     }
+
+    return isValid;
   });
 
-  pagination.appendChild(createButton("Next", window.currentPage + 1, window.currentPage === totalPages));
+  console.log(`✅ ${valid.length} valid products out of ${window.filteredProducts.length} total`);
+
+  // Paginate the valid products
+  const paginated = [];
+  let page = [];
+
+  for (let i = 0; i < valid.length; i++) {
+    page.push(valid[i]);
+    if (page.length === window.itemsPerPage) {
+      paginated.push(page);
+      page = [];
+    }
+  }
+
+  // Add the final page if it has leftover items
+  if (page.length > 0) {
+    paginated.push(page);
+  }
+
+  window.paginatedProducts = paginated;
 }
 
-window.renderPagination = renderPagination;
+// ✅ Assign to global scope
+window.paginateValidProducts = paginateValidProducts;
