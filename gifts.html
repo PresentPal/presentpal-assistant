@@ -309,7 +309,7 @@ document.getElementById("paginationControls").style.display = "none";
     document.getElementById("categoryFilter").addEventListener("change", window.applyFilters);
 
     // ✅ Set default category (must match one of your actual category labels)
-    const defaultCategory = "All Womens";
+    const defaultCategory = "► All Womens";
     const dropdown = document.getElementById("categoryFilter");
     const match = Array.from(dropdown.options).find(opt => opt.textContent === defaultCategory);
     if (match) match.selected = true;
