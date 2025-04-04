@@ -1,4 +1,3 @@
-
 function populateCategoryDropdown() {
   const select = document.getElementById("categoryFilter");
   select.innerHTML = '<option value="">Filter by Category</option>';
@@ -12,6 +11,8 @@ function populateCategoryDropdown() {
       subcategoryUsage[sub] = (subcategoryUsage[sub] || 0) + 1;
     }
   });
+
+  console.log("📊 Subcategory usage:", subcategoryUsage);
 
   Object.entries(window.categoryKeywords).forEach(([main, subs]) => {
     const optGroup = document.createElement("optgroup");
@@ -35,7 +36,12 @@ function populateCategoryDropdown() {
 
   // ✅ Set default after population
   const defaultCategory = "All Womens";
-  const match = Array.from(select.options).find(opt => opt.textContent === defaultCategory);
+  const match = Array.from(select.options).find(opt =>
+    opt.textContent.trim().toLowerCase() === defaultCategory.toLowerCase()
+  );
   if (match) match.selected = true;
+
+  console.log("✅ Category dropdown populated");
 }
+
 window.populateCategoryDropdown = populateCategoryDropdown;
