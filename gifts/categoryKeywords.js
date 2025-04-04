@@ -64,7 +64,7 @@ window.categoryKeywords = {
   },
   "💍 Jewellery": {
   "► All Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women", "Jewellery, Men"],
-  " Womens' Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women", "Women's Jewellery"],
+  "Womens' Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women", "Women's Jewellery"],
     "Mens' Jewellery": ["Jewellery, Men"]
   },
   "🧒 Children & Baby": {
