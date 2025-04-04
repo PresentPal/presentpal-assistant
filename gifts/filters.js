@@ -7,32 +7,15 @@ function applyFilters() {
   const selectedCategory = document.getElementById("categoryFilter").value;
   const sortBy = document.getElementById("sortByPrice").value;
 
-  let matchedKeywords = [];
+  filteredProducts = window.allProducts.filter(p => {
+  const text = `${p.name} ${p.category}`;
+  const matchKeyword = !keyword || text.toLowerCase().includes(keyword);
 
-  // Find keywords if category is selected
-  if (selectedCategory) {
-    Object.entries(window.categoryKeywords).forEach(([main, subs]) => {
-      Object.entries(subs).forEach(([sub, keywords]) => {
-        if (sub === selectedCategory) {
-          matchedKeywords = keywords;
-        }
-      });
-    });
-  }
+  const matchCategory =
+    !selectedCategory || p.matchedSubCategory === selectedCategory;
 
-  filteredProducts = allProducts.filter(p => {
-    const text = `${p.name} ${p.category}`;
-    const matchKeyword = !keyword || text.toLowerCase().includes(keyword);
-
-    let matchCategory = true;
-    if (selectedCategory && matchedKeywords.length) {
-      matchCategory = matchedKeywords.some(kw =>
-        p.category && p.category.includes(kw)
-      );
-    }
-
-    return matchKeyword && matchCategory;
-  });
+  return matchKeyword && matchCategory;
+});
 
   // Shuffle by default
   for (let i = filteredProducts.length - 1; i > 0; i--) {
