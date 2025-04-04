@@ -12,7 +12,8 @@ function applyFilters() {
   const matchKeyword = !keyword || text.toLowerCase().includes(keyword);
 
   const matchCategory =
-    !selectedCategory || p.matchedSubCategory === selectedCategory;
+  !selectedCategory ||
+  (p.matchedSubCategory || '').trim().toLowerCase() === selectedCategory.trim().toLowerCase();
 
   return matchKeyword && matchCategory;
 });
