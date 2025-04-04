@@ -214,7 +214,7 @@ export function updateDashboardUI(userData) {
         }
             const userBioElement = document.getElementById("userBio");
         if (userBioElement) {
-            userBioElement.textContent = userData.bio || "No bio set yet";
+            userBioElement.textContent = userData.bio || "No bio to display";
         }
         if (userSubscriptionElement) {
             console.log("Setting userSubscription to:", userData.package);
