@@ -26,7 +26,7 @@ window.categoryKeywords = {
     "Womens' Bath & Body": ["Tea Tree & Aloe > Body", "Bath & Body"],
     "Makeup": ["Makeup"],
     "Womens' Hair Care": ["Beauty, Hair care", "Women > Personal care > Hair care & styling >", "Men > Women > Personal care > Personal care > Personal Care > Hair care & styling"],
-    "Womens' Nail Care": ["Nail Care"],
+    "Womens' Nail Care": ["Nail Care", "nail polish", "nail lacquer", "nail gel", "nail care kit", "cuticle oil", "nail treatment", "nail file", "nail buffer", "nail art"],
     "Womens' Perfume": ["Beauty, Perfumes and fragrances", "Cosmetic And Perfume Sets", "Fragrance"],
     "Womens' Shaving & Hair Removal": ["Beauty, Shaving and hair removal"],
     "► All Mens": ["Men > Personal Care > Shaving & hair-cutting >", "Shaving & Grooming", "Men > Personal Care > Hygiene", 
