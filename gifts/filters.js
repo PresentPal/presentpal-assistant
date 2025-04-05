@@ -9,17 +9,15 @@ function applyFilters() {
 
   window.filteredProducts = window.allProducts.filter(p => {
     const text = `${p.name} ${p.category}`.toLowerCase();
-
-    // Match by keyword (product name or category)
+    
+    // Match keyword (search input)
     const matchKeyword = !keyword || text.includes(keyword);
 
-    // Match by main category (compare selected main category with the matched main category)
-    const matchCategory = 
+    // Match the category (either All [Main Category] or specific subcategory)
+    const matchCategory =
       !selectedCategory ||
-      p.matchedMainCategory === selectedCategory ||  // Match the main category
-      p.matchedSubCategories.some(subCategory =>
-        subCategory.toLowerCase() === selectedCategory.toLowerCase() // Match any subcategory
-      );
+      (p.matchedSubCategories && p.matchedSubCategories.includes(selectedCategory.toLowerCase())) || 
+      (selectedCategory.includes("All") && p.matchedMainCategory === selectedCategory); 
 
     return matchKeyword && matchCategory;
   });
