@@ -2,7 +2,7 @@ function fetchProducts(page = 1) {
   const loader = document.getElementById("loader");
   loader.style.display = "block";
 
-  const url = `https://evening-basin-64817-f38e98d8c5e2.herokuapp.com/products.json`;
+  const url = `https://r2-file-server.business-harryjordan.workers.dev/products.json`;
 
   fetch(url)
     .then(res => {
