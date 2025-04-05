@@ -18,6 +18,8 @@ function populateCategoryDropdown() {
     const optGroup = document.createElement("optgroup");
     optGroup.label = main;
 
+     console.log(`Main Category: ${main}`);
+
     Object.entries(subs).forEach(([sub]) => {
       const cleanSub = sub.trim();
       if (subcategoryUsage[cleanSub]) {
