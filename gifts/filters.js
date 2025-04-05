@@ -7,14 +7,18 @@ function applyFilters() {
   const selectedCategory = document.getElementById("categoryFilter").value.trim();
   const sortBy = document.getElementById("sortByPrice").value;
 
-  // Filter products based on search input and selected category
   window.filteredProducts = window.allProducts.filter(p => {
     const text = `${p.name} ${p.category}`.toLowerCase();
+
+    // Match by keyword (product name or category)
     const matchKeyword = !keyword || text.includes(keyword);
-    const matchCategory =
+
+    // Match by main category (compare selected main category with the matched main category)
+    const matchCategory = 
       !selectedCategory ||
+      p.matchedMainCategory === selectedCategory ||  // Match the main category
       p.matchedSubCategories.some(subCategory =>
-        subCategory.toLowerCase() === selectedCategory.toLowerCase()
+        subCategory.toLowerCase() === selectedCategory.toLowerCase() // Match any subcategory
       );
 
     return matchKeyword && matchCategory;
