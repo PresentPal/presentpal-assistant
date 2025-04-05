@@ -37,7 +37,7 @@ function populateCategoryDropdown() {
   });
 
   // ✅ Set default after population
-  const defaultCategory = "All Womens";
+  const defaultCategory = "► All Womens";
   const match = Array.from(select.options).find(opt =>
     opt.textContent.trim().toLowerCase() === defaultCategory.toLowerCase()
   );
