@@ -69,7 +69,7 @@ window.categoryKeywords = {
                              "Kids Audio Players", "Dolls And Stuffed Toys", "Kids Ride-On Electric Cars",
                              "Children > Baby & children products > Bathroom & care", "Children > Baby & children products > Dental care", "Children > Baby & children products > Hygiene", "Baby Bathtime"],
     "Games, Puzzles & Learning": ["Children > Baby & children products > Activities & play time >", "Games, Puzzles & Learning", "Educational Games And Games Of Skill", "board games", "puzzles", "childrens learning toys", "memory games", "card games", "educational toys"],
-    "Toys & Entertainment": ["Kids Audio Players", "Dolls And Stuffed Toys", "Kids Ride-On Electric Cars", "childrens toys", "toys for kids", "action figures", "dolls", "educational toys", "toy sets", "kids entertainment", "play sets"],
+    "Toys & Entertainment": ["Dolls And Stuffed Toys", "Kids Ride-On Electric Cars", "childrens toys", "toys for kids", "action figures", "dolls", "educational toys", "toy sets", "kids entertainment", "play sets"],
     "Bathroom & Care": ["Children > Baby & children products > Bathroom & care", "Children > Baby & children products > Dental care", "Children > Baby & children products > Hygiene", "Baby Bathtime"]
   },
   "🍽 Cooking & Kitchen": {
@@ -223,7 +223,7 @@ window.categoryKeywords = {
     "► All Business": ["Office", "Stationery", "Printers"],
     "Presentations": ["Default Category>Peripherals>Office Supply>Presentation Supplies", "presentations", "presentation boards", "presentation folders", "projector screens", "presentation tools"],
     "Stationery & Office Supplies": ["Default Category>Peripherals>Office Supply>stationery & office supplies>", "stationery", "pens", "notebooks", "printer paper", "office folders", "desk accessories"],
-    "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>", "Default Category>Consumables>Toner Cartridges>Laser Toner & Cartridges", "Default Category>Consumables>Inks>Ink Cartridges", "printers", "laser printers", "inkjet printers", "printer ink", "printer paper", "printer cartridges"],
+    "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>", "Default Category>Consumables>Toner Cartridges>Laser Toner & Cartridges", "Default Category>Consumables>Inks>Ink Cartridges", "printers", "laser printers", "inkjet printers", "printer ink", "printer paper", "printer cartridg>
     "Office Furniture": ["Default Category>Peripherals>Office Supply>Office Furniture"],
     "Shipping & Moving": ["Default Category>Peripherals>Office Supply>shipping & moving supplies", "shipping & moving", "moving boxes", "packing tape", "bubble wrap", "shipping supplies", "furniture covers"]
 },
