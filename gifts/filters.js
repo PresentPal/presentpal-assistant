@@ -4,20 +4,19 @@ function applyFilters() {
   window.paginatedProducts = []; // Reset pagination
 
   const keyword = document.getElementById("searchInput").value.toLowerCase().trim();
-  const selectedCategory = document.getElementById("categoryFilter").value.trim();
+  const selectedCategory = document.getElementById("categoryFilter").value.trim().toLowerCase(); // Convert to lowercase
   const sortBy = document.getElementById("sortByPrice").value;
 
   window.filteredProducts = window.allProducts.filter(p => {
     const text = `${p.name} ${p.category}`.toLowerCase();
-    
-    // Match keyword (search input)
+
+    // Check if the product name matches the keyword
     const matchKeyword = !keyword || text.includes(keyword);
 
-    // Match the category (either All [Main Category] or specific subcategory)
+    // Check if the product's matchedSubCategory includes the selected category
     const matchCategory =
-      !selectedCategory ||
-      (p.matchedSubCategories && p.matchedSubCategories.includes(selectedCategory.toLowerCase())) || 
-      (selectedCategory.includes("All") && p.matchedMainCategory === selectedCategory); 
+      !selectedCategory || 
+      (p.matchedSubCategories && p.matchedSubCategories.some(subCategory => subCategory.toLowerCase() === selectedCategory));
 
     return matchKeyword && matchCategory;
   });
