@@ -4,6 +4,12 @@ function populateCategoryDropdown() {
 
   const subcategoryUsage = {};
 
+  // Ensure window.allProducts and window.categoryKeywords are populated
+  if (!window.allProducts || !Array.isArray(window.allProducts) || !window.categoryKeywords || typeof window.categoryKeywords !== 'object') {
+    console.error('Required data for populating category dropdown is missing or invalid.');
+    return;
+  }
+
   // Count how many products use each matchedSubCategory
   window.allProducts.forEach(p => {
     const sub = (p.matchedSubCategory || '').trim();
@@ -14,11 +20,12 @@ function populateCategoryDropdown() {
 
   console.log("📊 Subcategory usage:", subcategoryUsage);
 
+  // Check if categoryKeywords is properly populated before proceeding
   Object.entries(window.categoryKeywords).forEach(([main, subs]) => {
     const optGroup = document.createElement("optgroup");
     optGroup.label = main;
 
-     console.log(`Main Category: ${main}`);
+    console.log(`Main Category: ${main}`);
 
     Object.entries(subs).forEach(([sub]) => {
       const cleanSub = sub.trim();
