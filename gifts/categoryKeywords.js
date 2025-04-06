@@ -65,9 +65,7 @@ window.categoryKeywords = {
     "Mens' Jewellery": ["Jewellery, Men", "mens bracelets", "mens rings", "mens necklaces", "mens cufflinks", "mens tie pins", "mens pendants", "mens watches"]
   },
   "🧒 Children & Baby": {
-    "► All Children & Baby": ["Children > Baby & children products > Activities & play time >", "Games, Puzzles & Learning", "Educational Games And Games Of Skill"],
-                             "Kids Audio Players", "Dolls And Stuffed Toys", "Kids Ride-On Electric Cars",
-                             "Children > Baby & children products > Bathroom & care", "Children > Baby & children products > Dental care", "Children > Baby & children products > Hygiene", "Baby Bathtime"],
+    "► All Children & Baby": ["Children > Baby & children products > Activities & play time >", "Games, Puzzles & Learning", "Educational Games And Games Of Skill", "Kids Audio Players", "Dolls And Stuffed Toys", "Kids Ride-On Electric Cars", "Children > Baby & children products > Bathroom & care", "Children > Baby & children products > Dental care", "Children > Baby & children products > Hygiene", "Baby Bathtime"],
     "Games, Puzzles & Learning": ["Children > Baby & children products > Activities & play time >", "Games, Puzzles & Learning", "Educational Games And Games Of Skill", "board games", "puzzles", "childrens learning toys", "memory games", "card games", "educational toys"],
     "Toys & Entertainment": ["Dolls And Stuffed Toys", "Kids Ride-On Electric Cars", "childrens toys", "toys for kids", "action figures", "dolls", "educational toys", "toy sets", "kids entertainment", "play sets"],
     "Bathroom & Care": ["Children > Baby & children products > Bathroom & care", "Children > Baby & children products > Dental care", "Children > Baby & children products > Hygiene", "Baby Bathtime"]
