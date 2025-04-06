@@ -100,7 +100,7 @@ window.categoryKeywords = {
     "Multi-Game Tables": ["Air Hockey Tables", "Multi-Game Tables", "Pool Tables", "Table Football", "Table Tennis", "multi-game table", "air hockey table", "ping pong table", "pool table", "foosball table", "football table"]
   },
   "🐾 Pets": {
-    "► All Pets": ["Household > Deals > Pet accessories", "Home > Household > Pet accessories >", "dog accessories", "cat accessories", "pet food", "pet grooming", "dog collar", "dog", "cat", "fish", "pet leash" "pet bed", "pet toys"]
+    "► All Pets": ["Household > Deals > Pet accessories", "Home > Household > Pet accessories >", "dog accessories", "cat accessories", "pet food", "pet grooming", "dog collar", "dog", "cat", "fish", "pet leash", "pet bed", "pet toys"]
   },
   "💻 Tech": {
     "► All Tech": ["Tech", "Gadgets", "Electronics", "Computer", "PC", "Default Category"],
