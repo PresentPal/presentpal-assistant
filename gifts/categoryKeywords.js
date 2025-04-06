@@ -221,7 +221,7 @@ window.categoryKeywords = {
     "► All Business": ["Office", "Stationery", "Printers"],
     "Presentations": ["Default Category>Peripherals>Office Supply>Presentation Supplies", "presentations", "presentation boards", "presentation folders", "projector screens", "presentation tools"],
     "Stationery & Office Supplies": ["Default Category>Peripherals>Office Supply>stationery & office supplies>", "stationery", "pens", "notebooks", "printer paper", "office folders", "desk accessories"],
-    "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>", "Default Category>Consumables>Toner Cartridges>Laser Toner & Cartridges", "Default Category>Consumables>Inks>Ink Cartridges", "printers", "laser printers", "inkjet printers", "printer ink", "printer paper", "printer cartridg>
+    "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>", "Default Category>Consumables>Toner Cartridges>Laser Toner & Cartridges", "Default Category>Consumables>Inks>Ink Cartridges", "printers", "laser printers", "inkjet printers", "printer ink", "printer paper", "printer cartridge"],
     "Office Furniture": ["Default Category>Peripherals>Office Supply>Office Furniture"],
     "Shipping & Moving": ["Default Category>Peripherals>Office Supply>shipping & moving supplies", "shipping & moving", "moving boxes", "packing tape", "bubble wrap", "shipping supplies", "furniture covers"]
 },
