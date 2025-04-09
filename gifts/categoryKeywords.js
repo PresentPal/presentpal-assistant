@@ -107,6 +107,7 @@ window.categoryKeywords = {
     "Mobile Phones": ["Mobile Phones"],
     "Phone & Tablet Accessories": ["Electronics & accessories > Accessories for phones and tablets"],
     "Audio & Speakers": ["Home Audio & Speakers", "stage & studio equipment>"],
+    "Monitors": [],
     "Media Players": ["Media Players"],
     "Televisions & Accessories": ["Televisions & Accessories", "3D TV", "Default Category>Monitor & TV"],
     "Video Components": ["Video Components"],
