@@ -120,7 +120,8 @@ window.categoryKeywords = {
       "Household > Home Security",
       "Microphones & Headphones", "Default Category>Peripherals>Keyboards", "Default Category>Peripherals>Mouses"
     ],
-    "Laptops": ["Laptops", "Laptop Spare Parts"],
+    "Computers & Accessories": [],
+    "Laptops & Accessories": ["Laptops", "Laptop Spare Parts"],
     "Components": ["Default Category>PC Components>Other", "Default Category>PC Components>Components>Memory Modules"],
     "Networking": ["Default Category>Networking>Routers & Accessories>Cables", "Default Category>Networking>Transceiver Modules"],
     "Cables": ["Default Category>PC Components>Cables & Adaptors>Fiber Optic", "Default Category>PC Components>Cables & Adaptors>USB Cables"],
@@ -223,6 +224,7 @@ window.categoryKeywords = {
     "Stationery & Office Supplies": ["Default Category>Peripherals>Office Supply>stationery & office supplies>", "stationery", "pens", "notebooks", "printer paper", "office folders", "desk accessories"],
     "Printers & Accessories": ["Default Category>Peripherals>Printers & Accessories>", "Default Category>Consumables>Toner Cartridges>Laser Toner & Cartridges", "Default Category>Consumables>Inks>Ink Cartridges", "printers", "laser printers", "inkjet printers", "printer ink", "printer paper", "printer cartridges"],
     "Office Furniture": ["Default Category>Peripherals>Office Supply>Office Furniture"],
+    "Communications": [],
     "Shipping & Moving": ["Default Category>Peripherals>Office Supply>shipping & moving supplies", "shipping & moving", "moving boxes", "packing tape", "bubble wrap", "shipping supplies", "furniture covers"]
 },
 "🧩 Uncategorized": {
