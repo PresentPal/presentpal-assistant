@@ -42,22 +42,18 @@ window.categoryKeywords = {
     "► Massage": ["Massage >", "massage oil", "massage lotion", "massage gun", "deep tissue massage", "massage therapy", "handheld massager", "muscle relaxant", "massage bed"]
   },
   "👕 Clothing & Accessories": {
-    "► All Clothing": ["Clothing", "Fashion", "Apparel", "Shoes", "T-shirts", "Trousers", "Menswear", "Womenswear"],
-    "Womens' Shoes": ["Shoes > Women >"],
-    "► All Mens": ["Men > Accessories > Analog Watches > Wristwatches", "Men > Accessories > Sports Watches", "Men > Accessories > Wristwatches", "Men > Analog watches",
-                  "Men > Accessories > Sunglasses >", "Men’s Accessories", "mens t-shirts", "mens jeans", "mens trousers", "mens jackets", "mens hoodies", "mens shirts", "mens activewear", "mens outerwear", "mens sweaters", "mens shorts"],
-    "Mens' Wristwatches": ["Men > Accessories > Analog Watches > Wristwatches", "Men > Accessories > Sports Watches", "Men > Accessories > Wristwatches", "Men > Analog watches", "mens wristwatch", "mens analog watch", "mens digital watch", "mens sports watch", "mens luxury watch", "mens casual watch", "mens chronograph", "mens watch set"],
-    "Mens' Shoes": ["mens sneakers", "mens trainers", "mens boots", "mens loafers", "mens sandals", "mens dress shoes", "mens running shoes", "mens casual shoes", "mens athletic shoes"],
-    "Mens' Sunglasses": ["Men > Accessories > Sunglasses >", "mens sunglasses", "polarized sunglasses", "polarised sunglasses", "mens aviator sunglasses", "mens sports sunglasses", "mens designer sunglasses", "UV protection sunglasses"],
-    "Mens' Accessories": ["Men’s Accessories", "mens belts", "mens wallets", "mens hats", "mens scarves", "mens gloves", "mens cufflinks", "mens tie", "mens suspenders"],
-    "► All Unisex": ["Men > Women > Accessories > Accessories > Sunglasses > Sunglasses >",
-                    "Men > Women > Accessories > Sport watches", "Men > Women > Accessories > Training & fitness", "Men > Women > Accessories > Wristwatches", "Men > Women > Electronics & accessories"],
-    "Unisex Sunglasses": ["Men > Women > Accessories > Accessories > Sunglasses > Sunglasses >", "Sunglasses"],
-    "Unisex Wristwatches": ["Men > Women > Accessories > Sport watches", "Men > Women > Accessories > Training & fitness", "Men > Women > Accessories > Wristwatches", "Men > Women > Electronics & accessories"],
-      "Unisex Shoes": ["Shoes > Men > Women >", "unisex sneakers", "unisex trainers", "unisex loafers", "unisex sandals", "unisex slip-ons", "unisex running shoes"],
-    "► All Boys": ["Shoes > Boys >", "Men > Women > Children > Accessories > Baby & children products", "boys clothing", "boys t-shirts", "boys shoes", "boys jackets", "boys jeans", "boys shorts", "boys sweaters", "boys activewear", "boys school uniforms"],
-    "► All Girls": ["Shoes > Girls >", "Shoes > Men >", "Men > Women > Children > Accessories > Baby & children products"],
-    "Children Wristwatches": ["Men > Women > Children > Accessories > Baby & children products", "childrens wristwatch", "kids watch", "boys wristwatch", "girls wristwatch", "cartoon watch", "childrens watch set"]
+    "► All Clothing": [],
+        "Men's Clothing": [],
+        "Women's Clothing": [],
+        "Kids Clothing": [],
+    "► All Accessories": [],
+        "Men's Accessories": [],
+        "Women's Accessories": [],
+        "Kids Accessories": [],
+    "► All Shoes & Trainers": []
+        "Men's Shoes & Trainers": [],
+      "Women's Shoes & Trainers": [],
+      "Kids Shoes & Trainers": []
   },
   "💍 Jewellery": {
   "► All Jewellery": ["Jewellery > Women's Jewellery", "Jewellery, Women", "Jewellery, Men", "fashion jewellery", "statement jewellery", "jewellery set", "bracelet", "earrings", "necklace", "rings", "jewellery accessories"],
