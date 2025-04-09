@@ -50,7 +50,7 @@ window.categoryKeywords = {
         "Men's Accessories": [],
         "Women's Accessories": [],
         "Kids Accessories": [],
-    "► All Shoes & Trainers": []
+    "► All Shoes & Trainers": [],
         "Men's Shoes & Trainers": [],
       "Women's Shoes & Trainers": [],
       "Kids Shoes & Trainers": []
