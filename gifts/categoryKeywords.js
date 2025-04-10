@@ -28,7 +28,7 @@ window.categoryKeywords = {
     "Womens' Nail Care": ["Nail Care", "nail polish", "nail lacquer", "nail gel", "nail care kit", "cuticle oil", "nail treatment", "nail file", "nail buffer", "nail art"],
     "Womens' Shaving & Hair Removal": [],
     "Mens' Skincare": [],
-    "Mens' Body Wash & Shower Gel": [],
+    "Mens' Bath & Body": [],
     "Mens' Hair Care": [],
     "Mens' Shaving & Grooming": [],
     "► All Fragrances": [],
