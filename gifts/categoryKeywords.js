@@ -31,7 +31,7 @@ window.categoryKeywords = {
     "Mens' Skincare": [],
     "Mens' Body Wash & Shower Gel": [],
     "Mens' Hair Care": [],
-    "Mens Fragrances": [],
+    "Mens' Fragrances": [],
     "Mens' Shaving & Grooming": [],
     "► Intimate": ["Men > Personal Care > Intimate", "intimate wash", "feminine hygeine", "intimate care", "feminine wipes", "intimate deoderant", "intimate gel", "intimate cream", "vaginal health"],
     "► Oral Care": ["Oral Care", "Men > Personal Care > Mouth hygiene", "toothpaste", "toothbrush", "mouthwash", "whitening toothpaste", "tooth care kit", "dental floss", "teeth whitening", "electric toothbrush", "floss picks"],
