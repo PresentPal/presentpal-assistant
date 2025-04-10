@@ -35,7 +35,7 @@ window.categoryKeywords = {
     "► Intimate": ["Men > Personal Care > Intimate", "intimate wash", "feminine hygeine", "intimate care", "feminine wipes", "intimate deoderant", "intimate gel", "intimate cream", "vaginal health"],
     "► Oral Care": ["Oral Care", "Men > Personal Care > Mouth hygiene", "toothpaste", "toothbrush", "mouthwash", "whitening toothpaste", "tooth care kit", "dental floss", "teeth whitening", "electric toothbrush", "floss picks"],
     "► Manicure & Pedicure": ["Manicure & pedicure >", "manicure kit", "pedicure kit", "nail buffer", "nail polish remover", "foot scrub", "cuticle remover", "nail clippers"],
-    "► Massage": ["Massage >", "massage oil", "massage lotion", "massage gun", "deep tissue massage", "massage therapy", "handheld massager", "muscle relaxant", "massage bed"]
+    "► Massage & Self Care": ["Massage >", "massage oil", "massage lotion", "massage gun", "deep tissue massage", "massage therapy", "handheld massager", "muscle relaxant", "massage bed"]
   },
   "👕 Clothing & Accessories": {
     "► All Clothing": [],
