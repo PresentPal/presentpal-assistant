@@ -14,7 +14,6 @@ window.categoryKeywords = {
     "► All Gifting": ["Gift", "Presents", "Christmas", "Birthday", "Valentine", "Mothers Day"],
     "All Gifts For Him": ["Men", "men", "Gentleman", "gentleman", "Gentlemen", "gentlemen"],
     "Gifts For Her": ["Women", "women", "Ladies", "ladies"],
-    "Gift Bags": ["Gifts & Kits > All Products > Gift Bags"],
     "Decorations": ["Gifts, Gadgets & Toys > Gifts > Decorations"],
     "Collectables": ["Gifts, Gadgets & Toys > Gifts > Collectibles"],
     "Gifts & Kits": ["Gifts & Kits >"]
